@@ -68,7 +68,7 @@ export default function App() {
             </span>
           </div>
           <span className="text-vs-dim text-[10px] font-mono">
-            Data: Financial Modeling Prep API
+            Data: Yahoo Finance
           </span>
         </div>
       </header>
@@ -217,7 +217,7 @@ export default function App() {
                     background: '#38D89A08',
                   }}
                 >
-                  &#x25CF; Data: FMP API
+                  &#x25CF; Data: Yahoo Finance
                 </span>
               </div>
             </div>
@@ -282,7 +282,7 @@ export default function App() {
             <DataTable years={years} averages={avgs} />
 
             <div className="mt-4 text-center text-vs-dim text-[10px] font-mono pb-8">
-              Data: Financial Modeling Prep API &middot; Validate against links above &middot;
+              Data: Yahoo Finance &middot; Validate against links above &middot;
               Not financial advice
             </div>
           </>

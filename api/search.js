@@ -1,34 +1,24 @@
-// Vercel serverless function — ticker search via FMP
+// Vercel serverless function — ticker search via yahoo-finance2
 
-const FMP_BASE = 'https://financialmodelingprep.com/api/v3';
+import yahooFinance from 'yahoo-finance2';
 
 export default async function handler(req, res) {
   const { q } = req.query;
-
-  if (!q) {
-    return res.status(400).json({ error: 'Missing search query parameter "q"' });
-  }
-
-  const apiKey = process.env.FMP_API_KEY;
-  if (!apiKey) {
-    return res.status(500).json({ error: 'FMP_API_KEY not configured' });
-  }
+  if (!q) return res.status(400).json({ error: 'Missing search query parameter "q"' });
 
   try {
-    const response = await fetch(
-      `${FMP_BASE}/search?query=${encodeURIComponent(q)}&limit=8&exchange=NASDAQ,NYSE,AMEX&apikey=${apiKey}`
-    );
-    const data = await response.json();
-
-    // Slim down the response
-    const results = (data || []).map(item => ({
-      symbol: item.symbol,
-      name: item.name,
-      exchange: item.exchangeShortName,
-    }));
+    const results = await yahooFinance.search(q, { newsCount: 0 }, { validateResult: false });
+    const quotes = (results.quotes || [])
+      .filter(r => r.quoteType === 'EQUITY')
+      .slice(0, 8)
+      .map(r => ({
+        symbol:   r.symbol,
+        name:     r.shortname || r.longname || r.symbol,
+        exchange: r.exchDisp  || r.exchange || '',
+      }));
 
     res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate=7200');
-    return res.status(200).json(results);
+    return res.status(200).json(quotes);
   } catch (err) {
     return res.status(500).json({ error: `Search failed: ${err.message}` });
   }

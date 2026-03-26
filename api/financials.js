@@ -1,166 +1,211 @@
-// Vercel serverless function — proxies FMP API calls server-side (no CORS)
-// Deploy: Vercel auto-detects /api/*.js as serverless functions
+// Vercel serverless function — fetches financial data via yahoo-finance2
+// No API key required; yahoo-finance2 scrapes Yahoo Finance's public endpoints
 
-const FMP_BASE = 'https://financialmodelingprep.com/api/v3';
+import yahooFinance from 'yahoo-finance2';
 
 export default async function handler(req, res) {
   const { ticker } = req.query;
-
-  if (!ticker) {
-    return res.status(400).json({ error: 'Missing ticker parameter' });
-  }
-
-  const apiKey = process.env.FMP_API_KEY;
-  if (!apiKey) {
-    return res.status(500).json({ error: 'FMP_API_KEY not configured. Add it to Vercel environment variables.' });
-  }
+  if (!ticker) return res.status(400).json({ error: 'Missing ticker parameter' });
 
   const symbol = ticker.toUpperCase().trim();
 
   try {
-    // Fetch all data in parallel
-    const [profileRes, metricsRes, incomeRes, cashflowRes, quoteRes, searchRes] = await Promise.all([
-      fetch(`${FMP_BASE}/profile/${symbol}?apikey=${apiKey}`),
-      fetch(`${FMP_BASE}/key-metrics/${symbol}?limit=6&apikey=${apiKey}`),
-      fetch(`${FMP_BASE}/income-statement/${symbol}?limit=6&apikey=${apiKey}`),
-      fetch(`${FMP_BASE}/cash-flow-statement/${symbol}?limit=6&apikey=${apiKey}`),
-      fetch(`${FMP_BASE}/quote/${symbol}?apikey=${apiKey}`),
-      // Also fetch balance sheet for book value
-      fetch(`${FMP_BASE}/balance-sheet-statement/${symbol}?limit=6&apikey=${apiKey}`),
-    ]);
+    // Fetch all fundamental data in one call
+    const summary = await yahooFinance.quoteSummary(symbol, {
+      modules: [
+        'price',
+        'summaryDetail',
+        'defaultKeyStatistics',
+        'financialData',
+        'incomeStatementHistory',
+        'cashflowStatementHistory',
+        'balanceSheetHistory',
+        'assetProfile',
+      ],
+      validateResult: false,
+    });
 
-    const [profile, metrics, income, cashflow, quote, balanceSheet] = await Promise.all([
-      profileRes.json(),
-      metricsRes.json(),
-      incomeRes.json(),
-      cashflowRes.json(),
-      quoteRes.json(),
-      searchRes.json(),
-    ]);
+    const incStatements = summary.incomeStatementHistory?.incomeStatementHistory || [];
+    const cfStatements  = summary.cashflowStatementHistory?.cashflowStatements   || [];
+    const bsStatements  = summary.balanceSheetHistory?.balanceSheetStatements     || [];
 
-    // Detect FMP plan/auth errors (they return objects with "Error Message" instead of arrays)
-    const fmpError = [metrics, income, cashflow].find(d => d && !Array.isArray(d) && d['Error Message']);
-    if (fmpError) {
-      return res.status(403).json({ error: `FMP API error: ${fmpError['Error Message']}` });
-    }
-
-    // Validate we got data
-    if (!metrics?.length && !income?.length) {
-      return res.status(404).json({ error: `No financial data found for ${symbol}. The ticker may be invalid, or your FMP plan may not include historical financials.` });
-    }
-
-    // Build structured response
-    const p = profile?.[0] || {};
-    const q = quote?.[0] || {};
-
-    // Reverse arrays so oldest is first (FMP returns newest first)
-    const m = (metrics || []).slice(0, 6).reverse();
-    const inc = (income || []).slice(0, 6).reverse();
-    const cf = (cashflow || []).slice(0, 6).reverse();
-    const bs = (balanceSheet || []).slice(0, 6).reverse();
-
-    const years = m.map((ym, i) => {
-      const yi = inc[i] || {};
-      const yc = cf[i] || {};
-      const yb = bs[i] || {};
-      const yr = ym.calendarYear || ym.date?.slice(0, 4) || '?';
-
-      return {
-        fiscalYear: `FY ${yr}`,
-        endDate: ym.date,
-        // Pre-computed multiples from FMP key-metrics
-        pe: ym.peRatio,
-        ps: ym.priceToSalesRatio,
-        pb: ym.pbRatio,
-        pfcf: ym.pfcfRatio,
-        pocf: ym.pocfratio,
-        pGP: ym.marketCap && yi.grossProfit ? ym.marketCap / yi.grossProfit : null,
-        evSales: ym.evToSales,
-        evEbitda: ym.enterpriseValueOverEBITDA,
-        evGP: ym.enterpriseValue && yi.grossProfit ? ym.enterpriseValue / yi.grossProfit : null,
-        evEbit: ym.enterpriseValue && yi.operatingIncome > 0 ? ym.enterpriseValue / yi.operatingIncome : null,
-        evFcf: ym.evToFreeCashFlow,
-        evOcf: ym.evToOperatingCashFlow,
-        earningsYield: ym.earningsYield != null ? ym.earningsYield * 100 : null,
-        fcfYield: ym.freeCashFlowYield != null ? ym.freeCashFlowYield * 100 : null,
-        buybackYield: ym.buybackYield != null ? ym.buybackYield * 100 : null,
-        // Raw fundamentals (in millions)
-        price: ym.marketCap && yi.weightedAverageShsOutDil ? ym.marketCap / yi.weightedAverageShsOutDil : null,
-        mktCap: ym.marketCap ? ym.marketCap / 1e6 : null,
-        ev: ym.enterpriseValue ? ym.enterpriseValue / 1e6 : null,
-        revenue: yi.revenue ? yi.revenue / 1e6 : null,
-        grossProfit: yi.grossProfit ? yi.grossProfit / 1e6 : null,
-        ebitda: yi.ebitda ? yi.ebitda / 1e6 : null,
-        ebit: yi.operatingIncome ? yi.operatingIncome / 1e6 : null,
-        netIncome: yi.netIncome ? yi.netIncome / 1e6 : null,
-        ocf: yc.operatingCashFlow ? yc.operatingCashFlow / 1e6 : null,
-        fcf: yc.freeCashFlow ? yc.freeCashFlow / 1e6 : null,
-        bookValue: yb.totalStockholdersEquity ? yb.totalStockholdersEquity / 1e6 : null,
-        sharesOut: yi.weightedAverageShsOutDil ? yi.weightedAverageShsOutDil / 1e6 : null,
-      };
-    }).filter(y => y.pe != null || y.evEbitda != null || y.revenue != null);
-
-    // Add "Now (LTM)" row from latest metrics + live quote
-    if (q.price && metrics?.length > 0) {
-      const latestM = metrics[0]; // most recent (unreversed)
-      const latestI = income?.[0] || {};
-      const latestC = cashflow?.[0] || {};
-      const latestB = balanceSheet?.[0] || {};
-      const nowMktCap = q.marketCap;
-      const nowEV = latestM.enterpriseValue;
-
-      years.push({
-        fiscalYear: 'Now (LTM)',
-        endDate: new Date().toISOString().slice(0, 10),
-        pe: q.pe,
-        ps: nowMktCap && latestI.revenue ? nowMktCap / latestI.revenue : null,
-        pb: latestM.pbRatio,
-        pfcf: latestM.pfcfRatio,
-        pocf: latestM.pocfratio,
-        pGP: nowMktCap && latestI.grossProfit ? nowMktCap / latestI.grossProfit : null,
-        evSales: latestM.evToSales,
-        evEbitda: latestM.enterpriseValueOverEBITDA,
-        evGP: nowEV && latestI.grossProfit ? nowEV / latestI.grossProfit : null,
-        evEbit: nowEV && latestI.operatingIncome > 0 ? nowEV / latestI.operatingIncome : null,
-        evFcf: latestM.evToFreeCashFlow,
-        evOcf: latestM.evToOperatingCashFlow,
-        earningsYield: latestM.earningsYield != null ? latestM.earningsYield * 100 : null,
-        fcfYield: latestM.freeCashFlowYield != null ? latestM.freeCashFlowYield * 100 : null,
-        buybackYield: latestM.buybackYield != null ? latestM.buybackYield * 100 : null,
-        price: q.price,
-        mktCap: nowMktCap ? nowMktCap / 1e6 : null,
-        ev: nowEV ? nowEV / 1e6 : null,
-        revenue: latestI.revenue ? latestI.revenue / 1e6 : null,
-        grossProfit: latestI.grossProfit ? latestI.grossProfit / 1e6 : null,
-        ebitda: latestI.ebitda ? latestI.ebitda / 1e6 : null,
-        ebit: latestI.operatingIncome ? latestI.operatingIncome / 1e6 : null,
-        netIncome: latestI.netIncome ? latestI.netIncome / 1e6 : null,
-        ocf: latestC.operatingCashFlow ? latestC.operatingCashFlow / 1e6 : null,
-        fcf: latestC.freeCashFlow ? latestC.freeCashFlow / 1e6 : null,
-        bookValue: latestB.totalStockholdersEquity ? latestB.totalStockholdersEquity / 1e6 : null,
-        sharesOut: latestI.weightedAverageShsOutDil ? latestI.weightedAverageShsOutDil / 1e6 : null,
+    if (!incStatements.length) {
+      return res.status(404).json({
+        error: `No financial data found for ${symbol}. Verify the ticker is a valid public US company.`,
       });
     }
 
-    const result = {
-      companyName: p.companyName || q.name || symbol,
-      symbol: symbol,
-      exchange: p.exchangeShortName || '',
-      sector: p.sector || '',
-      industry: p.industry || '',
-      currentPrice: q.price || null,
-      change: q.changesPercentage || null,
-      currentMktCap: q.marketCap ? q.marketCap / 1e6 : null,
-      years,
-      source: 'fmp',
+    // Fetch monthly historical prices to compute historical valuation multiples
+    const oldestPeriod = incStatements[incStatements.length - 1]?.endDate;
+    let priceHistory = [];
+    if (oldestPeriod) {
+      try {
+        priceHistory = await yahooFinance.historical(symbol, {
+          period1: oldestPeriod,
+          period2: new Date(),
+          interval: '1mo',
+        }, { validateResult: false });
+      } catch (_) {
+        // Historical prices unavailable — multiples will be null for historical years
+      }
+    }
+
+    // Find the monthly close price nearest to a given date
+    const getPriceNear = (date) => {
+      if (!date || !priceHistory.length) return null;
+      const target = new Date(date).getTime();
+      let best = null, bestDiff = Infinity;
+      for (const p of priceHistory) {
+        const diff = Math.abs(new Date(p.date).getTime() - target);
+        if (diff < bestDiff) { bestDiff = diff; best = p.close; }
+      }
+      return best;
     };
 
-    // Cache for 5 minutes
+    const priceData = summary.price                || {};
+    const stats     = summary.defaultKeyStatistics || {};
+    const fd        = summary.financialData        || {};
+    const sd        = summary.summaryDetail        || {};
+    const profile   = summary.assetProfile         || {};
+
+    const currentPrice  = priceData.regularMarketPrice ?? null;
+    const currentMktCap = priceData.marketCap          ?? null;
+    const currentShares = stats.sharesOutstanding || stats.impliedSharesOutstanding || null;
+    const currentEV     = currentMktCap != null
+      ? currentMktCap + (fd.totalDebt || 0) - (fd.totalCash || 0)
+      : null;
+
+    // Yahoo returns newest-first; reverse so we go oldest → newest
+    const incRev = [...incStatements].reverse();
+    const cfRev  = [...cfStatements].reverse();
+    const bsRev  = [...bsStatements].reverse();
+
+    const years = incRev.map((yi, i) => {
+      const yc = cfRev[i] || {};
+      const yb = bsRev[i] || {};
+
+      const endDate    = yi.endDate;
+      const yr         = endDate ? new Date(endDate).getFullYear() : '?';
+      const revenue    = yi.totalRevenue    ?? null;
+      const grossProfit= yi.grossProfit     ?? null;
+      const ebit       = yi.ebit ?? yi.operatingIncome ?? null;
+      const netIncome  = yi.netIncome       ?? null;
+      const ocf        = yc.totalCashFromOperatingActivities ?? null;
+      const capex      = yc.capitalExpenditures ?? null; // negative in Yahoo
+      const fcf        = ocf != null && capex != null ? ocf + capex : null;
+      const da         = yc.depreciation    ?? null;
+      const ebitda     = ebit != null && da != null ? ebit + da : null;
+      const bookValue  = yb.totalStockholderEquity ?? null;
+      const totalDebt  = (yb.shortLongTermDebt || 0) + (yb.longTermDebt || 0);
+      const cash       = (yb.cash || 0) + (yb.shortTermInvestments || 0);
+
+      // Historical market cap: price at year-end × current shares (approximate)
+      // Note: uses current share count as proxy; small drift for most companies
+      const histPrice = getPriceNear(endDate);
+      const mktCap    = histPrice != null && currentShares ? histPrice * currentShares : null;
+      const ev        = mktCap != null ? mktCap + totalDebt - cash : null;
+
+      const pe    = mktCap && netIncome  > 0 ? mktCap / netIncome  : null;
+      const ps    = mktCap && revenue    > 0 ? mktCap / revenue    : null;
+      const pb    = mktCap && bookValue  > 0 ? mktCap / bookValue  : null;
+      const pfcf  = mktCap && fcf        > 0 ? mktCap / fcf        : null;
+      const pocf  = mktCap && ocf        > 0 ? mktCap / ocf        : null;
+      const pGP   = mktCap && grossProfit> 0 ? mktCap / grossProfit: null;
+      const evSales  = ev && revenue     > 0 ? ev / revenue    : null;
+      const evEbitda = ev && ebitda      > 0 ? ev / ebitda     : null;
+      const evEbit   = ev && ebit        > 0 ? ev / ebit       : null;
+      const evGP     = ev && grossProfit > 0 ? ev / grossProfit: null;
+      const evFcf    = ev && fcf         > 0 ? ev / fcf        : null;
+      const evOcf    = ev && ocf         > 0 ? ev / ocf        : null;
+      const buybacks     = yc.repurchaseOfStock ? Math.abs(yc.repurchaseOfStock) : null;
+      const buybackYield = mktCap && buybacks   ? (buybacks / mktCap) * 100      : null;
+
+      return {
+        fiscalYear:   `FY ${yr}`,
+        endDate:      endDate ? new Date(endDate).toISOString().slice(0, 10) : null,
+        pe, ps, pb, pfcf, pocf, pGP,
+        evSales, evEbitda, evEbit, evGP, evFcf, evOcf,
+        earningsYield: pe   ? (1 / pe)   * 100 : null,
+        fcfYield:      pfcf ? (1 / pfcf) * 100 : null,
+        buybackYield,
+        price:      histPrice,
+        mktCap:     mktCap     != null ? mktCap     / 1e6 : null,
+        ev:         ev         != null ? ev         / 1e6 : null,
+        revenue:    revenue    != null ? revenue    / 1e6 : null,
+        grossProfit:grossProfit!= null ? grossProfit/ 1e6 : null,
+        ebitda:     ebitda     != null ? ebitda     / 1e6 : null,
+        ebit:       ebit       != null ? ebit       / 1e6 : null,
+        netIncome:  netIncome  != null ? netIncome  / 1e6 : null,
+        ocf:        ocf        != null ? ocf        / 1e6 : null,
+        fcf:        fcf        != null ? fcf        / 1e6 : null,
+        bookValue:  bookValue  != null ? bookValue  / 1e6 : null,
+        sharesOut:  currentShares != null ? currentShares / 1e6 : null,
+      };
+    }).filter(y => y.revenue != null || y.ebitda != null);
+
+    // "Now (LTM)" row — uses TTM figures from financialData + current price
+    const nowRevenue    = fd.totalRevenue     ?? null;
+    const nowGrossProfit= fd.grossProfits     ?? null;
+    const nowEbitda     = fd.ebitda           ?? null;
+    const nowOcf        = fd.operatingCashflow?? null;
+    const nowFcf        = fd.freeCashflow     ?? null;
+    const nowBookValue  = bsStatements[0]?.totalStockholderEquity ?? null;
+    const nowPe         = sd.trailingPE  || stats.trailingPE  || null;
+    const nowPb         = stats.priceToBook ?? null;
+    const nowPs         = currentMktCap && nowRevenue    > 0 ? currentMktCap / nowRevenue    : null;
+    const nowPfcf       = currentMktCap && nowFcf        > 0 ? currentMktCap / nowFcf        : null;
+    const nowPocf       = currentMktCap && nowOcf        > 0 ? currentMktCap / nowOcf        : null;
+    const nowPGP        = currentMktCap && nowGrossProfit> 0 ? currentMktCap / nowGrossProfit: null;
+    const nowEvSales    = currentEV     && nowRevenue    > 0 ? currentEV     / nowRevenue    : null;
+    const nowEvEbitda   = currentEV     && nowEbitda     > 0 ? currentEV     / nowEbitda     : null;
+    const nowEvGP       = currentEV     && nowGrossProfit> 0 ? currentEV     / nowGrossProfit: null;
+    const nowEvFcf      = currentEV     && nowFcf        > 0 ? currentEV     / nowFcf        : null;
+    const nowEvOcf      = currentEV     && nowOcf        > 0 ? currentEV     / nowOcf        : null;
+
+    years.push({
+      fiscalYear:   'Now (LTM)',
+      endDate:      new Date().toISOString().slice(0, 10),
+      pe:  nowPe,  ps: nowPs,  pb: nowPb,
+      pfcf: nowPfcf, pocf: nowPocf, pGP: nowPGP,
+      evSales: nowEvSales, evEbitda: nowEvEbitda, evEbit: null,
+      evGP: nowEvGP, evFcf: nowEvFcf, evOcf: nowEvOcf,
+      earningsYield: nowPe   ? (1 / nowPe)   * 100 : null,
+      fcfYield:      nowPfcf ? (1 / nowPfcf) * 100 : null,
+      buybackYield:  null,
+      price:      currentPrice,
+      mktCap:     currentMktCap != null ? currentMktCap / 1e6 : null,
+      ev:         currentEV     != null ? currentEV     / 1e6 : null,
+      revenue:    nowRevenue    != null ? nowRevenue    / 1e6 : null,
+      grossProfit:nowGrossProfit!= null ? nowGrossProfit/ 1e6 : null,
+      ebitda:     nowEbitda     != null ? nowEbitda     / 1e6 : null,
+      ebit:       null,
+      netIncome:  null,
+      ocf:        nowOcf        != null ? nowOcf        / 1e6 : null,
+      fcf:        nowFcf        != null ? nowFcf        / 1e6 : null,
+      bookValue:  nowBookValue  != null ? nowBookValue  / 1e6 : null,
+      sharesOut:  currentShares != null ? currentShares / 1e6 : null,
+    });
+
     res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate=600');
-    return res.status(200).json(result);
+    return res.status(200).json({
+      companyName:    priceData.longName || priceData.shortName || symbol,
+      symbol,
+      exchange:       priceData.exchangeName || '',
+      sector:         profile.sector   || '',
+      industry:       profile.industry || '',
+      currentPrice,
+      change:         priceData.regularMarketChangePercent ?? null,
+      currentMktCap:  currentMktCap != null ? currentMktCap / 1e6 : null,
+      years,
+      source:         'yahoo',
+    });
 
   } catch (err) {
-    console.error('FMP fetch error:', err);
-    return res.status(500).json({ error: `Failed to fetch data: ${err.message}` });
+    console.error('Yahoo Finance error:', err);
+    const msg = err.message || '';
+    if (msg.includes('No fundamentals') || msg.includes('404') || msg.includes('Not Found')) {
+      return res.status(404).json({ error: `No data found for ${symbol}. Verify the ticker symbol.` });
+    }
+    return res.status(500).json({ error: `Failed to fetch data: ${msg}` });
   }
 }

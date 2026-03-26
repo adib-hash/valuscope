@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.2.0 — 2026-03-26
+
+### Changed
+- Switched data source from Financial Modeling Prep (FMP) to Yahoo Finance via `yahoo-finance2`
+  - FMP deprecated their v3 API endpoints for accounts created after August 2025
+  - No API key required; yahoo-finance2 uses Yahoo Finance's public data
+  - Historical valuation multiples now computed from annual financial statements + historical monthly prices
+  - Search now powered by Yahoo Finance's search endpoint
+- Removed `FMP_API_KEY` dependency (no environment variables needed)
+- Updated data attribution in header and footer
+
 ## 0.1.0 — 2026-03-26
 
 ### Added
