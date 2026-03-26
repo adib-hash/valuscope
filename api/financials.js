@@ -38,9 +38,15 @@ export default async function handler(req, res) {
       searchRes.json(),
     ]);
 
+    // Detect FMP plan/auth errors (they return objects with "Error Message" instead of arrays)
+    const fmpError = [metrics, income, cashflow].find(d => d && !Array.isArray(d) && d['Error Message']);
+    if (fmpError) {
+      return res.status(403).json({ error: `FMP API error: ${fmpError['Error Message']}` });
+    }
+
     // Validate we got data
     if (!metrics?.length && !income?.length) {
-      return res.status(404).json({ error: `No financial data found for ${symbol}` });
+      return res.status(404).json({ error: `No financial data found for ${symbol}. The ticker may be invalid, or your FMP plan may not include historical financials.` });
     }
 
     // Build structured response
