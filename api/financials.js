@@ -1,7 +1,8 @@
 // Vercel serverless function — fetches financial data via yahoo-finance2
 // No API key required; yahoo-finance2 scrapes Yahoo Finance's public endpoints
 
-import yahooFinance from 'yahoo-finance2';
+import YahooFinance from 'yahoo-finance2';
+const yahooFinance = new YahooFinance();
 
 export default async function handler(req, res) {
   const { ticker } = req.query;
