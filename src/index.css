@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  background: #080A10;
+  color: #E4E7EE;
+  font-family: 'Inter', -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Prevent iOS auto-zoom on inputs */
+input, select, textarea {
+  font-size: 16px;
+}
+
+@media (min-width: 640px) {
+  input, select, textarea {
+    font-size: inherit;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #080A10;
+}
+::-webkit-scrollbar-thumb {
+  background: #283448;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3A4A60;
+}
