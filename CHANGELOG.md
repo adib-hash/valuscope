@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.4.0 — 2026-03-26
+
+### Added
+- **Two new chart metric groups** — "Growth & Margins" (Rev. Growth, Gross/EBITDA/Operating/Net/FCF Margin) and "Leverage & Returns" (ND/EBITDA, Interest Coverage, Current Ratio, ROIC) with full formula and period tooltips
+- **FundamentalsPanel** — compact analytics card below the chart with four sections: Growth CAGRs (1yr/3yr/5yr revenue, 1yr/3yr EBITDA), Margins (LTM with trend arrows vs 3yr avg), Leverage (Net Debt, ND/EBITDA, Interest Coverage, Current Ratio, ROIC with color-coded risk signals), and Signals (Beta, Insider Ownership, Short Interest, Dividend Yield)
+- **Fair Value Estimator** — "If we return to the historical average…" table showing implied price and upside/downside for P/E, EV/EBITDA, P/FCF, P/S, EV/Sales, plus a blended median estimate
+- **Valuation Regime badge** — single-word verdict (Deep Value / Undervalued / Fair Value / Stretched / Expensive) computed as avg percentile of pill metrics, shown inline above the pills row
+- **My Thesis** — per-ticker localStorage investment notes with auto-save (debounced 500ms), relative timestamp, character count, and "Saved" flash indicator; collapses when empty
+- **Quartr and SEC 8-K links** added to company header external links row
+
+### Changed
+- `api/financials.js` now extracts interest expense, tax provision, current assets/liabilities and computes 10 derived per-year fields (margins, leverage ratios, ROIC, revenue growth) plus 5 top-level signal fields (beta, dividendYield, insiderOwnershipPct, institutionalPct, shortInterestPct)
+- Chart `chartData` construction now allows negative metric values (e.g., negative revenue growth, net cash position) instead of coercing to null
+- `isYield` flag (% formatting on chart Y-axis) now also applies to "Growth & Margins" group
+
 ## 0.3.1 — 2026-03-26
 
 ### Fixed (Data Quality)

@@ -4,6 +4,9 @@ import Pill from './components/Pill';
 import ValuChart from './components/ValuChart';
 import DataTable from './components/DataTable';
 import PillDetail from './components/PillDetail';
+import FundamentalsPanel from './components/FundamentalsPanel';
+import FairValueTable from './components/FairValueTable';
+import Thesis from './components/Thesis';
 import { fetchFinancials } from './lib/api';
 import {
   GROUPS,
@@ -20,7 +23,7 @@ import {
 } from './lib/watchlist';
 
 const QUICK_TICKERS = ['AAPL', 'MSFT', 'ULTA', 'COST', 'META', 'AMZN', 'GOOGL', 'NFLX'];
-const APP_VERSION   = 'v0.3.0';
+const APP_VERSION   = 'v0.4.0';
 
 // Pills shown in the summary row
 const PILL_METRICS = [
@@ -123,7 +126,7 @@ export default function App() {
   const now     = years[years.length - 1];
   const hist    = years.filter((y) => !y.fiscalYear?.startsWith('Now'));
   const metrics = GROUPS[group];
-  const isYield = group === 'Yield Metrics';
+  const isYield = group === 'Yield Metrics' || group === 'Growth & Margins';
   const sym     = data?.symbol || '';
   const watched = sym ? isWatched(sym) : false;
 
@@ -131,10 +134,22 @@ export default function App() {
   const ranges      = useMemo(() => computeRanges(hist),                 [hist]);
   const percentiles = useMemo(() => computePercentiles(hist, now),       [hist, now]);
 
+  const regimePercentile = useMemo(() => {
+    const vals = PILL_METRICS.map((m) => percentiles[m.key]).filter((v) => v != null);
+    return vals.length ? Math.round(vals.reduce((a, b) => a + b, 0) / vals.length) : null;
+  }, [percentiles]);
+
+  const REGIME = regimePercentile == null  ? null
+    : regimePercentile <= 20 ? { label: 'DEEP VALUE', color: '#38D89A' }
+    : regimePercentile <= 40 ? { label: 'UNDERVALUED', color: '#4E94F8' }
+    : regimePercentile <= 60 ? { label: 'FAIR VALUE',  color: '#94A0B8' }
+    : regimePercentile <= 80 ? { label: 'STRETCHED',   color: '#E8AA30' }
+    :                          { label: 'EXPENSIVE',   color: '#F25C5C' };
+
   const chartData = years.map((d) => ({
     name: d.fiscalYear,
     ...Object.fromEntries(
-      ALL_METRICS.map((m) => [m.key, d[m.key] > 0 ? d[m.key] : null])
+      ALL_METRICS.map((m) => [m.key, d[m.key] != null && isFinite(d[m.key]) ? d[m.key] : null])
     ),
   }));
 
@@ -394,9 +409,11 @@ export default function App() {
               {/* Validation links */}
               <div className="flex gap-2 mt-2.5 flex-wrap">
                 {[
-                  { href: `https://stockanalysis.com/stocks/${sym.toLowerCase()}/financials/ratios/`, label: 'StockAnalysis Ratios', color: '#4E94F8' },
-                  { href: `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&company=${sym}&type=10-K&dateb=&owner=include&count=5&action=getcompany`, label: 'SEC EDGAR 10-Ks', color: '#E8AA30' },
+                  { href: `https://stockanalysis.com/stocks/${sym.toLowerCase()}/financials/ratios/`, label: 'StockAnalysis', color: '#4E94F8' },
                   { href: `https://finance.yahoo.com/quote/${sym}/financials/`, label: 'Yahoo Finance', color: '#9B7AF5' },
+                  { href: `https://quartr.com/companies/${sym.toLowerCase()}`, label: 'Quartr', color: '#38D89A' },
+                  { href: `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${sym}&type=8-K&dateb=&owner=include&count=5`, label: 'SEC 8-K', color: '#E8AA30' },
+                  { href: `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&company=${sym}&type=10-K&dateb=&owner=include&count=5&action=getcompany`, label: 'SEC 10-K', color: '#E88A3A' },
                 ].map((link) => (
                   <a
                     key={link.label}
@@ -418,9 +435,28 @@ export default function App() {
               </div>
             </div>
 
+            {/* Pills section header with regime badge */}
+            <div className="flex items-center gap-2 mt-5 mb-0">
+              <span className="text-vs-dim text-[10px] font-mono">
+                Now (LTM) vs {hist.length}-year avg
+              </span>
+              {REGIME && (
+                <span
+                  className="text-[9px] font-mono font-bold px-2 py-0.5 rounded-full"
+                  style={{
+                    color: REGIME.color,
+                    border: `1px solid ${REGIME.color}40`,
+                    background: `${REGIME.color}12`,
+                  }}
+                >
+                  {REGIME.label}
+                </span>
+              )}
+            </div>
+
             {/* Pills — snap-scroll on mobile */}
             <div
-              className="flex gap-1.5 mt-5 overflow-x-auto pb-1 snap-x snap-mandatory"
+              className="flex gap-1.5 mt-2 overflow-x-auto pb-1 snap-x snap-mandatory"
               style={{ WebkitOverflowScrolling: 'touch' }}
             >
               {PILL_METRICS.map(({ key, label, isYield: pillIsYield }) => {
@@ -497,8 +533,17 @@ export default function App() {
               Dashed = {hist.length}-year avg &middot; "Now" = LTM at current price &middot; Tap a pill for detail
             </p>
 
-            {/* Table */}
+            {/* Fundamentals Panel */}
+            <FundamentalsPanel hist={hist} now={now} data={data} />
+
+            {/* Fair Value Table */}
+            <FairValueTable hist={hist} now={now} currentPrice={data.currentPrice} />
+
+            {/* Full Data Table */}
             <DataTable years={years} averages={avgs} />
+
+            {/* Investment Thesis */}
+            <Thesis sym={sym} />
 
             <div className="mt-4 text-center text-vs-dim text-[10px] font-mono pb-8">
               Data: Yahoo Finance &middot; Validate against links above &middot; Not financial advice

@@ -90,7 +90,7 @@ export default async function handler(req, res) {
     const currentMktCap = priceData.marketCap          ?? null;
     // currentEV is computed below in the Now section after latestBs is available
 
-    const years = validFinYears.map(fin => {
+    const years = validFinYears.map((fin, i) => {
       const endDate = fin.date;
       const yr      = endDate ? new Date(endDate).getFullYear() : '?';
 
@@ -105,6 +105,11 @@ export default async function handler(req, res) {
       const ebitda      = fin.EBITDA        ?? fin.normalizedEBITDA ?? null;
       const netIncome   = fin.netIncome     ?? null;
 
+      // Income statement additions for derived metrics
+      const interestExpense = fin.interestExpense ? Math.abs(fin.interestExpense) : null;
+      const taxProvision    = fin.taxProvision    ?? null;
+      const pretaxIncome    = fin.pretaxIncome    ?? null;
+
       // Cash flow
       const ocf      = cf.operatingCashFlow ?? null;
       const fcf      = cf.freeCashFlow      ?? null;
@@ -116,8 +121,9 @@ export default async function handler(req, res) {
       const totalDebt = bs.totalDebt         ?? null;
       const cash      = bs.cashCashEquivalentsAndShortTermInvestments
                      ?? bs.cashAndCashEquivalents ?? null;
-      // Minority interest (noncontrolling interest) — part of standard EV formula
-      const minorityInterest = bs.minorityInterest ?? null;
+      const minorityInterest   = bs.minorityInterest   ?? null;
+      const currentAssets      = bs.currentAssets      ?? null;
+      const currentLiabilities = bs.currentLiabilities ?? null;
 
       // Historical market cap: use shares OUTSTANDING at period-end (balance sheet),
       // falling back to diluted average shares only if period-end figure is missing.
@@ -130,8 +136,6 @@ export default async function handler(req, res) {
       const mktCap    = histPrice != null && shares ? histPrice * shares : null;
 
       // EV = Market Cap + Total Debt + Minority Interest − Cash
-      // Standard definition per Damodaran; minority interest is included because those
-      // holders have a claim on enterprise cash flows, same as debt holders.
       const ev = mktCap != null
         ? mktCap + (totalDebt || 0) + (minorityInterest || 0) - (cash || 0)
         : null;
@@ -150,6 +154,35 @@ export default async function handler(req, res) {
       const evOcf    = ev && ocf         > 0 ? ev / ocf         : null;
       const buybackYield = mktCap && buybacks ? (buybacks / mktCap) * 100 : null;
 
+      // Growth & Margins
+      const prevFin       = i > 0 ? validFinYears[i - 1] : null;
+      const prevRevenue   = prevFin?.totalRevenue ?? null;
+      const grossMargin     = revenue > 0 && grossProfit != null ? (grossProfit / revenue) * 100 : null;
+      const ebitdaMargin    = revenue > 0 && ebitda      != null ? (ebitda      / revenue) * 100 : null;
+      const operatingMargin = revenue > 0 && ebit        != null ? (ebit        / revenue) * 100 : null;
+      const netMargin       = revenue > 0 && netIncome   != null ? (netIncome   / revenue) * 100 : null;
+      const fcfMargin       = revenue > 0 && fcf         != null ? (fcf         / revenue) * 100 : null;
+      const revenueGrowth   = revenue && prevRevenue && prevRevenue > 0
+        ? ((revenue - prevRevenue) / prevRevenue) * 100 : null;
+
+      // Leverage & Returns
+      const netDebtRaw     = totalDebt != null && cash != null ? totalDebt - cash : null;
+      const netDebtToEbitda = netDebtRaw != null && ebitda && ebitda > 0
+        ? netDebtRaw / ebitda : null;
+      const interestCoverage = ebit && interestExpense && interestExpense > 0
+        ? ebit / interestExpense : null;
+      const currentRatio = currentAssets && currentLiabilities && currentLiabilities > 0
+        ? currentAssets / currentLiabilities : null;
+
+      // ROIC = NOPAT / Invested Capital
+      const effectiveTaxRate = taxProvision != null && pretaxIncome && pretaxIncome > 0
+        ? Math.min(0.5, Math.max(0, taxProvision / pretaxIncome))
+        : 0.21;
+      const nopat = ebit != null ? ebit * (1 - effectiveTaxRate) : null;
+      const investedCapital = (totalDebt || 0) + (bookValue || 0) - (cash || 0);
+      const roic = nopat != null && investedCapital > 0
+        ? (nopat / investedCapital) * 100 : null;
+
       return {
         fiscalYear:    `FY ${yr}`,
         endDate:       endDate ? new Date(endDate).toISOString().slice(0, 10) : null,
@@ -158,6 +191,11 @@ export default async function handler(req, res) {
         earningsYield: pe   ? (1 / pe)   * 100 : null,
         fcfYield:      pfcf ? (1 / pfcf) * 100 : null,
         buybackYield,
+        // Growth & Margins
+        grossMargin, ebitdaMargin, operatingMargin, netMargin, fcfMargin, revenueGrowth,
+        // Leverage & Returns
+        netDebtToEbitda, interestCoverage, currentRatio, roic,
+        // Fundamentals
         price:       histPrice,
         mktCap:      mktCap      != null ? mktCap      / 1e6 : null,
         ev:          ev          != null ? ev          / 1e6 : null,
@@ -170,6 +208,9 @@ export default async function handler(req, res) {
         fcf:         fcf         != null ? fcf         / 1e6 : null,
         bookValue:   bookValue   != null ? bookValue   / 1e6 : null,
         sharesOut:   shares      != null ? shares      / 1e6 : null,
+        netDebt:     netDebtRaw  != null ? netDebtRaw  / 1e6 : null,
+        // Store effective tax rate for Now row ROIC (used below)
+        _effectiveTaxRate: effectiveTaxRate,
       };
     });
 
@@ -229,6 +270,36 @@ export default async function handler(req, res) {
     const nowSharesOut = currentMktCap && currentPrice
       ? currentMktCap / currentPrice : null;
 
+    // Now (LTM) Growth & Margins
+    const nowGrossMargin     = nowRevenue > 0 && nowGrossProfit != null ? (nowGrossProfit / nowRevenue) * 100 : null;
+    const nowEbitdaMargin    = nowRevenue > 0 && nowEbitda      != null ? (nowEbitda      / nowRevenue) * 100 : null;
+    const nowOperatingMargin = nowRevenue > 0 && nowEbit        != null ? (nowEbit        / nowRevenue) * 100 : null;
+    const nowNetMargin       = nowRevenue > 0 && nowNetIncome   != null ? (nowNetIncome   / nowRevenue) * 100 : null;
+    const nowFcfMargin       = nowRevenue > 0 && nowFcf         != null ? (nowFcf         / nowRevenue) * 100 : null;
+
+    // Now (LTM) Leverage & Returns
+    const nowNetDebtRaw      = fd.totalDebt != null && fd.totalCash != null
+      ? fd.totalDebt - fd.totalCash : null;
+    const nowNetDebtToEbitda = nowNetDebtRaw != null && nowEbitda && nowEbitda > 0
+      ? nowNetDebtRaw / nowEbitda : null;
+    const nowCurrentRatio    = latestBs.currentAssets && latestBs.currentLiabilities > 0
+      ? latestBs.currentAssets / latestBs.currentLiabilities : null;
+
+    // Now ROIC — use last historical year's effective tax rate as proxy
+    const lastHistYear     = years[years.length - 1];
+    const lastTaxRate      = lastHistYear?._effectiveTaxRate ?? 0.21;
+    const nowNopat         = nowEbit != null ? nowEbit * (1 - lastTaxRate) : null;
+    const nowInvCapital    = (fd.totalDebt || 0) + (nowBookValue || 0) - (fd.totalCash || 0);
+    const nowRoic          = nowNopat != null && nowInvCapital > 0
+      ? (nowNopat / nowInvCapital) * 100 : null;
+
+    // Now interest coverage: use most recent annual interest expense as proxy
+    const latestFinYear    = validFinYears[validFinYears.length - 1];
+    const nowInterestExpense = latestFinYear?.interestExpense
+      ? Math.abs(latestFinYear.interestExpense) : null;
+    const nowInterestCoverage = nowEbit && nowInterestExpense && nowInterestExpense > 0
+      ? nowEbit / nowInterestExpense : null;
+
     years.push({
       fiscalYear:    'Now (LTM)',
       endDate:       new Date().toISOString().slice(0, 10),
@@ -239,6 +310,14 @@ export default async function handler(req, res) {
       earningsYield: nowPe   ? (1 / nowPe)   * 100 : null,
       fcfYield:      nowPfcf ? (1 / nowPfcf) * 100 : null,
       buybackYield:  nowBuybackYield,
+      // Growth & Margins
+      grossMargin: nowGrossMargin, ebitdaMargin: nowEbitdaMargin,
+      operatingMargin: nowOperatingMargin, netMargin: nowNetMargin,
+      fcfMargin: nowFcfMargin, revenueGrowth: null,
+      // Leverage & Returns
+      netDebtToEbitda: nowNetDebtToEbitda, interestCoverage: nowInterestCoverage,
+      currentRatio: nowCurrentRatio, roic: nowRoic,
+      // Fundamentals
       price:       currentPrice,
       mktCap:      currentMktCap   != null ? currentMktCap   / 1e6 : null,
       ev:          currentEV       != null ? currentEV       / 1e6 : null,
@@ -251,6 +330,7 @@ export default async function handler(req, res) {
       fcf:         nowFcf          != null ? nowFcf          / 1e6 : null,
       bookValue:   nowBookValue    != null ? nowBookValue    / 1e6 : null,
       sharesOut:   nowSharesOut    != null ? nowSharesOut    / 1e6 : null,
+      netDebt:     nowNetDebtRaw   != null ? nowNetDebtRaw   / 1e6 : null,
     });
 
     res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate=600');
@@ -264,6 +344,13 @@ export default async function handler(req, res) {
       currentPrice,
       change:        priceData.regularMarketChangePercent ?? null,
       currentMktCap: currentMktCap != null ? currentMktCap / 1e6 : null,
+      // Signal fields
+      beta:                sd.beta                    ?? null,
+      dividendYield:       sd.dividendYield           ?? null,
+      insiderOwnershipPct: stats.heldPercentInsiders  ?? null,
+      institutionalPct:    stats.heldPercentInstitutions ?? null,
+      shortInterestPct:    (stats.sharesShort && stats.sharesFloat)
+        ? (stats.sharesShort / stats.sharesFloat) * 100 : null,
       years,
       source:        'yahoo',
     });
