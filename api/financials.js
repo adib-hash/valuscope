@@ -4,9 +4,9 @@
 import YahooFinance from 'yahoo-finance2';
 const yahooFinance = new YahooFinance({ suppressNotices: ['yahooSurvey', 'ripHistorical'] });
 
-const SIX_YEARS_AGO = () => {
+const ELEVEN_YEARS_AGO = () => {
   const d = new Date();
-  d.setFullYear(d.getFullYear() - 6);
+  d.setFullYear(d.getFullYear() - 11);
   return d;
 };
 
@@ -30,7 +30,7 @@ export default async function handler(req, res) {
   const symbol = ticker.toUpperCase().trim();
 
   try {
-    const period1 = SIX_YEARS_AGO();
+    const period1 = ELEVEN_YEARS_AGO();
 
     const [summary, finSeries, bsSeries, cfSeries, priceChart] = await Promise.all([
       // quoteSummary: only non-financial modules (financial statement modules
@@ -249,10 +249,13 @@ export default async function handler(req, res) {
     const nowEvFcf    = currentEV && nowFcf         > 0 ? currentEV / nowFcf         : null;
     const nowEvOcf    = currentEV && nowOcf         > 0 ? currentEV / nowOcf         : null;
 
-    // EBIT: financialData doesn't expose TTM EBIT directly; use most recent FY as proxy.
-    // The tooltip in the UI makes this approximation clear to the user.
+    // EBIT (TTM): derive from financialData's TTM operating margin × TTM revenue.
+    // fd.operatingMargins is the TTM operating margin ratio (e.g. 0.31 = 31%).
+    // This gives a true TTM EBIT, avoiding the prior FY proxy.
     const lastFin   = validFinYears[validFinYears.length - 1];
-    const nowEbit   = lastFin ? (lastFin.EBIT ?? lastFin.operatingIncome ?? null) : null;
+    const nowEbit   = (fd.operatingMargins && nowRevenue)
+      ? fd.operatingMargins * nowRevenue
+      : (lastFin ? (lastFin.EBIT ?? lastFin.operatingIncome ?? null) : null);
     const nowEvEbit = currentEV && nowEbit > 0 ? currentEV / nowEbit : null;
 
     // Net income: derive from trailing P/E × market cap
@@ -351,6 +354,10 @@ export default async function handler(req, res) {
       institutionalPct:    stats.heldPercentInstitutions ?? null,
       shortInterestPct:    (stats.sharesShort && stats.sharesFloat)
         ? (stats.sharesShort / stats.sharesFloat) * 100 : null,
+      // Forward estimates (NTM analyst consensus)
+      forwardPE:           stats.forwardPE            ?? null,
+      pegRatio:            stats.pegRatio             ?? null,
+      forwardEps:          stats.forwardEps           ?? null,
       years,
       source:        'yahoo',
     });

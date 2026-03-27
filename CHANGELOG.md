@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.5.0 — 2026-03-26
+
+### Added
+- **Shareable/bookmarkable URLs** — loading a company updates the URL to `?ticker=AAPL`; direct links and page refreshes restore the company automatically; share button (link icon) in company header copies the current URL to clipboard with a "Copied" checkmark flash
+- **3Y / 5Y / 10Y period toggle** — selector above the chart tabs controls how many historical years are shown in the chart, data table, and averages; API now fetches up to 10 fiscal years
+- **Market cap and EV in company header** — displayed alongside price and daily change (e.g., `Mkt Cap $2.94T · EV $2.81T`)
+- **Forward estimates in Signals panel** — Forward P/E (NTM) and PEG ratio from Yahoo Finance analyst consensus; PEG color-coded green <1×, neutral 1–2×, red >2×
+
+### Fixed
+- **TTM EBIT now computed correctly** — uses `financialData.operatingMargins × TTM revenue` (a genuine TTM figure) instead of the prior FY proxy that was flagged in v0.3.1 CHANGELOG
+
 ## 0.4.0 — 2026-03-26
 
 ### Added

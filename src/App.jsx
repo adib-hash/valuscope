@@ -1,4 +1,5 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import SearchBar from './components/SearchBar';
 import Pill from './components/Pill';
 import ValuChart from './components/ValuChart';
@@ -23,7 +24,7 @@ import {
 } from './lib/watchlist';
 
 const QUICK_TICKERS = ['AAPL', 'MSFT', 'ULTA', 'COST', 'META', 'AMZN', 'GOOGL', 'NFLX'];
-const APP_VERSION   = 'v0.4.0';
+const APP_VERSION   = 'v0.5.0';
 
 // Pills shown in the summary row
 const PILL_METRICS = [
@@ -36,6 +37,8 @@ const PILL_METRICS = [
 ];
 
 export default function App() {
+  const [searchParams, setSearchParams] = useSearchParams();
+
   // ── Data state ──────────────────────────────────────────────────────────────
   const [loading,  setLoading]  = useState(false);
   const [error,    setError]    = useState('');
@@ -43,11 +46,14 @@ export default function App() {
   const [group,    setGroup]    = useState('Price Multiples');
   const [selected, setSelected] = useState(['pe', 'evEbitda']);
   const [history,  setHistory]  = useState([]);
+  const [period,   setPeriod]   = useState(5); // 3 | 5 | 10
 
   // ── UI state ─────────────────────────────────────────────────────────────────
   const [descOpen,     setDescOpen]     = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [activePill,   setActivePill]   = useState(null);
+  const [copied,       setCopied]       = useState(false);
+  const copyTimer = useRef(null);
 
   // ── Theme ────────────────────────────────────────────────────────────────────
   const [isDark, setIsDark] = useState(() => {
@@ -63,6 +69,12 @@ export default function App() {
     }
     localStorage.setItem('vs-theme', isDark ? 'dark' : 'light');
   }, [isDark]);
+
+  // Load ticker from URL on mount
+  useEffect(() => {
+    const t = searchParams.get('ticker');
+    if (t) loadCompany(t);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // ── Watchlist ────────────────────────────────────────────────────────────────
   const [watchlist, setWatchlist] = useState(() => getWatchlist());
@@ -101,6 +113,7 @@ export default function App() {
     setSelected(['pe', 'evEbitda']);
     setDescOpen(false);
     setActivePill(null);
+    setSearchParams({});
   };
 
   const loadCompany = async (ticker) => {
@@ -111,6 +124,7 @@ export default function App() {
     setData(null);
     setDescOpen(false);
     setActivePill(null);
+    setSearchParams({ ticker: sym }, { replace: true });
     try {
       const result = await fetchFinancials(sym);
       setData(result);
@@ -124,7 +138,8 @@ export default function App() {
   // ── Derived data ─────────────────────────────────────────────────────────────
   const years   = data?.years || [];
   const now     = years[years.length - 1];
-  const hist    = years.filter((y) => !y.fiscalYear?.startsWith('Now'));
+  const allHist = years.filter((y) => !y.fiscalYear?.startsWith('Now'));
+  const hist    = allHist.slice(-period);
   const metrics = GROUPS[group];
   const isYield = group === 'Yield Metrics' || group === 'Growth & Margins';
   const sym     = data?.symbol || '';
@@ -146,7 +161,8 @@ export default function App() {
     : regimePercentile <= 80 ? { label: 'STRETCHED',   color: '#E8AA30' }
     :                          { label: 'EXPENSIVE',   color: '#F25C5C' };
 
-  const chartData = years.map((d) => ({
+  const visibleYears = [...hist, now].filter(Boolean);
+  const chartData = visibleYears.map((d) => ({
     name: d.fiscalYear,
     ...Object.fromEntries(
       ALL_METRICS.map((m) => [m.key, d[m.key] != null && isFinite(d[m.key]) ? d[m.key] : null])
@@ -158,6 +174,20 @@ export default function App() {
   const switchGroup = (g) => {
     setGroup(g);
     setSelected(GROUPS[g].map((m) => m.key).slice(0, 2));
+  };
+
+  const fmtMarketCap = (m) => {
+    if (m == null) return null;
+    if (m >= 1e6)  return `$${(m / 1e6).toFixed(2)}T`;
+    if (m >= 1e3)  return `$${(m / 1e3).toFixed(1)}B`;
+    return `$${m.toFixed(0)}M`;
+  };
+
+  const copyShare = () => {
+    navigator.clipboard.writeText(window.location.href).catch(() => {});
+    setCopied(true);
+    clearTimeout(copyTimer.current);
+    copyTimer.current = setTimeout(() => setCopied(false), 2000);
   };
 
   // ── Render ───────────────────────────────────────────────────────────────────
@@ -358,17 +388,24 @@ export default function App() {
                   <h1 className="font-display text-[28px] font-extrabold mt-1 leading-tight text-vs-text">
                     {data.companyName || sym}
                   </h1>
-                  <p className="text-vs-soft text-[13px] mt-0.5">
-                    {hist.length}-year trailing multiples vs. current LTM
-                    {data.currentPrice && <> &middot; ${data.currentPrice.toFixed(2)}</>}
+                  <p className="text-vs-soft text-[13px] mt-0.5 flex flex-wrap items-center gap-x-1.5">
+                    {data.currentPrice && <span>${data.currentPrice.toFixed(2)}</span>}
                     {data.change != null && (
-                      <span
-                        className="ml-1.5"
-                        style={{ color: data.change >= 0 ? '#38D89A' : '#F25C5C' }}
-                      >
-                        {data.change >= 0 ? '+' : ''}
-                        {data.change.toFixed(2)}%
+                      <span style={{ color: data.change >= 0 ? '#38D89A' : '#F25C5C' }}>
+                        {data.change >= 0 ? '+' : ''}{data.change.toFixed(2)}%
                       </span>
+                    )}
+                    {data.currentMktCap != null && (
+                      <>
+                        <span className="text-vs-dim">&middot;</span>
+                        <span>Mkt Cap {fmtMarketCap(data.currentMktCap)}</span>
+                      </>
+                    )}
+                    {now?.ev != null && (
+                      <>
+                        <span className="text-vs-dim">&middot;</span>
+                        <span>EV {fmtMarketCap(now.ev)}</span>
+                      </>
                     )}
                   </p>
 
@@ -393,17 +430,37 @@ export default function App() {
                   )}
                 </div>
 
-                {/* Watchlist star */}
-                <button
-                  onClick={() => toggleWatchlist(sym)}
-                  aria-label={watched ? 'Remove from watchlist' : 'Add to watchlist'}
-                  className="mt-1 p-1.5 rounded-lg transition-colors cursor-pointer flex-shrink-0"
-                  style={{ color: watched ? '#E8AA30' : 'rgb(var(--vs-dim))' }}
-                >
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill={watched ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-                  </svg>
-                </button>
+                {/* Share + Watchlist buttons */}
+                <div className="flex items-center gap-0.5 mt-1 flex-shrink-0">
+                  <button
+                    onClick={copyShare}
+                    aria-label="Copy share link"
+                    title={copied ? 'Copied!' : 'Copy link'}
+                    className="p-1.5 rounded-lg transition-colors cursor-pointer"
+                    style={{ color: copied ? '#38D89A' : 'rgb(var(--vs-dim))' }}
+                  >
+                    {copied ? (
+                      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <polyline points="20 6 9 17 4 12"/>
+                      </svg>
+                    ) : (
+                      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+                      </svg>
+                    )}
+                  </button>
+                  <button
+                    onClick={() => toggleWatchlist(sym)}
+                    aria-label={watched ? 'Remove from watchlist' : 'Add to watchlist'}
+                    className="p-1.5 rounded-lg transition-colors cursor-pointer"
+                    style={{ color: watched ? '#E8AA30' : 'rgb(var(--vs-dim))' }}
+                  >
+                    <svg width="19" height="19" viewBox="0 0 24 24" fill={watched ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                    </svg>
+                  </button>
+                </div>
               </div>
 
               {/* Validation links */}
@@ -486,8 +543,28 @@ export default function App() {
               })}
             </div>
 
+            {/* Period toggle */}
+            <div className="flex items-center gap-1 mt-6">
+              <span className="text-vs-dim text-[9px] font-mono uppercase tracking-widest mr-1">
+                History
+              </span>
+              {[3, 5, 10].map((p) => (
+                <button
+                  key={p}
+                  onClick={() => setPeriod(p)}
+                  className={`rounded px-2.5 py-1 text-[11px] font-mono font-semibold cursor-pointer border transition-all ${
+                    period === p
+                      ? 'bg-vs-blue/15 text-vs-blue border-vs-blue/50'
+                      : 'bg-transparent text-vs-dim border-vs-border hover:border-vs-borderLight hover:text-vs-soft'
+                  }`}
+                >
+                  {p}Y
+                </button>
+              ))}
+            </div>
+
             {/* Group tabs */}
-            <div className="flex gap-1.5 mt-6 flex-wrap">
+            <div className="flex gap-1.5 mt-3 flex-wrap">
               {Object.keys(GROUPS).map((g) => (
                 <button
                   key={g}
@@ -530,7 +607,7 @@ export default function App() {
               isDark={isDark}
             />
             <p className="text-vs-dim text-[10px] mt-1 font-mono">
-              Dashed = {hist.length}-year avg &middot; "Now" = LTM at current price &middot; Tap a pill for detail
+              Dashed = {hist.length}yr avg &middot; "Now" = LTM at current price &middot; Tap a pill for detail
             </p>
 
             {/* Fundamentals Panel */}
@@ -540,7 +617,7 @@ export default function App() {
             <FairValueTable hist={hist} now={now} currentPrice={data.currentPrice} />
 
             {/* Full Data Table */}
-            <DataTable years={years} averages={avgs} />
+            <DataTable years={visibleYears} averages={avgs} />
 
             {/* Investment Thesis */}
             <Thesis sym={sym} />

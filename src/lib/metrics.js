@@ -33,7 +33,7 @@ export const GROUPS = {
       period:  'Historical: FY-end EV ÷ FY gross profit. Now (LTM): current EV ÷ TTM gross profit.' },
     { key: 'evEbit',   label: 'EV/EBIT',          color: '#38D89A',
       formula: 'Enterprise Value ÷ EBIT (Operating Income)',
-      period:  'Historical: FY-end EV ÷ FY EBIT. Now (LTM): current EV ÷ most recent FY EBIT. Note: TTM EBIT is not available from this data source; most recent annual figure is used as a proxy.' },
+      period:  'Historical: FY-end EV ÷ FY EBIT. Now (LTM): current EV ÷ TTM EBIT (derived from Yahoo Finance TTM operating margin × TTM revenue).' },
     { key: 'evFcf',    label: 'EV/FCF',           color: '#9B7AF5',
       formula: 'Enterprise Value ÷ Free Cash Flow',
       period:  'Historical: FY-end EV ÷ FY FCF. Now (LTM): current EV ÷ TTM FCF.' },

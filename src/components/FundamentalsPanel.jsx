@@ -77,7 +77,7 @@ export default function FundamentalsPanel({ hist, now, data }) {
   const hasGrowth  = Object.values(growth).some((v) => v != null);
   const hasMargins = now && Object.keys(MARGIN_LABELS).some((k) => now[k] != null);
   const hasLeverage = now && (now.netDebt != null || now.netDebtToEbitda != null || now.interestCoverage != null || now.currentRatio != null);
-  const hasSignals  = data && (data.beta != null || data.dividendYield != null || data.insiderOwnershipPct != null || data.shortInterestPct != null);
+  const hasSignals  = data && (data.beta != null || data.dividendYield != null || data.insiderOwnershipPct != null || data.shortInterestPct != null || data.forwardPE != null || data.pegRatio != null);
 
   if (!hasGrowth && !hasMargins && !hasLeverage && !hasSignals) return null;
 
@@ -179,6 +179,14 @@ export default function FundamentalsPanel({ hist, now, data }) {
           <div className="px-4 py-3.5">
             <SectionHeader>Signals</SectionHeader>
             <div className="flex gap-4 flex-wrap">
+              {data.forwardPE != null && (
+                <StatChip label="Fwd P/E (NTM)" value={data.forwardPE.toFixed(1) + 'x'} color="#4E94F8" />
+              )}
+              {data.pegRatio != null && (
+                <StatChip label="PEG" value={data.pegRatio.toFixed(2) + 'x'} color={
+                  data.pegRatio < 1 ? '#38D89A' : data.pegRatio < 2 ? 'rgb(var(--vs-soft))' : '#F25C5C'
+                } />
+              )}
               {data.beta != null && (
                 <StatChip label="Beta" value={data.beta.toFixed(2)} color="rgb(var(--vs-soft))" />
               )}
