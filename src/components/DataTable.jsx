@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { getMetric } from '../lib/metrics';
 
 const TABLE_ROWS = [
   { section: 'PRICE MULTIPLES' },
@@ -113,7 +114,14 @@ export default function DataTable({ years, averages }) {
                 const avg = averages[row.key];
                 return (
                   <tr key={row.key} className="border-b border-vs-border/10">
-                    <td className="px-2.5 py-1 text-vs-soft sticky left-0 bg-vs-bg">
+                    <td
+                      className="px-2.5 py-1 text-vs-soft sticky left-0 bg-vs-bg"
+                      title={(() => {
+                        const m = getMetric(row.key);
+                        if (!m) return undefined;
+                        return [m.formula, m.period].filter(Boolean).join(' — ');
+                      })()}
+                    >
                       {row.label}
                     </td>
                     {years.map((d) => {

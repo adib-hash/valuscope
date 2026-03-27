@@ -64,6 +64,20 @@ export default function PillDetail({ metric, chartData, averages, years, isDark,
                 </span>
               )}
             </p>
+            {metric.formula && (
+              <div className="mt-2 pt-2 border-t border-vs-border/40">
+                <p className="text-vs-dim text-[10px] leading-relaxed">
+                  <span className="text-vs-soft font-medium">Formula: </span>
+                  {metric.formula}
+                </p>
+                {metric.period && (
+                  <p className="text-vs-dim text-[10px] leading-relaxed mt-0.5 opacity-80">
+                    <span className="font-medium">Period: </span>
+                    {metric.period}
+                  </p>
+                )}
+              </div>
+            )}
           </div>
           <button
             onClick={onClose}

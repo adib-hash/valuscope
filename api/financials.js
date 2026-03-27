@@ -88,17 +88,15 @@ export default async function handler(req, res) {
 
     const currentPrice  = priceData.regularMarketPrice ?? null;
     const currentMktCap = priceData.marketCap          ?? null;
-    const currentEV     = currentMktCap != null
-      ? currentMktCap + (fd.totalDebt || 0) - (fd.totalCash || 0)
-      : null;
+    // currentEV is computed below in the Now section after latestBs is available
 
     const years = validFinYears.map(fin => {
       const endDate = fin.date;
       const yr      = endDate ? new Date(endDate).getFullYear() : '?';
 
       // Match balance sheet and cash flow entries to this fiscal year-end
-      const bs = findNearest(bsSeries, endDate);
-      const cf = findNearest(cfSeries, endDate);
+      const bs = bsSeries.length ? findNearest(bsSeries, endDate) : {};
+      const cf = cfSeries.length ? findNearest(cfSeries, endDate) : {};
 
       // Income statement
       const revenue     = fin.totalRevenue  ?? null;
@@ -106,11 +104,10 @@ export default async function handler(req, res) {
       const ebit        = fin.EBIT          ?? fin.operatingIncome ?? null;
       const ebitda      = fin.EBITDA        ?? fin.normalizedEBITDA ?? null;
       const netIncome   = fin.netIncome     ?? null;
-      const shares      = fin.dilutedAverageShares ?? null; // historical shares
 
       // Cash flow
-      const ocf     = cf.operatingCashFlow ?? null;
-      const fcf     = cf.freeCashFlow      ?? null;
+      const ocf      = cf.operatingCashFlow ?? null;
+      const fcf      = cf.freeCashFlow      ?? null;
       const buybacks = cf.repurchaseOfCapitalStock
         ? Math.abs(cf.repurchaseOfCapitalStock) : null;
 
@@ -119,12 +116,24 @@ export default async function handler(req, res) {
       const totalDebt = bs.totalDebt         ?? null;
       const cash      = bs.cashCashEquivalentsAndShortTermInvestments
                      ?? bs.cashAndCashEquivalents ?? null;
+      // Minority interest (noncontrolling interest) — part of standard EV formula
+      const minorityInterest = bs.minorityInterest ?? null;
 
-      // Historical market cap = price at year-end × diluted shares outstanding that year
+      // Historical market cap: use shares OUTSTANDING at period-end (balance sheet),
+      // falling back to diluted average shares only if period-end figure is missing.
+      // Note: dilutedAverageShares is a weighted average used for EPS — not the right
+      // figure for market cap, which needs shares outstanding at a specific date.
+      const shares = bs.commonStockSharesOutstanding ?? fin.dilutedAverageShares ?? null;
+
+      // Historical market cap = price at fiscal year-end × shares outstanding that date
       const histPrice = getPriceNear(endDate);
       const mktCap    = histPrice != null && shares ? histPrice * shares : null;
-      const ev        = mktCap != null
-        ? mktCap + (totalDebt || 0) - (cash || 0)
+
+      // EV = Market Cap + Total Debt + Minority Interest − Cash
+      // Standard definition per Damodaran; minority interest is included because those
+      // holders have a claim on enterprise cash flows, same as debt holders.
+      const ev = mktCap != null
+        ? mktCap + (totalDebt || 0) + (minorityInterest || 0) - (cash || 0)
         : null;
 
       const pe    = mktCap && netIncome   > 0 ? mktCap / netIncome   : null;
@@ -164,48 +173,84 @@ export default async function handler(req, res) {
       };
     });
 
-    // "Now (LTM)" row — TTM figures from financialData + live price
+    // ── "Now (LTM)" row ──────────────────────────────────────────────────────
+    // Income statement: TTM figures from financialData
     const nowRevenue     = fd.totalRevenue      ?? null;
     const nowGrossProfit = fd.grossProfits      ?? null;
     const nowEbitda      = fd.ebitda            ?? null;
     const nowOcf         = fd.operatingCashflow ?? null;
     const nowFcf         = fd.freeCashflow      ?? null;
-    const latestBs       = findNearest(bsSeries, new Date());
-    const nowBookValue   = latestBs.commonStockEquity ?? null;
-    const nowPe          = sd.trailingPE || stats.trailingPE || null;
-    const nowPb          = stats.priceToBook ?? null;
-    const nowPs          = currentMktCap && nowRevenue     > 0 ? currentMktCap / nowRevenue     : null;
-    const nowPfcf        = currentMktCap && nowFcf         > 0 ? currentMktCap / nowFcf         : null;
-    const nowPocf        = currentMktCap && nowOcf         > 0 ? currentMktCap / nowOcf         : null;
-    const nowPGP         = currentMktCap && nowGrossProfit > 0 ? currentMktCap / nowGrossProfit : null;
-    const nowEvSales     = currentEV     && nowRevenue     > 0 ? currentEV     / nowRevenue     : null;
-    const nowEvEbitda    = currentEV     && nowEbitda      > 0 ? currentEV     / nowEbitda      : null;
-    const nowEvGP        = currentEV     && nowGrossProfit > 0 ? currentEV     / nowGrossProfit : null;
-    const nowEvFcf       = currentEV     && nowFcf         > 0 ? currentEV     / nowFcf         : null;
-    const nowEvOcf       = currentEV     && nowOcf         > 0 ? currentEV     / nowOcf         : null;
+
+    // Balance sheet: most recent annual entry (closest to today)
+    const latestBs = bsSeries.length ? findNearest(bsSeries, new Date()) : {};
+    const nowBookValue       = latestBs.commonStockEquity ?? null;
+    const nowMinorityInterest = latestBs.minorityInterest ?? null;
+
+    // EV: live market cap + TTM debt/cash + most recent minority interest
+    const currentEV = currentMktCap != null
+      ? currentMktCap + (fd.totalDebt || 0) + (nowMinorityInterest || 0) - (fd.totalCash || 0)
+      : null;
+
+    // Price multiples: use Yahoo's pre-computed trailing P/E and P/B where available
+    // (more accurate than recomputing from TTM net income, which can differ due to
+    // adjustments Yahoo makes)
+    const nowPe   = sd.trailingPE  || stats.trailingPE  || null;
+    const nowPb   = stats.priceToBook                   ?? null;
+    const nowPs   = currentMktCap && nowRevenue     > 0 ? currentMktCap / nowRevenue     : null;
+    const nowPfcf = currentMktCap && nowFcf         > 0 ? currentMktCap / nowFcf         : null;
+    const nowPocf = currentMktCap && nowOcf         > 0 ? currentMktCap / nowOcf         : null;
+    const nowPGP  = currentMktCap && nowGrossProfit > 0 ? currentMktCap / nowGrossProfit : null;
+
+    // EV multiples
+    const nowEvSales  = currentEV && nowRevenue     > 0 ? currentEV / nowRevenue     : null;
+    const nowEvEbitda = currentEV && nowEbitda      > 0 ? currentEV / nowEbitda      : null;
+    const nowEvGP     = currentEV && nowGrossProfit > 0 ? currentEV / nowGrossProfit : null;
+    const nowEvFcf    = currentEV && nowFcf         > 0 ? currentEV / nowFcf         : null;
+    const nowEvOcf    = currentEV && nowOcf         > 0 ? currentEV / nowOcf         : null;
+
+    // EBIT: financialData doesn't expose TTM EBIT directly; use most recent FY as proxy.
+    // The tooltip in the UI makes this approximation clear to the user.
+    const lastFin   = validFinYears[validFinYears.length - 1];
+    const nowEbit   = lastFin ? (lastFin.EBIT ?? lastFin.operatingIncome ?? null) : null;
+    const nowEvEbit = currentEV && nowEbit > 0 ? currentEV / nowEbit : null;
+
+    // Net income: derive from trailing P/E × market cap
+    // (Yahoo's trailingPE = mktCap / TTM net income, so netIncome = mktCap / PE)
+    const nowNetIncome = currentMktCap && nowPe ? currentMktCap / nowPe : null;
+
+    // Buyback yield: most recent annual CF data (same source as historical years)
+    const latestCf  = cfSeries.length ? findNearest(cfSeries, new Date()) : {};
+    const nowBuybackRaw = latestCf.repurchaseOfCapitalStock
+      ? Math.abs(latestCf.repurchaseOfCapitalStock) : null;
+    const nowBuybackYield = currentMktCap && nowBuybackRaw
+      ? (nowBuybackRaw / currentMktCap) * 100 : null;
+
+    // Shares outstanding: derive from market cap / price
+    const nowSharesOut = currentMktCap && currentPrice
+      ? currentMktCap / currentPrice : null;
 
     years.push({
       fiscalYear:    'Now (LTM)',
       endDate:       new Date().toISOString().slice(0, 10),
       pe: nowPe, ps: nowPs, pb: nowPb,
       pfcf: nowPfcf, pocf: nowPocf, pGP: nowPGP,
-      evSales: nowEvSales, evEbitda: nowEvEbitda, evEbit: null,
+      evSales: nowEvSales, evEbitda: nowEvEbitda, evEbit: nowEvEbit,
       evGP: nowEvGP, evFcf: nowEvFcf, evOcf: nowEvOcf,
       earningsYield: nowPe   ? (1 / nowPe)   * 100 : null,
       fcfYield:      nowPfcf ? (1 / nowPfcf) * 100 : null,
-      buybackYield:  null,
+      buybackYield:  nowBuybackYield,
       price:       currentPrice,
-      mktCap:      currentMktCap  != null ? currentMktCap  / 1e6 : null,
-      ev:          currentEV      != null ? currentEV      / 1e6 : null,
-      revenue:     nowRevenue     != null ? nowRevenue     / 1e6 : null,
-      grossProfit: nowGrossProfit != null ? nowGrossProfit / 1e6 : null,
-      ebitda:      nowEbitda      != null ? nowEbitda      / 1e6 : null,
-      ebit:        null,
-      netIncome:   null,
-      ocf:         nowOcf         != null ? nowOcf         / 1e6 : null,
-      fcf:         nowFcf         != null ? nowFcf         / 1e6 : null,
-      bookValue:   nowBookValue   != null ? nowBookValue   / 1e6 : null,
-      sharesOut:   null,
+      mktCap:      currentMktCap   != null ? currentMktCap   / 1e6 : null,
+      ev:          currentEV       != null ? currentEV       / 1e6 : null,
+      revenue:     nowRevenue      != null ? nowRevenue      / 1e6 : null,
+      grossProfit: nowGrossProfit  != null ? nowGrossProfit  / 1e6 : null,
+      ebitda:      nowEbitda       != null ? nowEbitda       / 1e6 : null,
+      ebit:        nowEbit         != null ? nowEbit         / 1e6 : null,
+      netIncome:   nowNetIncome    != null ? nowNetIncome    / 1e6 : null,
+      ocf:         nowOcf          != null ? nowOcf          / 1e6 : null,
+      fcf:         nowFcf          != null ? nowFcf          / 1e6 : null,
+      bookValue:   nowBookValue    != null ? nowBookValue    / 1e6 : null,
+      sharesOut:   nowSharesOut    != null ? nowSharesOut    / 1e6 : null,
     });
 
     res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate=600');

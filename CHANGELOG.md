@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.3.1 — 2026-03-26
+
+### Fixed (Data Quality)
+- **Historical market cap now uses period-end shares** (`commonStockSharesOutstanding` from balance sheet) instead of weighted-average diluted shares (`dilutedAverageShares`). Diluted average shares is an EPS figure, not correct for computing a point-in-time market cap.
+- **EV formula now includes minority interest** (noncontrolling interest) for both historical and Now periods. Standard EV = Market Cap + Debt + Minority Interest − Cash. Omitting minority interest caused EV-based multiples to be understated for companies with consolidated subsidiaries.
+- **"Now (LTM)" EV/EBIT now populated** using most recent fiscal year EBIT as a proxy (TTM EBIT is not available from the Yahoo Finance API; the tooltip makes this approximation clear).
+- **"Now (LTM)" net income now populated** — derived as Market Cap ÷ Trailing P/E.
+- **"Now (LTM)" buyback yield now populated** — uses most recent annual repurchase figure from cash flow series ÷ current market cap.
+- **"Now (LTM)" shares outstanding now populated** — derived as Market Cap ÷ Current Price.
+
+### Added
+- **Calculation tooltips** on every metric: formula (e.g., "Enterprise Value ÷ EBITDA") and period note (e.g., "Now: current EV ÷ TTM EBITDA") shown in the Pill detail bottom sheet and as hover tooltips on DataTable metric name cells.
+
 ## 0.3.0 — 2026-03-26
 
 ### Added
