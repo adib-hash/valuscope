@@ -1,32 +1,35 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./index.html', './src/**/*.{js,jsx}'],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
+        // CSS-variable-backed colors — auto-switch between light and dark themes
         vs: {
-          bg: '#080A10',
-          card: '#111620',
-          card2: '#161D2A',
-          border: '#1E2738',
-          borderLight: '#283448',
-          text: '#E4E7EE',
-          soft: '#94A0B8',
-          dim: '#5A6A82',
-          blue: '#4E94F8',
-          green: '#38D89A',
-          red: '#F25C5C',
-          amber: '#E8AA30',
-          violet: '#9B7AF5',
-          rose: '#E070A0',
-          orange: '#E88A3A',
-          cyan: '#38C8D8',
+          bg:          'rgb(var(--vs-bg)          / <alpha-value>)',
+          card:        'rgb(var(--vs-card)        / <alpha-value>)',
+          card2:       'rgb(var(--vs-card2)       / <alpha-value>)',
+          border:      'rgb(var(--vs-border)      / <alpha-value>)',
+          borderLight: 'rgb(var(--vs-borderLight) / <alpha-value>)',
+          text:        'rgb(var(--vs-text)        / <alpha-value>)',
+          soft:        'rgb(var(--vs-soft)        / <alpha-value>)',
+          dim:         'rgb(var(--vs-dim)         / <alpha-value>)',
+          // Accent colors — identical in dark and light modes
+          blue:   'rgb(var(--vs-blue)   / <alpha-value>)',
+          green:  'rgb(var(--vs-green)  / <alpha-value>)',
+          red:    'rgb(var(--vs-red)    / <alpha-value>)',
+          amber:  'rgb(var(--vs-amber)  / <alpha-value>)',
+          violet: 'rgb(var(--vs-violet) / <alpha-value>)',
+          rose:   'rgb(var(--vs-rose)   / <alpha-value>)',
+          orange: 'rgb(var(--vs-orange) / <alpha-value>)',
+          cyan:   'rgb(var(--vs-cyan)   / <alpha-value>)',
         },
       },
       fontFamily: {
         display: ['"Playfair Display"', 'serif'],
-        mono: ['"DM Mono"', 'monospace'],
-        sans: ['Inter', '-apple-system', 'sans-serif'],
+        mono:    ['"DM Mono"', 'monospace'],
+        sans:    ['Inter', '-apple-system', 'sans-serif'],
       },
     },
   },

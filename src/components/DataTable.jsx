@@ -2,33 +2,33 @@ import { useState } from 'react';
 
 const TABLE_ROWS = [
   { section: 'PRICE MULTIPLES' },
-  { key: 'pe', label: 'P/E' },
-  { key: 'ps', label: 'P/S' },
-  { key: 'pb', label: 'P/B' },
-  { key: 'pGP', label: 'P/Gross Profit' },
+  { key: 'pe',   label: 'P/E' },
+  { key: 'ps',   label: 'P/S' },
+  { key: 'pb',   label: 'P/B' },
+  { key: 'pGP',  label: 'P/Gross Profit' },
   { key: 'pfcf', label: 'P/FCF' },
   { key: 'pocf', label: 'P/OCF' },
   { section: 'EV MULTIPLES' },
-  { key: 'evSales', label: 'EV/Sales' },
-  { key: 'evGP', label: 'EV/Gross Profit' },
+  { key: 'evSales',  label: 'EV/Sales' },
+  { key: 'evGP',     label: 'EV/Gross Profit' },
   { key: 'evEbitda', label: 'EV/EBITDA' },
-  { key: 'evEbit', label: 'EV/EBIT' },
-  { key: 'evOcf', label: 'EV/OCF' },
-  { key: 'evFcf', label: 'EV/FCF' },
+  { key: 'evEbit',   label: 'EV/EBIT' },
+  { key: 'evOcf',    label: 'EV/OCF' },
+  { key: 'evFcf',    label: 'EV/FCF' },
   { section: 'YIELD METRICS' },
   { key: 'earningsYield', label: 'Earnings Yield', yld: true },
-  { key: 'fcfYield', label: 'FCF Yield', yld: true },
-  { key: 'buybackYield', label: 'Buyback Yield', yld: true },
+  { key: 'fcfYield',      label: 'FCF Yield',      yld: true },
+  { key: 'buybackYield',  label: 'Buyback Yield',  yld: true },
   { section: 'FUNDAMENTALS ($M)' },
-  { key: 'mktCap', label: 'Market Cap', raw: true },
-  { key: 'ev', label: 'Enterprise Value', raw: true },
-  { key: 'revenue', label: 'Revenue', raw: true },
-  { key: 'grossProfit', label: 'Gross Profit', raw: true },
-  { key: 'ebitda', label: 'EBITDA', raw: true },
-  { key: 'ebit', label: 'EBIT', raw: true },
-  { key: 'netIncome', label: 'Net Income', raw: true },
-  { key: 'ocf', label: 'Oper. Cash Flow', raw: true },
-  { key: 'fcf', label: 'Free Cash Flow', raw: true },
+  { key: 'mktCap',     label: 'Market Cap',      raw: true },
+  { key: 'ev',         label: 'Enterprise Value', raw: true },
+  { key: 'revenue',    label: 'Revenue',          raw: true },
+  { key: 'grossProfit',label: 'Gross Profit',     raw: true },
+  { key: 'ebitda',     label: 'EBITDA',           raw: true },
+  { key: 'ebit',       label: 'EBIT',             raw: true },
+  { key: 'netIncome',  label: 'Net Income',       raw: true },
+  { key: 'ocf',        label: 'Oper. Cash Flow',  raw: true },
+  { key: 'fcf',        label: 'Free Cash Flow',   raw: true },
 ];
 
 function fmt(v, row) {
@@ -38,6 +38,26 @@ function fmt(v, row) {
   return v < 10 ? v.toFixed(2) + 'x' : v.toFixed(1) + 'x';
 }
 
+function ChevronIcon({ open }) {
+  return (
+    <svg
+      width="10"
+      height="6"
+      viewBox="0 0 10 6"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="inline-block ml-1.5 transition-transform"
+      style={{ transform: open ? 'rotate(180deg)' : 'rotate(0deg)' }}
+      aria-hidden="true"
+    >
+      <path d="M1 1l4 4 4-4" />
+    </svg>
+  );
+}
+
 export default function DataTable({ years, averages }) {
   const [open, setOpen] = useState(false);
 
@@ -45,9 +65,10 @@ export default function DataTable({ years, averages }) {
     <>
       <button
         onClick={() => setOpen(!open)}
-        className="mt-4 w-full bg-vs-card text-vs-soft border border-vs-border rounded-lg py-2.5 text-xs font-semibold font-mono cursor-pointer text-center hover:bg-vs-card2 transition-colors"
+        className="mt-4 w-full bg-vs-card text-vs-soft border border-vs-border rounded-lg py-2.5 text-xs font-semibold font-mono cursor-pointer text-center hover:bg-vs-card2 transition-colors flex items-center justify-center"
       >
-        {open ? 'Hide' : 'Show'} Full Data Table {open ? '\u25B2' : '\u25BC'}
+        {open ? 'Hide' : 'Show'} Full Data Table
+        <ChevronIcon open={open} />
       </button>
 
       {open && (

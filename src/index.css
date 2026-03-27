@@ -2,19 +2,51 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Light theme (default) ── */
+:root {
+  --vs-bg:          244 246 250;   /* #F4F6FA */
+  --vs-card:        255 255 255;   /* #FFFFFF */
+  --vs-card2:       240 242 247;   /* #F0F2F7 */
+  --vs-border:      221 226 238;   /* #DDE2EE */
+  --vs-borderLight: 200 208 224;   /* #C8D0E0 */
+  --vs-text:        26  31  46;    /* #1A1F2E */
+  --vs-soft:        90  101 128;   /* #5A6580 */
+  --vs-dim:         138 148 168;   /* #8A94A8 */
+  /* Accent colors — same in both themes */
+  --vs-blue:   78  148 248;
+  --vs-green:  56  216 154;
+  --vs-red:    242 92  92;
+  --vs-amber:  232 170 48;
+  --vs-violet: 155 122 245;
+  --vs-rose:   224 112 160;
+  --vs-orange: 232 138 58;
+  --vs-cyan:   56  200 216;
+}
+
+/* ── Dark theme ── */
+.dark {
+  --vs-bg:          8   10  16;    /* #080A10 */
+  --vs-card:        17  22  32;    /* #111620 */
+  --vs-card2:       22  29  42;    /* #161D2A */
+  --vs-border:      30  39  56;    /* #1E2738 */
+  --vs-borderLight: 40  52  72;    /* #283448 */
+  --vs-text:        228 231 238;   /* #E4E7EE */
+  --vs-soft:        148 160 184;   /* #94A0B8 */
+  --vs-dim:         90  106 130;   /* #5A6A82 */
+}
+
 body {
   margin: 0;
-  background: #080A10;
-  color: #E4E7EE;
+  background: rgb(var(--vs-bg));
+  color: rgb(var(--vs-text));
   font-family: 'Inter', -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
-/* Prevent iOS auto-zoom on inputs */
+/* Prevent iOS auto-zoom on inputs (font-size must be ≥16px) */
 input, select, textarea {
   font-size: 16px;
 }
-
 @media (min-width: 640px) {
   input, select, textarea {
     font-size: inherit;
@@ -22,17 +54,7 @@ input, select, textarea {
 }
 
 /* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-::-webkit-scrollbar-track {
-  background: #080A10;
-}
-::-webkit-scrollbar-thumb {
-  background: #283448;
-  border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #3A4A60;
-}
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track  { background: rgb(var(--vs-bg)); }
+::-webkit-scrollbar-thumb  { background: rgb(var(--vs-borderLight)); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgb(var(--vs-soft)); }
