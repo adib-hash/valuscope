@@ -1,10 +1,15 @@
 # Changelog
 
+## 0.7.1 — 2026-04-04
+
+### Fixed
+- **Comps quality overhaul** — replaced Yahoo Finance's `recommendationsBySymbol` (which selected peers by trading pattern correlation, producing irrelevant results like Boeing for Netflix) with curated analyst-style comp sets for ~200 commonly analyzed stocks across 35 industry groups; falls back to Yahoo Finance industry classification for uncovered tickers; quality gate requires 3+ peers or shows nothing rather than garbage
+
 ## 0.7.0 — 2026-04-04
 
 ### Added
-- **Comps table** — auto-discovers comparable companies via Yahoo Finance's similarity algorithm and displays LTM multiples side-by-side; subject company highlighted in blue with green/red coloring vs peer median; metrics auto-selected based on sector recommendations
-- **New `/api/comps` endpoint** — fetches peer recommendations and parallel-loads LTM multiples for up to 5 peers
+- **Comps table** — auto-discovers comparable companies and displays LTM multiples side-by-side; subject company highlighted in blue with green/red coloring vs peer median; metrics auto-selected based on sector recommendations
+- **New `/api/comps` endpoint** — fetches peer data and parallel-loads LTM multiples for up to 8 peers
 - Clicking any peer row navigates to that company's full ValuScope dashboard
 
 ## 0.6.0 — 2026-04-04

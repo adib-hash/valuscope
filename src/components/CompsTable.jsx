@@ -43,6 +43,7 @@ function computeMedian(vals) {
 
 export default function CompsTable({ symbol, sector, onSelectTicker }) {
   const [comps, setComps]     = useState(null);
+  const [source, setSource]   = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError]     = useState('');
   const [expanded, setExpanded] = useState(false);
@@ -53,10 +54,16 @@ export default function CompsTable({ symbol, sector, onSelectTicker }) {
     setLoading(true);
     setError('');
     setComps(null);
+    setSource(null);
     setExpanded(false);
 
     fetchComps(symbol)
-      .then((data) => { if (!cancelled) setComps(data.comps || []); })
+      .then((data) => {
+        if (!cancelled) {
+          setComps(data.comps || []);
+          setSource(data.source || 'none');
+        }
+      })
       .catch((e) => { if (!cancelled) setError(e.message); })
       .finally(() => { if (!cancelled) setLoading(false); });
 
@@ -85,8 +92,13 @@ export default function CompsTable({ symbol, sector, onSelectTicker }) {
 
   if (!symbol) return null;
 
+  // Don't render anything if we loaded and got no real comps
+  if (!loading && !error && source === 'none') return null;
+
   // Collapsed state — show just header
   if (!expanded) {
+    // Don't show collapsed header while still loading or if no comps
+    if (loading || !comps || peers.length === 0) return null;
     return (
       <div className="mt-4 rounded-xl border border-vs-border bg-vs-card overflow-hidden">
         <button
@@ -98,11 +110,7 @@ export default function CompsTable({ symbol, sector, onSelectTicker }) {
               Comps
             </p>
             <p className="text-vs-dim text-[10px] font-mono mt-0.5">
-              {loading ? 'Finding comparable companies\u2026' :
-               error ? 'Failed to load' :
-               comps && peers.length ? `${peers.length} peer${peers.length !== 1 ? 's' : ''} \u00b7 LTM multiples` :
-               comps ? 'No peers found' :
-               'Tap to load peer comparison'}
+              {`${peers.length} peer${peers.length !== 1 ? 's' : ''} \u00b7 LTM multiples`}
             </p>
           </div>
           <svg
@@ -130,7 +138,9 @@ export default function CompsTable({ symbol, sector, onSelectTicker }) {
             Comps
           </p>
           <p className="text-vs-dim text-[10px] font-mono mt-0.5">
-            {peers.length ? `${peers.length} peer${peers.length !== 1 ? 's' : ''} via Yahoo Finance similarity \u00b7 LTM multiples` : 'Loading\u2026'}
+            {peers.length
+              ? `${peers.length} peer${peers.length !== 1 ? 's' : ''} \u00b7 ${source === 'curated' ? 'curated comp set' : 'by industry'} \u00b7 LTM multiples`
+              : 'Loading\u2026'}
           </p>
         </div>
         <svg
@@ -264,7 +274,7 @@ export default function CompsTable({ symbol, sector, onSelectTicker }) {
       )}
 
       <p className="px-4 py-2.5 text-vs-dim text-[9px] font-mono">
-        Peers selected by Yahoo Finance similarity algorithm &middot; LTM multiples &middot; Tap a peer to view
+        {source === 'curated' ? 'Curated comp set' : 'Peers by industry classification'} &middot; LTM multiples &middot; Tap a peer to view
       </p>
     </div>
   );
