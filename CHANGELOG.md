@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.7.0 — 2026-04-04
+
+### Added
+- **Comps table** — auto-discovers comparable companies via Yahoo Finance's similarity algorithm and displays LTM multiples side-by-side; subject company highlighted in blue with green/red coloring vs peer median; metrics auto-selected based on sector recommendations
+- **New `/api/comps` endpoint** — fetches peer recommendations and parallel-loads LTM multiples for up to 5 peers
+- Clicking any peer row navigates to that company's full ValuScope dashboard
+
 ## 0.6.0 — 2026-04-04
 
 ### Added

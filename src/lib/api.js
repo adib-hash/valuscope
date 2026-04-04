@@ -20,3 +20,7 @@ export async function searchTickers(query) {
 export async function fetchFinancials(ticker) {
   return apiFetch(`/api/financials?ticker=${encodeURIComponent(ticker)}`);
 }
+
+export async function fetchComps(ticker) {
+  return apiFetch(`/api/comps?ticker=${encodeURIComponent(ticker)}`);
+}

@@ -8,6 +8,7 @@ import PillDetail from './components/PillDetail';
 import FundamentalsPanel from './components/FundamentalsPanel';
 import FairValueTable from './components/FairValueTable';
 import Thesis from './components/Thesis';
+import CompsTable from './components/CompsTable';
 import { fetchFinancials } from './lib/api';
 import {
   GROUPS,
@@ -26,7 +27,7 @@ import {
 } from './lib/watchlist';
 
 const QUICK_TICKERS = ['AAPL', 'MSFT', 'ULTA', 'COST', 'META', 'AMZN', 'GOOGL', 'NFLX'];
-const APP_VERSION   = 'v0.6.0';
+const APP_VERSION   = 'v0.7.0';
 
 // Pills shown in the summary row
 const PILL_METRICS = [
@@ -673,6 +674,9 @@ export default function App() {
 
             {/* Fair Value Table */}
             <FairValueTable hist={hist} now={now} currentPrice={data.currentPrice} />
+
+            {/* Comps Table */}
+            <CompsTable symbol={sym} sector={data.sector} onSelectTicker={loadCompany} />
 
             {/* Full Data Table */}
             <DataTable years={visibleYears} averages={avgs} />
