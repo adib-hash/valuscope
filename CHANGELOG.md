@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.7.2 — 2026-04-04
+
+### Changed
+- **External links slimmed to 2** — removed broken Quartr link (404, wrong URL format), broken SEC EDGAR links (deprecated endpoint), and redundant Yahoo Finance link; replaced with compact text-style StockAnalysis + dynamic Investor Relations link (uses company's IR website from Yahoo Finance, falls back to corporate site)
+- **Period toggle fixed** — replaced misleading 3Y/5Y/10Y with 3Y/All; Yahoo Finance only provides ~4 years of annual data, so 5Y and 10Y were always showing the same 4 years
+- **Sector recommendation banner** folded into the collapsible company description — appears when "more" is expanded
+- **Period toggle and group tabs** merged into a single row — group tabs left, period buttons right
+- **Regime badge** inlined with pills section header instead of standalone row
+- **Chart legend line** removed (self-explanatory)
+- **Removed 2 redundant "Data: Yahoo Finance"** occurrences (links row badge + footer); kept header attribution
+
 ## 0.7.1 — 2026-04-04
 
 ### Fixed

@@ -27,7 +27,7 @@ import {
 } from './lib/watchlist';
 
 const QUICK_TICKERS = ['AAPL', 'MSFT', 'ULTA', 'COST', 'META', 'AMZN', 'GOOGL', 'NFLX'];
-const APP_VERSION   = 'v0.7.1';
+const APP_VERSION   = 'v0.7.2';
 
 // Pills shown in the summary row
 const PILL_METRICS = [
@@ -49,7 +49,7 @@ export default function App() {
   const [group,    setGroup]    = useState('Price Multiples');
   const [selected, setSelected] = useState(['pe', 'evEbitda']);
   const [history,  setHistory]  = useState([]);
-  const [period,   setPeriod]   = useState(5); // 3 | 5 | 10
+  const [period,   setPeriod]   = useState(0); // 3 | 0 (all)
 
   // ── UI state ─────────────────────────────────────────────────────────────────
   const [descOpen,     setDescOpen]     = useState(false);
@@ -152,7 +152,7 @@ export default function App() {
   const years   = data?.years || [];
   const now     = years[years.length - 1];
   const allHist = years.filter((y) => !y.fiscalYear?.startsWith('Now'));
-  const hist    = allHist.slice(-period);
+  const hist    = period === 0 ? allHist : allHist.slice(-period);
   const metrics = GROUPS[group];
   const isYield = group === 'Yield Metrics' || group === 'Growth & Margins';
   const sym     = data?.symbol || '';
@@ -422,24 +422,32 @@ export default function App() {
                     )}
                   </p>
 
-                  {/* Collapsible company description */}
+                  {/* Collapsible company description + sector rationale */}
                   {data.description && (
-                    <p className="text-vs-dim text-[12px] mt-2 leading-relaxed">
-                      {descOpen
-                        ? data.description
-                        : data.description.slice(0, 150)}
-                      {data.description.length > 150 && (
-                        <>
-                          {!descOpen && '...'}
-                          <button
-                            onClick={() => setDescOpen(!descOpen)}
-                            className="ml-1.5 text-vs-blue text-[11px] font-mono cursor-pointer hover:underline"
-                          >
-                            {descOpen ? 'less' : 'more'}
-                          </button>
-                        </>
+                    <div className="text-vs-dim text-[12px] mt-2 leading-relaxed">
+                      <p>
+                        {descOpen
+                          ? data.description
+                          : data.description.slice(0, 150)}
+                        {data.description.length > 150 && (
+                          <>
+                            {!descOpen && '...'}
+                            <button
+                              onClick={() => setDescOpen(!descOpen)}
+                              className="ml-1.5 text-vs-blue text-[11px] font-mono cursor-pointer hover:underline"
+                            >
+                              {descOpen ? 'less' : 'more'}
+                            </button>
+                          </>
+                        )}
+                      </p>
+                      {descOpen && data.sector && getSectorRecommendation(data.sector) && (
+                        <p className="mt-2 text-vs-soft text-[11px]">
+                          <span className="font-mono font-semibold text-vs-blue">{data.sector}:</span>{' '}
+                          {getSectorRecommendation(data.sector).rationale}
+                        </p>
                       )}
-                    </p>
+                    </div>
                   )}
                 </div>
 
@@ -476,57 +484,36 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Validation links */}
-              <div className="flex gap-2 mt-2.5 flex-wrap">
-                {[
-                  { href: `https://stockanalysis.com/stocks/${sym.toLowerCase()}/financials/ratios/`, label: 'StockAnalysis', color: '#4E94F8' },
-                  { href: `https://finance.yahoo.com/quote/${sym}/financials/`, label: 'Yahoo Finance', color: '#9B7AF5' },
-                  { href: `https://quartr.com/companies/${sym.toLowerCase()}`, label: 'Quartr', color: '#38D89A' },
-                  { href: `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${sym}&type=8-K&dateb=&owner=include&count=5`, label: 'SEC 8-K', color: '#E8AA30' },
-                  { href: `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&company=${sym}&type=10-K&dateb=&owner=include&count=5&action=getcompany`, label: 'SEC 10-K', color: '#E88A3A' },
-                ].map((link) => (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-[11px] font-mono no-underline px-2.5 py-1 rounded"
-                    style={{ color: link.color, border: `1px solid ${link.color}30`, background: `${link.color}08` }}
-                  >
-                    {link.label} &#x2197;
-                  </a>
-                ))}
-                <span
-                  className="text-[10px] font-mono px-2.5 py-1 rounded"
-                  style={{ color: '#38D89A', border: '1px solid #38D89A30', background: '#38D89A08' }}
+              {/* Research links */}
+              <div className="flex gap-1.5 mt-2 items-center text-[11px] font-mono">
+                <a
+                  href={`https://stockanalysis.com/stocks/${sym.toLowerCase()}/financials/ratios/`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-vs-dim hover:text-vs-soft hover:underline transition-colors"
                 >
-                  &#x25CF; Data: Yahoo Finance
-                </span>
+                  StockAnalysis &#x2197;
+                </a>
+                {(data.irWebsite || data.website) && (
+                  <>
+                    <span className="text-vs-dim">&middot;</span>
+                    <a
+                      href={data.irWebsite || data.website}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-vs-dim hover:text-vs-soft hover:underline transition-colors"
+                    >
+                      Investor Relations &#x2197;
+                    </a>
+                  </>
+                )}
               </div>
             </div>
 
-            {/* Sector recommendation banner */}
-            {data.sector && getSectorRecommendation(data.sector) && (
-              <div
-                className="mt-4 px-3.5 py-2.5 rounded-lg border text-[12px] leading-relaxed"
-                style={{
-                  background: 'rgb(var(--vs-blue) / 0.06)',
-                  borderColor: 'rgb(var(--vs-blue) / 0.2)',
-                }}
-              >
-                <span className="font-mono font-semibold text-vs-blue text-[11px]">
-                  {data.sector}
-                </span>
-                <span className="text-vs-soft ml-1.5">
-                  {getSectorRecommendation(data.sector).rationale}
-                </span>
-              </div>
-            )}
-
-            {/* Pills section header with regime badge */}
-            <div className="flex items-center gap-2 mt-5 mb-0">
+            {/* Pills — snap-scroll on mobile, with inline regime badge */}
+            <div className="flex items-center gap-2 mt-5 mb-1.5">
               <span className="text-vs-dim text-[10px] font-mono">
-                Now (LTM) vs {hist.length}-year avg
+                LTM vs {hist.length}yr avg
               </span>
               {REGIME && (
                 <span
@@ -541,10 +528,8 @@ export default function App() {
                 </span>
               )}
             </div>
-
-            {/* Pills — snap-scroll on mobile */}
             <div
-              className="flex gap-1.5 mt-2 overflow-x-auto pb-1 snap-x snap-mandatory"
+              className="flex gap-1.5 overflow-x-auto pb-1 snap-x snap-mandatory"
               style={{ WebkitOverflowScrolling: 'touch' }}
             >
               {PILL_METRICS.map(({ key, label, isYield: pillIsYield }) => {
@@ -574,28 +559,9 @@ export default function App() {
               })}
             </div>
 
-            {/* Period toggle */}
-            <div className="flex items-center gap-1 mt-6">
-              <span className="text-vs-dim text-[9px] font-mono uppercase tracking-widest mr-1">
-                History
-              </span>
-              {[3, 5, 10].map((p) => (
-                <button
-                  key={p}
-                  onClick={() => setPeriod(p)}
-                  className={`rounded px-2.5 py-1 text-[11px] font-mono font-semibold cursor-pointer border transition-all ${
-                    period === p
-                      ? 'bg-vs-blue/15 text-vs-blue border-vs-blue/50'
-                      : 'bg-transparent text-vs-dim border-vs-border hover:border-vs-borderLight hover:text-vs-soft'
-                  }`}
-                >
-                  {p}Y
-                </button>
-              ))}
-            </div>
-
-            {/* Group tabs */}
-            <div className="flex gap-1.5 mt-3 flex-wrap">
+            {/* Period toggle + Group tabs — single row */}
+            <div className="flex items-start justify-between gap-2 mt-5 flex-wrap">
+              <div className="flex gap-1.5 flex-wrap">
               {Object.keys(GROUPS).map((g) => {
                 const rec = getSectorRecommendation(data.sector);
                 const isRecGroup = rec && rec.defaultGroup === g;
@@ -628,6 +594,22 @@ export default function App() {
                   </button>
                 );
               })}
+              </div>
+              <div className="flex items-center gap-1">
+                {[{ value: 3, label: '3Y' }, { value: 0, label: 'All' }].map(({ value, label }) => (
+                  <button
+                    key={value}
+                    onClick={() => setPeriod(value)}
+                    className={`rounded px-2.5 py-1.5 text-[11px] font-mono font-semibold cursor-pointer border transition-all ${
+                      period === value
+                        ? 'bg-vs-blue/15 text-vs-blue border-vs-blue/50'
+                        : 'bg-transparent text-vs-dim border-vs-border hover:border-vs-borderLight hover:text-vs-soft'
+                    }`}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
             </div>
 
             {/* Metric toggles */}
@@ -665,9 +647,6 @@ export default function App() {
               isYield={isYield}
               isDark={isDark}
             />
-            <p className="text-vs-dim text-[10px] mt-1 font-mono">
-              Dashed = {hist.length}yr avg &middot; "Now" = LTM at current price &middot; Tap a pill for detail
-            </p>
 
             {/* Fundamentals Panel */}
             <FundamentalsPanel hist={hist} now={now} data={data} />
@@ -685,7 +664,7 @@ export default function App() {
             <Thesis sym={sym} />
 
             <div className="mt-4 text-center text-vs-dim text-[10px] font-mono pb-8">
-              Data: Yahoo Finance &middot; Validate against links above &middot; Not financial advice
+              Not financial advice
             </div>
           </>
         )}

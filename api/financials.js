@@ -344,6 +344,8 @@ export default async function handler(req, res) {
       sector:        profile.sector              || '',
       industry:      profile.industry            || '',
       description:   profile.longBusinessSummary || '',
+      irWebsite:     profile.irWebsite           || '',
+      website:       profile.website             || '',
       currentPrice,
       change:        priceData.regularMarketChangePercent ?? null,
       currentMktCap: currentMktCap != null ? currentMktCap / 1e6 : null,
