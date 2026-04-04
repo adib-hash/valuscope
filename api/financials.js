@@ -32,7 +32,10 @@ export default async function handler(req, res) {
   try {
     const period1 = ELEVEN_YEARS_AGO();
 
-    const [summary, finSeries, bsSeries, cfSeries, priceChart] = await Promise.all([
+    const TWO_YEARS_AGO = new Date();
+    TWO_YEARS_AGO.setFullYear(TWO_YEARS_AGO.getFullYear() - 2);
+
+    const [summary, finSeries, bsSeries, cfSeries, priceChart, qtrFinSeries, qtrCfSeries] = await Promise.all([
       // quoteSummary: only non-financial modules (financial statement modules
       // are deprecated since Nov 2024 and cause errors in some environments)
       yahooFinance.quoteSummary(symbol, {
@@ -56,6 +59,16 @@ export default async function handler(req, res) {
 
       // Monthly price history for computing historical multiples
       yahooFinance.chart(symbol, { period1, interval: '1mo' }, { validateResult: false }),
+
+      // Quarterly income statement (for accurate TTM computation in Now row)
+      yahooFinance.fundamentalsTimeSeries(symbol, {
+        period1: TWO_YEARS_AGO, type: 'quarterly', module: 'financials',
+      }, { validateResult: false }),
+
+      // Quarterly cash flow (for accurate TTM computation in Now row)
+      yahooFinance.fundamentalsTimeSeries(symbol, {
+        period1: TWO_YEARS_AGO, type: 'quarterly', module: 'cash-flow',
+      }, { validateResult: false }),
     ]);
 
     // Only keep years that have the core income statement data
@@ -215,12 +228,26 @@ export default async function handler(req, res) {
     });
 
     // ── "Now (LTM)" row ──────────────────────────────────────────────────────
-    // Income statement: TTM figures from financialData
-    const nowRevenue     = fd.totalRevenue      ?? null;
-    const nowGrossProfit = fd.grossProfits      ?? null;
-    const nowEbitda      = fd.ebitda            ?? null;
-    const nowOcf         = fd.operatingCashflow ?? null;
-    const nowFcf         = fd.freeCashflow      ?? null;
+    // Compute TTM from quarterly data (more reliable than financialData which
+    // can report single-quarter figures for some companies like MAR, HLT)
+    const sumLast4 = (series, key) => {
+      const valid = (series || []).filter((q) => q[key] != null).slice(-4);
+      if (valid.length < 4) return null;
+      return valid.reduce((s, q) => s + q[key], 0);
+    };
+
+    const qtrRevenue     = sumLast4(qtrFinSeries, 'totalRevenue');
+    const qtrGrossProfit = sumLast4(qtrFinSeries, 'grossProfit');
+    const qtrEbitda      = sumLast4(qtrFinSeries, 'EBITDA') ?? sumLast4(qtrFinSeries, 'normalizedEBITDA');
+    const qtrOcf         = sumLast4(qtrCfSeries, 'operatingCashFlow');
+    const qtrFcf         = sumLast4(qtrCfSeries, 'freeCashFlow');
+
+    // Prefer quarterly TTM; fall back to financialData
+    const nowRevenue     = qtrRevenue     ?? fd.totalRevenue      ?? null;
+    const nowGrossProfit = qtrGrossProfit ?? fd.grossProfits      ?? null;
+    const nowEbitda      = qtrEbitda      ?? fd.ebitda            ?? null;
+    const nowOcf         = qtrOcf         ?? fd.operatingCashflow ?? null;
+    const nowFcf         = qtrFcf         ?? fd.freeCashflow      ?? null;
 
     // Balance sheet: most recent annual entry (closest to today)
     const latestBs = bsSeries.length ? findNearest(bsSeries, new Date()) : {};

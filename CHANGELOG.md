@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.7.4 — 2026-04-04
+
+### Fixed
+- **LTM revenue now computed from quarterly data** — `financialData.totalRevenue` was returning single-quarter figures for some companies (MAR showed $7B instead of $26B, HLT similarly off); now sums the last 4 quarters from `fundamentalsTimeSeries` for revenue, gross profit, EBITDA, OCF, and FCF; falls back to `financialData` when quarterly data is unavailable
+
 ## 0.7.3 — 2026-04-04
 
 ### Changed
