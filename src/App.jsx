@@ -27,7 +27,7 @@ import {
 } from './lib/watchlist';
 
 const QUICK_TICKERS = ['AAPL', 'MSFT', 'ULTA', 'COST', 'META', 'AMZN', 'GOOGL', 'NFLX'];
-const APP_VERSION   = 'v0.7.2';
+const APP_VERSION   = 'v0.7.3';
 
 // Pills shown in the summary row
 const PILL_METRICS = [
@@ -422,32 +422,24 @@ export default function App() {
                     )}
                   </p>
 
-                  {/* Collapsible company description + sector rationale */}
+                  {/* Collapsible company description */}
                   {data.description && (
-                    <div className="text-vs-dim text-[12px] mt-2 leading-relaxed">
-                      <p>
-                        {descOpen
-                          ? data.description
-                          : data.description.slice(0, 150)}
-                        {data.description.length > 150 && (
-                          <>
-                            {!descOpen && '...'}
-                            <button
-                              onClick={() => setDescOpen(!descOpen)}
-                              className="ml-1.5 text-vs-blue text-[11px] font-mono cursor-pointer hover:underline"
-                            >
-                              {descOpen ? 'less' : 'more'}
-                            </button>
-                          </>
-                        )}
-                      </p>
-                      {descOpen && data.sector && getSectorRecommendation(data.sector) && (
-                        <p className="mt-2 text-vs-soft text-[11px]">
-                          <span className="font-mono font-semibold text-vs-blue">{data.sector}:</span>{' '}
-                          {getSectorRecommendation(data.sector).rationale}
-                        </p>
+                    <p className="text-vs-dim text-[12px] mt-2 leading-relaxed">
+                      {descOpen
+                        ? data.description
+                        : data.description.slice(0, 150)}
+                      {data.description.length > 150 && (
+                        <>
+                          {!descOpen && '...'}
+                          <button
+                            onClick={() => setDescOpen(!descOpen)}
+                            className="ml-1.5 text-vs-blue text-[11px] font-mono cursor-pointer hover:underline"
+                          >
+                            {descOpen ? 'less' : 'more'}
+                          </button>
+                        </>
                       )}
-                    </div>
+                    </p>
                   )}
                 </div>
 
@@ -484,34 +476,27 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Research links */}
-              <div className="flex gap-1.5 mt-2 items-center text-[11px] font-mono">
-                <a
-                  href={`https://stockanalysis.com/stocks/${sym.toLowerCase()}/financials/ratios/`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-vs-dim hover:text-vs-soft hover:underline transition-colors"
-                >
-                  StockAnalysis &#x2197;
-                </a>
-                {(data.irWebsite || data.website) && (
-                  <>
-                    <span className="text-vs-dim">&middot;</span>
-                    <a
-                      href={data.irWebsite || data.website}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="text-vs-dim hover:text-vs-soft hover:underline transition-colors"
-                    >
-                      Investor Relations &#x2197;
-                    </a>
-                  </>
-                )}
-              </div>
+              {/* Research link */}
+              <a
+                href={`https://stockanalysis.com/stocks/${sym.toLowerCase()}/financials/ratios/`}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-block mt-2 text-vs-dim hover:text-vs-soft hover:underline transition-colors text-[11px] font-mono"
+              >
+                StockAnalysis &#x2197;
+              </a>
             </div>
 
+            {/* Sector valuation insight */}
+            {data.sector && getSectorRecommendation(data.sector) && (
+              <p className="mt-5 mb-0 text-vs-soft text-[11px] leading-relaxed">
+                <span className="font-mono font-semibold text-vs-blue">{data.sector}:</span>{' '}
+                {getSectorRecommendation(data.sector).rationale}
+              </p>
+            )}
+
             {/* Pills — snap-scroll on mobile, with inline regime badge */}
-            <div className="flex items-center gap-2 mt-5 mb-1.5">
+            <div className={`flex items-center gap-2 mb-1.5 ${data.sector && getSectorRecommendation(data.sector) ? 'mt-3' : 'mt-5'}`}>
               <span className="text-vs-dim text-[10px] font-mono">
                 LTM vs {hist.length}yr avg
               </span>

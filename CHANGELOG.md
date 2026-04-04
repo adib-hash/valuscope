@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.7.3 — 2026-04-04
+
+### Changed
+- **Single external link** — removed Investor Relations link (Yahoo's `irWebsite` was missing for ~half of tickers, falling back to generic corporate sites); single StockAnalysis link covers financials, ratios, and SEC filings
+- **Sector rationale always visible** — moved back out of collapsed description to a compact line above the pills section
+
 ## 0.7.2 — 2026-04-04
 
 ### Changed
