@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.6.0 — 2026-04-04
+
+### Added
+- **Sector-aware metric recommendations** — auto-detects the stock's sector (via Yahoo Finance) and suggests the most relevant valuation multiples; charts auto-populate with recommended metrics on load (e.g., P/B & P/E for Financials, EV/EBITDA & EV/Sales for Tech)
+- **Sector insight banner** — concise explanation below validation links explaining why certain metrics matter for this sector
+- **Visual recommendation indicators** — recommended group tab gets a blue dot, recommended metrics within each group get a subtle blue border and dot; all metrics remain accessible
+
 ## 0.5.0 — 2026-03-26
 
 ### Added

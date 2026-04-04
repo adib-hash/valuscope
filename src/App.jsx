@@ -15,6 +15,8 @@ import {
   computeAverages,
   computeRanges,
   computePercentiles,
+  getSectorRecommendation,
+  isRecommendedMetric,
 } from './lib/metrics';
 import {
   getWatchlist,
@@ -24,7 +26,7 @@ import {
 } from './lib/watchlist';
 
 const QUICK_TICKERS = ['AAPL', 'MSFT', 'ULTA', 'COST', 'META', 'AMZN', 'GOOGL', 'NFLX'];
-const APP_VERSION   = 'v0.5.0';
+const APP_VERSION   = 'v0.6.0';
 
 // Pills shown in the summary row
 const PILL_METRICS = [
@@ -129,6 +131,16 @@ export default function App() {
       const result = await fetchFinancials(sym);
       setData(result);
       setHistory((prev) => [sym, ...prev.filter((h) => h !== sym)].slice(0, 8));
+
+      // Auto-select recommended metrics for this sector
+      const rec = getSectorRecommendation(result.sector);
+      if (rec) {
+        setGroup(rec.defaultGroup);
+        setSelected(rec.defaultSelected);
+      } else {
+        setGroup('Price Multiples');
+        setSelected(['pe', 'evEbitda']);
+      }
     } catch (e) {
       setError(`Failed to load ${sym}: ${e.message}`);
     }
@@ -492,6 +504,24 @@ export default function App() {
               </div>
             </div>
 
+            {/* Sector recommendation banner */}
+            {data.sector && getSectorRecommendation(data.sector) && (
+              <div
+                className="mt-4 px-3.5 py-2.5 rounded-lg border text-[12px] leading-relaxed"
+                style={{
+                  background: 'rgb(var(--vs-blue) / 0.06)',
+                  borderColor: 'rgb(var(--vs-blue) / 0.2)',
+                }}
+              >
+                <span className="font-mono font-semibold text-vs-blue text-[11px]">
+                  {data.sector}
+                </span>
+                <span className="text-vs-soft ml-1.5">
+                  {getSectorRecommendation(data.sector).rationale}
+                </span>
+              </div>
+            )}
+
             {/* Pills section header with regime badge */}
             <div className="flex items-center gap-2 mt-5 mb-0">
               <span className="text-vs-dim text-[10px] font-mono">
@@ -565,37 +595,65 @@ export default function App() {
 
             {/* Group tabs */}
             <div className="flex gap-1.5 mt-3 flex-wrap">
-              {Object.keys(GROUPS).map((g) => (
-                <button
-                  key={g}
-                  onClick={() => switchGroup(g)}
-                  className={`rounded-md px-3.5 py-1.5 text-xs font-semibold font-mono cursor-pointer border transition-all ${
-                    group === g
-                      ? 'bg-vs-blue text-vs-bg border-vs-blue'
-                      : 'bg-vs-card text-vs-soft border-vs-border hover:border-vs-borderLight'
-                  }`}
-                >
-                  {g}
-                </button>
-              ))}
+              {Object.keys(GROUPS).map((g) => {
+                const rec = getSectorRecommendation(data.sector);
+                const isRecGroup = rec && rec.defaultGroup === g;
+                const hasRecMetrics = rec && GROUPS[g].some((m) => rec.metrics.includes(m.key));
+                return (
+                  <button
+                    key={g}
+                    onClick={() => switchGroup(g)}
+                    className={`rounded-md px-3.5 py-1.5 text-xs font-semibold font-mono cursor-pointer border transition-all flex items-center gap-1.5 ${
+                      group === g
+                        ? 'bg-vs-blue text-vs-bg border-vs-blue'
+                        : 'bg-vs-card text-vs-soft border-vs-border hover:border-vs-borderLight'
+                    }`}
+                  >
+                    {g}
+                    {isRecGroup && (
+                      <span
+                        className="inline-block w-1.5 h-1.5 rounded-full flex-shrink-0"
+                        style={{ background: group === g ? 'rgb(var(--vs-bg))' : 'rgb(var(--vs-blue))' }}
+                        title="Recommended for this sector"
+                      />
+                    )}
+                    {!isRecGroup && hasRecMetrics && (
+                      <span
+                        className="inline-block w-1 h-1 rounded-full flex-shrink-0 opacity-50"
+                        style={{ background: group === g ? 'rgb(var(--vs-bg))' : 'rgb(var(--vs-blue))' }}
+                        title="Contains recommended metrics"
+                      />
+                    )}
+                  </button>
+                );
+              })}
             </div>
 
             {/* Metric toggles */}
             <div className="flex gap-1 mt-2 flex-wrap">
-              {metrics.map((m) => (
-                <button
-                  key={m.key}
-                  onClick={() => toggle(m.key)}
-                  className="rounded px-2.5 py-1 text-[11px] font-medium font-mono cursor-pointer border transition-all"
-                  style={{
-                    background:  selected.includes(m.key) ? `${m.color}15` : 'transparent',
-                    color:       selected.includes(m.key) ? m.color : 'rgb(var(--vs-dim))',
-                    borderColor: selected.includes(m.key) ? m.color : 'rgb(var(--vs-border))',
-                  }}
-                >
-                  {m.label}
-                </button>
-              ))}
+              {metrics.map((m) => {
+                const isRec = isRecommendedMetric(data.sector, m.key);
+                return (
+                  <button
+                    key={m.key}
+                    onClick={() => toggle(m.key)}
+                    className="rounded px-2.5 py-1 text-[11px] font-medium font-mono cursor-pointer border transition-all flex items-center gap-1"
+                    style={{
+                      background:  selected.includes(m.key) ? `${m.color}15` : 'transparent',
+                      color:       selected.includes(m.key) ? m.color : isRec ? 'rgb(var(--vs-soft))' : 'rgb(var(--vs-dim))',
+                      borderColor: selected.includes(m.key) ? m.color : isRec ? 'rgb(var(--vs-blue) / 0.35)' : 'rgb(var(--vs-border))',
+                    }}
+                  >
+                    {m.label}
+                    {isRec && !selected.includes(m.key) && (
+                      <span
+                        className="inline-block w-1 h-1 rounded-full flex-shrink-0"
+                        style={{ background: 'rgb(var(--vs-blue))' }}
+                      />
+                    )}
+                  </button>
+                );
+              })}
             </div>
 
             {/* Chart */}

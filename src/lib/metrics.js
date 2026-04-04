@@ -90,6 +90,87 @@ export const GROUPS = {
 
 export const ALL_METRICS = Object.values(GROUPS).flat();
 
+// ── Sector-based metric recommendations ────────────────────────────────────
+// Maps Yahoo Finance sector names → recommended metrics + rationale
+export const SECTOR_RECOMMENDATIONS = {
+  'Technology': {
+    metrics: ['pe', 'evEbitda', 'evSales', 'pfcf', 'grossMargin', 'revenueGrowth'],
+    defaultGroup: 'EV Multiples',
+    defaultSelected: ['evEbitda', 'evSales'],
+    rationale: 'Tech stocks are typically valued on EV/EBITDA & EV/Sales, with growth and margins as key drivers.',
+  },
+  'Financial Services': {
+    metrics: ['pb', 'pe', 'roic', 'earningsYield', 'netMargin', 'currentRatio'],
+    defaultGroup: 'Price Multiples',
+    defaultSelected: ['pb', 'pe'],
+    rationale: 'Financials are best valued on P/B and P/E — EV multiples are less meaningful due to how debt works in banking.',
+  },
+  'Healthcare': {
+    metrics: ['evEbitda', 'pe', 'evSales', 'pfcf', 'grossMargin', 'revenueGrowth'],
+    defaultGroup: 'EV Multiples',
+    defaultSelected: ['evEbitda', 'evSales'],
+    rationale: 'Healthcare favors EV/EBITDA for profitable firms and EV/Sales for high-growth biotech/pharma.',
+  },
+  'Consumer Cyclical': {
+    metrics: ['pe', 'evEbitda', 'pfcf', 'evSales', 'grossMargin', 'fcfMargin'],
+    defaultGroup: 'Price Multiples',
+    defaultSelected: ['pe', 'evEbitda'],
+    rationale: 'Consumer cyclicals are valued on P/E & EV/EBITDA — watch margins for cyclical shifts.',
+  },
+  'Consumer Defensive': {
+    metrics: ['pe', 'evEbitda', 'fcfYield', 'pfcf', 'grossMargin', 'netDebtToEbitda'],
+    defaultGroup: 'Price Multiples',
+    defaultSelected: ['pe', 'evEbitda'],
+    rationale: 'Staples trade on P/E & EV/EBITDA — FCF yield and leverage matter for dividend sustainability.',
+  },
+  'Industrials': {
+    metrics: ['evEbitda', 'pe', 'pfcf', 'roic', 'ebitdaMargin', 'netDebtToEbitda'],
+    defaultGroup: 'EV Multiples',
+    defaultSelected: ['evEbitda', 'pe'],
+    rationale: 'Industrials are best viewed through EV/EBITDA & P/E, with ROIC as a quality signal.',
+  },
+  'Energy': {
+    metrics: ['evEbitda', 'pfcf', 'fcfYield', 'netDebtToEbitda', 'ebitdaMargin', 'roic'],
+    defaultGroup: 'EV Multiples',
+    defaultSelected: ['evEbitda', 'pfcf'],
+    rationale: 'Energy is valued on EV/EBITDA & FCF — leverage and cash generation matter more than earnings.',
+  },
+  'Real Estate': {
+    metrics: ['pb', 'pe', 'evEbitda', 'fcfYield', 'netDebtToEbitda', 'currentRatio'],
+    defaultGroup: 'Price Multiples',
+    defaultSelected: ['pb', 'pe'],
+    rationale: 'REITs and real estate trade on P/B and earnings multiples — P/FFO is ideal but P/E is a proxy.',
+  },
+  'Utilities': {
+    metrics: ['pe', 'evEbitda', 'fcfYield', 'netDebtToEbitda', 'ebitdaMargin', 'interestCoverage'],
+    defaultGroup: 'Price Multiples',
+    defaultSelected: ['pe', 'evEbitda'],
+    rationale: 'Utilities are valued on P/E & EV/EBITDA — leverage and interest coverage are critical for regulated businesses.',
+  },
+  'Communication Services': {
+    metrics: ['evEbitda', 'evSales', 'pfcf', 'revenueGrowth', 'ebitdaMargin', 'fcfMargin'],
+    defaultGroup: 'EV Multiples',
+    defaultSelected: ['evEbitda', 'evSales'],
+    rationale: 'Media & telecom are valued on EV/EBITDA & EV/Sales — growth and cash flow margins differentiate.',
+  },
+  'Basic Materials': {
+    metrics: ['evEbitda', 'pe', 'pb', 'netDebtToEbitda', 'ebitdaMargin', 'roic'],
+    defaultGroup: 'EV Multiples',
+    defaultSelected: ['evEbitda', 'pe'],
+    rationale: 'Materials trade on EV/EBITDA & P/E — P/B and leverage are important for capital-intensive businesses.',
+  },
+};
+
+export function getSectorRecommendation(sector) {
+  if (!sector) return null;
+  return SECTOR_RECOMMENDATIONS[sector] || null;
+}
+
+export function isRecommendedMetric(sector, metricKey) {
+  const rec = getSectorRecommendation(sector);
+  return rec ? rec.metrics.includes(metricKey) : false;
+}
+
 export function getMetric(key) {
   return ALL_METRICS.find((m) => m.key === key);
 }
