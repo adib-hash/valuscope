@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.8.0 — 2026-04-10
+
+### Added
+- **Interactive price history page** — any loaded ticker now has a `Price chart →` link next to the StockAnalysis link. Opens a dedicated page with an interactive price chart and Today / 5D / 1M / YTD / 1Y / 5Y / Max range buttons. Powered by a new `/api/priceHistory` serverless endpoint that calls `yahooFinance.chart()` with the right interval per range (5m for intraday, 1d for monthly, 1wk for 5Y, 1mo for Max). Line color flips green/red based on the period's total return. Routed via `?view=price` so URLs remain shareable.
+
 ## 0.7.4 — 2026-04-04
 
 ### Fixed

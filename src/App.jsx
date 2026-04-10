@@ -9,6 +9,7 @@ import FundamentalsPanel from './components/FundamentalsPanel';
 import FairValueTable from './components/FairValueTable';
 import Thesis from './components/Thesis';
 import CompsTable from './components/CompsTable';
+import PriceHistoryPage from './components/PriceHistoryPage';
 import { fetchFinancials } from './lib/api';
 import {
   GROUPS,
@@ -27,7 +28,7 @@ import {
 } from './lib/watchlist';
 
 const QUICK_TICKERS = ['AAPL', 'MSFT', 'ULTA', 'COST', 'META', 'AMZN', 'GOOGL', 'NFLX'];
-const APP_VERSION   = 'v0.7.4';
+const APP_VERSION   = 'v0.8.0';
 
 // Pills shown in the summary row
 const PILL_METRICS = [
@@ -41,6 +42,7 @@ const PILL_METRICS = [
 
 export default function App() {
   const [searchParams, setSearchParams] = useSearchParams();
+  const view = searchParams.get('view');
 
   // ── Data state ──────────────────────────────────────────────────────────────
   const [loading,  setLoading]  = useState(false);
@@ -117,6 +119,18 @@ export default function App() {
     setDescOpen(false);
     setActivePill(null);
     setSearchParams({});
+  };
+
+  const openPriceChart = () => {
+    if (!sym) return;
+    setSearchParams({ ticker: sym, view: 'price' }, { replace: false });
+    window.scrollTo(0, 0);
+  };
+
+  const closePriceChart = () => {
+    if (!sym) { setSearchParams({}); return; }
+    setSearchParams({ ticker: sym }, { replace: false });
+    window.scrollTo(0, 0);
   };
 
   const loadCompany = async (ticker) => {
@@ -383,8 +397,17 @@ export default function App() {
           </div>
         )}
 
+        {/* ── Price Chart Page ─────────────────────────────────────────────── */}
+        {data && !loading && view === 'price' && (
+          <PriceHistoryPage
+            ticker={sym}
+            companyName={data.companyName}
+            onBack={closePriceChart}
+          />
+        )}
+
         {/* ── Dashboard ──────────────────────────────────────────────────────── */}
-        {data && now && !loading && (
+        {data && now && !loading && view !== 'price' && (
           <>
             {/* Company header */}
             <div className="mt-5">
@@ -485,6 +508,12 @@ export default function App() {
               >
                 StockAnalysis &#x2197;
               </a>
+              <button
+                onClick={openPriceChart}
+                className="inline-flex items-center gap-1 ml-3 text-vs-blue hover:underline text-[11px] font-mono cursor-pointer"
+              >
+                Price chart →
+              </button>
             </div>
 
             {/* Sector valuation insight */}

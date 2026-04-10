@@ -24,3 +24,7 @@ export async function fetchFinancials(ticker) {
 export async function fetchComps(ticker) {
   return apiFetch(`/api/comps?ticker=${encodeURIComponent(ticker)}`);
 }
+
+export async function fetchPriceHistory(ticker, range = '1Y') {
+  return apiFetch(`/api/priceHistory?ticker=${encodeURIComponent(ticker)}&range=${encodeURIComponent(range)}`);
+}
