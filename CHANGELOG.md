@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.8.1 — 2026-04-10
+
+### Added
+- **Drag-to-measure return** on the price history chart — click and drag across any two points to highlight that window and show the percentage return and dollar change between them. Works with all ranges (Today → Max). Selection resets when the range or ticker changes.
+
 ## 0.8.0 — 2026-04-10
 
 ### Added

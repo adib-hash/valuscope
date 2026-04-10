@@ -3,6 +3,7 @@ import {
   Area,
   AreaChart,
   CartesianGrid,
+  ReferenceArea,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -77,6 +78,13 @@ export default function PriceHistoryPage({ ticker, companyName, onBack }) {
   const [loading, setLoading] = useState(false);
   const [error, setError]     = useState('');
   const [data, setData]       = useState(null);
+  // Drag-to-select: indices into the quotes array
+  const [sel, setSel] = useState({ start: null, end: null, dragging: false });
+
+  // Reset selection whenever the range or ticker changes
+  useEffect(() => {
+    setSel({ start: null, end: null, dragging: false });
+  }, [range, ticker]);
 
   useEffect(() => {
     if (!ticker) return;
@@ -109,6 +117,36 @@ export default function PriceHistoryPage({ ticker, companyName, onBack }) {
     const pad = (hi - lo) * 0.08 || hi * 0.02 || 1;
     return { minY: Math.max(0, lo - pad), maxY: hi + pad };
   }, [quotes]);
+
+  // Selection range (sorted)
+  const hasSelection =
+    sel.start != null && sel.end != null && sel.start !== sel.end && quotes.length > 0;
+  const selA = hasSelection ? Math.min(sel.start, sel.end) : null;
+  const selB = hasSelection ? Math.max(sel.start, sel.end) : null;
+  const selStartQuote = hasSelection ? quotes[Math.max(0, Math.min(selA, quotes.length - 1))] : null;
+  const selEndQuote   = hasSelection ? quotes[Math.max(0, Math.min(selB, quotes.length - 1))] : null;
+  const selChange =
+    selStartQuote && selEndQuote ? selEndQuote.close - selStartQuote.close : null;
+  const selPct =
+    selStartQuote && selStartQuote.close > 0 && selChange != null
+      ? (selChange / selStartQuote.close) * 100
+      : null;
+  const selUp = (selPct ?? 0) >= 0;
+
+  const handleMouseDown = (e) => {
+    if (e && e.activeTooltipIndex != null) {
+      setSel({ start: e.activeTooltipIndex, end: e.activeTooltipIndex, dragging: true });
+    }
+  };
+  const handleMouseMove = (e) => {
+    if (sel.dragging && e && e.activeTooltipIndex != null) {
+      setSel((s) => ({ ...s, end: e.activeTooltipIndex }));
+    }
+  };
+  const handleMouseUp = () => {
+    setSel((s) => ({ ...s, dragging: false }));
+  };
+  const clearSelection = () => setSel({ start: null, end: null, dragging: false });
 
   const up = (data?.changePct ?? 0) >= 0;
   const lineColor = up ? '#38D89A' : '#F25C5C';
@@ -167,6 +205,42 @@ export default function PriceHistoryPage({ ticker, companyName, onBack }) {
         ))}
       </div>
 
+      {/* Selection summary */}
+      {hasSelection && selStartQuote && selEndQuote && (
+        <div className="mt-3 flex items-center justify-between gap-2 flex-wrap bg-vs-card border border-vs-border rounded-lg px-3.5 py-2">
+          <div className="flex items-center gap-2 flex-wrap text-[11px] font-mono">
+            <span className="text-vs-dim">Selection</span>
+            <span className="text-vs-soft">
+              {formatTooltipDate(selStartQuote.date, range)}
+            </span>
+            <span className="text-vs-dim">→</span>
+            <span className="text-vs-soft">
+              {formatTooltipDate(selEndQuote.date, range)}
+            </span>
+          </div>
+          <div className="flex items-center gap-3 flex-wrap text-[12px] font-mono">
+            <span style={{ color: selUp ? '#38D89A' : '#F25C5C' }} className="font-semibold">
+              {selUp ? '+' : ''}{selPct?.toFixed(2)}%
+            </span>
+            <span className="text-vs-soft">
+              {selUp ? '+' : ''}{fmtPrice(selChange, currency)}
+            </span>
+            <button
+              onClick={clearSelection}
+              className="text-vs-dim hover:text-vs-soft text-[10px] font-mono cursor-pointer underline"
+            >
+              clear
+            </button>
+          </div>
+        </div>
+      )}
+
+      {!hasSelection && quotes.length > 0 && !loading && (
+        <p className="text-vs-dim text-[10px] font-mono mt-2">
+          Tip: drag across the chart to measure return between any two points
+        </p>
+      )}
+
       {/* Chart area */}
       <div className="bg-vs-card border border-vs-border rounded-xl mt-4 p-4">
         <div className="h-[320px] sm:h-[420px] md:h-[480px]">
@@ -182,7 +256,15 @@ export default function PriceHistoryPage({ ticker, companyName, onBack }) {
           )}
           {!loading && !error && quotes.length > 0 && (
             <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={quotes} margin={{ top: 10, right: 16, left: 8, bottom: 8 }}>
+              <AreaChart
+                data={quotes}
+                margin={{ top: 10, right: 16, left: 8, bottom: 8 }}
+                onMouseDown={handleMouseDown}
+                onMouseMove={handleMouseMove}
+                onMouseUp={handleMouseUp}
+                onMouseLeave={handleMouseUp}
+                style={{ userSelect: 'none', cursor: sel.dragging ? 'ew-resize' : 'crosshair' }}
+              >
                 <defs>
                   <linearGradient id={gradId} x1="0" y1="0" x2="0" y2="1">
                     <stop offset="0%"   stopColor={lineColor} stopOpacity={0.35} />
@@ -215,6 +297,16 @@ export default function PriceHistoryPage({ ticker, companyName, onBack }) {
                   fill={`url(#${gradId})`}
                   isAnimationActive={false}
                 />
+                {hasSelection && selStartQuote && selEndQuote && (
+                  <ReferenceArea
+                    x1={selStartQuote.date}
+                    x2={selEndQuote.date}
+                    stroke={selUp ? '#38D89A' : '#F25C5C'}
+                    strokeOpacity={0.6}
+                    fill={selUp ? '#38D89A' : '#F25C5C'}
+                    fillOpacity={0.12}
+                  />
+                )}
               </AreaChart>
             </ResponsiveContainer>
           )}
