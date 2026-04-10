@@ -131,6 +131,15 @@ export default function PriceHistoryPage({ ticker, companyName, onBack }) {
     selStartQuote && selStartQuote.close > 0 && selChange != null
       ? (selChange / selStartQuote.close) * 100
       : null;
+  const selYears =
+    selStartQuote && selEndQuote
+      ? (new Date(selEndQuote.date) - new Date(selStartQuote.date)) /
+        (365.25 * 24 * 60 * 60 * 1000)
+      : null;
+  const selCagr =
+    selStartQuote && selEndQuote && selStartQuote.close > 0 && selYears && selYears >= 30 / 365.25
+      ? (Math.pow(selEndQuote.close / selStartQuote.close, 1 / selYears) - 1) * 100
+      : null;
   const selUp = (selPct ?? 0) >= 0;
 
   const handleMouseDown = (e) => {
@@ -225,6 +234,14 @@ export default function PriceHistoryPage({ ticker, companyName, onBack }) {
             <span className="text-vs-soft">
               {selUp ? '+' : ''}{fmtPrice(selChange, currency)}
             </span>
+            {selCagr != null && (
+              <span className="text-vs-dim">
+                CAGR{' '}
+                <span style={{ color: selCagr >= 0 ? '#38D89A' : '#F25C5C' }} className="font-semibold">
+                  {selCagr >= 0 ? '+' : ''}{selCagr.toFixed(2)}%
+                </span>
+              </span>
+            )}
             <button
               onClick={clearSelection}
               className="text-vs-dim hover:text-vs-soft text-[10px] font-mono cursor-pointer underline"
@@ -242,7 +259,7 @@ export default function PriceHistoryPage({ ticker, companyName, onBack }) {
       )}
 
       {/* Chart area */}
-      <div className="bg-vs-card border border-vs-border rounded-xl mt-4 p-4">
+      <div className="bg-vs-card border border-vs-border rounded-xl mt-4 p-4 select-none">
         <div className="h-[320px] sm:h-[420px] md:h-[480px]">
           {loading && (
             <div className="h-full flex items-center justify-center text-vs-dim text-[12px] font-mono">

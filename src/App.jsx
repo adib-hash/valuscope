@@ -28,7 +28,7 @@ import {
 } from './lib/watchlist';
 
 const QUICK_TICKERS = ['AAPL', 'MSFT', 'ULTA', 'COST', 'META', 'AMZN', 'GOOGL', 'NFLX'];
-const APP_VERSION   = 'v0.8.1';
+const APP_VERSION   = 'v0.8.2';
 
 // Pills shown in the summary row
 const PILL_METRICS = [

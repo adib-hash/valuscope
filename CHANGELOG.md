@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.8.2 — 2026-04-10
+
+### Added
+- **CAGR in selection summary** — dragging across the price chart now shows annualized CAGR alongside total return and dollar change (hidden for selections under ~30 days where CAGR is meaningless)
+
+### Fixed
+- **Axis tick labels no longer highlight during drag** — added `select-none` to the chart container so browser text selection is suppressed on the whole card, not just the SVG
+
 ## 0.8.1 — 2026-04-10
 
 ### Added
