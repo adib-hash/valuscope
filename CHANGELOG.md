@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.9.0 — 2026-04-21
+
+### Added
+- **Earnings call transcripts** — any loaded ticker now has an `Earnings call →` link next to `Price chart →`. Opens a dedicated `?view=earnings` page with Year/Quarter selectors, a search-within-transcript input, and speaker-separated rendering that automatically highlights guidance-style phrases ("we expect", "full-year guidance", "raising our outlook", etc.). Defaults to the most recently completed quarter and auto-falls back to the prior quarter if the API hasn't indexed it yet. Powered by a new `/api/earnings` Vercel function that proxies API Ninjas with a 1-week edge cache (transcripts are immutable, so each ticker × quarter tuple costs exactly one API call).
+
 ## 0.8.2 — 2026-04-10
 
 ### Added
