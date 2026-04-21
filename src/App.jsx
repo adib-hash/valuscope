@@ -10,7 +10,6 @@ import FairValueTable from './components/FairValueTable';
 import Thesis from './components/Thesis';
 import CompsTable from './components/CompsTable';
 import PriceHistoryPage from './components/PriceHistoryPage';
-import EarningsTranscriptPage from './components/EarningsTranscriptPage';
 import { fetchFinancials } from './lib/api';
 import {
   GROUPS,
@@ -29,7 +28,7 @@ import {
 } from './lib/watchlist';
 
 const QUICK_TICKERS = ['AAPL', 'MSFT', 'ULTA', 'COST', 'META', 'AMZN', 'GOOGL', 'NFLX'];
-const APP_VERSION   = 'v0.9.0';
+const APP_VERSION   = 'v0.8.2';
 
 // Pills shown in the summary row
 const PILL_METRICS = [
@@ -129,18 +128,6 @@ export default function App() {
   };
 
   const closePriceChart = () => {
-    if (!sym) { setSearchParams({}); return; }
-    setSearchParams({ ticker: sym }, { replace: false });
-    window.scrollTo(0, 0);
-  };
-
-  const openEarnings = () => {
-    if (!sym) return;
-    setSearchParams({ ticker: sym, view: 'earnings' }, { replace: false });
-    window.scrollTo(0, 0);
-  };
-
-  const closeEarnings = () => {
     if (!sym) { setSearchParams({}); return; }
     setSearchParams({ ticker: sym }, { replace: false });
     window.scrollTo(0, 0);
@@ -419,17 +406,8 @@ export default function App() {
           />
         )}
 
-        {/* ── Earnings Call Transcript Page ─────────────────────────────────── */}
-        {data && !loading && view === 'earnings' && (
-          <EarningsTranscriptPage
-            ticker={sym}
-            companyName={data.companyName}
-            onBack={closeEarnings}
-          />
-        )}
-
         {/* ── Dashboard ──────────────────────────────────────────────────────── */}
-        {data && now && !loading && view !== 'price' && view !== 'earnings' && (
+        {data && now && !loading && view !== 'price' && (
           <>
             {/* Company header */}
             <div className="mt-5">
@@ -535,12 +513,6 @@ export default function App() {
                 className="inline-flex items-center gap-1 ml-3 text-vs-blue hover:underline text-[11px] font-mono cursor-pointer"
               >
                 Price chart →
-              </button>
-              <button
-                onClick={openEarnings}
-                className="inline-flex items-center gap-1 ml-3 text-vs-violet hover:underline text-[11px] font-mono cursor-pointer"
-              >
-                Earnings call →
               </button>
             </div>
 
