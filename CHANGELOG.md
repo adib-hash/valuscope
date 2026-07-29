@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.13.0 — 2026-07-28
+
+### Added
+- **AI summary of earnings calls.** A "Summarize this call" button on the transcript page produces an overview plus key takeaways, financial highlights, guidance, what analysts pressed on, and the risks management acknowledged. Powered by Gemini 3.6 Flash on the free tier.
+- It only runs when asked. Nothing is generated on page load — the call takes 10–15 seconds, and an unrequested AI summary isn't something a valuation tool should be pushing at you.
+- The prompt is deliberately extractive: grounded strictly in the transcript, no outside knowledge, forward-looking statements attributed to management rather than asserted as fact, and no price view or recommendation of any kind. A response schema keeps the sections stable. Output is labelled AI-generated and carries a not-financial-advice note.
+- A summary is a pure function of a transcript that never changes once published, so responses are edge-cached for 30 days — any given quarter is generated once and then served from cache.
+
+### Notes
+- Requires `GEMINI_API_KEY` (free, no card, from https://aistudio.google.com/apikey). Deployments without one hide the button entirely rather than offering an action that can only fail.
+- `api/summarize.js` runs with `maxDuration: 60`. Vercel's default 10s ceiling would have failed every request — generation takes about 11s for Apple and 15s for Costco's longer call.
+
 ## 0.12.0 — 2026-07-28
 
 ### Added
