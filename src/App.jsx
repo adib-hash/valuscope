@@ -10,7 +10,8 @@ import FairValueTable from './components/FairValueTable';
 import Thesis from './components/Thesis';
 import CompsTable from './components/CompsTable';
 import PriceHistoryPage from './components/PriceHistoryPage';
-import { fetchFinancials } from './lib/api';
+import { fetchFinancials, fetchHistory } from './lib/api';
+import { mergeHistory } from './lib/history';
 import {
   GROUPS,
   ALL_METRICS,
@@ -28,7 +29,7 @@ import {
 } from './lib/watchlist';
 
 const QUICK_TICKERS = ['AAPL', 'MSFT', 'ULTA', 'COST', 'META', 'AMZN', 'GOOGL', 'NFLX'];
-const APP_VERSION   = 'v0.8.2';
+const APP_VERSION   = 'v0.9.0';
 
 // Pills shown in the summary row
 const PILL_METRICS = [
@@ -59,6 +60,7 @@ export default function App() {
   const [activePill,   setActivePill]   = useState(null);
   const [copied,       setCopied]       = useState(false);
   const copyTimer = useRef(null);
+  const activeSymbol = useRef('');
 
   // ── Theme ────────────────────────────────────────────────────────────────────
   const [isDark, setIsDark] = useState(() => {
@@ -142,10 +144,23 @@ export default function App() {
     setDescOpen(false);
     setActivePill(null);
     setSearchParams({ ticker: sym }, { replace: true });
+    activeSymbol.current = sym;
     try {
       const result = await fetchFinancials(sym);
       setData(result);
       setHistory((prev) => [sym, ...prev.filter((h) => h !== sym)].slice(0, 8));
+
+      // Deep history is fetched separately and merged in when it arrives, so a
+      // slow SEC response never holds up the dashboard. Failures are silent by
+      // design: the Yahoo-only view is still perfectly usable.
+      fetchHistory(sym)
+        .then((deep) => {
+          if (activeSymbol.current !== sym || !deep?.years?.length) return;
+          setData((prev) => (prev && prev.symbol === sym
+            ? { ...prev, years: mergeHistory(prev.years, deep.years), historySource: deep.source }
+            : prev));
+        })
+        .catch(() => {});
 
       // Auto-select recommended metrics for this sector
       const rec = getSectorRecommendation(result.sector);
@@ -171,6 +186,16 @@ export default function App() {
   const isYield = group === 'Yield Metrics' || group === 'Growth & Margins';
   const sym     = data?.symbol || '';
   const watched = sym ? isWatched(sym) : false;
+
+  // 5Y and 10Y only appear once SEC EDGAR history has deepened the series --
+  // offering a 10Y average over four years of data would be misleading.
+  const periodOptions = useMemo(() => {
+    const opts = [{ value: 3, label: '3Y' }];
+    if (allHist.length > 5)  opts.push({ value: 5,  label: '5Y'  });
+    if (allHist.length > 10) opts.push({ value: 10, label: '10Y' });
+    opts.push({ value: 0, label: 'All' });
+    return opts;
+  }, [allHist.length]);
 
   const avgs        = useMemo(() => computeAverages(hist),               [hist]);
   const ranges      = useMemo(() => computeRanges(hist),                 [hist]);
@@ -529,6 +554,14 @@ export default function App() {
               <span className="text-vs-dim text-[10px] font-mono">
                 LTM vs {hist.length}yr avg
               </span>
+              {data.historySource === 'sec-edgar' && (
+                <span
+                  className="text-vs-dim text-[9px] font-mono hidden sm:inline"
+                  title="Years beyond Yahoo Finance's ~4-year window come from SEC EDGAR filings"
+                >
+                  &middot; SEC EDGAR
+                </span>
+              )}
               {REGIME && (
                 <span
                   className="text-[9px] font-mono font-bold px-2 py-0.5 rounded-full"
@@ -610,7 +643,7 @@ export default function App() {
               })}
               </div>
               <div className="flex items-center gap-1">
-                {[{ value: 3, label: '3Y' }, { value: 0, label: 'All' }].map(({ value, label }) => (
+                {periodOptions.map(({ value, label }) => (
                   <button
                     key={value}
                     onClick={() => setPeriod(value)}
@@ -711,6 +744,7 @@ export default function App() {
                 { label: 'App',         value: 'ValuScope' },
                 { label: 'Version',     value: APP_VERSION },
                 { label: 'Data source', value: 'Yahoo Finance' },
+                { label: 'Deep history', value: 'SEC EDGAR' },
               ].map(({ label, value }) => (
                 <div key={label} className="flex justify-between items-center py-3">
                   <span className="text-vs-soft text-[13px]">{label}</span>

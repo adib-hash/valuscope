@@ -1,4 +1,5 @@
-// Client-side data fetching — calls our own /api routes (which proxy to FMP server-side)
+// Client-side data fetching — calls our own /api routes, which reach Yahoo
+// Finance and SEC EDGAR server-side.
 
 const isDev = import.meta.env.DEV;
 
@@ -23,6 +24,12 @@ export async function fetchFinancials(ticker) {
 
 export async function fetchComps(ticker) {
   return apiFetch(`/api/comps?ticker=${encodeURIComponent(ticker)}`);
+}
+
+// Deep multiples history from SEC EDGAR. Fetched alongside fetchFinancials and
+// merged in when it lands, so the dashboard never waits on it.
+export async function fetchHistory(ticker) {
+  return apiFetch(`/api/history?ticker=${encodeURIComponent(ticker)}`);
 }
 
 export async function fetchPriceHistory(ticker, range = '1Y') {

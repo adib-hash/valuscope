@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.9.0 — 2026-07-28
+
+### Added
+- **Deep history engine — true 10–15 year multiples via SEC EDGAR.** Yahoo Finance only returns about four years of annual statements, which made every "vs. historical average" claim in the app rest on a very short window. A new `/api/history` endpoint pulls annual fundamentals from the SEC's free, keyless XBRL `companyfacts` API and pairs them with Yahoo month-end prices, extending the series to 15 years for most US filers. Apple's average P/E over four years is 31x; over fifteen it is 21x — the current 41x reads very differently against the longer record.
+- **5Y and 10Y period toggles are back.** They were removed in 0.7.2 because Yahoo could not support them. The buttons now appear only once the series is actually deep enough, so a 10Y average always reflects ten years of data.
+- **Shared valuation module** (`api/_lib/valuation.js`) — the Yahoo and EDGAR paths now compute every multiple through one function, so the two data sources cannot drift apart and produce a step in the chart. Verified: the sources agree within 1–4% on overlapping years.
+
+### Fixed
+- **Historical market caps were wrong across stock splits.** Yahoo reports prices already restated for splits while SEC reports share counts exactly as filed, so multiplying them understated Apple's FY2011 market cap by 28x. Share counts are now restated using the splits recorded since the date each figure was *filed* — a FY2019 count republished in the FY2021 10-K already reflects the 2020 split and must not be adjusted twice.
+
+### Notes on data coverage
+- Banks (JPM) correctly show no EV/EBITDA or P/FCF: interest is a core operating cost for a lender, not a financing charge, so a reconstructed EBIT would be meaningless. P/E and P/B — the multiples that actually matter for financials — cover the full 15 years.
+- Foreign private issuers (TSM) file 20-F rather than 10-K and have no XBRL company facts. They fall back silently to the Yahoo four-year view.
+- Companies whose share counts are reported entirely by share class (Visa) have no consolidated count to read, and also fall back to the Yahoo view.
+- Exxon's ticker maps to a post-reorganisation holding company with no filings; its history is read from the predecessor CIK.
+
 ## 0.8.2 — 2026-04-10
 
 ### Added
