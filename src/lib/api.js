@@ -32,6 +32,12 @@ export async function fetchHistory(ticker) {
   return apiFetch(`/api/history?ticker=${encodeURIComponent(ticker)}`);
 }
 
+// Batch live quotes for the watchlist dashboard.
+export async function fetchOverview(symbols) {
+  if (!symbols?.length) return { quotes: [] };
+  return apiFetch(`/api/overview?symbols=${encodeURIComponent(symbols.join(','))}`);
+}
+
 // Earnings calendar, surprise history and forward estimates.
 export async function fetchEarnings(ticker) {
   return apiFetch(`/api/earnings?ticker=${encodeURIComponent(ticker)}`);

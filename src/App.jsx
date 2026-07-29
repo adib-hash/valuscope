@@ -10,6 +10,7 @@ import FairValueTable from './components/FairValueTable';
 import Thesis from './components/Thesis';
 import CompsTable from './components/CompsTable';
 import EarningsPanel from './components/EarningsPanel';
+import WatchlistDashboard from './components/WatchlistDashboard';
 import PriceHistoryPage from './components/PriceHistoryPage';
 import { fetchFinancials, fetchHistory } from './lib/api';
 import { mergeHistory } from './lib/history';
@@ -21,7 +22,10 @@ import {
   computePercentiles,
   getSectorRecommendation,
   isRecommendedMetric,
+  getRegime,
 } from './lib/metrics';
+import { computeFairValue, median } from './lib/fundamentals';
+import { saveSummary, pruneSummaries } from './lib/summaryCache';
 import {
   getWatchlist,
   addToWatchlist,
@@ -30,7 +34,7 @@ import {
 } from './lib/watchlist';
 
 const QUICK_TICKERS = ['AAPL', 'MSFT', 'ULTA', 'COST', 'META', 'AMZN', 'GOOGL', 'NFLX'];
-const APP_VERSION   = 'v0.10.0';
+const APP_VERSION   = 'v0.11.0';
 
 // Pills shown in the summary row
 const PILL_METRICS = [
@@ -90,7 +94,9 @@ export default function App() {
   const toggleWatchlist = (sym) => {
     if (isWatched(sym)) removeFromWatchlist(sym);
     else addToWatchlist(sym);
-    setWatchlist(getWatchlist());
+    const next = getWatchlist();
+    setWatchlist(next);
+    pruneSummaries(next);
   };
 
   // ── Scroll lock for modals (CLAUDE.md position:fixed pattern) ───────────────
@@ -207,12 +213,38 @@ export default function App() {
     return vals.length ? Math.round(vals.reduce((a, b) => a + b, 0) / vals.length) : null;
   }, [percentiles]);
 
-  const REGIME = regimePercentile == null  ? null
-    : regimePercentile <= 20 ? { label: 'DEEP VALUE', color: '#38D89A' }
-    : regimePercentile <= 40 ? { label: 'UNDERVALUED', color: '#4E94F8' }
-    : regimePercentile <= 60 ? { label: 'FAIR VALUE',  color: '#94A0B8' }
-    : regimePercentile <= 80 ? { label: 'STRETCHED',   color: '#E8AA30' }
-    :                          { label: 'EXPENSIVE',   color: '#F25C5C' };
+  const REGIME = getRegime(regimePercentile);
+
+  // The watchlist summary is always computed against the *full* history rather
+  // than the visible period, so toggling to 3Y doesn't quietly change what the
+  // watchlist reports for this ticker.
+  useEffect(() => {
+    if (!sym || !data || !now || !allHist.length) return;
+    const fullPercentiles = computePercentiles(allHist, now);
+    const vals = PILL_METRICS
+      .map((m) => fullPercentiles[m.key])
+      .filter((v) => v != null);
+    const percentile = vals.length
+      ? Math.round(vals.reduce((a, b) => a + b, 0) / vals.length)
+      : null;
+    const regime = getRegime(percentile);
+
+    const fairValue = computeFairValue(allHist, now, data.currentPrice);
+    const blended = fairValue.length ? median(fairValue.map((r) => r.impliedPrice)) : null;
+    const upsidePercent = blended != null && data.currentPrice
+      ? ((blended - data.currentPrice) / data.currentPrice) * 100
+      : null;
+
+    saveSummary(sym, {
+      name: data.companyName,
+      sector: data.sector,
+      regimeLabel: regime?.label ?? null,
+      regimeColor: regime?.color ?? null,
+      percentile,
+      upsidePercent,
+      histYears: allHist.length,
+    });
+  }, [sym, data, now, allHist]);
 
   const visibleYears = [...hist, now].filter(Boolean);
   const chartData = visibleYears.map((d) => ({
@@ -381,30 +413,13 @@ export default function App() {
               Historical valuation multiples from Yahoo Finance
             </div>
 
-            {/* Watchlist */}
-            {watchlist.length > 0 && (
-              <div className="mt-6">
-                <p className="text-vs-dim text-[10px] font-mono uppercase tracking-widest mb-2.5">
-                  Watchlist
-                </p>
-                <div className="flex gap-2 justify-center flex-wrap">
-                  {watchlist.map((t) => (
-                    <button
-                      key={t}
-                      onClick={() => loadCompany(t)}
-                      className="bg-vs-blue/10 text-vs-blue border border-vs-blue/30 rounded-md px-3.5 py-1.5 text-xs font-mono cursor-pointer hover:bg-vs-blue/20 transition-colors"
-                    >
-                      {t}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
+            {/* Watchlist command centre */}
+            <WatchlistDashboard symbols={watchlist} onSelectTicker={loadCompany} />
 
             {/* Quick picks */}
-            <div className={watchlist.length > 0 ? 'mt-5' : 'mt-5'}>
+            <div className={watchlist.length > 0 ? 'mt-8' : 'mt-5'}>
               {watchlist.length > 0 && (
-                <p className="text-vs-dim text-[10px] font-mono uppercase tracking-widest mb-2.5">
+                <p className="text-vs-dim text-[10px] font-mono uppercase tracking-widest mb-2.5 text-left">
                   Quick Picks
                 </p>
               )}

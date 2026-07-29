@@ -227,3 +227,14 @@ export function computePercentiles(histYears, nowYear) {
   });
   return result;
 }
+
+// Valuation regime from a metric's percentile against its own history.
+// Shared so the dashboard badge and the watchlist rows can never disagree.
+export function getRegime(percentile) {
+  if (percentile == null) return null;
+  if (percentile <= 20) return { label: 'DEEP VALUE',  color: '#38D89A' };
+  if (percentile <= 40) return { label: 'UNDERVALUED', color: '#4E94F8' };
+  if (percentile <= 60) return { label: 'FAIR VALUE',  color: '#94A0B8' };
+  if (percentile <= 80) return { label: 'STRETCHED',   color: '#E8AA30' };
+  return { label: 'EXPENSIVE', color: '#F25C5C' };
+}

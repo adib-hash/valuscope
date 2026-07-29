@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.11.0 — 2026-07-28
+
+### Added
+- **Watchlist command centre.** The landing page used to show the watchlist as a row of bare ticker chips. It is now a live dashboard: every saved ticker with its price, today's move, valuation regime, percentile against its own long-run history, distance to blended fair value, and next earnings date. Sortable by cheapest (the default), today's move, or alphabetically — so the first thing you see on opening the app is which of your names is cheapest relative to its own record.
+- **New `/api/overview` endpoint** — a single batched Yahoo `quote` call covers the whole watchlist regardless of length, so the landing view stays cheap.
+- **Per-ticker valuation summaries cached in localStorage.** Recomputing regime and fair value for twenty tickers on page load would mean twenty full financial pipelines. Instead each dashboard saves its own summary as you visit it, and the watchlist reads what's cached, labelled with how recently it was computed. Tickers you haven't opened yet say so rather than showing a misleading blank.
+
+### Changed
+- **Valuation regime thresholds moved into `src/lib/metrics.js`** as a shared `getRegime()`, so the dashboard badge and the watchlist rows cannot drift apart.
+- Watchlist summaries are always computed against the **full** history rather than the currently selected period, so switching the chart to 3Y no longer changes what the watchlist reports.
+
 ## 0.10.0 — 2026-07-28
 
 ### Added
