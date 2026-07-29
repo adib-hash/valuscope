@@ -50,6 +50,14 @@ export async function fetchTranscript(ticker, year, quarter) {
   return apiFetch(`/api/transcript?${params}`);
 }
 
+// AI summary of an earnings call. Slow (10-15s) and explicitly user-triggered,
+// so it is never called as part of a page load.
+export async function fetchSummary(ticker, year, quarter) {
+  const params = new URLSearchParams({ ticker });
+  if (year && quarter) { params.set('year', year); params.set('quarter', quarter); }
+  return apiFetch(`/api/summarize?${params}`);
+}
+
 export async function fetchPriceHistory(ticker, range = '1Y') {
   return apiFetch(`/api/priceHistory?ticker=${encodeURIComponent(ticker)}&range=${encodeURIComponent(range)}`);
 }

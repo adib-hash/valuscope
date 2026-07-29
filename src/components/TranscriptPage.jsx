@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { fetchTranscript } from '../lib/api';
+import CallSummary from './CallSummary';
 
 const QUARTER_LABEL = (q) => `Q${q.quarter} FY${q.year}`;
 
@@ -157,6 +158,17 @@ export default function TranscriptPage({ ticker, companyName, onBack }) {
           </div>
         )}
       </div>
+
+      {/* Summary is keyed by quarter so switching calls resets it rather than
+          leaving the previous quarter's takeaways on screen. */}
+      {paragraphs.length > 0 && !loading && data?.summaryAvailable && (
+        <CallSummary
+          key={`${ticker}-${data.year}-${data.quarter}`}
+          ticker={ticker}
+          year={data.year}
+          quarter={data.quarter}
+        />
+      )}
 
       {/* Search within the call */}
       {paragraphs.length > 0 && (

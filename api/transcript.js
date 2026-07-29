@@ -50,7 +50,12 @@ export default async function handler(req, res) {
 
     // Published transcripts are immutable — cache for a week, serve stale for a month.
     res.setHeader('Cache-Control', 's-maxage=604800, stale-while-revalidate=2592000');
-    return res.status(200).json(result);
+    return res.status(200).json({
+      ...result,
+      // Lets the client hide the summarise button entirely on deployments with
+      // no Gemini key, rather than offering an action that can only fail.
+      summaryAvailable: !!process.env.GEMINI_API_KEY,
+    });
 
   } catch (err) {
     console.error('Transcript error:', err);
