@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite';
+import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 
 // Serves the /api serverless handlers inside the Vite dev server so `npm run
@@ -43,6 +43,15 @@ function apiDevServer() {
   };
 }
 
-export default defineConfig({
-  plugins: [react(), apiDevServer()],
+export default defineConfig(({ mode }) => {
+  // The /api handlers read process.env directly, the way they will on Vercel.
+  // Vite parses .env but does not populate process.env for server-side code, so
+  // the values are copied across here — otherwise anything key-dependent
+  // silently behaves as if it were unconfigured in local dev.
+  const env = loadEnv(mode, process.cwd(), '');
+  for (const [key, value] of Object.entries(env)) {
+    if (process.env[key] === undefined) process.env[key] = value;
+  }
+
+  return { plugins: [react(), apiDevServer()] };
 });

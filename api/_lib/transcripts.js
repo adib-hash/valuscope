@@ -159,8 +159,16 @@ export async function getTranscriptFallback(symbol, reportDate) {
   if (!res.ok) return null;
   const data = await res.json();
 
-  // Alpha Vantage reports quota exhaustion and bad symbols as 200s with a note.
-  if (data.Note || data.Information || !Array.isArray(data.transcript)) return null;
+  // Alpha Vantage answers 200 to everything and signals problems in the body.
+  // Throttling is the common case — the free tier caps both daily requests and
+  // requests per minute — and it is worth distinguishing in the logs from a
+  // genuine coverage gap, since the two look identical from the caller.
+  const notice = data.Note || data.Information || data['Error Message'];
+  if (notice) {
+    console.warn(`Alpha Vantage declined ${symbol}: ${String(notice).slice(0, 160)}`);
+    return null;
+  }
+  if (!Array.isArray(data.transcript)) return null;
 
   const paragraphs = data.transcript
     .map((t, i) => ({
