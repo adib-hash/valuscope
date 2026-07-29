@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.11.1 — 2026-07-28
+
+### Fixed
+- **Light mode was failing contrast across the app.** The accent palette was declared once and shared by both themes, but the values were tuned for a near-black background: green read 1.8:1 against a white card where WCAG AA wants 4.5:1, and the valuation regime badge was effectively invisible. An audit found 39 failing elements, spread across the fair value table, fundamentals panel and the new earnings panel. Light and dark now carry separate accent values, and the light neutrals were deepened too (`--vs-dim` 3.05:1 → 4.56:1). Re-audited with proper alpha compositing: **0 failing elements in either theme**, down from 39.
+- **Theme colours are no longer hard-coded in components.** 98 literal hex values across 11 files became `rgb(var(--vs-*))` references, so a colour can never again be right in one theme and wrong in the other. Chart strokes, axis ticks and reference lines all follow the theme now — previously the price chart's axis labels were dark-theme grey regardless of theme.
+- Added `tint()` in `src/lib/metrics.js` for translucent variants, replacing the `` `${color}12` `` hex-alpha concatenation that CSS variables can't support.
+
 ## 0.11.0 — 2026-07-28
 
 ### Added

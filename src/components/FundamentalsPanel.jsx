@@ -26,14 +26,14 @@ function StatChip({ label, value, color }) {
 function TrendArrow({ direction }) {
   if (direction === 'up') {
     return (
-      <svg width="9" height="9" viewBox="0 0 10 10" fill="none" stroke="#38D89A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="inline-block ml-0.5" aria-hidden="true">
+      <svg width="9" height="9" viewBox="0 0 10 10" fill="none" stroke="rgb(var(--vs-green))" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="inline-block ml-0.5" aria-hidden="true">
         <polyline points="2,8 5,2 8,8" />
       </svg>
     );
   }
   if (direction === 'down') {
     return (
-      <svg width="9" height="9" viewBox="0 0 10 10" fill="none" stroke="#F25C5C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="inline-block ml-0.5" aria-hidden="true">
+      <svg width="9" height="9" viewBox="0 0 10 10" fill="none" stroke="rgb(var(--vs-red))" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="inline-block ml-0.5" aria-hidden="true">
         <polyline points="2,2 5,8 8,2" />
       </svg>
     );
@@ -92,14 +92,14 @@ export default function FundamentalsPanel({ hist, now, data }) {
             <div className="space-y-2">
               <div className="flex items-center gap-4 flex-wrap">
                 <span className="text-vs-dim font-mono text-[10px] w-14">Revenue</span>
-                <StatChip label="1yr" value={fmtPct(growth.rev1yr, true)} color={growth.rev1yr >= 0 ? '#38D89A' : '#F25C5C'} />
-                <StatChip label="3yr CAGR" value={fmtPct(growth.rev3yr, true)} color={growth.rev3yr >= 0 ? '#38D89A' : '#F25C5C'} />
-                <StatChip label="5yr CAGR" value={fmtPct(growth.rev5yr, true)} color={growth.rev5yr >= 0 ? '#38D89A' : '#F25C5C'} />
+                <StatChip label="1yr" value={fmtPct(growth.rev1yr, true)} color={growth.rev1yr >= 0 ? 'rgb(var(--vs-green))' : 'rgb(var(--vs-red))'} />
+                <StatChip label="3yr CAGR" value={fmtPct(growth.rev3yr, true)} color={growth.rev3yr >= 0 ? 'rgb(var(--vs-green))' : 'rgb(var(--vs-red))'} />
+                <StatChip label="5yr CAGR" value={fmtPct(growth.rev5yr, true)} color={growth.rev5yr >= 0 ? 'rgb(var(--vs-green))' : 'rgb(var(--vs-red))'} />
               </div>
               <div className="flex items-center gap-4 flex-wrap">
                 <span className="text-vs-dim font-mono text-[10px] w-14">EBITDA</span>
-                <StatChip label="1yr" value={fmtPct(growth.ebitda1yr, true)} color={growth.ebitda1yr >= 0 ? '#38D89A' : '#F25C5C'} />
-                <StatChip label="3yr CAGR" value={fmtPct(growth.ebitda3yr, true)} color={growth.ebitda3yr >= 0 ? '#38D89A' : '#F25C5C'} />
+                <StatChip label="1yr" value={fmtPct(growth.ebitda1yr, true)} color={growth.ebitda1yr >= 0 ? 'rgb(var(--vs-green))' : 'rgb(var(--vs-red))'} />
+                <StatChip label="3yr CAGR" value={fmtPct(growth.ebitda3yr, true)} color={growth.ebitda3yr >= 0 ? 'rgb(var(--vs-green))' : 'rgb(var(--vs-red))'} />
               </div>
             </div>
           </div>
@@ -142,7 +142,7 @@ export default function FundamentalsPanel({ hist, now, data }) {
                   </span>
                   <span
                     className="font-mono text-[13px] font-semibold"
-                    style={{ color: now.netDebt < 0 ? '#38D89A' : 'rgb(var(--vs-text))' }}
+                    style={{ color: now.netDebt < 0 ? 'rgb(var(--vs-green))' : 'rgb(var(--vs-text))' }}
                   >
                     {fmtDollarM(Math.abs(now.netDebt))}
                   </span>
@@ -150,24 +150,24 @@ export default function FundamentalsPanel({ hist, now, data }) {
               )}
               <StatChip label="ND/EBITDA" value={fmtMult(now.netDebtToEbitda)} color={
                 now.netDebtToEbitda == null ? undefined :
-                now.netDebtToEbitda < 0 ? '#38D89A' :
+                now.netDebtToEbitda < 0 ? 'rgb(var(--vs-green))' :
                 now.netDebtToEbitda < 2 ? 'rgb(var(--vs-text))' :
-                now.netDebtToEbitda < 4 ? '#E8AA30' : '#F25C5C'
+                now.netDebtToEbitda < 4 ? 'rgb(var(--vs-amber))' : 'rgb(var(--vs-red))'
               } />
               <StatChip label="Int. Coverage" value={fmtMult(now.interestCoverage)} color={
                 now.interestCoverage == null ? undefined :
-                now.interestCoverage > 5 ? '#38D89A' :
-                now.interestCoverage > 2 ? '#E8AA30' : '#F25C5C'
+                now.interestCoverage > 5 ? 'rgb(var(--vs-green))' :
+                now.interestCoverage > 2 ? 'rgb(var(--vs-amber))' : 'rgb(var(--vs-red))'
               } />
               <StatChip label="Current Ratio" value={fmtMult(now.currentRatio)} color={
                 now.currentRatio == null ? undefined :
-                now.currentRatio > 2 ? '#38D89A' :
-                now.currentRatio > 1 ? 'rgb(var(--vs-text))' : '#F25C5C'
+                now.currentRatio > 2 ? 'rgb(var(--vs-green))' :
+                now.currentRatio > 1 ? 'rgb(var(--vs-text))' : 'rgb(var(--vs-red))'
               } />
               {now.roic != null && (
                 <StatChip label="ROIC" value={now.roic.toFixed(1) + '%'} color={
-                  now.roic > 15 ? '#38D89A' :
-                  now.roic > 8  ? 'rgb(var(--vs-text))' : '#F25C5C'
+                  now.roic > 15 ? 'rgb(var(--vs-green))' :
+                  now.roic > 8  ? 'rgb(var(--vs-text))' : 'rgb(var(--vs-red))'
                 } />
               )}
             </div>
@@ -180,11 +180,11 @@ export default function FundamentalsPanel({ hist, now, data }) {
             <SectionHeader>Signals</SectionHeader>
             <div className="flex gap-4 flex-wrap">
               {data.forwardPE != null && (
-                <StatChip label="Fwd P/E (NTM)" value={data.forwardPE.toFixed(1) + 'x'} color="#4E94F8" />
+                <StatChip label="Fwd P/E (NTM)" value={data.forwardPE.toFixed(1) + 'x'} color="rgb(var(--vs-blue))" />
               )}
               {data.pegRatio != null && (
                 <StatChip label="PEG" value={data.pegRatio.toFixed(2) + 'x'} color={
-                  data.pegRatio < 1 ? '#38D89A' : data.pegRatio < 2 ? 'rgb(var(--vs-soft))' : '#F25C5C'
+                  data.pegRatio < 1 ? 'rgb(var(--vs-green))' : data.pegRatio < 2 ? 'rgb(var(--vs-soft))' : 'rgb(var(--vs-red))'
                 } />
               )}
               {data.beta != null && (
@@ -194,10 +194,10 @@ export default function FundamentalsPanel({ hist, now, data }) {
                 <StatChip label="Insider Own." value={fmtPct(data.insiderOwnershipPct * 100)} color="rgb(var(--vs-soft))" />
               )}
               {data.shortInterestPct != null && (
-                <StatChip label="Short Int." value={fmtPct(data.shortInterestPct)} color={data.shortInterestPct > 10 ? '#F25C5C' : 'rgb(var(--vs-soft))'} />
+                <StatChip label="Short Int." value={fmtPct(data.shortInterestPct)} color={data.shortInterestPct > 10 ? 'rgb(var(--vs-red))' : 'rgb(var(--vs-soft))'} />
               )}
               {data.dividendYield != null && data.dividendYield > 0 && (
-                <StatChip label="Div. Yield" value={fmtPct(data.dividendYield * 100)} color="#38D89A" />
+                <StatChip label="Div. Yield" value={fmtPct(data.dividendYield * 100)} color="rgb(var(--vs-green))" />
               )}
             </div>
           </div>

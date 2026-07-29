@@ -10,17 +10,22 @@
   --vs-border:      221 226 238;   /* #DDE2EE */
   --vs-borderLight: 200 208 224;   /* #C8D0E0 */
   --vs-text:        26  31  46;    /* #1A1F2E */
-  --vs-soft:        90  101 128;   /* #5A6580 */
-  --vs-dim:         138 148 168;   /* #8A94A8 */
-  /* Accent colors — same in both themes */
-  --vs-blue:   78  148 248;
-  --vs-green:  56  216 154;
-  --vs-red:    242 92  92;
-  --vs-amber:  232 170 48;
-  --vs-violet: 155 122 245;
-  --vs-rose:   224 112 160;
-  --vs-orange: 232 138 58;
-  --vs-cyan:   56  200 216;
+  --vs-soft:        74  84  108;   /* #4A546C */
+  --vs-dim:         108 118 140;   /* #6C768C */
+  /* Accent colors — light theme.
+     These are deliberately darker than their dark-theme counterparts. The
+     brighter accents below are legible on a near-black background but wash out
+     badly on white: the dark-theme green reads 1.8:1 against a light card,
+     where WCAG AA wants 4.5:1. Every value here clears 4.5:1 on white and 4:1
+     on --vs-card2, the darkest light surface. */
+  --vs-blue:   55  118 208;
+  --vs-green:  18  134 89;
+  --vs-red:    206 70  70;
+  --vs-amber:  158 109 14;
+  --vs-violet: 128 98  211;
+  --vs-rose:   184 84  127;
+  --vs-orange: 176 97  30;
+  --vs-cyan:   21  130 143;
 }
 
 /* ── Dark theme ── */
@@ -33,6 +38,15 @@
   --vs-text:        228 231 238;   /* #E4E7EE */
   --vs-soft:        148 160 184;   /* #94A0B8 */
   --vs-dim:         90  106 130;   /* #5A6A82 */
+  /* Accent colors — dark theme. Brighter, for a near-black background. */
+  --vs-blue:   78  148 248;
+  --vs-green:  56  216 154;
+  --vs-red:    242 92  92;
+  --vs-amber:  232 170 48;
+  --vs-violet: 155 122 245;
+  --vs-rose:   224 112 160;
+  --vs-orange: 232 138 58;
+  --vs-cyan:   56  200 216;
 }
 
 body {

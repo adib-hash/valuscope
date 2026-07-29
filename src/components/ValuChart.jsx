@@ -39,9 +39,10 @@ export default function ValuChart({
   isDark = true,
   compact = false,
 }) {
-  const gridColor = isDark ? '#1E2738' : '#DDE2EE';
-  const tickColor = isDark ? '#94A0B8' : '#5A6580';
-  const dotFill   = isDark ? '#080A10' : '#FFFFFF';
+  // These follow the theme through CSS variables, so no isDark branch is needed.
+  const gridColor = 'rgb(var(--vs-border))';
+  const tickColor = 'rgb(var(--vs-soft))';
+  const dotFill   = 'rgb(var(--vs-bg))';
 
   return (
     <div className="bg-vs-card border border-vs-border rounded-xl pt-4 pr-2 pb-2 mt-3">

@@ -5,7 +5,7 @@ export default function Pill({ label, current, avg, min, max, percentile, isYiel
     return null;
 
   const better = isYield ? current > avg : current < avg;
-  const accentColor = better ? '#38D89A' : '#F25C5C';
+  const accentColor = better ? 'rgb(var(--vs-green))' : 'rgb(var(--vs-red))';
   const pct = Math.abs(((current - avg) / avg) * 100).toFixed(0);
 
   // Range bar: position of avg and current between historical min/max

@@ -158,7 +158,7 @@ export default function PriceHistoryPage({ ticker, companyName, onBack }) {
   const clearSelection = () => setSel({ start: null, end: null, dragging: false });
 
   const up = (data?.changePct ?? 0) >= 0;
-  const lineColor = up ? '#38D89A' : '#F25C5C';
+  const lineColor = up ? 'rgb(var(--vs-green))' : 'rgb(var(--vs-red))';
   const gradId = up ? 'gradUp' : 'gradDown';
 
   return (
@@ -228,7 +228,7 @@ export default function PriceHistoryPage({ ticker, companyName, onBack }) {
             </span>
           </div>
           <div className="flex items-center gap-3 flex-wrap text-[12px] font-mono">
-            <span style={{ color: selUp ? '#38D89A' : '#F25C5C' }} className="font-semibold">
+            <span style={{ color: selUp ? 'rgb(var(--vs-green))' : 'rgb(var(--vs-red))' }} className="font-semibold">
               {selUp ? '+' : ''}{selPct?.toFixed(2)}%
             </span>
             <span className="text-vs-soft">
@@ -237,7 +237,7 @@ export default function PriceHistoryPage({ ticker, companyName, onBack }) {
             {selCagr != null && (
               <span className="text-vs-dim">
                 CAGR{' '}
-                <span style={{ color: selCagr >= 0 ? '#38D89A' : '#F25C5C' }} className="font-semibold">
+                <span style={{ color: selCagr >= 0 ? 'rgb(var(--vs-green))' : 'rgb(var(--vs-red))' }} className="font-semibold">
                   {selCagr >= 0 ? '+' : ''}{selCagr.toFixed(2)}%
                 </span>
               </span>
@@ -288,10 +288,10 @@ export default function PriceHistoryPage({ ticker, companyName, onBack }) {
                     <stop offset="100%" stopColor={lineColor} stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1E2738" className="dark:stroke-vs-border" />
+                <CartesianGrid strokeDasharray="3 3" stroke="rgb(var(--vs-border))" />
                 <XAxis
                   dataKey="date"
-                  tick={{ fill: '#94A0B8', fontSize: 10, fontFamily: '"DM Mono", monospace' }}
+                  tick={{ fill: 'rgb(var(--vs-soft))', fontSize: 10, fontFamily: '"DM Mono", monospace' }}
                   axisLine={false}
                   tickLine={false}
                   minTickGap={40}
@@ -299,7 +299,7 @@ export default function PriceHistoryPage({ ticker, companyName, onBack }) {
                 />
                 <YAxis
                   domain={[minY, maxY]}
-                  tick={{ fill: '#94A0B8', fontSize: 10, fontFamily: '"DM Mono", monospace' }}
+                  tick={{ fill: 'rgb(var(--vs-soft))', fontSize: 10, fontFamily: '"DM Mono", monospace' }}
                   axisLine={false}
                   tickLine={false}
                   width={60}
@@ -318,9 +318,9 @@ export default function PriceHistoryPage({ ticker, companyName, onBack }) {
                   <ReferenceArea
                     x1={selStartQuote.date}
                     x2={selEndQuote.date}
-                    stroke={selUp ? '#38D89A' : '#F25C5C'}
+                    stroke={selUp ? 'rgb(var(--vs-green))' : 'rgb(var(--vs-red))'}
                     strokeOpacity={0.6}
-                    fill={selUp ? '#38D89A' : '#F25C5C'}
+                    fill={selUp ? 'rgb(var(--vs-green))' : 'rgb(var(--vs-red))'}
                     fillOpacity={0.12}
                   />
                 )}

@@ -23,6 +23,7 @@ import {
   getSectorRecommendation,
   isRecommendedMetric,
   getRegime,
+  tint,
 } from './lib/metrics';
 import { computeFairValue, median } from './lib/fundamentals';
 import { saveSummary, pruneSummaries } from './lib/summaryCache';
@@ -34,7 +35,7 @@ import {
 } from './lib/watchlist';
 
 const QUICK_TICKERS = ['AAPL', 'MSFT', 'ULTA', 'COST', 'META', 'AMZN', 'GOOGL', 'NFLX'];
-const APP_VERSION   = 'v0.11.0';
+const APP_VERSION   = 'v0.11.1';
 
 // Pills shown in the summary row
 const PILL_METRICS = [
@@ -468,7 +469,7 @@ export default function App() {
                   <p className="text-vs-soft text-[13px] mt-0.5 flex flex-wrap items-center gap-x-1.5">
                     {data.currentPrice && <span>${data.currentPrice.toFixed(2)}</span>}
                     {data.change != null && (
-                      <span style={{ color: data.change >= 0 ? '#38D89A' : '#F25C5C' }}>
+                      <span style={{ color: data.change >= 0 ? 'rgb(var(--vs-green))' : 'rgb(var(--vs-red))' }}>
                         {data.change >= 0 ? '+' : ''}{data.change.toFixed(2)}%
                       </span>
                     )}
@@ -514,7 +515,7 @@ export default function App() {
                     aria-label="Copy share link"
                     title={copied ? 'Copied!' : 'Copy link'}
                     className="p-1.5 rounded-lg transition-colors cursor-pointer"
-                    style={{ color: copied ? '#38D89A' : 'rgb(var(--vs-dim))' }}
+                    style={{ color: copied ? 'rgb(var(--vs-green))' : 'rgb(var(--vs-dim))' }}
                   >
                     {copied ? (
                       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -531,7 +532,7 @@ export default function App() {
                     onClick={() => toggleWatchlist(sym)}
                     aria-label={watched ? 'Remove from watchlist' : 'Add to watchlist'}
                     className="p-1.5 rounded-lg transition-colors cursor-pointer"
-                    style={{ color: watched ? '#E8AA30' : 'rgb(var(--vs-dim))' }}
+                    style={{ color: watched ? 'rgb(var(--vs-amber))' : 'rgb(var(--vs-dim))' }}
                   >
                     <svg width="19" height="19" viewBox="0 0 24 24" fill={watched ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                       <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
@@ -583,8 +584,8 @@ export default function App() {
                   className="text-[9px] font-mono font-bold px-2 py-0.5 rounded-full"
                   style={{
                     color: REGIME.color,
-                    border: `1px solid ${REGIME.color}40`,
-                    background: `${REGIME.color}12`,
+                    border: `1px solid ${tint(REGIME.color, 0.25)}`,
+                    background: tint(REGIME.color, 0.07),
                   }}
                 >
                   {REGIME.label}
@@ -685,7 +686,7 @@ export default function App() {
                     onClick={() => toggle(m.key)}
                     className="rounded px-2.5 py-1 text-[11px] font-medium font-mono cursor-pointer border transition-all flex items-center gap-1"
                     style={{
-                      background:  selected.includes(m.key) ? `${m.color}15` : 'transparent',
+                      background:  selected.includes(m.key) ? tint(m.color, 0.08) : 'transparent',
                       color:       selected.includes(m.key) ? m.color : isRec ? 'rgb(var(--vs-soft))' : 'rgb(var(--vs-dim))',
                       borderColor: selected.includes(m.key) ? m.color : isRec ? 'rgb(var(--vs-blue) / 0.35)' : 'rgb(var(--vs-border))',
                     }}

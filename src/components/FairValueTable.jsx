@@ -53,7 +53,7 @@ export default function FairValueTable({ hist, now, currentPrice }) {
                 </td>
                 <td
                   className="px-4 py-2 text-right font-semibold"
-                  style={{ color: row.upsidePct >= 0 ? '#38D89A' : '#F25C5C' }}
+                  style={{ color: row.upsidePct >= 0 ? 'rgb(var(--vs-green))' : 'rgb(var(--vs-red))' }}
                 >
                   {row.upsidePct >= 0 ? '+' : ''}{row.upsidePct.toFixed(1)}%
                 </td>
@@ -71,7 +71,7 @@ export default function FairValueTable({ hist, now, currentPrice }) {
                 </td>
                 <td
                   className="px-4 py-2.5 text-right font-bold text-[13px]"
-                  style={{ color: blendedUpside >= 0 ? '#38D89A' : '#F25C5C' }}
+                  style={{ color: blendedUpside >= 0 ? 'rgb(var(--vs-green))' : 'rgb(var(--vs-red))' }}
                 >
                   {blendedUpside >= 0 ? '+' : ''}{blendedUpside.toFixed(1)}%
                 </td>

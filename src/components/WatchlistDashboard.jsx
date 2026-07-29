@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { fetchOverview } from '../lib/api';
 import { getSummaries } from '../lib/summaryCache';
+import { tint } from '../lib/metrics';
 
 const SORTS = [
   { key: 'cheapest', label: 'Cheapest' },
@@ -49,7 +50,7 @@ function RegimeBadge({ label, color }) {
   return (
     <span
       className="text-[9px] font-mono font-bold px-2 py-0.5 rounded-full whitespace-nowrap"
-      style={{ color, border: `1px solid ${color}40`, background: `${color}12` }}
+      style={{ color, border: `1px solid ${tint(color, 0.25)}`, background: tint(color, 0.07) }}
     >
       {label}
     </span>
@@ -57,7 +58,7 @@ function RegimeBadge({ label, color }) {
 }
 
 const changeColor = (v) =>
-  v == null ? 'rgb(var(--vs-soft))' : v >= 0 ? '#38D89A' : '#F25C5C';
+  v == null ? 'rgb(var(--vs-soft))' : v >= 0 ? 'rgb(var(--vs-green))' : 'rgb(var(--vs-red))';
 
 export default function WatchlistDashboard({ symbols, onSelectTicker }) {
   const [quotes, setQuotes]   = useState(null);

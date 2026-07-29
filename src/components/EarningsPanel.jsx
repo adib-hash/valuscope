@@ -147,7 +147,7 @@ export default function EarningsPanel({ symbol }) {
               {history.map((h) => {
                 const beat = h.surprisePercent != null && h.surprisePercent >= 0;
                 const color = h.surprisePercent == null ? 'rgb(var(--vs-dim))'
-                  : beat ? '#38D89A' : '#F25C5C';
+                  : beat ? 'rgb(var(--vs-green))' : 'rgb(var(--vs-red))';
                 return (
                   <div
                     key={h.quarter}
@@ -185,7 +185,7 @@ export default function EarningsPanel({ symbol }) {
                     <Stat
                       label="EPS Growth"
                       value={`${est.growthPercent >= 0 ? '+' : ''}${est.growthPercent.toFixed(1)}%`}
-                      color={est.growthPercent >= 0 ? '#38D89A' : '#F25C5C'}
+                      color={est.growthPercent >= 0 ? 'rgb(var(--vs-green))' : 'rgb(var(--vs-red))'}
                     />
                   )}
                   {(est.revisionsUp != null || est.revisionsDown != null) && (
@@ -193,8 +193,8 @@ export default function EarningsPanel({ symbol }) {
                       label="Revisions 30d"
                       value={`${est.revisionsUp ?? 0} up / ${est.revisionsDown ?? 0} down`}
                       color={
-                        (est.revisionsUp ?? 0) > (est.revisionsDown ?? 0) ? '#38D89A'
-                          : (est.revisionsUp ?? 0) < (est.revisionsDown ?? 0) ? '#F25C5C'
+                        (est.revisionsUp ?? 0) > (est.revisionsDown ?? 0) ? 'rgb(var(--vs-green))'
+                          : (est.revisionsUp ?? 0) < (est.revisionsDown ?? 0) ? 'rgb(var(--vs-red))'
                           : 'rgb(var(--vs-soft))'
                       }
                     />

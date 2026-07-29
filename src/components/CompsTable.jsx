@@ -212,7 +212,7 @@ export default function CompsTable({ symbol, sector, onSelectTicker }) {
                       <td
                         key={m.key}
                         className="px-3 py-2 text-right font-semibold whitespace-nowrap"
-                        style={{ color: isGreen ? '#38D89A' : val != null && medianVal != null ? '#F25C5C' : 'rgb(var(--vs-text))' }}
+                        style={{ color: isGreen ? 'rgb(var(--vs-green))' : val != null && medianVal != null ? 'rgb(var(--vs-red))' : 'rgb(var(--vs-text))' }}
                       >
                         {formatMultiple(val, m.isYield)}
                       </td>

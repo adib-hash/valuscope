@@ -100,7 +100,7 @@ export default function Thesis({ sym }) {
             </span>
           )}
           {showSaved && (
-            <span className="text-[9px] font-mono" style={{ color: '#38D89A' }}>
+            <span className="text-[9px] font-mono" style={{ color: 'rgb(var(--vs-green))' }}>
               Saved
             </span>
           )}
