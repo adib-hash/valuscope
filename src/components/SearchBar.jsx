@@ -39,7 +39,9 @@ export default function SearchBar({ onSelect, loading }) {
             if (e.key === 'Enter' && query.trim()) select(query.trim());
           }}
           placeholder="Enter ticker (AAPL, MSFT, ULTA...)"
-          className="flex-1 bg-vs-card border border-vs-borderLight rounded-lg px-4 py-3 text-vs-text text-[15px] font-mono outline-none focus:border-vs-blue transition-colors"
+          /* 16px on mobile is what stops iOS zooming the page when the field is
+             focused; the tighter size is safe from the sm breakpoint up. */
+          className="flex-1 bg-vs-card border border-vs-borderLight rounded-lg px-4 py-3 text-vs-text text-[16px] sm:text-[15px] font-mono outline-none focus:border-vs-blue transition-colors"
         />
         <button
           onClick={() => query.trim() && select(query.trim())}

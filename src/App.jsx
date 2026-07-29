@@ -12,6 +12,7 @@ import CompsTable from './components/CompsTable';
 import EarningsPanel from './components/EarningsPanel';
 import WatchlistDashboard from './components/WatchlistDashboard';
 import PriceHistoryPage from './components/PriceHistoryPage';
+import TranscriptPage from './components/TranscriptPage';
 import { fetchFinancials, fetchHistory } from './lib/api';
 import { mergeHistory } from './lib/history';
 import {
@@ -35,7 +36,7 @@ import {
 } from './lib/watchlist';
 
 const QUICK_TICKERS = ['AAPL', 'MSFT', 'ULTA', 'COST', 'META', 'AMZN', 'GOOGL', 'NFLX'];
-const APP_VERSION   = 'v0.11.1';
+const APP_VERSION   = 'v0.12.0';
 
 // Pills shown in the summary row
 const PILL_METRICS = [
@@ -86,7 +87,7 @@ export default function App() {
   // Load ticker from URL on mount
   useEffect(() => {
     const t = searchParams.get('ticker');
-    if (t) loadCompany(t);
+    if (t) loadCompany(t, true);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // ── Watchlist ────────────────────────────────────────────────────────────────
@@ -131,19 +132,22 @@ export default function App() {
     setSearchParams({});
   };
 
-  const openPriceChart = () => {
+  const openView = (name) => {
     if (!sym) return;
-    setSearchParams({ ticker: sym, view: 'price' }, { replace: false });
+    setSearchParams({ ticker: sym, view: name }, { replace: false });
     window.scrollTo(0, 0);
   };
 
-  const closePriceChart = () => {
+  const closeView = () => {
     if (!sym) { setSearchParams({}); return; }
     setSearchParams({ ticker: sym }, { replace: false });
     window.scrollTo(0, 0);
   };
 
-  const loadCompany = async (ticker) => {
+  // `keepView` is set when loading straight from the URL, so that a shared link
+  // like ?ticker=AAPL&view=transcript lands on the view it names instead of
+  // being reset to the dashboard.
+  const loadCompany = async (ticker, keepView = false) => {
     const sym = ticker.toUpperCase().trim();
     if (!sym) return;
     setLoading(true);
@@ -151,7 +155,11 @@ export default function App() {
     setData(null);
     setDescOpen(false);
     setActivePill(null);
-    setSearchParams({ ticker: sym }, { replace: true });
+    const currentView = keepView ? searchParams.get('view') : null;
+    setSearchParams(
+      currentView ? { ticker: sym, view: currentView } : { ticker: sym },
+      { replace: true },
+    );
     activeSymbol.current = sym;
     try {
       const result = await fetchFinancials(sym);
@@ -444,12 +452,21 @@ export default function App() {
           <PriceHistoryPage
             ticker={sym}
             companyName={data.companyName}
-            onBack={closePriceChart}
+            onBack={closeView}
+          />
+        )}
+
+        {/* ── Earnings Call Transcript ─────────────────────────────────────── */}
+        {data && !loading && view === 'transcript' && (
+          <TranscriptPage
+            ticker={sym}
+            companyName={data.companyName}
+            onBack={closeView}
           />
         )}
 
         {/* ── Dashboard ──────────────────────────────────────────────────────── */}
-        {data && now && !loading && view !== 'price' && (
+        {data && now && !loading && !view && (
           <>
             {/* Company header */}
             <div className="mt-5">
@@ -551,10 +568,16 @@ export default function App() {
                 StockAnalysis &#x2197;
               </a>
               <button
-                onClick={openPriceChart}
+                onClick={() => openView('price')}
                 className="inline-flex items-center gap-1 ml-3 text-vs-blue hover:underline text-[11px] font-mono cursor-pointer"
               >
                 Price chart →
+              </button>
+              <button
+                onClick={() => openView('transcript')}
+                className="inline-flex items-center gap-1 ml-3 text-vs-blue hover:underline text-[11px] font-mono cursor-pointer"
+              >
+                Earnings call →
               </button>
             </div>
 
@@ -716,7 +739,7 @@ export default function App() {
             <FundamentalsPanel hist={hist} now={now} data={data} />
 
             {/* Earnings — calendar, surprises, forward estimates */}
-            <EarningsPanel symbol={sym} />
+            <EarningsPanel symbol={sym} onOpenTranscript={() => openView('transcript')} />
 
             {/* Fair Value Table */}
             <FairValueTable hist={hist} now={now} currentPrice={data.currentPrice} />

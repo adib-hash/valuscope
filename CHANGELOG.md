@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.12.0 — 2026-07-28
+
+### Added
+- **Earnings call transcripts.** Every ticker now has an `Earnings call →` view with the full transcript, speaker by speaker, split into prepared remarks and Q&A. A quarter picker reaches back through everything on file (83 quarters for Apple, back to 2005), and a search box filters the call to matching passages with the term highlighted. Body type is deliberately larger here than the rest of the app — this is prose to read, not a table to scan.
+- **New `/api/transcript` endpoint.** The source is the defeatbeta community dataset: a single 2.2 GB Parquet file of ~235k transcripts on HuggingFace, free and keyless, rebuilt daily. It is obviously not downloadable, but its row groups are sorted by ticker with min/max statistics, so a company's transcripts can be located and pulled with HTTP range requests — a few KB for the quarter list, about 2 MB for a full call. Transcripts never change once published, so responses are edge-cached for a week.
+- **Alpha Vantage fallback** for when that dataset goes stale or moves. Entirely optional: set `ALPHAVANTAGE_API_KEY` to enable it. Without the key the app simply relies on the primary source. Its free tier allows 25 requests a day, which is why it is not the primary.
+
+### Fixed
+- **Shared links to a sub-view now work.** Opening `?ticker=AAPL&view=price` loaded the company and then immediately reset the URL to just the ticker, dropping you on the dashboard. The view is now preserved when loading from a link — this also affected the price chart, which has been shareable-but-broken since 0.8.0.
+- **The ticker search box could trigger iOS auto-zoom.** A `text-[15px]` class was overriding the 16px floor that keeps iOS from zooming the page on focus. Now 16px on mobile, 15px from the `sm` breakpoint up.
+- **Transcript dates were a day early** west of UTC — a plain `YYYY-MM-DD` parsed as UTC midnight rendered as the previous day. Dates are now built in local time.
+
 ## 0.11.1 — 2026-07-28
 
 ### Fixed

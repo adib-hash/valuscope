@@ -43,6 +43,13 @@ export async function fetchEarnings(ticker) {
   return apiFetch(`/api/earnings?ticker=${encodeURIComponent(ticker)}`);
 }
 
+// Earnings call transcript. Omit year/quarter for the most recent call.
+export async function fetchTranscript(ticker, year, quarter) {
+  const params = new URLSearchParams({ ticker });
+  if (year && quarter) { params.set('year', year); params.set('quarter', quarter); }
+  return apiFetch(`/api/transcript?${params}`);
+}
+
 export async function fetchPriceHistory(ticker, range = '1Y') {
   return apiFetch(`/api/priceHistory?ticker=${encodeURIComponent(ticker)}&range=${encodeURIComponent(range)}`);
 }

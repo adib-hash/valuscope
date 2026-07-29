@@ -63,7 +63,7 @@ function quarterLabel(iso) {
   return `Q${Math.floor(d.getMonth() / 3) + 1} '${String(d.getFullYear()).slice(2)}`;
 }
 
-export default function EarningsPanel({ symbol }) {
+export default function EarningsPanel({ symbol, onOpenTranscript }) {
   const [data, setData]       = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -122,6 +122,14 @@ export default function EarningsPanel({ symbol }) {
                 {relativeDays(next.date)}
               </span>
             </div>
+            {onOpenTranscript && (
+              <button
+                onClick={onOpenTranscript}
+                className="mt-2 text-vs-blue hover:underline text-[11px] font-mono cursor-pointer"
+              >
+                Read the last earnings call →
+              </button>
+            )}
             {(next.epsEstimate != null || next.revenueEstimate != null) && (
               <div className="flex gap-4 flex-wrap mt-2.5">
                 <Stat label="Consensus EPS" value={fmtEps(next.epsEstimate)} />
@@ -140,7 +148,9 @@ export default function EarningsPanel({ symbol }) {
 
         {history.length > 0 && (
           <div className="px-4 py-3.5">
-            <SectionHeader aside={beatRate != null ? `beat ${beatRate}% of last ${history.length}` : null}>
+            <SectionHeader
+              aside={beatRate != null ? `beat ${beatRate}% of last ${history.length}` : null}
+            >
               EPS vs Estimate
             </SectionHeader>
             <div className="flex gap-2 overflow-x-auto pb-0.5" style={{ WebkitOverflowScrolling: 'touch' }}>
