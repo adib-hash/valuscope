@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.10.0 — 2026-07-28
+
+### Added
+- **Earnings panel** on every dashboard, covering the three things that matter around a print: when the next call is (with a plain-language countdown and the consensus EPS and revenue going in), how the last four quarters landed against estimates, and where full-year analyst estimates sit including which way they've been revised over the past 30 days. Apple currently reads "in 2 days", consensus $1.89, beat 100% of the last four. Served by a new `/api/earnings` endpoint using Yahoo's `calendarEvents`, `earningsHistory` and `earningsTrend` modules — no API key, no new dependency.
+
+### Changed
+- **`npm run dev` now serves the `/api` routes.** A dev-only Vite middleware mounts the serverless handlers, so the whole app runs locally without `vercel dev`. Production is unaffected — Vercel still runs them as functions.
+
 ## 0.9.0 — 2026-07-28
 
 ### Added

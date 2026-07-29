@@ -9,6 +9,7 @@ import FundamentalsPanel from './components/FundamentalsPanel';
 import FairValueTable from './components/FairValueTable';
 import Thesis from './components/Thesis';
 import CompsTable from './components/CompsTable';
+import EarningsPanel from './components/EarningsPanel';
 import PriceHistoryPage from './components/PriceHistoryPage';
 import { fetchFinancials, fetchHistory } from './lib/api';
 import { mergeHistory } from './lib/history';
@@ -29,7 +30,7 @@ import {
 } from './lib/watchlist';
 
 const QUICK_TICKERS = ['AAPL', 'MSFT', 'ULTA', 'COST', 'META', 'AMZN', 'GOOGL', 'NFLX'];
-const APP_VERSION   = 'v0.9.0';
+const APP_VERSION   = 'v0.10.0';
 
 // Pills shown in the summary row
 const PILL_METRICS = [
@@ -697,6 +698,9 @@ export default function App() {
 
             {/* Fundamentals Panel */}
             <FundamentalsPanel hist={hist} now={now} data={data} />
+
+            {/* Earnings — calendar, surprises, forward estimates */}
+            <EarningsPanel symbol={sym} />
 
             {/* Fair Value Table */}
             <FairValueTable hist={hist} now={now} currentPrice={data.currentPrice} />

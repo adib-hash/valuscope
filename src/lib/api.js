@@ -32,6 +32,11 @@ export async function fetchHistory(ticker) {
   return apiFetch(`/api/history?ticker=${encodeURIComponent(ticker)}`);
 }
 
+// Earnings calendar, surprise history and forward estimates.
+export async function fetchEarnings(ticker) {
+  return apiFetch(`/api/earnings?ticker=${encodeURIComponent(ticker)}`);
+}
+
 export async function fetchPriceHistory(ticker, range = '1Y') {
   return apiFetch(`/api/priceHistory?ticker=${encodeURIComponent(ticker)}&range=${encodeURIComponent(range)}`);
 }
