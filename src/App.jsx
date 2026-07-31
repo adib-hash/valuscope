@@ -14,6 +14,7 @@ import WatchlistDashboard from './components/WatchlistDashboard';
 import PriceHistoryPage from './components/PriceHistoryPage';
 import TranscriptPage from './components/TranscriptPage';
 import IndicesPage from './components/IndicesPage';
+import InstitutionsPage from './components/InstitutionsPage';
 import { fetchFinancials, fetchHistory } from './lib/api';
 import { mergeHistory } from './lib/history';
 import {
@@ -37,12 +38,13 @@ import {
 } from './lib/watchlist';
 
 const QUICK_TICKERS = ['AAPL', 'MSFT', 'ULTA', 'COST', 'META', 'AMZN', 'GOOGL', 'NFLX'];
-const APP_VERSION   = 'v0.14.0';
+const APP_VERSION   = 'v0.15.0';
 
 // Top-level nav. `view: null` is the valuation home.
 const NAV_ITEMS = [
   { label: 'Valuation', view: null },
   { label: 'Indices',   view: 'indices' },
+  { label: '13F',       view: 'institutions' },
 ];
 
 // Pills shown in the summary row
@@ -483,6 +485,11 @@ export default function App() {
 
         {/* ── World Indices (no ticker required) ───────────────────────────── */}
         {view === 'indices' && <IndicesPage onBack={closeView} />}
+
+        {/* ── 13F Holdings (no ticker required) ────────────────────────────── */}
+        {view === 'institutions' && (
+          <InstitutionsPage onBack={closeView} onSelectTicker={loadCompany} />
+        )}
 
         {/* ── Price Chart Page ─────────────────────────────────────────────── */}
         {data && !loading && view === 'price' && (

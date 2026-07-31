@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.15.0 — 2026-07-31
+
+### Added
+- **13F holdings browser.** A new top-level `13F` view. Search an investor by name, pick a quarter, and read their portfolio: every position by size, with percentage of book, share count and a link into that company's ValuScope page. Roughly ten years of quarters are available per manager.
+- **Quarter-over-quarter changes.** A second tab diffs the filing against the previous one and labels each position new, added, trimmed, exited or held, with the change in shares. This is the part of a 13F that actually says something — a portfolio snapshot tells you what someone owns, the diff tells you what they decided.
+- **Positions link into the rest of the app.** 13Fs identify securities by CUSIP and a shouty issuer name ("WELLS FARGO & CO NEW"), never a ticker. CUSIPs are resolved through OpenFIGI, free and keyless, so a holding is one click from its valuation history. Unresolved rows keep their issuer name rather than disappearing.
+- Options are kept as separate rows from the underlying rather than folded into the share count, so a manager holding puts reads as holding puts.
+
+### Notes
+- New `/api/institutions` and `/api/holdings` endpoints, plus `api/_lib/edgar13f.js`. Entirely keyless: EDGAR full-text search resolves a name to a CIK, the submissions API lists that filer's 13Fs, and the filing's information table XML is parsed directly.
+- **Values changed units in 2023.** Filings made before January 2023 report the value column in thousands; from 2023 onward in whole dollars. Verified against real filings — Berkshire's 2016 Q3 portfolio totals $128.8B once scaled, and every implied share price lands on a real 2016 price. Miss this and every older portfolio renders a thousand times too small.
+- **A filing's rows are not its positions.** The same security appears once per managing entity, so Berkshire's Q1 2026 filing is 90 rows covering 29 actual positions. Rows are combined by CUSIP; the raw-to-combined count is stated under each table.
+- The information table filename is not stable across years — `form13fInfoTable.xml` in 2016, `53405.xml` in 2026 — so it is located through the filing's `index.json` rather than guessed.
+- Every table carries what a 13F does not tell you: filings arrive up to 45 days after quarter-end, and they cover US-listed long equity only, so short positions, bonds, cash and foreign holdings never appear. A portfolio that looks live but is six weeks stale is worth labelling as such.
+- Ticker resolution fails soft. OpenFIGI being slow or throttled costs the links, not the page.
+
 ## 0.14.0 — 2026-07-31
 
 ### Added

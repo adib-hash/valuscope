@@ -1,0 +1,388 @@
+import { useEffect, useRef, useState } from 'react';
+import { searchInstitutions, fetchHoldings } from '../lib/api';
+import { tint } from '../lib/metrics';
+
+// A few managers worth reading. Shown on the empty state so the page is useful
+// before you know whose name to type.
+const SEED_FILERS = [
+  { cik: '0001067983', name: 'Berkshire Hathaway' },
+  { cik: '0001649339', name: 'Scion Asset Management' },
+  { cik: '0001336528', name: 'Pershing Square' },
+  { cik: '0001536411', name: 'Duquesne Family Office' },
+  { cik: '0001061768', name: 'Baupost Group' },
+];
+
+const TABS = [
+  { key: 'holdings', label: 'Holdings' },
+  { key: 'changes', label: 'Changes' },
+];
+
+const STATUS = {
+  new:     { label: 'New',     color: 'rgb(var(--vs-green))' },
+  added:   { label: 'Added',   color: 'rgb(var(--vs-green))' },
+  trimmed: { label: 'Trimmed', color: 'rgb(var(--vs-amber))' },
+  exited:  { label: 'Exited',  color: 'rgb(var(--vs-red))' },
+  held:    { label: 'Held',    color: 'rgb(var(--vs-soft))' },
+};
+
+const DASH = '—';
+
+const fmtValue = (v) => {
+  if (v == null || !isFinite(v)) return DASH;
+  if (Math.abs(v) >= 1e9) return `$${(v / 1e9).toFixed(1)}B`;
+  if (Math.abs(v) >= 1e6) return `$${(v / 1e6).toFixed(0)}M`;
+  if (Math.abs(v) >= 1e3) return `$${(v / 1e3).toFixed(0)}K`;
+  return `$${v.toFixed(0)}`;
+};
+
+const fmtPct = (v, digits = 1) => {
+  if (v == null || !isFinite(v)) return DASH;
+  const rounded = Math.round(v * 10 ** digits) / 10 ** digits;
+  return `${rounded > 0 ? '+' : ''}${(rounded === 0 ? 0 : rounded).toFixed(digits)}%`;
+};
+
+const fmtShares = (v) => (v == null || !isFinite(v) ? DASH : Math.round(v).toLocaleString('en-US'));
+
+const quarterLabel = (iso) => {
+  if (!iso) return '';
+  const [y, m] = iso.split('-');
+  return `Q${Math.ceil(Number(m) / 3)} ${y}`;
+};
+
+// Investor search cannot reuse SearchBar: that one uppercases as you type and
+// submits raw text on Enter, which is meaningless here — a portfolio needs a
+// CIK, so a result must be picked from the list.
+function InvestorSearch({ onSelect }) {
+  const [query, setQuery] = useState('');
+  const [results, setResults] = useState([]);
+  const [busy, setBusy] = useState(false);
+  const timer = useRef(null);
+
+  const handleChange = (value) => {
+    setQuery(value);
+    if (timer.current) clearTimeout(timer.current);
+    if (value.trim().length < 2) { setResults([]); return; }
+    timer.current = setTimeout(async () => {
+      setBusy(true);
+      try {
+        const data = await searchInstitutions(value);
+        setResults(data.filers || []);
+      } catch {
+        setResults([]);
+      } finally {
+        setBusy(false);
+      }
+    }, 350);
+  };
+
+  return (
+    <div className="relative">
+      <input
+        type="text"
+        value={query}
+        onChange={(e) => handleChange(e.target.value)}
+        placeholder="Search an investor — Berkshire, Scion, Pershing Square…"
+        aria-label="Search an investor"
+        className="w-full bg-vs-card border border-vs-border rounded-lg px-3.5 py-2.5 text-[16px] sm:text-[15px] text-vs-text placeholder:text-vs-dim focus:outline-none focus:border-vs-blue transition-colors"
+      />
+      {busy && (
+        <span className="absolute right-3 top-1/2 -translate-y-1/2 text-vs-soft text-[11px] font-mono">
+          searching…
+        </span>
+      )}
+      {results.length > 0 && (
+        <div className="absolute top-full left-0 right-0 mt-1 bg-vs-card border border-vs-border rounded-lg overflow-hidden z-20 shadow-2xl">
+          {results.map((filer) => (
+            <div
+              key={filer.cik}
+              onClick={() => { onSelect(filer); setQuery(''); setResults([]); }}
+              className="px-3.5 py-2.5 cursor-pointer hover:bg-vs-card2 transition-colors border-b border-vs-border last:border-0"
+            >
+              <span className="text-vs-text text-[13px]">{filer.name}</span>
+              <span className="block text-vs-soft text-[10px] font-mono mt-0.5">
+                CIK {filer.cik}
+              </span>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default function InstitutionsPage({ onBack, onSelectTicker }) {
+  const [filer, setFiler] = useState(null);
+  const [period, setPeriod] = useState(null);
+  const [tab, setTab] = useState('holdings');
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    if (!filer) return;
+    let cancelled = false;
+    setLoading(true);
+    setError('');
+    fetchHoldings(filer.cik, period)
+      .then((result) => { if (!cancelled) setData(result); })
+      .catch((e) => { if (!cancelled) { setError(e.message || 'Failed to load holdings'); setData(null); } })
+      .finally(() => { if (!cancelled) setLoading(false); });
+    return () => { cancelled = true; };
+  }, [filer, period]);
+
+  const pickFiler = (next) => {
+    setFiler(next);
+    setPeriod(null);
+    setData(null);
+    setTab('holdings');
+  };
+
+  const positions = data?.positions || [];
+  // The API orders by change status, which is what the Changes tab wants. The
+  // Holdings tab is a portfolio, so it sorts by size.
+  const rows = tab === 'holdings'
+    ? [...positions].filter((p) => p.status !== 'exited').sort((a, b) => (b.value ?? 0) - (a.value ?? 0))
+    : positions.filter((p) => p.status && p.status !== 'held');
+
+  return (
+    <div className="mt-5 pb-8">
+      <button
+        onClick={onBack}
+        className="text-vs-dim hover:text-vs-soft text-[11px] font-mono cursor-pointer mb-2 flex items-center gap-1"
+      >
+        <span>←</span> Back to overview
+      </button>
+
+      <div className="text-vs-dim text-[11px] font-mono tracking-widest">13F HOLDINGS</div>
+      <h1 className="font-display text-[26px] font-extrabold mt-1 leading-tight text-vs-text">
+        {filer ? filer.name : 'What the big investors own'}
+      </h1>
+      <p className="text-vs-soft text-[13px] mt-0.5 max-w-[68ch]">
+        Institutional managers running over $100M must report their US equity positions
+        to the SEC every quarter. This reads those filings directly.
+      </p>
+
+      <div className="mt-4 max-w-[520px]">
+        <InvestorSearch onSelect={pickFiler} />
+      </div>
+
+      {/* Empty state */}
+      {!filer && (
+        <div className="mt-4">
+          <span className="text-vs-soft text-[10px] font-mono">Try:</span>
+          <div className="flex gap-1.5 mt-1.5 flex-wrap">
+            {SEED_FILERS.map((f) => (
+              <button
+                key={f.cik}
+                onClick={() => pickFiler(f)}
+                className="rounded px-2.5 py-1.5 text-[11px] font-mono bg-vs-card text-vs-soft border border-vs-border hover:border-vs-borderLight hover:text-vs-text cursor-pointer transition-all"
+              >
+                {f.name}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {error && (
+        <div className="mt-5 text-vs-red font-mono text-[13px] px-4 py-3 bg-vs-red/5 rounded-lg border border-vs-red/20">
+          {error}
+        </div>
+      )}
+
+      {loading && (
+        <div className="mt-4 rounded-xl border border-vs-border bg-vs-card px-4 py-6">
+          <div className="animate-pulse space-y-2">
+            <div className="h-3 bg-vs-border rounded w-48" />
+            {Array.from({ length: 8 }).map((_, i) => (
+              <div key={i} className="h-8 bg-vs-border rounded" />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {!loading && !error && data && (
+        <>
+          {/* Portfolio summary */}
+          <div className="mt-4 flex items-baseline gap-4 flex-wrap">
+            <div>
+              <span className="text-vs-soft text-[9px] font-mono uppercase tracking-wider block">
+                Portfolio value
+              </span>
+              <span className="font-mono text-[15px] font-semibold text-vs-text">
+                {fmtValue(data.totalValue)}
+              </span>
+            </div>
+            <div>
+              <span className="text-vs-soft text-[9px] font-mono uppercase tracking-wider block">
+                Positions
+              </span>
+              <span className="font-mono text-[15px] font-semibold text-vs-text">
+                {data.positionCount}
+              </span>
+            </div>
+            <div>
+              <span className="text-vs-soft text-[9px] font-mono uppercase tracking-wider block">
+                Quarter
+              </span>
+              <span className="font-mono text-[15px] font-semibold text-vs-text">
+                {quarterLabel(data.period)}
+              </span>
+            </div>
+            <div>
+              <span className="text-vs-soft text-[9px] font-mono uppercase tracking-wider block">
+                Filed
+              </span>
+              <span className="font-mono text-[15px] font-semibold text-vs-text">
+                {data.filingDate}
+              </span>
+            </div>
+          </div>
+
+          {/* Quarter picker */}
+          <div className="mt-4">
+            <span className="text-vs-soft text-[9px] font-mono uppercase tracking-wider">Jump to quarter</span>
+            <div className="flex gap-1 mt-1.5 overflow-x-auto pb-1">
+              {data.quarters.slice(0, 24).map((q) => (
+                <button
+                  key={q.reportDate}
+                  onClick={() => setPeriod(q.reportDate)}
+                  className={`rounded px-2.5 py-1.5 text-[11px] font-mono font-semibold cursor-pointer border transition-all whitespace-nowrap ${
+                    data.period === q.reportDate
+                      ? 'bg-vs-blue/15 text-vs-blue border-vs-blue/50'
+                      : 'bg-transparent text-vs-soft border-vs-border hover:border-vs-borderLight hover:text-vs-text'
+                  }`}
+                >
+                  {quarterLabel(q.reportDate)}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Tabs */}
+          <div className="flex items-center gap-1 mt-3 flex-wrap">
+            {TABS.map((t) => (
+              <button
+                key={t.key}
+                onClick={() => setTab(t.key)}
+                disabled={t.key === 'changes' && !data.comparedTo}
+                className={`rounded px-2.5 py-1.5 text-[11px] font-mono font-semibold border transition-all ${
+                  tab === t.key
+                    ? 'bg-vs-blue/15 text-vs-blue border-vs-blue/50 cursor-pointer'
+                    : t.key === 'changes' && !data.comparedTo
+                      ? 'bg-transparent text-vs-dim border-vs-border opacity-50 cursor-not-allowed'
+                      : 'bg-transparent text-vs-soft border-vs-border hover:border-vs-borderLight hover:text-vs-text cursor-pointer'
+                }`}
+              >
+                {t.label}
+                {t.key === 'changes' && data.comparedTo
+                  ? ` vs ${quarterLabel(data.comparedTo.reportDate)}`
+                  : ''}
+              </button>
+            ))}
+          </div>
+
+          {/* Table */}
+          <div className="mt-3 rounded-xl border border-vs-border bg-vs-card overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="w-full font-mono text-[11px]">
+                <thead>
+                  <tr className="border-b border-vs-border">
+                    <th className="text-left px-4 py-2 text-vs-soft font-medium sticky left-0 bg-vs-card z-10 min-w-[170px]">
+                      Position
+                    </th>
+                    {tab === 'changes' && (
+                      <th className="text-left px-3 py-2 text-vs-soft font-medium whitespace-nowrap">Change</th>
+                    )}
+                    <th className="text-right px-3 py-2 text-vs-soft font-medium whitespace-nowrap">Value</th>
+                    <th className="text-right px-3 py-2 text-vs-soft font-medium whitespace-nowrap">% of book</th>
+                    <th className="text-right px-3 py-2 text-vs-soft font-medium whitespace-nowrap">Shares</th>
+                    {tab === 'changes' && (
+                      <th className="text-right px-4 py-2 text-vs-soft font-medium whitespace-nowrap">Δ shares</th>
+                    )}
+                  </tr>
+                </thead>
+                <tbody>
+                  {rows.map((p) => {
+                    const status = STATUS[p.status];
+                    const clickable = Boolean(p.ticker && onSelectTicker);
+                    return (
+                      <tr
+                        key={`${p.cusip}-${p.putCall || ''}-${p.status || ''}`}
+                        onClick={clickable ? () => onSelectTicker(p.ticker) : undefined}
+                        className={`border-t border-vs-border ${clickable ? 'cursor-pointer hover:bg-vs-card2 transition-colors' : ''}`}
+                      >
+                        <td className="px-4 py-2 sticky left-0 bg-vs-card z-10">
+                          {p.ticker
+                            ? <span className="text-vs-blue font-semibold">{p.ticker}</span>
+                            : <span className="text-vs-text font-semibold">{p.issuer}</span>}
+                          <span className="block text-vs-soft text-[9px] mt-0.5 whitespace-nowrap">
+                            {p.ticker ? p.issuer : `CUSIP ${p.cusip}`}
+                            {p.putCall ? ` · ${p.putCall}` : ''}
+                          </span>
+                        </td>
+
+                        {tab === 'changes' && (
+                          <td className="px-3 py-2 whitespace-nowrap">
+                            <span
+                              className="inline-block rounded px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider"
+                              style={{
+                                color: status.color,
+                                border: `1px solid ${tint(status.color, 0.25)}`,
+                                background: tint(status.color, 0.07),
+                              }}
+                            >
+                              {status.label}
+                            </span>
+                            {p.deltaPct != null && p.status !== 'new' && (
+                              <span className="ml-1.5 text-vs-soft">{fmtPct(p.deltaPct, 0)}</span>
+                            )}
+                          </td>
+                        )}
+
+                        <td className="text-right px-3 py-2 text-vs-text font-semibold whitespace-nowrap">
+                          {p.status === 'exited' ? fmtValue(p.priorValue) : fmtValue(p.value)}
+                        </td>
+                        <td className="text-right px-3 py-2 text-vs-soft whitespace-nowrap">
+                          {p.status === 'exited' ? DASH : fmtPct(p.pctOfPortfolio, 1).replace('+', '')}
+                        </td>
+                        <td className="text-right px-3 py-2 text-vs-soft whitespace-nowrap">
+                          {p.status === 'exited' ? fmtShares(p.priorShares) : fmtShares(p.shares)}
+                        </td>
+                        {tab === 'changes' && (
+                          <td
+                            className="text-right px-4 py-2 whitespace-nowrap font-semibold"
+                            style={{ color: (p.deltaShares ?? 0) >= 0 ? 'rgb(var(--vs-green))' : 'rgb(var(--vs-red))' }}
+                          >
+                            {(p.deltaShares ?? 0) > 0 ? '+' : ''}{fmtShares(p.deltaShares)}
+                          </td>
+                        )}
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+
+            {rows.length === 0 && (
+              <p className="px-4 py-4 text-vs-soft text-[12px] font-mono">
+                {tab === 'changes'
+                  ? 'No position changes between these two quarters.'
+                  : 'No positions in this filing.'}
+              </p>
+            )}
+
+            <div className="px-4 py-3 border-t border-vs-border">
+              <p className="text-vs-soft text-[9px] font-mono leading-relaxed max-w-[80ch]">
+                {`13Fs are filed up to 45 days after quarter-end, so this shows what was held on ${data.period}, not today. They cover US-listed long equity only — short positions, bonds, cash and foreign holdings never appear, so this is not the whole portfolio. Duplicate rows for the same security across managing entities are combined${data.rawRows !== data.positionCount ? `: ${data.rawRows} filed rows became ${data.positionCount} positions` : ''}.`}
+              </p>
+              <p className="text-vs-soft text-[9px] font-mono mt-1.5">
+                Source: SEC EDGAR {data.form} · tickers matched by CUSIP via OpenFIGI, blank where unmatched.
+              </p>
+            </div>
+          </div>
+        </>
+      )}
+    </div>
+  );
+}

@@ -67,3 +67,18 @@ export async function fetchPriceHistory(ticker, range = '1Y') {
 export async function fetchIndices(mode = 'total') {
   return apiFetch(`/api/indices?mode=${encodeURIComponent(mode)}`);
 }
+
+// Investor name → CIK, via EDGAR full-text search over 13F filers.
+export async function searchInstitutions(query) {
+  if (!query || query.trim().length < 2) return { filers: [] };
+  return apiFetch(`/api/institutions?q=${encodeURIComponent(query.trim())}`);
+}
+
+// A manager's 13F portfolio. Omit period for the most recent quarter; the
+// response always carries the full quarter list and a diff against the prior
+// filing.
+export async function fetchHoldings(cik, period) {
+  const params = new URLSearchParams({ cik });
+  if (period) params.set('period', period);
+  return apiFetch(`/api/holdings?${params}`);
+}
