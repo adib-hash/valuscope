@@ -61,3 +61,9 @@ export async function fetchSummary(ticker, year, quarter) {
 export async function fetchPriceHistory(ticker, range = '1Y') {
   return apiFetch(`/api/priceHistory?ticker=${encodeURIComponent(ticker)}&range=${encodeURIComponent(range)}`);
 }
+
+// World index returns. mode is 'total' (USD, dividends reinvested) or 'price'
+// (local currency, price only) — see api/indices.js for why both exist.
+export async function fetchIndices(mode = 'total') {
+  return apiFetch(`/api/indices?mode=${encodeURIComponent(mode)}`);
+}

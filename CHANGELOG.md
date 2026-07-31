@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.14.0 — 2026-07-31
+
+### Added
+- **World indices tab.** A new top-level `Indices` view, reachable without loading a company, showing YTD, 1-year, and annualised 3-, 5- and 10-year returns for eleven markets: MSCI ACWI, the S&P 500, NASDAQ, FTSE 100, Nikkei 225, MSCI India, MSCI China, US real estate, energy, US bonds, and the VIX. Each row carries a five-year sparkline rebased to 100.
+- **Two return bases, switchable.** This is the whole design of the feature. Measured on price alone, US bonds returned roughly **-1.5% a year** over the last decade; with coupons reinvested they returned **+1.3%**. Real estate is +0.7% against +4.8% on the same split. For bonds and property the income *is* the return, so a single table quoting price-only figures would not be a simplification, it would be wrong. Rather than pick one basis quietly, both are offered: **Total return · USD** (dividends and coupons reinvested, everything in dollars, every row comparable) and **Price · local** (the indices themselves in their own currency, matching the headline numbers in the press).
+- Every row names the instrument it actually measured — `via SPY`, `via ^GSPC` — so the table never hides what is behind a number.
+- **The VIX is reported as a level, not a return.** It mean-reverts around 15-20 rather than trending, so compounding it produces a meaningless figure. It gets its own row shape: current level, its ten-year range and median, and where today sits in that decade.
+
+### Notes
+- New `/api/indices` endpoint. Keyless, on Yahoo Finance, like the rest of the app. Eleven daily series over eleven years is one batch quote plus eleven chart calls, about 700ms cold, cached at the edge for an hour.
+- FTSE 100 and Nikkei 225 have no free total-return series, so MSCI UK and MSCI Japan ETFs stand in on that basis. Those rows are labelled `proxy` — they are genuinely different indices, and pretending otherwise would be the kind of quiet substitution this feature exists to avoid.
+- Annualised figures are suppressed rather than estimated where an instrument lacks the history to cover the window. MSCI India only lists back to 2012, so it has no true fifteen-year number and does not invent one.
+- Views are no longer required to have a ticker loaded. `App.jsx` gained `openGlobalView` alongside `openView`, and `/?view=indices` is a deep link that survives a refresh.
+- Contrast: this page uses `vs-soft` rather than `vs-dim` for small labels. `vs-dim` measures 3.29:1 on card in dark mode and 4.07:1 on card2 in light — both below the 4.5:1 AA floor, which matters more here than elsewhere given the deliberately dense 9-13px scale.
+
 ## 0.13.0 — 2026-07-28
 
 ### Added

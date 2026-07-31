@@ -13,6 +13,7 @@ import EarningsPanel from './components/EarningsPanel';
 import WatchlistDashboard from './components/WatchlistDashboard';
 import PriceHistoryPage from './components/PriceHistoryPage';
 import TranscriptPage from './components/TranscriptPage';
+import IndicesPage from './components/IndicesPage';
 import { fetchFinancials, fetchHistory } from './lib/api';
 import { mergeHistory } from './lib/history';
 import {
@@ -36,7 +37,13 @@ import {
 } from './lib/watchlist';
 
 const QUICK_TICKERS = ['AAPL', 'MSFT', 'ULTA', 'COST', 'META', 'AMZN', 'GOOGL', 'NFLX'];
-const APP_VERSION   = 'v0.13.0';
+const APP_VERSION   = 'v0.14.0';
+
+// Top-level nav. `view: null` is the valuation home.
+const NAV_ITEMS = [
+  { label: 'Valuation', view: null },
+  { label: 'Indices',   view: 'indices' },
+];
 
 // Pills shown in the summary row
 const PILL_METRICS = [
@@ -135,6 +142,13 @@ export default function App() {
   const openView = (name) => {
     if (!sym) return;
     setSearchParams({ ticker: sym, view: name }, { replace: false });
+    window.scrollTo(0, 0);
+  };
+
+  // Views that exist without a loaded company. openView() bails when there is
+  // no ticker, which is right for the company-scoped views but wrong for these.
+  const openGlobalView = (name) => {
+    setSearchParams({ view: name }, { replace: false });
     window.scrollTo(0, 0);
   };
 
@@ -351,6 +365,26 @@ export default function App() {
       {/* ── Main ──────────────────────────────────────────────────────────────── */}
       <main className="max-w-[1100px] mx-auto px-4 py-5">
 
+        {/* Top-level nav */}
+        <div className="flex items-center gap-1 mb-3 flex-wrap">
+          {NAV_ITEMS.map((item) => {
+            const active = item.view ? view === item.view : !view;
+            return (
+              <button
+                key={item.label}
+                onClick={() => (item.view ? openGlobalView(item.view) : resetApp())}
+                className={`rounded px-2.5 py-1.5 text-[11px] font-mono font-semibold cursor-pointer border transition-all ${
+                  active
+                    ? 'bg-vs-blue/15 text-vs-blue border-vs-blue/50'
+                    : 'bg-transparent text-vs-dim border-vs-border hover:border-vs-borderLight hover:text-vs-soft'
+                }`}
+              >
+                {item.label}
+              </button>
+            );
+          })}
+        </div>
+
         {/* Search */}
         <SearchBar onSelect={loadCompany} loading={loading} />
 
@@ -405,7 +439,7 @@ export default function App() {
         )}
 
         {/* ── Empty state ────────────────────────────────────────────────────── */}
-        {!data && !loading && !error && (
+        {!data && !loading && !error && !view && (
           <div className="mt-16 text-center">
             {/* SVG bar chart icon */}
             <div className="flex justify-center mb-2.5 opacity-40">
@@ -446,6 +480,9 @@ export default function App() {
             </div>
           </div>
         )}
+
+        {/* ── World Indices (no ticker required) ───────────────────────────── */}
+        {view === 'indices' && <IndicesPage onBack={closeView} />}
 
         {/* ── Price Chart Page ─────────────────────────────────────────────── */}
         {data && !loading && view === 'price' && (
