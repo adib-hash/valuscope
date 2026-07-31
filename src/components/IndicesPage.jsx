@@ -1,5 +1,6 @@
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useEffect, useMemo, useState } from 'react';
 import { fetchIndices } from '../lib/api';
+import { tint } from '../lib/metrics';
 
 const MODES = [
   { key: 'total', label: 'Total return · USD' },
@@ -36,6 +37,42 @@ const returnColor = (v) =>
     : v >= 0
       ? 'rgb(var(--vs-green))'
       : 'rgb(var(--vs-red))';
+
+// Heat map. Each timeframe column gets its own scale spanning every market, so
+// a column reads as a ranking. The scale is anchored at zero rather than at the
+// column's worst value: green always means the market made money. Scaling to
+// the column range instead would paint a market up 15% red simply for lagging.
+const MIN_ALPHA = 0.04;
+// Ceiling set by contrast, not taste: the value sits on top of this tint, and
+// green in dark mode is the binding case. Measured against vs-text on vs-card,
+// 0.42 leaves 5.2:1 and 0.55 drops to 3.87:1, under the AA floor.
+const MAX_ALPHA = 0.42;
+// Below 1 so mid-range cells stay legible instead of washing out behind a
+// single outlier — Energy at +39% would otherwise flatten everything else.
+const RAMP = 0.7;
+
+function columnScales(rows, columns) {
+  const scales = {};
+  for (const col of columns) {
+    let maxAbs = 0;
+    for (const row of rows) {
+      const v = row[col.key];
+      if (v != null && isFinite(v)) maxAbs = Math.max(maxAbs, Math.abs(v));
+    }
+    scales[col.key] = maxAbs;
+  }
+  return scales;
+}
+
+function heatStyle(value, maxAbs) {
+  if (value == null || !isFinite(value) || !maxAbs) return undefined;
+  const ratio = Math.min(1, Math.abs(value) / maxAbs);
+  // The floor keeps a near-zero return faintly tinted, so an empty cell always
+  // means missing data rather than a small number.
+  const alpha = MIN_ALPHA + Math.pow(ratio, RAMP) * (MAX_ALPHA - MIN_ALPHA);
+  const token = value >= 0 ? 'rgb(var(--vs-green))' : 'rgb(var(--vs-red))';
+  return { background: tint(token, Number(alpha.toFixed(3))) };
+}
 
 // Hand-rolled rather than Recharts. Eleven ResponsiveContainers to draw eleven
 // 92x24 shapes is a lot of machinery for a decoration, and these never need a
@@ -81,6 +118,11 @@ export default function IndicesPage({ onBack }) {
   const rows = data?.rows || [];
   const vix = data?.vix;
   const isTotal = mode === 'total';
+
+  // One scale per column, across every market — not per section. Global has a
+  // single row and Emerging has two, so a per-section scale would paint a 2-point
+  // gap as the full spectrum.
+  const scales = useMemo(() => columnScales(rows, COLUMNS), [rows]);
 
   // Group headers are derived from the data so the API owns the ordering.
   const groups = [];
@@ -134,6 +176,26 @@ export default function IndicesPage({ onBack }) {
           ? 'Bonds and property earn most of their return as income, so price-only figures understate them badly.'
           : 'Price return ignores income. US bonds look like a loss on this basis; on a total-return basis they are not.'}
       </p>
+
+      {/* Heat scale legend */}
+      {!loading && !error && rows.length > 0 && (
+        <div className="flex items-center gap-2 mt-3 flex-wrap">
+          <span className="text-vs-soft text-[9px] font-mono uppercase tracking-wider">
+            Shaded per column
+          </span>
+          <div className="flex items-center gap-1">
+            <span className="text-vs-soft text-[9px] font-mono">loss</span>
+            {[-1, -0.55, -0.2, 0.2, 0.55, 1].map((step) => (
+              <span
+                key={step}
+                className="inline-block w-5 h-3 rounded-sm border border-vs-border"
+                style={heatStyle(step, 1)}
+              />
+            ))}
+            <span className="text-vs-soft text-[9px] font-mono">gain</span>
+          </div>
+        </div>
+      )}
 
       {error && (
         <div className="mt-5 text-vs-red font-mono text-[13px] px-4 py-3 bg-vs-red/5 rounded-lg border border-vs-red/20">
@@ -208,8 +270,10 @@ export default function IndicesPage({ onBack }) {
                         {COLUMNS.map((c) => (
                           <td
                             key={c.key}
-                            className="text-right px-3 py-2 whitespace-nowrap font-semibold"
-                            style={{ color: returnColor(row[c.key]) }}
+                            className={`text-right px-3 py-2 whitespace-nowrap font-semibold ${
+                              row[c.key] == null ? 'text-vs-soft' : 'text-vs-text'
+                            }`}
+                            style={row.available ? heatStyle(row[c.key], scales[c.key]) : undefined}
                           >
                             {row.available ? fmtPct(row[c.key]) : DASH}
                           </td>

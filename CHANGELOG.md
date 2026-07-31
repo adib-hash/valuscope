@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.15.1 — 2026-07-31
+
+### Changed
+- **Index returns are now a heat map** rather than red-or-green text. Each timeframe column gets its own colour scale spanning every market, so a column reads as a ranking at a glance instead of a list of signs.
+- **Scaled per column across all rows, not per section.** The Global section has one row and Emerging has two — a per-section scale would paint the 2.3-point gap between MSCI India and MSCI China as the entire spectrum, which says something the data does not.
+- **Anchored at zero, not at the column's range.** Green always means the market made money. Scaling to the range instead would have rendered real estate up 15.4% in red purely for lagging energy, which reads as a loss.
+- The shading curve sits below linear so mid-range cells stay legible instead of washing out behind one outlier — energy at +39% would otherwise flatten the rest of the 1-year column.
+- Values are now neutral high-contrast text on a tinted cell, so the background carries the signal and the number stays readable. A legend under the toggle shows the ramp.
+
+### Notes
+- Tint ceiling is 0.42 alpha, set by contrast rather than taste. Measured against `vs-text`, green in dark mode is the binding case: 0.42 leaves 5.2:1, while 0.55 drops to 3.87:1 and fails AA. Verified on the rendered cells — worst case is 5.38:1 in dark and 9.19:1 in light, against a 4.5:1 floor.
+- Colour is redundant encoding here, never the only channel: every cell still shows its signed number, so the table is readable without distinguishing red from green.
+- The day-change column keeps its sign colouring. It is a different kind of number from a period return and is not part of the cross-market comparison.
+
 ## 0.15.0 — 2026-07-31
 
 ### Added
