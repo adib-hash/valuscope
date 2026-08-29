@@ -28,7 +28,6 @@ const CompareChart     = lazy(() => import('./components/CompareChart'));
 import Pill from './components/Pill';
 import FundamentalsPanel from './components/FundamentalsPanel';
 import FairValueTable from './components/FairValueTable';
-import Thesis from './components/Thesis';
 import WatchlistDashboard from './components/WatchlistDashboard';
 import TranscriptPage from './components/TranscriptPage';
 import IndicesPage from './components/IndicesPage';
@@ -58,7 +57,7 @@ import {
 } from './lib/watchlist';
 
 const QUICK_TICKERS = ['AAPL', 'MSFT', 'ULTA', 'COST', 'META', 'AMZN', 'GOOGL', 'NFLX'];
-const APP_VERSION   = 'v0.20.1';
+const APP_VERSION   = 'v0.20.2';
 
 // The view the app opens on when the URL names neither a company nor a view.
 const DEFAULT_VIEW = 'indices';
@@ -173,7 +172,7 @@ export default function App() {
   const [peers, setPeers] = useState({});
 
   // Tabs stay mounted once opened (hidden, not unmounted), so switching away
-  // never drops fetched data or in-progress Thesis keystrokes. Reset per
+  // never drops fetched data or in-progress state. Reset per
   // company. Initialised with the deep-linked tab so a shared &tab= URL
   // renders it on first paint.
   const [visitedTabs, setVisitedTabs] = useState(() => new Set(['overview', activeTab]));
@@ -1037,7 +1036,6 @@ export default function App() {
                 <FundamentalsPanel hist={hist} now={now} data={data} />
                 <FairValueTable hist={hist} now={now} currentPrice={data.currentPrice} />
                 {!comparing && <CompanyBrief ticker={sym} key={sym} />}
-                <Thesis sym={sym} />
               </ErrorBoundary>
             </div>
 

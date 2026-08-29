@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.20.2 — 2026-08-29
+
+### Removed
+- **The investment thesis notepad.** The per-company notes box on the Overview tab is gone — unused in practice, and a feature that exists but goes unused is clutter with a maintenance bill. Any notes previously saved sit untouched in the browser's localStorage under `vs-thesis-*` keys; nothing reads them anymore, and clearing site data removes them.
+
 ## 0.20.1 — 2026-08-29
 
 ### Fixed
