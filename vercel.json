@@ -5,9 +5,15 @@
   "functions": {
     "api/summarize.js": {
       "maxDuration": 60
+    },
+    "api/brief.js": {
+      "maxDuration": 60
     }
   },
   "rewrites": [
-    { "source": "/((?!api/).*)", "destination": "/index.html" }
+    {
+      "source": "/((?!api/).*)",
+      "destination": "/index.html"
+    }
   ]
 }

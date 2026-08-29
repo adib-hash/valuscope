@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.20.0 — 2026-08-29
+
+### Added
+- **The AI company brief.** A button on the Overview tab generates a one-page valuation brief: what you're paying today, how that compares to the company's own history, the business trajectory, what would have to be true to sustain the multiple, and a bull and bear case — each grounded in specific figures. Explicitly user-triggered like every AI feature here, violet-labeled, with the generation date and the price it saw in the footer.
+- **The model does zero arithmetic.** Every comparative figure — premiums to average, implied prices, percentiles, CAGRs — is precomputed server-side from the same endpoints the page renders, and the prompt forbids computing, estimating, or adding outside knowledge. The brief restates the page's numbers; it cannot invent its own. Analyst figures are always attributed as estimates, implied prices always labeled as mechanical mean-reversion, and "expensive" only ever means relative to the company's own history.
+
+### Notes
+- `GET /api/brief?ticker=X` — keyed by ticker alone so the edge cache is honest (a client-posted payload could be neither cached nor trusted). Cached a day at the edge plus a per-instance daily memo; a warm repeat returns in milliseconds, a cold generation takes 15–30 seconds.
+- Companies without SEC deep history get a brief that says so — Novo Nordisk's caveats section names its 4-year window rather than inventing a decade. Tickers with no earnings data simply omit that topic. No key on the deployment → the button reports briefs unconfigured.
+- Hidden while compare mode is active; the brief is about one company against its own history.
+
 ## 0.19.0 — 2026-08-28
 
 ### Added

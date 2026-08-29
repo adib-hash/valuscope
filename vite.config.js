@@ -29,7 +29,7 @@ function apiDevServer() {
             },
           };
           await mod.default(
-            { query: Object.fromEntries(url.searchParams), method: req.method, url: req.url },
+            { query: Object.fromEntries(url.searchParams), method: req.method, url: req.url, headers: { host: req.headers.host, 'x-forwarded-proto': 'http' } },
             shimRes,
           );
         } catch (err) {

@@ -7,6 +7,7 @@ import ErrorBanner from './components/ui/ErrorBanner';
 import RegimeBadge from './components/ui/RegimeBadge';
 import BottomNav from './components/ui/BottomNav';
 import CompareControl from './components/CompareControl';
+import CompanyBrief from './components/CompanyBrief';
 import CompareGrid from './components/CompareGrid';
 import { TICKER_COLORS, buildCompareData, compareStats } from './lib/compare';
 import { Sun, Moon, Settings, Link2, Check, Star, X, Globe, LineChart, Landmark } from 'lucide-react';
@@ -56,7 +57,7 @@ import {
 } from './lib/watchlist';
 
 const QUICK_TICKERS = ['AAPL', 'MSFT', 'ULTA', 'COST', 'META', 'AMZN', 'GOOGL', 'NFLX'];
-const APP_VERSION   = 'v0.19.0';
+const APP_VERSION   = 'v0.20.0';
 
 // The view the app opens on when the URL names neither a company nor a view.
 const DEFAULT_VIEW = 'indices';
@@ -1001,6 +1002,7 @@ export default function App() {
             <div hidden={activeTab !== 'overview'}>
               <FundamentalsPanel hist={hist} now={now} data={data} />
               <FairValueTable hist={hist} now={now} currentPrice={data.currentPrice} />
+              {!comparing && <CompanyBrief ticker={sym} key={sym} />}
               <Thesis sym={sym} />
             </div>
 

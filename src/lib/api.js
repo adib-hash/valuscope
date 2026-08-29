@@ -82,3 +82,8 @@ export async function fetchHoldings(cik, period) {
   if (period) params.set('period', period);
   return apiFetch(`/api/holdings?${params}`);
 }
+
+// AI valuation brief. Slow (15-30s cold) and explicitly user-triggered.
+export async function fetchBrief(ticker) {
+  return apiFetch(`/api/brief?ticker=${encodeURIComponent(ticker)}`);
+}
