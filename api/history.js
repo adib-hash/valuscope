@@ -9,6 +9,7 @@
 import YahooFinance from 'yahoo-finance2';
 import { lookupCik, fetchCompanyFacts, extractAnnualFundamentals } from './_lib/sec.js';
 import { computeYearRow } from './_lib/valuation.js';
+import { monthEndCloseNear } from './_lib/prices.js';
 
 const yahooFinance = new YahooFinance({ suppressNotices: ['yahooSurvey', 'ripHistorical'] });
 
@@ -59,18 +60,10 @@ export default async function handler(req, res) {
     const quotes = priceChart?.quotes || [];
     const splits = priceChart?.events?.splits || [];
 
-    const priceNear = (date) => {
-      if (!date || !quotes.length) return null;
-      const target = new Date(date).getTime();
-      let best = null, bestDiff = Infinity;
-      for (const q of quotes) {
-        const diff = Math.abs(new Date(q.date).getTime() - target);
-        const close = q.close ?? q.adjclose;
-        if (diff < bestDiff && close != null) { bestDiff = diff; best = close; }
-      }
-      // A price more than ~3 months from the year end isn't a year-end price.
-      return bestDiff < 100 * 86400000 ? best : null;
-    };
+    // A price more than ~3 months from the year end isn't a year-end price.
+    // Bars are matched on the date their close printed, not the bar timestamp —
+    // see _lib/prices.js for the month-start trap this avoids.
+    const priceNear = (date) => monthEndCloseNear(quotes, date, 100);
 
     // Cumulative ratio of every split that happened after `date`. Applied from
     // the date a share count was *filed*, not the period it describes: a FY2019

@@ -3,6 +3,7 @@
 
 import YahooFinance from 'yahoo-finance2';
 const yahooFinance = new YahooFinance({ suppressNotices: ['yahooSurvey', 'ripHistorical'] });
+import { monthEndCloseNear } from './_lib/prices.js';
 
 const ELEVEN_YEARS_AGO = () => {
   const d = new Date();
@@ -80,18 +81,10 @@ export default async function handler(req, res) {
       });
     }
 
-    // Find the monthly chart price nearest to a given date
+    // Month-end close nearest a fiscal year end. See _lib/prices.js for why
+    // the bars can't be matched on their raw dates and why adjclose is wrong.
     const priceQuotes = priceChart?.quotes || [];
-    const getPriceNear = (date) => {
-      if (!date || !priceQuotes.length) return null;
-      const target = new Date(date).getTime();
-      let best = null, bestDiff = Infinity;
-      for (const q of priceQuotes) {
-        const diff = Math.abs(new Date(q.date).getTime() - target);
-        if (diff < bestDiff) { bestDiff = diff; best = q.adjclose ?? q.close; }
-      }
-      return best;
-    };
+    const getPriceNear = (date) => monthEndCloseNear(priceQuotes, date);
 
     const priceData = summary.price                || {};
     const stats     = summary.defaultKeyStatistics || {};
