@@ -1,7 +1,9 @@
 import { useEffect, useMemo, useState } from 'react';
 import { fetchOverview } from '../lib/api';
 import { getSummaries } from '../lib/summaryCache';
-import { tint } from '../lib/metrics';
+import SegmentedControl from './ui/SegmentedControl';
+import ErrorBanner from './ui/ErrorBanner';
+import RegimeBadge from './ui/RegimeBadge';
 
 const SORTS = [
   { key: 'cheapest', label: 'Cheapest' },
@@ -43,18 +45,6 @@ function staleness(updatedAt) {
   if (hours < 24) return `${Math.round(hours)}h ago`;
   const days = Math.round(hours / 24);
   return `${days}d ago`;
-}
-
-function RegimeBadge({ label, color }) {
-  if (!label) return null;
-  return (
-    <span
-      className="text-[9px] font-mono font-bold px-2 py-0.5 rounded-full whitespace-nowrap"
-      style={{ color, border: `1px solid ${tint(color, 0.25)}`, background: tint(color, 0.07) }}
-    >
-      {label}
-    </span>
-  );
 }
 
 const changeColor = (v) =>
@@ -128,28 +118,14 @@ export default function WatchlistDashboard({ symbols, onSelectTicker }) {
             {loading && ' · loading quotes…'}
           </p>
         </div>
-        <div className="flex gap-1">
-          {SORTS.map(({ key, label }) => (
-            <button
-              key={key}
-              onClick={() => setSort(key)}
-              className={`rounded px-2.5 py-1.5 text-[11px] font-mono font-semibold cursor-pointer border transition-all ${
-                sort === key
-                  ? 'bg-vs-blue/15 text-vs-blue border-vs-blue/50'
-                  : 'bg-transparent text-vs-dim border-vs-border hover:border-vs-borderLight hover:text-vs-soft'
-              }`}
-            >
-              {label}
-            </button>
-          ))}
-        </div>
+        <SegmentedControl
+          options={SORTS.map(({ key, label }) => ({ value: key, label }))}
+          value={sort}
+          onChange={setSort}
+        />
       </div>
 
-      {error && (
-        <div className="text-vs-red font-mono text-[12px] px-3.5 py-2.5 bg-vs-red/5 rounded-lg border border-vs-red/20 mb-2">
-          {error}
-        </div>
-      )}
+      {error && <ErrorBanner className="mb-2">{error}</ErrorBanner>}
 
       <div className="rounded-xl border border-vs-border bg-vs-card overflow-hidden divide-y divide-vs-border">
         {rows.map(({ symbol, quote, summary }) => {

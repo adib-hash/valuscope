@@ -1,6 +1,11 @@
 import { useState, useMemo, useEffect, useRef, lazy, Suspense } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import SearchBar from './components/SearchBar';
+import SegmentedControl from './components/ui/SegmentedControl';
+import Button from './components/ui/Button';
+import ErrorBanner from './components/ui/ErrorBanner';
+import RegimeBadge from './components/ui/RegimeBadge';
+import { Sun, Moon, Settings, Link2, Check, Star, X } from 'lucide-react';
 
 // Recharts is over a third of the bundle, and the Indices landing view never
 // draws a chart — so everything that imports it loads on demand instead of
@@ -43,7 +48,7 @@ import {
 } from './lib/watchlist';
 
 const QUICK_TICKERS = ['AAPL', 'MSFT', 'ULTA', 'COST', 'META', 'AMZN', 'GOOGL', 'NFLX'];
-const APP_VERSION   = 'v0.18.1';
+const APP_VERSION   = 'v0.18.2';
 
 // The view the app opens on when the URL names neither a company nor a view.
 const DEFAULT_VIEW = 'indices';
@@ -370,37 +375,20 @@ export default function App() {
             <DataSources />
 
             {/* Theme toggle */}
-            <button
+            <Button
+              variant="ghost"
               onClick={() => setIsDark(!isDark)}
               aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
-              className="text-vs-dim hover:text-vs-soft transition-colors p-2 cursor-pointer rounded-md hover:bg-vs-card"
             >
-              {isDark ? (
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <circle cx="12" cy="12" r="5"/>
-                  <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
-                  <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-                  <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
-                  <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-                </svg>
-              ) : (
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-                </svg>
-              )}
-            </button>
+              {isDark
+                ? <Sun size={16} strokeWidth={2} aria-hidden="true" />
+                : <Moon size={16} strokeWidth={2} aria-hidden="true" />}
+            </Button>
 
             {/* Settings */}
-            <button
-              onClick={() => setSettingsOpen(true)}
-              aria-label="Settings"
-              className="text-vs-dim hover:text-vs-soft transition-colors p-2 cursor-pointer rounded-md hover:bg-vs-card"
-            >
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <circle cx="12" cy="12" r="3"/>
-                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
-              </svg>
-            </button>
+            <Button variant="ghost" onClick={() => setSettingsOpen(true)} aria-label="Settings">
+              <Settings size={16} strokeWidth={2} aria-hidden="true" />
+            </Button>
           </div>
         </div>
       </header>
@@ -409,24 +397,12 @@ export default function App() {
       <main className="max-w-[1100px] mx-auto px-4 py-5">
 
         {/* Top-level nav */}
-        <div className="flex items-center gap-1 mb-3 flex-wrap">
-          {NAV_ITEMS.map((item) => {
-            const active = item.view === 'valuation' ? isValuationView : view === item.view;
-            return (
-              <button
-                key={item.label}
-                onClick={() => openNav(item.view)}
-                className={`rounded px-2.5 py-1.5 text-[11px] font-mono font-semibold cursor-pointer border transition-all ${
-                  active
-                    ? 'bg-vs-blue/15 text-vs-blue border-vs-blue/50'
-                    : 'bg-transparent text-vs-dim border-vs-border hover:border-vs-borderLight hover:text-vs-soft'
-                }`}
-              >
-                {item.label}
-              </button>
-            );
-          })}
-        </div>
+        <SegmentedControl
+          className="mb-3"
+          options={NAV_ITEMS.map((item) => ({ value: item.view, label: item.label }))}
+          value={NAV_ITEMS.find((i) => (i.view === 'valuation' ? isValuationView : view === i.view))?.view}
+          onChange={openNav}
+        />
 
         {/* Search */}
         <SearchBar
@@ -440,17 +416,14 @@ export default function App() {
           <div className="flex gap-1.5 mt-2.5 flex-wrap items-center">
             <span className="text-vs-dim text-[10px] font-mono leading-6">Recent:</span>
             {history.map((h) => (
-              <button
+              <Button
                 key={h}
+                variant="chip"
                 onClick={() => loadCompany(h)}
-                className={`border rounded px-2.5 py-0.5 text-[11px] font-mono cursor-pointer transition-colors ${
-                  h === sym
-                    ? 'bg-vs-blue/10 text-vs-blue border-vs-blue'
-                    : 'bg-vs-card text-vs-soft border-vs-border hover:border-vs-borderLight'
-                }`}
+                className={`!py-0.5 ${h === sym ? '!bg-vs-blue/10 !text-vs-blue !border-vs-blue' : ''}`}
               >
                 {h}
-              </button>
+              </Button>
             ))}
           </div>
         )}
@@ -479,11 +452,7 @@ export default function App() {
         )}
 
         {/* Error */}
-        {error && (
-          <div className="mt-5 text-vs-red font-mono text-[13px] px-4 py-3 bg-vs-red/5 rounded-lg border border-vs-red/20">
-            {error}
-          </div>
-        )}
+        {error && <ErrorBanner className="mt-5">{error}</ErrorBanner>}
 
         {/* ── Empty state ────────────────────────────────────────────────────── */}
         {!data && !loading && !error && isValuationView && (
@@ -515,13 +484,9 @@ export default function App() {
               )}
               <div className="flex gap-2 justify-center flex-wrap">
                 {QUICK_TICKERS.map((t) => (
-                  <button
-                    key={t}
-                    onClick={() => loadCompany(t)}
-                    className="bg-vs-card text-vs-soft border border-vs-border rounded-md px-3.5 py-1.5 text-xs font-mono cursor-pointer hover:border-vs-borderLight hover:text-vs-text transition-colors"
-                  >
+                  <Button key={t} variant="chip" className="!px-3.5" onClick={() => loadCompany(t)}>
                     {t}
-                  </button>
+                  </Button>
                 ))}
               </div>
             </div>
@@ -623,34 +588,25 @@ export default function App() {
 
                 {/* Share + Watchlist buttons */}
                 <div className="flex items-center gap-0.5 mt-1 flex-shrink-0">
-                  <button
+                  <Button
+                    variant="ghost"
                     onClick={copyShare}
                     aria-label="Copy share link"
                     title={copied ? 'Copied!' : 'Copy link'}
-                    className="p-1.5 rounded-lg transition-colors cursor-pointer"
-                    style={{ color: copied ? 'rgb(var(--vs-green))' : 'rgb(var(--vs-dim))' }}
+                    className={copied ? '!text-vs-green' : ''}
                   >
-                    {copied ? (
-                      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                        <polyline points="20 6 9 17 4 12"/>
-                      </svg>
-                    ) : (
-                      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
-                        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
-                      </svg>
-                    )}
-                  </button>
-                  <button
+                    {copied
+                      ? <Check size={16} strokeWidth={2.5} aria-hidden="true" />
+                      : <Link2 size={16} strokeWidth={2} aria-hidden="true" />}
+                  </Button>
+                  <Button
+                    variant="ghost"
                     onClick={() => toggleWatchlist(sym)}
                     aria-label={watched ? 'Remove from watchlist' : 'Add to watchlist'}
-                    className="p-1.5 rounded-lg transition-colors cursor-pointer"
-                    style={{ color: watched ? 'rgb(var(--vs-amber))' : 'rgb(var(--vs-dim))' }}
+                    className={watched ? '!text-vs-amber' : ''}
                   >
-                    <svg width="19" height="19" viewBox="0 0 24 24" fill={watched ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-                    </svg>
-                  </button>
+                    <Star size={17} strokeWidth={2} fill={watched ? 'currentColor' : 'none'} aria-hidden="true" />
+                  </Button>
                 </div>
               </div>
 
@@ -698,18 +654,7 @@ export default function App() {
                   &middot; SEC EDGAR
                 </span>
               )}
-              {REGIME && (
-                <span
-                  className="text-[9px] font-mono font-bold px-2 py-0.5 rounded-full"
-                  style={{
-                    color: REGIME.color,
-                    border: `1px solid ${tint(REGIME.color, 0.25)}`,
-                    background: tint(REGIME.color, 0.07),
-                  }}
-                >
-                  {REGIME.label}
-                </span>
-              )}
+              {REGIME && <RegimeBadge label={REGIME.label} color={REGIME.color} />}
             </div>
             <div
               className="flex gap-1.5 overflow-x-auto pb-1 snap-x snap-mandatory"
@@ -744,55 +689,37 @@ export default function App() {
 
             {/* Period toggle + Group tabs — single row */}
             <div className="flex items-start justify-between gap-2 mt-5 flex-wrap">
-              <div className="flex gap-1.5 flex-wrap">
-              {Object.keys(GROUPS).map((g) => {
-                const rec = getSectorRecommendation(data.sector);
-                const isRecGroup = rec && rec.defaultGroup === g;
-                const hasRecMetrics = rec && GROUPS[g].some((m) => rec.metrics.includes(m.key));
-                return (
-                  <button
-                    key={g}
-                    onClick={() => switchGroup(g)}
-                    className={`rounded-md px-3.5 py-1.5 text-xs font-semibold font-mono cursor-pointer border transition-all flex items-center gap-1.5 ${
-                      group === g
-                        ? 'bg-vs-blue text-vs-bg border-vs-blue'
-                        : 'bg-vs-card text-vs-soft border-vs-border hover:border-vs-borderLight'
-                    }`}
-                  >
-                    {g}
-                    {isRecGroup && (
-                      <span
-                        className="inline-block w-1.5 h-1.5 rounded-full flex-shrink-0"
-                        style={{ background: group === g ? 'rgb(var(--vs-bg))' : 'rgb(var(--vs-blue))' }}
-                        title="Recommended for this sector"
-                      />
-                    )}
-                    {!isRecGroup && hasRecMetrics && (
-                      <span
-                        className="inline-block w-1 h-1 rounded-full flex-shrink-0 opacity-50"
-                        style={{ background: group === g ? 'rgb(var(--vs-bg))' : 'rgb(var(--vs-blue))' }}
-                        title="Contains recommended metrics"
-                      />
-                    )}
-                  </button>
-                );
-              })}
-              </div>
-              <div className="flex items-center gap-1">
-                {periodOptions.map(({ value, label }) => (
-                  <button
-                    key={value}
-                    onClick={() => setPeriod(value)}
-                    className={`rounded px-2.5 py-1.5 text-[11px] font-mono font-semibold cursor-pointer border transition-all ${
-                      period === value
-                        ? 'bg-vs-blue/15 text-vs-blue border-vs-blue/50'
-                        : 'bg-transparent text-vs-dim border-vs-border hover:border-vs-borderLight hover:text-vs-soft'
-                    }`}
-                  >
-                    {label}
-                  </button>
-                ))}
-              </div>
+              <SegmentedControl
+                size="md"
+                options={Object.keys(GROUPS).map((g) => {
+                  const rec = getSectorRecommendation(data.sector);
+                  const isRecGroup = rec && rec.defaultGroup === g;
+                  const hasRecMetrics = rec && GROUPS[g].some((m) => rec.metrics.includes(m.key));
+                  return {
+                    value: g,
+                    title: isRecGroup ? 'Recommended for this sector'
+                      : hasRecMetrics ? 'Contains recommended metrics' : undefined,
+                    label: (
+                      <span className="flex items-center gap-1.5">
+                        {g}
+                        {isRecGroup && (
+                          <span className="inline-block w-1.5 h-1.5 rounded-full flex-shrink-0 bg-vs-blue" />
+                        )}
+                        {!isRecGroup && hasRecMetrics && (
+                          <span className="inline-block w-1 h-1 rounded-full flex-shrink-0 bg-vs-blue opacity-50" />
+                        )}
+                      </span>
+                    ),
+                  };
+                })}
+                value={group}
+                onChange={switchGroup}
+              />
+              <SegmentedControl
+                options={periodOptions.map(({ value, label }) => ({ value, label }))}
+                value={period}
+                onChange={setPeriod}
+              />
             </div>
 
             {/* Metric toggles */}
@@ -803,7 +730,7 @@ export default function App() {
                   <button
                     key={m.key}
                     onClick={() => toggle(m.key)}
-                    className="rounded px-2.5 py-1 text-[11px] font-medium font-mono cursor-pointer border transition-all flex items-center gap-1"
+                    className="rounded-md px-2.5 py-1 text-[11px] font-medium font-mono cursor-pointer border transition-all flex items-center gap-1"
                     style={{
                       background:  selected.includes(m.key) ? tint(m.color, 0.08) : 'transparent',
                       color:       selected.includes(m.key) ? m.color : isRec ? 'rgb(var(--vs-soft))' : 'rgb(var(--vs-dim))',

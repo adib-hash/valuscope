@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.18.2 — 2026-08-28
+
+### Changed
+- **One design language for controls.** The app had fifteen distinct button recipes and five different "active blue" treatments for what is functionally the same segmented toggle. There is now a single `SegmentedControl`, one `Button` (primary / ghost / chip), one `Card` shell, one `SectionLabel`, one `ErrorBanner`, and one `RegimeBadge` — the dashboard badge and the watchlist badge are now literally the same component, so they can never drift apart. Adopted so far by the header, nav, period toggle, group tabs, recents, quick picks and watchlist; the remaining components migrate file-by-file in an upcoming release.
+- **Group tabs moved from solid blue to the tinted active style** every other control uses. One active treatment everywhere.
+- **Icons are Lucide now.** The hand-rolled header and action SVGs (with stroke widths drifting between 1.8, 2 and 2.5) are replaced by lucide-react at a uniform 16px/2. The bespoke micro-glyphs — trend arrows, the drag handle, the three-bars mark — stay hand-rolled on purpose.
+
+### Notes
+- The primitives are plain function components in `src/components/ui/` with className passthrough — no variant library, no design-system package.
+
 ## 0.18.1 — 2026-08-28
 
 ### Changed
