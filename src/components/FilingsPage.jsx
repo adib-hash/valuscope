@@ -3,6 +3,9 @@ import { fetchFilings } from '../lib/api';
 import BackButton from './ui/BackButton';
 import ErrorBanner from './ui/ErrorBanner';
 import SegmentedControl from './ui/SegmentedControl';
+import { lazy, Suspense } from 'react';
+
+const KpiPanel = lazy(() => import('./KpiPanel'));
 
 // The filings index for a company: what EDGAR has, filtered to the forms
 // worth reading, each row one click from the in-app reader.
@@ -60,6 +63,11 @@ export default function FilingsPage({ ticker, companyName, onBack, onOpenFiling 
       <p className="text-vs-soft text-body mt-0.5 max-w-[68ch]">
         Everything material the company filed with the SEC, readable here.
       </p>
+
+      {/* Operating KPIs — mined from these very filings */}
+      <Suspense fallback={null}>
+        <KpiPanel ticker={ticker} onOpenFiling={onOpenFiling} />
+      </Suspense>
 
       <SegmentedControl
         className="mt-4"

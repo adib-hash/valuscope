@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.23.0 — 2026-08-29
+
+### Added
+- **Operating KPIs, mined from filings.** The Filings view now grows per-company time series of the numbers that define a business but exist in no market-data API — store counts, members, comparable-sales growth, average ticket, units. Press the button and the AI reads a few more 10-K/10-Qs (staying inside free-tier limits), extending every series; each point carries the verbatim sentence it came from, and its source link opens that exact filing in the reader.
+- **Series cohere across quarters.** Each extraction is seeded with the metric names already found for that company, so "Comparable Sales Growth" stays one series instead of drifting into synonyms. Where names still split, per-metric point counts make the orphans obvious rather than hiding them.
+
+### Notes
+- Persistence is Vercel Blob — write-once artifacts keyed by filing, holding only AI extractions, never user data. **Production needs a Blob store created once in the Vercel dashboard** (Storage → Create → Blob; the token env var appears automatically). Without it the panel simply doesn't render in production; local dev works regardless, in memory, and says so in its footer.
+- Verified live on the plan's own test cases: ULTA (1,608 → 1,622 stores, comp sales +5.3% → +3.8%, average ticket, transactions) and NFLX (constant-currency revenue growth by region, content obligations — Netflix stopped disclosing member counts in 2025, and the extraction honestly reflects what the filings now say).
+- This completes the Filings & Docs Hub: reader (0.21.0), summaries and doc chat (0.22.0), KPI series (0.23.0) — all through the single `/api/docs` function, deployment still at 12/12.
+
 ## 0.22.0 — 2026-08-29
 
 ### Added

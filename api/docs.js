@@ -13,6 +13,7 @@
 import { lookupCik } from './_lib/sec.js';
 import { listCompanyFilings, getFilingIndex, fetchFilingHtml } from './_lib/filings.js';
 import { htmlToBlocks, detectSections, blocksToText } from './_lib/filingText.js';
+import { storeAvailable, storeEphemeral, putJson, getJson, listKeys } from './_lib/store.js';
 
 // Filings are immutable; this only bounds memory on a warm instance.
 const docCache = new Map();
@@ -328,6 +329,164 @@ async function opChat(req, res) {
   return res.status(200).json({ answer: answer.trim(), contextNote: note, model: GEMINI_MODEL });
 }
 
+// ── op=kpis — operating-metric extraction into per-company time series. ─────
+//
+// The point: subscribers, comparable sales, memberships, units — the numbers
+// that define a business but exist only inside its filings, never in
+// Yahoo-style APIs. Extraction is incremental (a few filings per request,
+// inside the free tier's minute budget) and each filing's result is a
+// write-once artifact keyed by accession. The prompt is seeded with the metric
+// names already extracted for this company, which is what makes per-filing
+// results cohere into series instead of drifting ("Paid memberships" one
+// quarter, "paid streaming memberships" the next).
+
+const KPI_SCHEMA = {
+  type: 'object',
+  properties: {
+    metrics: {
+      type: 'array',
+      items: {
+        type: 'object',
+        properties: {
+          name: { type: 'string' },
+          unit: { type: 'string' },
+          value: { type: 'number' },
+          sourceQuote: { type: 'string' },
+        },
+        required: ['name', 'unit', 'value', 'sourceQuote'],
+      },
+    },
+  },
+  required: ['metrics'],
+};
+
+const KPI_SYSTEM = `You extract OPERATING metrics from an SEC filing for a per-company time series.
+
+Extract only company-specific operating and non-GAAP metrics: subscribers, members, paid users, stores, comparable/same-store sales growth, units shipped, deliveries, backlog, ARPU, monthly active users, occupancy, production volumes, headcount if prominent — the numbers that describe the business's operations.
+
+Rules:
+- Do NOT extract standard GAAP lines (revenue, net income, EPS, gross margin, operating income, cash, debt, share counts) — those exist elsewhere.
+- Each metric: the figure for THIS filing's period (not prior-year comparatives), as a plain number. Percent metrics: the number without the % sign, unit "%". Counts in millions: convert to the absolute number when the document is explicit, else keep the document's scale and say so in the unit.
+- name: short, reusable, Title Case ("Paid Memberships", "Comparable Sales Growth"). If a list of existing names is supplied and one refers to the same concept, REUSE THAT EXACT NAME.
+- sourceQuote: the sentence or table fragment the value came from, verbatim, max 200 chars.
+- 12 metrics maximum; fewer is fine; none is fine (return an empty list).`;
+
+const kpiKey = (cik, accession) => `kpi/${cik}/${accession.replace(/[^0-9]/g, '')}.json`;
+
+async function mergedKpis(cik) {
+  const keys = await listKeys(`kpi/${cik}/`);
+  const artifacts = (await Promise.all(keys.map((k) => getJson(k)))).filter(Boolean);
+  const series = new Map();
+  for (const art of artifacts) {
+    for (const m of art.metrics || []) {
+      const key = m.name.toLowerCase();
+      if (!series.has(key)) series.set(key, { name: m.name, unit: m.unit, points: [] });
+      series.get(key).points.push({
+        period: art.reportDate || art.filed,
+        value: m.value,
+        form: art.form,
+        accession: art.accession,
+        sourceQuote: m.sourceQuote,
+      });
+    }
+  }
+  const metrics = [...series.values()]
+    .map((m) => ({ ...m, points: m.points.sort((a, b) => (a.period || '').localeCompare(b.period || '')) }))
+    .sort((a, b) => b.points.length - a.points.length);
+  return { metrics, covered: new Set(artifacts.map((a) => a.accession)) };
+}
+
+async function opKpis(req, res) {
+  if (!storeAvailable()) {
+    res.setHeader('Cache-Control', 's-maxage=3600');
+    return res.status(200).json({ available: false });
+  }
+  const { ticker } = req.query;
+  if (!ticker) return res.status(400).json({ error: 'Missing ticker parameter' });
+  const symbol = String(ticker).toUpperCase().trim();
+  const cik = await lookupCik(symbol);
+  if (!cik) return res.status(200).json({ available: false });
+
+  const { filings } = await listCompanyFilings(cik);
+  // Annual and quarterly reports carry the operating metrics; newest first.
+  const candidates = filings.filter((f) => /^10-[KQ]$/.test(f.form));
+
+  if (req.method === 'POST') {
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) return res.status(501).json({ error: 'KPI extraction is not configured on this deployment.' });
+
+    const { covered, metrics: existing } = await mergedKpis(cik);
+    const todo = candidates.filter((f) => !covered.has(f.accession))
+      .slice(0, Math.min(Number(req.query.count) || 3, 3));
+
+    for (const filing of todo) {
+      const docBody = await loadDoc(cik, filing.accession);
+      // MD&A first: Item 7 in a 10-K, Item 2 in a 10-Q. Fall back to the
+      // whole (budgeted) document when sections weren't detected.
+      const mdaItem = filing.form === '10-K' ? '7' : '2';
+      const idx = docBody.sections.findIndex((sec) => sec.item === mdaItem);
+      let text;
+      if (idx !== -1) {
+        const end = docBody.sections[idx + 1]?.blockIndex;
+        text = blocksToText(docBody.blocks.slice(0, docBody.sections[0]?.blockIndex ?? 0))
+          + blocksToText(docBody.blocks.slice(docBody.sections[idx].blockIndex, end));
+      } else {
+        text = blocksToText(docBody.blocks);
+      }
+      text = text.slice(0, 400_000);
+
+      const known = existing.map((m) => m.name);
+      let raw;
+      try {
+        raw = await callGemini(
+          apiKey,
+          KPI_SYSTEM,
+          `${known.length ? `Existing metric names for this company — reuse these exact names where they refer to the same concept:\n${known.join('\n')}\n\n` : ''}`
+            + `Extract operating metrics from this ${filing.form} for the fiscal period ended ${filing.reportDate || filing.filed}.\n\n<document>\n${text}\n</document>`,
+          KPI_SCHEMA,
+          0.1,
+        );
+      } catch (e) {
+        if (e.status === 429) {
+          return res.status(429).json({ error: 'Extraction limit reached for now. Try again in a few minutes.' });
+        }
+        throw e;
+      }
+      let parsed;
+      try { parsed = JSON.parse(raw); } catch { parsed = null; }
+      if (!parsed?.metrics) continue; // skip a malformed one, keep going
+
+      await putJson(kpiKey(cik, filing.accession), {
+        accession: filing.accession,
+        form: filing.form,
+        filed: filing.filed,
+        reportDate: filing.reportDate,
+        extractedAt: new Date().toISOString(),
+        model: GEMINI_MODEL,
+        metrics: parsed.metrics.slice(0, 12),
+      });
+      // Seed subsequent filings in this same batch with the new names too.
+      for (const m of parsed.metrics) {
+        if (!existing.some((x) => x.name.toLowerCase() === m.name.toLowerCase())) {
+          existing.push({ name: m.name });
+        }
+      }
+    }
+    // fall through to return the merged view
+  }
+
+  const { metrics, covered } = await mergedKpis(cik);
+  res.setHeader('Cache-Control', req.method === 'POST' ? 'no-store' : 's-maxage=300, stale-while-revalidate=3600');
+  return res.status(200).json({
+    available: true,
+    ephemeral: storeEphemeral(),
+    symbol,
+    metrics,
+    coveredFilings: covered.size,
+    remaining: Math.max(0, candidates.length - covered.size),
+  });
+}
+
 export default async function handler(req, res) {
   const { op } = req.query;
   try {
@@ -335,7 +494,7 @@ export default async function handler(req, res) {
     if (op === 'doc') return await opDoc(req, res);
     if (op === 'summary') return await opSummary(req, res);
     if (op === 'chat') return await opChat(req, res);
-    if (op === 'kpis') return res.status(501).json({ error: 'Not available yet.' });
+    if (op === 'kpis') return await opKpis(req, res);
     return res.status(400).json({ error: 'Unknown op' });
   } catch (err) {
     console.error(`docs op=${op} error:`, err);

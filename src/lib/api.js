@@ -116,3 +116,18 @@ export async function askDocument({ cik, accession, doc, question, history, curr
   }
   return res.json();
 }
+
+// Operating-KPI series mined from filings. GET reads what exists; POST reads
+// up to three more filings and extends the series.
+export async function fetchKpis(ticker) {
+  return apiFetch(`/api/docs?op=kpis&ticker=${encodeURIComponent(ticker)}`);
+}
+
+export async function buildKpis(ticker, count = 3) {
+  const res = await fetch(`/api/docs?op=kpis&ticker=${encodeURIComponent(ticker)}&count=${count}`, { method: 'POST' });
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({}));
+    throw new Error(body.error || `API error: ${res.status}`);
+  }
+  return res.json();
+}

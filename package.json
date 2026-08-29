@@ -1,7 +1,7 @@
 {
   "name": "valuscope",
   "private": true,
-  "version": "0.22.0",
+  "version": "0.23.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@vercel/blob": "^2.8.0",
     "htmlparser2": "^12.0.0",
     "hyparquet": "^1.26.2",
     "hyparquet-compressors": "^1.1.1",
