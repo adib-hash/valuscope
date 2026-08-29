@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.18.4 — 2026-08-28
+
+### Added
+- **A bottom navigation bar on mobile** — Indices · Valuation · 13F · Watchlist — fixed, thumb-reachable, and padded for the iPhone home indicator via safe-area insets (which 0.18.0's `viewport-fit=cover` made real). Desktop keeps the top nav; the bar exists only below the small breakpoint. Sheets and modals deliberately cover it.
+- **Watchlist is a destination now.** It gets the fourth slot over Settings because the gear already lives in the header, while reaching the watchlist with a company loaded used to require resetting the whole app. `?view=watchlist` deep-links to it; it also joined the desktop top nav.
+
+### Changed
+- Page content, the settings sheet and the metric detail sheet all pad themselves clear of the bar and the home indicator.
+
 ## 0.18.3 — 2026-08-28
 
 ### Changed

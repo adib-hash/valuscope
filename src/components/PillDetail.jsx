@@ -104,7 +104,7 @@ export default function PillDetail({ metric, chartData, averages, years, isDark,
         </div>
 
         {/* Year-by-year table */}
-        <div className="px-5 pb-10">
+        <div className="px-5 pb-[calc(2.5rem_+_env(safe-area-inset-bottom))]">
           <p className="text-vs-dim text-[9px] font-mono uppercase tracking-widest mb-2">
             Historical Data
           </p>

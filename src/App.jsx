@@ -5,7 +5,8 @@ import SegmentedControl from './components/ui/SegmentedControl';
 import Button from './components/ui/Button';
 import ErrorBanner from './components/ui/ErrorBanner';
 import RegimeBadge from './components/ui/RegimeBadge';
-import { Sun, Moon, Settings, Link2, Check, Star, X } from 'lucide-react';
+import BottomNav from './components/ui/BottomNav';
+import { Sun, Moon, Settings, Link2, Check, Star, X, Globe, LineChart, Landmark } from 'lucide-react';
 
 // Recharts is over a third of the bundle, and the Indices landing view never
 // draws a chart — so everything that imports it loads on demand instead of
@@ -50,7 +51,7 @@ import {
 } from './lib/watchlist';
 
 const QUICK_TICKERS = ['AAPL', 'MSFT', 'ULTA', 'COST', 'META', 'AMZN', 'GOOGL', 'NFLX'];
-const APP_VERSION   = 'v0.18.3';
+const APP_VERSION   = 'v0.18.4';
 
 // The view the app opens on when the URL names neither a company nor a view.
 const DEFAULT_VIEW = 'indices';
@@ -62,6 +63,17 @@ const NAV_ITEMS = [
   { label: 'Indices',   view: 'indices' },
   { label: 'Valuation', view: 'valuation' },
   { label: '13F',       view: 'institutions' },
+  { label: 'Watchlist', view: 'watchlist' },
+];
+
+// Bottom bar (mobile). Watchlist earns the fourth slot over Settings: the gear
+// is already in the header, while the watchlist was unreachable once a company
+// was loaded without resetting the whole app.
+const BOTTOM_NAV = [
+  { key: 'indices',      label: 'Indices',   icon: Globe },
+  { key: 'valuation',    label: 'Valuation', icon: LineChart },
+  { key: 'institutions', label: '13F',       icon: Landmark },
+  { key: 'watchlist',    label: 'Watchlist', icon: Star },
 ];
 
 // Tiles shown in the summary row.
@@ -434,11 +446,11 @@ export default function App() {
       </header>
 
       {/* ── Main ──────────────────────────────────────────────────────────────── */}
-      <main className="max-w-[1100px] mx-auto px-4 py-5">
+      <main className="max-w-[1100px] mx-auto px-4 pt-5 pb-[calc(4.5rem_+_env(safe-area-inset-bottom))] sm:pb-5">
 
         {/* Top-level nav */}
         <SegmentedControl
-          className="mb-3"
+          className="mb-3 hidden sm:flex"
           options={NAV_ITEMS.map((item) => ({ value: item.view, label: item.label }))}
           value={NAV_ITEMS.find((i) => (i.view === 'valuation' ? isValuationView : view === i.view))?.view}
           onChange={openNav}
@@ -535,6 +547,24 @@ export default function App() {
 
         {/* ── World Indices (no ticker required) ───────────────────────────── */}
         {view === 'indices' && <IndicesPage onBack={sym ? closeView : null} />}
+
+        {/* ── Watchlist (no ticker required) ───────────────────────────────── */}
+        {view === 'watchlist' && (
+          <div className="mt-1">
+            {watchlist.length === 0 && (
+              <div className="mt-16 text-center">
+                <div className="flex justify-center mb-2.5 opacity-40">
+                  <Star size={40} strokeWidth={1.5} aria-hidden="true" />
+                </div>
+                <p className="text-vs-soft text-prose">No companies watched yet</p>
+                <p className="text-vs-dim text-label mt-1.5">
+                  Open any company and tap the star to build your watchlist.
+                </p>
+              </div>
+            )}
+            <WatchlistDashboard symbols={watchlist} onSelectTicker={loadCompany} />
+          </div>
+        )}
 
         {/* ── 13F Holdings (no ticker required) ────────────────────────────── */}
         {view === 'institutions' && (
@@ -855,7 +885,7 @@ export default function App() {
             onClick={() => setSettingsOpen(false)}
             aria-hidden="true"
           />
-          <div className="relative bg-vs-card border border-vs-border rounded-t-2xl sm:rounded-2xl w-full sm:max-w-sm mx-0 sm:mx-4 p-6 pb-10 sm:pb-6 z-10">
+          <div className="relative bg-vs-card border border-vs-border rounded-t-2xl sm:rounded-2xl w-full sm:max-w-sm mx-0 sm:mx-4 p-6 pb-[calc(2.5rem_+_env(safe-area-inset-bottom))] sm:pb-6 z-10">
             <div className="flex items-center justify-between mb-5">
               <span className="font-display text-[18px] font-bold text-vs-text">Settings</span>
               <button
@@ -913,6 +943,13 @@ export default function App() {
           </div>
         </div>
       )}
+
+      {/* ── Bottom navigation (mobile) ────────────────────────────────────────── */}
+      <BottomNav
+        items={BOTTOM_NAV}
+        activeKey={view === 'watchlist' ? 'watchlist' : isValuationView ? 'valuation' : view}
+        onSelect={openNav}
+      />
 
       {/* ── Pill detail bottom sheet ──────────────────────────────────────────── */}
       {activePill && (
