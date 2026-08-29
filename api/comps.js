@@ -12,7 +12,7 @@ const COMP_GROUPS = [
   // Mega-cap Tech / Digital Advertising
   ['GOOGL', 'GOOG', 'META', 'AMZN', 'MSFT', 'AAPL'],
   // Streaming & Entertainment
-  ['NFLX', 'DIS', 'WBD', 'PARA', 'CMCSA', 'ROKU'],
+  ['NFLX', 'DIS', 'WBD', 'PSKY', 'CMCSA', 'ROKU'],
   // Enterprise SaaS
   ['CRM', 'ADBE', 'NOW', 'INTU', 'SAP', 'WDAY', 'TEAM', 'HUBS'],
   // Cloud Infrastructure / Dev Tools
@@ -22,7 +22,7 @@ const COMP_GROUPS = [
   // AI / Data Infrastructure
   ['NVDA', 'PLTR', 'SNOW', 'DDOG', 'MDB', 'CRWD', 'S'],
   // Payments & Fintech
-  ['V', 'MA', 'PYPL', 'SQ', 'AXP', 'FIS', 'GPN', 'ADYEN'],
+  ['V', 'MA', 'PYPL', 'XYZ', 'AXP', 'FIS', 'GPN', 'ADYEY'],
   // Large Banks
   ['JPM', 'BAC', 'WFC', 'C', 'USB', 'PNC', 'TFC'],
   // Investment Banks / Capital Markets
@@ -38,7 +38,7 @@ const COMP_GROUPS = [
   // Life Sciences / Diagnostics
   ['TMO', 'DHR', 'A', 'ILMN', 'BIO', 'IQV'],
   // Oil & Gas Majors
-  ['XOM', 'CVX', 'COP', 'EOG', 'PXD', 'OXY', 'SLB', 'HAL'],
+  ['XOM', 'CVX', 'COP', 'EOG', 'FANG', 'OXY', 'SLB', 'HAL'],
   // Oil & Gas Refining
   ['PSX', 'MPC', 'VLO', 'DINO'],
   // Electric Vehicles / Auto
@@ -52,7 +52,7 @@ const COMP_GROUPS = [
   // Restaurants
   ['MCD', 'SBUX', 'CMG', 'YUM', 'DPZ', 'QSR', 'WING'],
   // Specialty Retail / Apparel
-  ['NKE', 'LULU', 'ULTA', 'TJX', 'ROST', 'GPS'],
+  ['NKE', 'LULU', 'ULTA', 'TJX', 'ROST', 'GAP'],
   // E-commerce / Marketplaces
   ['AMZN', 'SHOP', 'ETSY', 'MELI', 'SE', 'EBAY', 'W'],
   // Travel & Mobility
