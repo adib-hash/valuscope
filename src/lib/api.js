@@ -94,3 +94,25 @@ export async function fetchFiling(cik, accession, doc) {
   if (doc) params.set('doc', doc);
   return apiFetch(`/api/docs?${params}`);
 }
+
+// AI summary of a filing. Cached forever server-side — the document never changes.
+export async function fetchDocSummary(cik, accession, form, doc) {
+  const params = new URLSearchParams({ op: 'summary', cik, accession });
+  if (form) params.set('form', form);
+  if (doc) params.set('doc', doc);
+  return apiFetch(`/api/docs?${params}`);
+}
+
+// Ask a question of one filing. Stateless: the client carries the history.
+export async function askDocument({ cik, accession, doc, question, history, currentSection }) {
+  const res = await fetch('/api/docs?op=chat', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ cik, accession, doc, question, history, currentSection }),
+  });
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({}));
+    throw new Error(body.error || `API error: ${res.status}`);
+  }
+  return res.json();
+}

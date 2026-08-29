@@ -4,6 +4,8 @@ import { fetchFilings, fetchFiling } from '../lib/api';
 import BackButton from './ui/BackButton';
 import ErrorBanner from './ui/ErrorBanner';
 import Highlighted, { countMatches } from '../lib/highlight.jsx';
+import DocSummary from './DocSummary';
+import DocChat from './DocChat';
 
 // Reads one filing as structured blocks — transcript-page typography, a sticky
 // item nav, in-document search, and a document switcher for 8-K exhibits.
@@ -32,6 +34,7 @@ function Table({ rows, query }) {
 
 export default function FilingReader({ ticker, accession, doc, onBack, onSwitchDoc }) {
   const [meta, setMeta] = useState(null);      // row from the filings list
+  const [cik, setCik] = useState(null);
   const [data, setData] = useState(null);      // blocks payload
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -51,6 +54,7 @@ export default function FilingReader({ ticker, accession, doc, onBack, onSwitchD
         const list = await fetchFilings(ticker);
         if (cancelled) return;
         if (!list.cik) throw new Error('No EDGAR filings for this company');
+        setCik(list.cik);
         setMeta(list.filings.find((f) => f.accession === accession) || null);
         const payload = await fetchFiling(list.cik, accession, doc || undefined);
         if (!cancelled) setData(payload);
@@ -133,6 +137,26 @@ export default function FilingReader({ ticker, accession, doc, onBack, onSwitchD
           </a>
         )}
       </div>
+
+      {/* AI: summary + chat — only when the deployment has a key. The reader
+          resolved the CIK via the filings list; reuse it through data. */}
+      {data?.aiAvailable && cik && (
+        <>
+          <DocSummary
+            cik={cik}
+            accession={accession}
+            form={meta?.form}
+            doc={data.doc}
+            key={`sum-${accession}-${data.doc}`}
+          />
+          <DocChat
+            cik={cik}
+            accession={accession}
+            doc={data.doc}
+            key={`chat-${accession}-${data.doc}`}
+          />
+        </>
+      )}
 
       {/* Item jump-nav, sticky. Best effort — absent sections mean no nav. */}
       {data?.sections?.length > 1 && (

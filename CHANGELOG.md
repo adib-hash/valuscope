@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.22.0 — 2026-08-29
+
+### Added
+- **Every filing can summarize itself.** One button in the reader produces an extractive summary shaped to what the document is: a 10-K/10-Q gets business, financial highlights, management's discussion and risk factors; an 8-K gets what happened, the key numbers and the stated impact; a proxy gets proposals, compensation and governance. Same rules as the call summaries — strictly from the document, figures quoted with units, no advice. Filings never change, so a summary is generated once and cached for good.
+- **Ask this document.** A question box on any filing, answered only from that filing — with the section named when possible, and a plain "the document doesn't say" when it doesn't. Conversation history stays in the browser; the server holds nothing.
+
+### Notes
+- Very large documents are handled honestly on the free tier's token budget: summaries of oversized 10-Ks read a priority subset (Items 1, 1A, 7 first) and say which sections they read; chat selects the sections most relevant to the question — headings, your current section, and term-matched blocks — and labels the answer with that caveat. No embeddings, no vector store; long context plus cheap term overlap is the bet.
+- The dev API shim now passes POST bodies through, which is what doc chat needed locally.
+- Verified: the 8-K event summary quotes the quarter's real revenue and EPS; 10-K chat answers "R&D spend" with the filed figures and their section, and "services revenue" from the statements table to the million.
+
 ## 0.21.0 — 2026-08-29
 
 ### Added

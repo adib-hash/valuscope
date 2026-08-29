@@ -16,6 +16,19 @@ function apiDevServer() {
         const route = url.pathname.replace(/^\/api\//, '').replace(/\.js$/, '');
 
         try {
+          // POST bodies (doc chat) — buffer and parse like Vercel's runtime does.
+          let body;
+          if (req.method === 'POST') {
+            const chunks = [];
+            for await (const chunk of req) chunks.push(chunk);
+            const raw = Buffer.concat(chunks).toString('utf8');
+            if ((req.headers['content-type'] || '').includes('application/json')) {
+              try { body = JSON.parse(raw); } catch { body = undefined; }
+            } else {
+              body = raw;
+            }
+          }
+
           const mod = await server.ssrLoadModule(`/api/${route}.js`);
           const shimRes = {
             statusCode: 200,
@@ -29,7 +42,7 @@ function apiDevServer() {
             },
           };
           await mod.default(
-            { query: Object.fromEntries(url.searchParams), method: req.method, url: req.url, headers: { host: req.headers.host, 'x-forwarded-proto': 'http' } },
+            { query: Object.fromEntries(url.searchParams), method: req.method, url: req.url, body, headers: { host: req.headers.host, 'x-forwarded-proto': 'http' } },
             shimRes,
           );
         } catch (err) {
