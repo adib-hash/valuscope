@@ -15,7 +15,7 @@ async function apiFetch(path) {
 
 export async function searchTickers(query) {
   if (!query || query.length < 1) return [];
-  return apiFetch(`/api/search?q=${encodeURIComponent(query)}`);
+  return apiFetch(`/api/lookup?kind=company&q=${encodeURIComponent(query)}`);
 }
 
 export async function fetchFinancials(ticker) {
@@ -71,7 +71,7 @@ export async function fetchIndices(mode = 'total') {
 // Investor name → CIK, via EDGAR full-text search over 13F filers.
 export async function searchInstitutions(query) {
   if (!query || query.trim().length < 2) return { filers: [] };
-  return apiFetch(`/api/institutions?q=${encodeURIComponent(query.trim())}`);
+  return apiFetch(`/api/lookup?kind=investor&q=${encodeURIComponent(query.trim())}`);
 }
 
 // A manager's 13F portfolio. Omit period for the most recent quarter; the

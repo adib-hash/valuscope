@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.20.3 — 2026-08-29
+
+### Fixed
+- **Nothing since 0.19.0 had actually deployed.** Vercel's Hobby plan allows twelve serverless functions per deployment; the app sat at exactly twelve, and 0.20.0's `/api/brief` was the thirteenth — so that deploy and every one after it failed at the final step while the build itself passed, leaving production frozen on 0.19.0. The two smallest functions — company search and investor search, both thin one-query proxies — now share a single `/api/lookup` handler switched by `kind`, bringing the count back to twelve with the brief included.
+
+### Notes
+- The ceiling is worth remembering: the app is at 12 of 12 again, so the next new endpoint needs another consolidation (several natural pairs remain) or the Pro plan.
+- Response shapes and cache lifetimes are unchanged — company lookups cache an hour, investor lookups a day, exactly as before.
+
 ## 0.20.2 — 2026-08-29
 
 ### Removed
