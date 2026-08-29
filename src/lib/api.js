@@ -82,3 +82,15 @@ export async function fetchHoldings(cik, period) {
   if (period) params.set('period', period);
   return apiFetch(`/api/holdings?${params}`);
 }
+
+// Filings & Docs Hub. One serverless function dispatched on `op` — the Hobby
+// plan caps deployments at twelve functions and this app runs at the ceiling.
+export async function fetchFilings(ticker) {
+  return apiFetch(`/api/docs?op=list&ticker=${encodeURIComponent(ticker)}`);
+}
+
+export async function fetchFiling(cik, accession, doc) {
+  const params = new URLSearchParams({ op: 'doc', cik, accession });
+  if (doc) params.set('doc', doc);
+  return apiFetch(`/api/docs?${params}`);
+}

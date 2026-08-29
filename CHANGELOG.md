@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.21.0 — 2026-08-29
+
+### Added
+- **Filings & Docs Hub.** A "Filings →" link on every company opens its SEC filing history — 10-Ks, 10-Qs, 8-Ks, proxies and foreign-filer forms, filterable by type — and any filing opens in an in-app reader. No more bouncing to EDGAR's 1998-vintage HTML.
+- **The reader is built for actually reading.** Filed documents are converted server-side from 5–15MB of inline-XBRL HTML into clean typed blocks — a 10-K arrives as a quarter-megabyte of structured text. Sticky Item navigation (1, 1A, 7, 7A…), in-document search with match counts, real tables, and the app's typography and themes. 8-K exhibit switching included, since an 8-K's substance is usually its Ex-99.1 earnings release. Everything deep-links (`?view=docs&accession=…`) and every page links the EDGAR original.
+- Pre-2001 plain-text filings render too — Apple's 1994 10-K reads fine.
+
+### Notes
+- One serverless function (`/api/docs`, dispatched on `op=`) serves the whole hub — the plan that specced this update predates the discovery that the Hobby plan caps deployments at twelve functions, so its five planned endpoints became ops. The deployment sits at exactly 12/12.
+- The HTML→blocks converter is best-effort by design: running page footers are stripped (both paragraph- and table-shaped), headings are detected from h-tags, bold runs and inline font-weight styles, and the table-of-contents/body duplicate-Item ambiguity resolves to the body. Odd filings will still render imperfectly — that is what the EDGAR link is for.
+- Document summaries, ask-this-document chat, and operating-KPI extraction are the next two phases of this build.
+
 ## 0.20.4 — 2026-08-29
 
 ### Removed

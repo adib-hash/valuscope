@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { fetchTranscript } from '../lib/api';
 import CallSummary from './CallSummary';
 import BackButton from './ui/BackButton';
+import Highlighted from '../lib/highlight.jsx';
 import ErrorBanner from './ui/ErrorBanner';
 
 const QUARTER_LABEL = (q) => `Q${q.quarter} FY${q.year}`;
@@ -46,16 +47,7 @@ function splitSections(paragraphs) {
 }
 
 // Wraps query matches in a <mark> without risking HTML injection.
-function Highlighted({ text, query }) {
-  if (!query) return text;
-  const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  const parts = text.split(new RegExp(`(${escaped})`, 'ig'));
-  return parts.map((part, i) =>
-    part.toLowerCase() === query.toLowerCase()
-      ? <mark key={i} className="bg-vs-amber/30 text-vs-text rounded-md px-0.5">{part}</mark>
-      : <span key={i}>{part}</span>
-  );
-}
+
 
 export default function TranscriptPage({ ticker, companyName, onBack }) {
   const [data, setData]       = useState(null);

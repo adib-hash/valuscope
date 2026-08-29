@@ -24,6 +24,8 @@ const DataTable        = lazy(() => import('./components/DataTable'));
 const PillDetail       = lazy(() => import('./components/PillDetail'));
 const PriceHistoryPage = lazy(() => import('./components/PriceHistoryPage'));
 const CompareChart     = lazy(() => import('./components/CompareChart'));
+const FilingsPage      = lazy(() => import('./components/FilingsPage'));
+const FilingReader     = lazy(() => import('./components/FilingReader'));
 import Pill from './components/Pill';
 import FundamentalsPanel from './components/FundamentalsPanel';
 import FairValueTable from './components/FairValueTable';
@@ -56,7 +58,7 @@ import {
 } from './lib/watchlist';
 
 const QUICK_TICKERS = ['AAPL', 'MSFT', 'ULTA', 'COST', 'META', 'AMZN', 'GOOGL', 'NFLX'];
-const APP_VERSION   = 'v0.20.4';
+const APP_VERSION   = 'v0.21.0';
 
 // The view the app opens on when the URL names neither a company nor a view.
 const DEFAULT_VIEW = 'indices';
@@ -278,6 +280,17 @@ export default function App() {
     window.scrollTo(0, 0);
   };
 
+  // Filing deep links: &accession selects a document within ?view=docs, an
+  // optional &doc picks an exhibit. Same carry rules as every other view.
+  const openFilingDoc = (acc, docName) => {
+    if (!sym) return;
+    const next = { ticker: sym, view: 'docs', accession: acc };
+    if (docName) next.doc = docName;
+    if (activeTab !== 'overview') next.tab = activeTab;
+    setSearchParams(carryCompare(next), { replace: false });
+    window.scrollTo(0, 0);
+  };
+
   const closeView = () => {
     if (!sym) { setSearchParams({ view: 'valuation' }); return; }
     const next = { ticker: sym };
@@ -306,6 +319,13 @@ export default function App() {
     if (currentTab && COMPANY_TABS.some((t) => t.value === currentTab)) nextParams.tab = currentTab;
     if (currentVs) nextParams.vs = currentVs;
     if (currentVs && currentMetric) nextParams.metric = currentMetric;
+    // Filing deep links survive the initial load the same way views do.
+    if (keepView && currentView === 'docs') {
+      const acc = searchParams.get('accession');
+      const docName = searchParams.get('doc');
+      if (acc) nextParams.accession = acc;
+      if (acc && docName) nextParams.doc = docName;
+    }
     setSearchParams(nextParams, { replace: true });
     setVisitedTabs(new Set(['overview', currentTab || 'overview']));
     // A new subject is a new question — searching a company clears the
@@ -742,6 +762,30 @@ export default function App() {
           </ErrorBoundary>
         )}
 
+        {/* ── Filings & Docs Hub ───────────────────────────────────────────── */}
+        {data && !loading && view === 'docs' && (
+          <ErrorBoundary label="The filings hub">
+            <Suspense fallback={<div className="mt-5 rounded-xl border border-vs-border bg-vs-card h-64 animate-pulse" />}>
+              {searchParams.get('accession') ? (
+                <FilingReader
+                  ticker={sym}
+                  accession={searchParams.get('accession')}
+                  doc={searchParams.get('doc')}
+                  onBack={() => openView('docs')}
+                  onSwitchDoc={(d) => openFilingDoc(searchParams.get('accession'), d)}
+                />
+              ) : (
+                <FilingsPage
+                  ticker={sym}
+                  companyName={data.companyName}
+                  onBack={closeView}
+                  onOpenFiling={openFilingDoc}
+                />
+              )}
+            </Suspense>
+          </ErrorBoundary>
+        )}
+
         {/* ── Dashboard ──────────────────────────────────────────────────────── */}
         {data && now && !loading && isValuationView && (
           <>
@@ -846,6 +890,12 @@ export default function App() {
                 className="inline-flex items-center gap-1 ml-3 text-vs-blue hover:underline text-label font-mono cursor-pointer"
               >
                 Earnings call →
+              </button>
+              <button
+                onClick={() => openView('docs')}
+                className="inline-flex items-center gap-1 ml-3 text-vs-blue hover:underline text-label font-mono cursor-pointer"
+              >
+                Filings →
               </button>
             </div>
 
