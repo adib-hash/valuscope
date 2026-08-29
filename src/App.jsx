@@ -14,6 +14,7 @@ import WatchlistDashboard from './components/WatchlistDashboard';
 import PriceHistoryPage from './components/PriceHistoryPage';
 import TranscriptPage from './components/TranscriptPage';
 import IndicesPage from './components/IndicesPage';
+import DataSources, { DATA_SOURCES } from './components/DataSources';
 import InstitutionsPage from './components/InstitutionsPage';
 import { fetchFinancials, fetchHistory } from './lib/api';
 import { mergeHistory } from './lib/history';
@@ -38,28 +39,42 @@ import {
 } from './lib/watchlist';
 
 const QUICK_TICKERS = ['AAPL', 'MSFT', 'ULTA', 'COST', 'META', 'AMZN', 'GOOGL', 'NFLX'];
-const APP_VERSION   = 'v0.15.2';
+const APP_VERSION   = 'v0.16.0';
 
-// Top-level nav. `view: null` is the valuation home.
+// The view the app opens on when the URL names neither a company nor a view.
+const DEFAULT_VIEW = 'indices';
+
+// Top-level nav. 'valuation' is the company dashboard and its search page; it
+// is a named view rather than null so the nav can return to it without a ticker
+// now that the app no longer lands there.
 const NAV_ITEMS = [
-  { label: 'Valuation', view: null },
   { label: 'Indices',   view: 'indices' },
+  { label: 'Valuation', view: 'valuation' },
   { label: '13F',       view: 'institutions' },
 ];
 
-// Pills shown in the summary row
+// Tiles shown in the summary row.
 const PILL_METRICS = [
   { key: 'pe',       label: 'P/E' },
   { key: 'evEbitda', label: 'EV/EBITDA' },
   { key: 'pfcf',     label: 'P/FCF' },
   { key: 'evSales',  label: 'EV/Sales' },
-  { key: 'fcfYield', label: 'FCF Yld', isYield: true },
-  { key: 'pb',       label: 'P/B' },
 ];
+
+// The regime badge and the saved watchlist summary average a wider basket than
+// the tiles show. Holding these six fixed means dropping a tile from the row
+// does not quietly reprice every watchlist entry that was written under the old
+// basket.
+const REGIME_METRICS = ['pe', 'evEbitda', 'pfcf', 'evSales', 'fcfYield', 'pb'];
 
 export default function App() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const view = searchParams.get('view');
+  const rawView = searchParams.get('view');
+
+  // A ticker in the URL means the valuation dashboard; anything else with no
+  // explicit view falls through to the default landing view.
+  const view = rawView ?? (searchParams.get('ticker') ? null : DEFAULT_VIEW);
+  const isValuationView = view === null || view === 'valuation';
 
   // ── Data state ──────────────────────────────────────────────────────────────
   const [loading,  setLoading]  = useState(false);
@@ -68,12 +83,15 @@ export default function App() {
   const [group,    setGroup]    = useState('Price Multiples');
   const [selected, setSelected] = useState(['pe', 'evEbitda']);
   const [history,  setHistory]  = useState([]);
-  const [period,   setPeriod]   = useState(0); // 3 | 0 (all)
+  const [period,   setPeriod]   = useState(3); // 3 | 5 | 10 | 0 (all)
 
   // ── UI state ─────────────────────────────────────────────────────────────────
   const [descOpen,     setDescOpen]     = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [activePill,   setActivePill]   = useState(null);
+  // The 13F manager is held here rather than inside InstitutionsPage, because
+  // the global search bar is what picks one now.
+  const [filer,        setFiler]        = useState(null);
   const [copied,       setCopied]       = useState(false);
   const copyTimer = useRef(null);
   const activeSymbol = useRef('');
@@ -136,8 +154,10 @@ export default function App() {
     setLoading(false);
     setGroup('Price Multiples');
     setSelected(['pe', 'evEbitda']);
+    setPeriod(3);
     setDescOpen(false);
     setActivePill(null);
+    setFiler(null);
     setSearchParams({});
   };
 
@@ -147,15 +167,27 @@ export default function App() {
     window.scrollTo(0, 0);
   };
 
-  // Views that exist without a loaded company. openView() bails when there is
-  // no ticker, which is right for the company-scoped views but wrong for these.
-  const openGlobalView = (name) => {
-    setSearchParams({ view: name }, { replace: false });
+  // Top-level nav. openView() bails when there is no ticker, which is right for
+  // the company-scoped views but wrong for these. Returning to Valuation keeps
+  // the loaded company rather than dropping it.
+  const openNav = (target) => {
+    if (target === 'valuation') {
+      setSearchParams(sym ? { ticker: sym } : { view: 'valuation' });
+    } else {
+      setSearchParams({ view: target });
+    }
+    window.scrollTo(0, 0);
+  };
+
+  // Choosing an investor in the global search jumps straight to their filings.
+  const openFiler = (next) => {
+    setFiler(next);
+    setSearchParams({ view: 'institutions' });
     window.scrollTo(0, 0);
   };
 
   const closeView = () => {
-    if (!sym) { setSearchParams({}); return; }
+    if (!sym) { setSearchParams({ view: 'valuation' }); return; }
     setSearchParams({ ticker: sym }, { replace: false });
     window.scrollTo(0, 0);
   };
@@ -234,7 +266,7 @@ export default function App() {
   const percentiles = useMemo(() => computePercentiles(hist, now),       [hist, now]);
 
   const regimePercentile = useMemo(() => {
-    const vals = PILL_METRICS.map((m) => percentiles[m.key]).filter((v) => v != null);
+    const vals = REGIME_METRICS.map((k) => percentiles[k]).filter((v) => v != null);
     return vals.length ? Math.round(vals.reduce((a, b) => a + b, 0) / vals.length) : null;
   }, [percentiles]);
 
@@ -246,8 +278,8 @@ export default function App() {
   useEffect(() => {
     if (!sym || !data || !now || !allHist.length) return;
     const fullPercentiles = computePercentiles(allHist, now);
-    const vals = PILL_METRICS
-      .map((m) => fullPercentiles[m.key])
+    const vals = REGIME_METRICS
+      .map((k) => fullPercentiles[k])
       .filter((v) => v != null);
     const percentile = vals.length
       ? Math.round(vals.reduce((a, b) => a + b, 0) / vals.length)
@@ -317,16 +349,11 @@ export default function App() {
             <span className="font-display text-[22px] font-extrabold text-vs-text">
               ValueScope
             </span>
-            <span className="text-vs-dim text-[11px] font-mono hidden sm:inline">
-              historical valuation multiples
-            </span>
           </button>
 
           {/* Header right: attribution + theme toggle + settings */}
           <div className="flex items-center gap-1">
-            <span className="text-vs-dim text-[10px] font-mono hidden md:inline mr-2">
-              Data: Yahoo Finance
-            </span>
+            <DataSources />
 
             {/* Theme toggle */}
             <button
@@ -370,11 +397,11 @@ export default function App() {
         {/* Top-level nav */}
         <div className="flex items-center gap-1 mb-3 flex-wrap">
           {NAV_ITEMS.map((item) => {
-            const active = item.view ? view === item.view : !view;
+            const active = item.view === 'valuation' ? isValuationView : view === item.view;
             return (
               <button
                 key={item.label}
-                onClick={() => (item.view ? openGlobalView(item.view) : resetApp())}
+                onClick={() => openNav(item.view)}
                 className={`rounded px-2.5 py-1.5 text-[11px] font-mono font-semibold cursor-pointer border transition-all ${
                   active
                     ? 'bg-vs-blue/15 text-vs-blue border-vs-blue/50'
@@ -388,7 +415,11 @@ export default function App() {
         </div>
 
         {/* Search */}
-        <SearchBar onSelect={loadCompany} loading={loading} />
+        <SearchBar
+          onSelectTicker={loadCompany}
+          onSelectFiler={openFiler}
+          loading={loading}
+        />
 
         {/* Recent searches */}
         {history.length > 0 && !loading && (
@@ -441,7 +472,7 @@ export default function App() {
         )}
 
         {/* ── Empty state ────────────────────────────────────────────────────── */}
-        {!data && !loading && !error && !view && (
+        {!data && !loading && !error && isValuationView && (
           <div className="mt-16 text-center">
             {/* SVG bar chart icon */}
             <div className="flex justify-center mb-2.5 opacity-40">
@@ -484,11 +515,16 @@ export default function App() {
         )}
 
         {/* ── World Indices (no ticker required) ───────────────────────────── */}
-        {view === 'indices' && <IndicesPage onBack={closeView} />}
+        {view === 'indices' && <IndicesPage onBack={sym ? closeView : null} />}
 
         {/* ── 13F Holdings (no ticker required) ────────────────────────────── */}
         {view === 'institutions' && (
-          <InstitutionsPage onBack={closeView} onSelectTicker={loadCompany} />
+          <InstitutionsPage
+            onBack={closeView}
+            onSelectTicker={loadCompany}
+            filer={filer}
+            onPickFiler={setFiler}
+          />
         )}
 
         {/* ── Price Chart Page ─────────────────────────────────────────────── */}
@@ -510,7 +546,7 @@ export default function App() {
         )}
 
         {/* ── Dashboard ──────────────────────────────────────────────────────── */}
-        {data && now && !loading && !view && (
+        {data && now && !loading && isValuationView && (
           <>
             {/* Company header */}
             <div className="mt-5">
@@ -828,10 +864,8 @@ export default function App() {
 
             <div className="divide-y divide-vs-border">
               {[
-                { label: 'App',         value: 'ValueScope' },
-                { label: 'Version',     value: APP_VERSION },
-                { label: 'Data source', value: 'Yahoo Finance' },
-                { label: 'Deep history', value: 'SEC EDGAR' },
+                { label: 'App',     value: 'ValueScope' },
+                { label: 'Version', value: APP_VERSION },
               ].map(({ label, value }) => (
                 <div key={label} className="flex justify-between items-center py-3">
                   <span className="text-vs-soft text-[13px]">{label}</span>
@@ -846,6 +880,17 @@ export default function App() {
                 >
                   {isDark ? 'Dark' : 'Light'}
                 </button>
+              </div>
+              <div className="py-3">
+                <span className="text-vs-soft text-[13px] block mb-2">Data sources</span>
+                <div className="space-y-1.5">
+                  {DATA_SOURCES.map((s) => (
+                    <div key={s.name} className="flex justify-between items-baseline gap-3">
+                      <span className="text-vs-text font-mono text-[12px] flex-shrink-0">{s.name}</span>
+                      <span className="text-vs-soft text-[11px] text-right leading-snug">{s.use}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
               <div className="flex justify-between items-center py-3">
                 <span className="text-vs-soft text-[13px]">Watchlist</span>

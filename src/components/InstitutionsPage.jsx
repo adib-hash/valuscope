@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
-import { searchInstitutions, fetchHoldings } from '../lib/api';
+import { useEffect, useState } from 'react';
+import { fetchHoldings } from '../lib/api';
 import { tint } from '../lib/metrics';
 
 // A few managers worth reading. Shown on the empty state so the page is useful
@@ -49,74 +49,25 @@ const quarterLabel = (iso) => {
   return `Q${Math.ceil(Number(m) / 3)} ${y}`;
 };
 
-// Investor search cannot reuse SearchBar: that one uppercases as you type and
-// submits raw text on Enter, which is meaningless here — a portfolio needs a
-// CIK, so a result must be picked from the list.
-function InvestorSearch({ onSelect }) {
-  const [query, setQuery] = useState('');
-  const [results, setResults] = useState([]);
-  const [busy, setBusy] = useState(false);
-  const timer = useRef(null);
-
-  const handleChange = (value) => {
-    setQuery(value);
-    if (timer.current) clearTimeout(timer.current);
-    if (value.trim().length < 2) { setResults([]); return; }
-    timer.current = setTimeout(async () => {
-      setBusy(true);
-      try {
-        const data = await searchInstitutions(value);
-        setResults(data.filers || []);
-      } catch {
-        setResults([]);
-      } finally {
-        setBusy(false);
-      }
-    }, 350);
-  };
-
-  return (
-    <div className="relative">
-      <input
-        type="text"
-        value={query}
-        onChange={(e) => handleChange(e.target.value)}
-        placeholder="Search an investor — Berkshire, Scion, Pershing Square…"
-        aria-label="Search an investor"
-        className="w-full bg-vs-card border border-vs-border rounded-lg px-3.5 py-2.5 text-[16px] sm:text-[15px] text-vs-text placeholder:text-vs-dim focus:outline-none focus:border-vs-blue transition-colors"
-      />
-      {busy && (
-        <span className="absolute right-3 top-1/2 -translate-y-1/2 text-vs-soft text-[11px] font-mono">
-          searching…
-        </span>
-      )}
-      {results.length > 0 && (
-        <div className="absolute top-full left-0 right-0 mt-1 bg-vs-card border border-vs-border rounded-lg overflow-hidden z-20 shadow-2xl">
-          {results.map((filer) => (
-            <div
-              key={filer.cik}
-              onClick={() => { onSelect(filer); setQuery(''); setResults([]); }}
-              className="px-3.5 py-2.5 cursor-pointer hover:bg-vs-card2 transition-colors border-b border-vs-border last:border-0"
-            >
-              <span className="text-vs-text text-[13px]">{filer.name}</span>
-              <span className="block text-vs-soft text-[10px] font-mono mt-0.5">
-                CIK {filer.cik}
-              </span>
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-}
-
-export default function InstitutionsPage({ onBack, onSelectTicker }) {
-  const [filer, setFiler] = useState(null);
+export default function InstitutionsPage({ onBack, onSelectTicker, filer, onPickFiler }) {
   const [period, setPeriod] = useState(null);
   const [tab, setTab] = useState('holdings');
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  // The filer is owned by the global search bar now. Resetting during render
+  // rather than in an effect means the fetch below never fires once with the
+  // previous manager's quarter still selected.
+  const cik = filer?.cik ?? null;
+  const [lastCik, setLastCik] = useState(cik);
+  if (cik !== lastCik) {
+    setLastCik(cik);
+    setPeriod(null);
+    setTab('holdings');
+    setData(null);
+    setError('');
+  }
 
   useEffect(() => {
     if (!filer) return;
@@ -129,13 +80,6 @@ export default function InstitutionsPage({ onBack, onSelectTicker }) {
       .finally(() => { if (!cancelled) setLoading(false); });
     return () => { cancelled = true; };
   }, [filer, period]);
-
-  const pickFiler = (next) => {
-    setFiler(next);
-    setPeriod(null);
-    setData(null);
-    setTab('holdings');
-  };
 
   const positions = data?.positions || [];
   // The API orders by change status, which is what the Changes tab wants. The
@@ -162,19 +106,17 @@ export default function InstitutionsPage({ onBack, onSelectTicker }) {
         to the SEC every quarter. This reads those filings directly.
       </p>
 
-      <div className="mt-4 max-w-[520px]">
-        <InvestorSearch onSelect={pickFiler} />
-      </div>
-
       {/* Empty state */}
       {!filer && (
         <div className="mt-4">
-          <span className="text-vs-soft text-[10px] font-mono">Try:</span>
+          <span className="text-vs-soft text-[10px] font-mono">
+            Search a manager by name in the box above, or try:
+          </span>
           <div className="flex gap-1.5 mt-1.5 flex-wrap">
             {SEED_FILERS.map((f) => (
               <button
                 key={f.cik}
-                onClick={() => pickFiler(f)}
+                onClick={() => onPickFiler(f)}
                 className="rounded px-2.5 py-1.5 text-[11px] font-mono bg-vs-card text-vs-soft border border-vs-border hover:border-vs-borderLight hover:text-vs-text cursor-pointer transition-all"
               >
                 {f.name}

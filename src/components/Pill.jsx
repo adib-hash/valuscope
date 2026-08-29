@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import { formatMultiple } from '../lib/metrics';
 
 export default function Pill({ label, current, avg, min, max, percentile, isYield, onClick }) {
+  const [hoverAvg, setHoverAvg] = useState(false);
   if (current == null || avg == null || !isFinite(current) || !isFinite(avg) || avg === 0)
     return null;
 
@@ -37,29 +39,45 @@ export default function Pill({ label, current, avg, min, max, percentile, isYiel
         </span>
       </div>
 
-      {/* Min/max range bar */}
+      {/* Min/max range bar. The amber tick marks the historical average, which
+          on its own only shows position — hovering the bar names the number.
+          The padding widens the hover target without moving anything. */}
       {showRange && (
-        <div className="mt-2.5 relative h-[3px] bg-vs-border rounded-full">
-          {/* Avg tick */}
-          <div
-            className="absolute top-1/2 -translate-y-1/2 w-[2px] h-[6px] bg-vs-amber rounded-full"
-            style={{ left: `${avgPos * 100}%` }}
-          />
-          {/* Current position dot */}
-          <div
-            className="absolute top-1/2 -translate-y-1/2 w-[8px] h-[8px] rounded-full border-2 border-vs-card"
-            style={{
-              left: `calc(${currentPos * 100}% - 4px)`,
-              background: accentColor,
-            }}
-          />
+        <div
+          className="mt-1 pt-1.5 pb-1.5"
+          onMouseEnter={() => setHoverAvg(true)}
+          onMouseLeave={() => setHoverAvg(false)}
+        >
+          <div className="relative h-[3px] bg-vs-border rounded-full">
+            {/* Avg tick */}
+            <div
+              className="absolute top-1/2 -translate-y-1/2 w-[2px] h-[6px] bg-vs-amber rounded-full"
+              style={{ left: `${avgPos * 100}%` }}
+            />
+            {/* Current position dot */}
+            <div
+              className="absolute top-1/2 -translate-y-1/2 w-[8px] h-[8px] rounded-full border-2 border-vs-card"
+              style={{
+                left: `calc(${currentPos * 100}% - 4px)`,
+                background: accentColor,
+              }}
+            />
+          </div>
         </div>
       )}
 
-      {/* Percentile label */}
-      {percentile != null && (
-        <div className="mt-1.5 text-vs-dim text-[9px] font-mono">
-          {percentile}th pctl of hist.
+      {/* Fixed height, so revealing the average never nudges the card. The row
+          these sit in scrolls horizontally, which would clip a floating
+          tooltip, so the value is swapped in here instead. */}
+      {(showRange || percentile != null) && (
+        <div className="h-[13px] leading-[13px] text-[9px] font-mono">
+          {hoverAvg && showRange ? (
+            <span className="text-vs-amber font-semibold">
+              Avg {formatMultiple(avg, isYield)}
+            </span>
+          ) : percentile != null ? (
+            <span className="text-vs-dim">{percentile}th pctl of hist.</span>
+          ) : null}
         </div>
       )}
     </div>

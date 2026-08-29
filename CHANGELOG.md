@@ -1,5 +1,29 @@
 # Changelog
 
+## 0.16.0 — 2026-08-28
+
+### Added
+- **Week- and month-to-date on Indices.** WTD and MTD sit ahead of YTD, so a row reads left to right from the shortest window to the longest.
+- **Russell 2000 and Biotech.** Russell 2000 joins the Developed block — IWM for total return, `^RUT` for price. Biotech joins Sectors & rates via XBI, the SPDR S&P Biotech ETF, used on both bases because no free index series exists for it. That is the same treatment real estate, energy and bonds already get.
+- **One search box for the whole app.** The bar at the top queries listed companies and 13F filers at once and groups the results, with arrow-key selection. Picking an investor jumps straight to their filings.
+- **The data sources are named in full.** The header attribution is hoverable and lists all six upstreams and what each one is responsible for. Settings carries the same list, because the header line is desktop-only.
+- **Hovering a tile's range bar names the average.** The amber tick marked where the average sat without ever saying what it was.
+
+### Changed
+- **Indices is the landing view.** Opening the app with no company in the URL now shows index returns instead of an empty search page. Valuation became a named view so the nav can return to it, and doing so keeps whatever company is loaded.
+- **Company multiples default to 3Y** rather than the full history.
+
+### Removed
+- **FCF Yield and P/B tiles** from the company summary row.
+- **3Y p.a. column** and the **5-yr shape sparkline** from Indices. The sparkline generator and its payload are gone from the API too, so the response no longer carries sixty points per row that nothing reads.
+- The "historical valuation multiples" line beside the header logo.
+
+### Notes
+- WTD and MTD measure from the last close *before* the period began, and the boundaries are UTC. Yahoo stamps each daily bar at that market's open — 13:30 UTC for New York, 00:00 for Tokyo — so the UTC date is the trading date for every row here. The boundary is rolled back a millisecond so a bar stamped exactly on it (Tokyo, midnight) stays out of the base; without that, the first trading day of the period silently disappears from the return. Verified against SPY: MTD 3.22% off the 31 July close and WTD 0.70% off the 21 August close, both matching a hand calculation.
+- YTD moved onto the same UTC basis for consistency. The number does not move — 1 January is a holiday in every market listed — but the columns now agree on what a boundary is.
+- **The regime badge and saved watchlist summaries still average all six multiples**, including the two whose tiles are gone. Scoring them on the remaining four would have quietly repriced every watchlist entry written under the old basket.
+- EDGAR full-text search matches whole words, so "berkshire" finds the filer and "berk" does not. Company results still appear for partial input, so the box is never empty while you type.
+
 ## 0.15.2 — 2026-08-28
 
 ### Changed
