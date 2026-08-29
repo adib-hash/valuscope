@@ -27,6 +27,19 @@ function pickMetrics(sector) {
   return rec.metrics.filter((k) => available.has(k));
 }
 
+// Where the peer list came from matters — an AI-suggested set deserves to say
+// so, plainly, rather than passing itself off as a curated one.
+const SOURCE_LABELS = {
+  curated: 'curated comp set',
+  similar: 'Yahoo similar stocks',
+  ai:      'AI-suggested peers',
+};
+const SOURCE_FOOTNOTES = {
+  curated: 'Curated comp set',
+  similar: 'Peers from Yahoo\u2019s similar-stocks data, filtered to the same industry',
+  ai:      'Peer set suggested by Gemini and verified against live quotes \u2014 judge it accordingly',
+};
+
 function fmtMktCap(m) {
   if (m == null) return '\u2014';
   if (m >= 1e6) return `$${(m / 1e6).toFixed(1)}T`;
@@ -110,7 +123,7 @@ export default function CompsTable({ symbol, sector, onSelectTicker }) {
               Comps
             </p>
             <p className="text-vs-dim text-[10px] font-mono mt-0.5">
-              {`${peers.length} peer${peers.length !== 1 ? 's' : ''} \u00b7 LTM multiples`}
+              {`${peers.length} peer${peers.length !== 1 ? 's' : ''} \u00b7 ${SOURCE_LABELS[source] || 'peers'} \u00b7 LTM multiples`}
             </p>
           </div>
           <svg
@@ -139,7 +152,7 @@ export default function CompsTable({ symbol, sector, onSelectTicker }) {
           </p>
           <p className="text-vs-dim text-[10px] font-mono mt-0.5">
             {peers.length
-              ? `${peers.length} peer${peers.length !== 1 ? 's' : ''} \u00b7 ${source === 'curated' ? 'curated comp set' : 'by industry'} \u00b7 LTM multiples`
+              ? `${peers.length} peer${peers.length !== 1 ? 's' : ''} \u00b7 ${SOURCE_LABELS[source] || 'peers'} \u00b7 LTM multiples`
               : 'Loading\u2026'}
           </p>
         </div>
@@ -274,7 +287,7 @@ export default function CompsTable({ symbol, sector, onSelectTicker }) {
       )}
 
       <p className="px-4 py-2.5 text-vs-dim text-[9px] font-mono">
-        {source === 'curated' ? 'Curated comp set' : 'Peers by industry classification'} &middot; LTM multiples &middot; Tap a peer to view
+        {SOURCE_FOOTNOTES[source] || 'Peer set'} &middot; LTM multiples &middot; Tap a peer to view
       </p>
     </div>
   );

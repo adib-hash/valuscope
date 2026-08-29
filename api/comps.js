@@ -2,6 +2,7 @@
 // Uses curated industry comp sets + Yahoo Finance industry classification as fallback
 
 import YahooFinance from 'yahoo-finance2';
+import { similarPeers, geminiPeers } from './_lib/peers.js';
 const yahooFinance = new YahooFinance({ suppressNotices: ['yahooSurvey', 'ripHistorical'] });
 
 // ── Curated comp sets ────────���───────────────────────────────────────────────
@@ -170,6 +171,7 @@ async function fetchMultiples(sym) {
     name:    price.shortName || price.longName || sym,
     sector:  prof.sector || '',
     industry: prof.industry || '',
+    description: prof.longBusinessSummary || '',
     mktCap:  mktCap != null ? mktCap / 1e6 : null,
     price:   curPrice,
     change:  price.regularMarketChangePercent ?? null,
@@ -182,70 +184,6 @@ async function fetchMultiples(sym) {
   };
 }
 
-// ── Fallback: find peers by Yahoo Finance industry classification ─────────────
-async function findIndustryPeers(symbol, industry, sector, mktCap) {
-  if (!industry) return [];
-
-  // Use search to find companies, then filter by matching industry
-  // Try searching for the industry name — Yahoo search returns stocks
-  const searchTerms = industry.split(/[-&]/).map((s) => s.trim()).filter(Boolean);
-  const query = searchTerms.slice(0, 2).join(' ');
-
-  try {
-    const results = await yahooFinance.search(query, {
-      newsCount: 0, quotesCount: 20,
-    }, { validateResult: false });
-
-    const candidates = (results.quotes || [])
-      .filter((q) => q.quoteType === 'EQUITY' && q.symbol !== symbol && q.exchange)
-      .map((q) => q.symbol)
-      .slice(0, 15);
-
-    if (!candidates.length) return [];
-
-    // Fetch profiles to verify industry match
-    const profiles = await Promise.all(
-      candidates.map(async (sym) => {
-        try {
-          const s = await yahooFinance.quoteSummary(sym, {
-            modules: ['assetProfile', 'price'],
-          }, { validateResult: false });
-          return {
-            symbol: sym,
-            industry: s.assetProfile?.industry || '',
-            sector: s.assetProfile?.sector || '',
-            mktCap: s.price?.marketCap || 0,
-          };
-        } catch { return null; }
-      })
-    );
-
-    // Filter: same industry, or same sector with reasonable market cap range
-    return profiles
-      .filter(Boolean)
-      .filter((p) => {
-        if (p.industry === industry) return true;
-        // Same sector + within 10x market cap range as loose fallback
-        if (p.sector === sector && mktCap) {
-          const ratio = p.mktCap / mktCap;
-          return ratio > 0.1 && ratio < 10;
-        }
-        return false;
-      })
-      // Prefer exact industry matches, then sort by market cap descending
-      .sort((a, b) => {
-        const aExact = a.industry === industry ? 1 : 0;
-        const bExact = b.industry === industry ? 1 : 0;
-        if (aExact !== bExact) return bExact - aExact;
-        return (b.mktCap || 0) - (a.mktCap || 0);
-      })
-      .slice(0, 6)
-      .map((p) => p.symbol);
-  } catch {
-    return [];
-  }
-}
-
 export default async function handler(req, res) {
   const { ticker } = req.query;
   if (!ticker) return res.status(400).json({ error: 'Missing ticker parameter' });
@@ -256,18 +194,33 @@ export default async function handler(req, res) {
     // Step 1: Get subject company data (needed for industry fallback + display)
     const subjectData = await fetchMultiples(symbol);
 
-    // Step 2: Find comps — curated first, industry fallback second
+    // Step 2: the discovery ladder. Curated sets are analyst-grade and win
+    // outright. Yahoo's similar-stocks graph, industry-verified, covers most
+    // liquid names. Gemini handles the idiosyncratic tail — and only the tail,
+    // so the model is rarely in the hot path.
+    const subjectForPeers = {
+      name: subjectData.name,
+      sector: subjectData.sector,
+      industry: subjectData.industry,
+      description: subjectData.description,
+      mktCap: subjectData.mktCap ? subjectData.mktCap * 1e6 : null,
+    };
+
     let peerSymbols = getCuratedComps(symbol);
     let source = 'curated';
 
     if (!peerSymbols) {
-      peerSymbols = await findIndustryPeers(
-        symbol,
-        subjectData.industry,
-        subjectData.sector,
-        subjectData.mktCap ? subjectData.mktCap * 1e6 : null
-      );
-      source = 'industry';
+      peerSymbols = await similarPeers(yahooFinance, symbol, subjectForPeers);
+      source = 'similar';
+    }
+
+    if (source !== 'curated' && peerSymbols.length < 3) {
+      const ai = await geminiPeers(yahooFinance, symbol, subjectForPeers);
+      if (ai.length) {
+        const seen = new Set(peerSymbols);
+        peerSymbols = [...peerSymbols, ...ai.filter((t) => !seen.has(t))].slice(0, 8);
+        source = 'ai';
+      }
     }
 
     // Quality gate: need at least 3 comps or return nothing
@@ -284,7 +237,10 @@ export default async function handler(req, res) {
       })
     );
 
-    const comps = [subjectData, ...peerResults.filter(Boolean)];
+    // The description was only ever a briefing for Gemini — strip it so the
+    // payload doesn't carry a paragraph of prose per row.
+    const comps = [subjectData, ...peerResults.filter(Boolean)]
+      .map(({ description, ...c }) => c);
 
     res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate=600');
     return res.status(200).json({ symbol, comps, source });

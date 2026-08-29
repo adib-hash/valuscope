@@ -30,7 +30,7 @@ export const DATA_SOURCES = [
   },
   {
     name: 'Google Gemini',
-    use: 'Earnings call summaries, generated only when you ask for one',
+    use: 'Earnings call summaries (only when you ask), and comp selection for tickers no other source covers',
   },
 ];
 

@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.17.0 — 2026-08-28
+
+### Added
+- **Comps for (nearly) everything.** Peer discovery is now a three-rung ladder instead of a curated-list-or-nothing affair. The curated sets still win where they exist — they are analyst-grade. Outside them, Yahoo's similar-stocks graph supplies candidates, expanded one hop and then verified against each company's actual industry, which keeps a homebuilder's table full of homebuilders and momentum noise out. Whatever that still can't anchor goes to Gemini, which builds the set the way an analyst would: Kinsale now comps against RLI, W.R. Berkley, Markel, Palomar and Skyward Specialty rather than showing nothing — or worse, five co-viewed banks.
+- **The table says where its peers came from.** Header and footer label each set as curated, Yahoo similar stocks, or AI-suggested — an AI-picked list is useful, but it should never pass itself off as a curated one.
+
+### Notes
+- Co-view similarity is not business similarity, and sector matching is not either: "Financial Services" spans banks, brokers and insurers. So sector-level matches may pad a set but never satisfy it — only three same-industry matches count as anchored, and anything thinner escalates to the model. That gate is exactly what routes the specialty insurers and other idiosyncratic names to Gemini.
+- Every Gemini suggestion is validated against a live Yahoo quote before it appears. Model ticker knowledge goes stale the same way the curated lists did — SQ, GPS and PARA all rotted inside two years — and PARA proved a recycled symbol will happily serve the wrong company's numbers.
+- Selections are memoised for 30 days on warm instances; the response itself keeps the short edge cache because it carries live multiples. First load of an AI-routed name costs a few seconds; after that it is sub-second.
+- No new keys or services: the model rung reuses the existing `GEMINI_API_KEY` (free tier) and simply doesn't exist on deployments without it. The old industry-text-search fallback, which rarely found anything, is gone.
+
 ## 0.16.1 — 2026-08-28
 
 ### Fixed
