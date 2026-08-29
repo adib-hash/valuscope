@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { formatMultiple } from '../lib/metrics';
+import { formatMultiple, ordinal } from '../lib/metrics';
 
 export default function Pill({ label, current, avg, min, max, percentile, isYield, onClick }) {
   const [hoverAvg, setHoverAvg] = useState(false);
@@ -76,7 +76,7 @@ export default function Pill({ label, current, avg, min, max, percentile, isYiel
               Avg {formatMultiple(avg, isYield)}
             </span>
           ) : percentile != null ? (
-            <span className="text-vs-dim">{percentile}th pctl of hist.</span>
+            <span className="text-vs-dim">{ordinal(percentile)} pctl of hist.</span>
           ) : null}
         </div>
       )}

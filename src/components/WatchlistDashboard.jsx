@@ -4,6 +4,7 @@ import { getSummaries } from '../lib/summaryCache';
 import SegmentedControl from './ui/SegmentedControl';
 import ErrorBanner from './ui/ErrorBanner';
 import RegimeBadge from './ui/RegimeBadge';
+import { ordinal } from '../lib/metrics';
 
 const SORTS = [
   { key: 'cheapest', label: 'Cheapest' },
@@ -164,7 +165,7 @@ export default function WatchlistDashboard({ symbols, onSelectTicker }) {
                     <RegimeBadge label={summary.regimeLabel} color={summary.regimeColor} />
                     {summary.percentile != null && (
                       <span className="text-vs-dim text-micro font-mono">
-                        {summary.percentile}th pct vs {summary.histYears}y
+                        {ordinal(summary.percentile)} pct vs {summary.histYears}y
                       </span>
                     )}
                     {summary.upsidePercent != null && (

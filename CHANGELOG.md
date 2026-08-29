@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.19.0 — 2026-08-28
+
+### Added
+- **Compare mode.** Put up to three companies on one chart — `AAPL` vs `MSFT` vs `NVDA` P/E history, one metric at a time. The metric toggles become single-select while comparing (color has to mean *company* now, so it can't also mean metric), and the ticker chips above the chart are the legend: blue for the subject, amber and cyan for the comparators. Add tickers through an inline search beside the chart; exit restores exactly the multi-metric view you left.
+- **A comparison grid replaces the tiles while comparing** — one row per company: current multiple, period average with an honest year count ("(2y)" for a short-history ADR), signed premium to its own average, and full-history percentile. Each company is only ever compared to its own history; the grid says so.
+- **Comparisons travel.** The set and metric live in the URL (`?ticker=AAPL&vs=MSFT,NVDA&metric=evEbitda`), so the share button carries a comparison and deep links restore it — through tab switches, the transcript and the price chart too.
+
+### Notes
+- **Fiscal years align by the calendar year that holds most of them**, not by label. NVIDIA's "FY 2026" ended in January 2026 and is eleven-twelfths of calendar 2025, so it plots in the 2025 column beside Apple's September FY2025; the tooltip shows each company's own fiscal label so the offset is visible rather than hidden. All LTM rows share one "Now" bucket.
+- No average reference lines on the compare chart — three dashed lines in three colors is the clutter the grid exists to replace.
+- A failed comparator degrades to its own row with retry/remove; the subject and other comparators are untouched. Searching a new company clears the comparison — a new subject is a new question.
+- Everything below the chart (fundamentals, earnings, comps, data, thesis) stays scoped to the subject company.
+- Percentile labels across the app now use real ordinals — 93rd, not 93th.
+
 ## 0.18.5 — 2026-08-28
 
 ### Changed

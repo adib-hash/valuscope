@@ -6,6 +6,9 @@ import Button from './components/ui/Button';
 import ErrorBanner from './components/ui/ErrorBanner';
 import RegimeBadge from './components/ui/RegimeBadge';
 import BottomNav from './components/ui/BottomNav';
+import CompareControl from './components/CompareControl';
+import CompareGrid from './components/CompareGrid';
+import { TICKER_COLORS, buildCompareData, compareStats } from './lib/compare';
 import { Sun, Moon, Settings, Link2, Check, Star, X, Globe, LineChart, Landmark } from 'lucide-react';
 
 // Recharts is over a third of the bundle, and the Indices landing view never
@@ -19,6 +22,7 @@ const CompsTable       = lazy(() => import('./components/CompsTable'));
 const DataTable        = lazy(() => import('./components/DataTable'));
 const PillDetail       = lazy(() => import('./components/PillDetail'));
 const PriceHistoryPage = lazy(() => import('./components/PriceHistoryPage'));
+const CompareChart     = lazy(() => import('./components/CompareChart'));
 import Pill from './components/Pill';
 import FundamentalsPanel from './components/FundamentalsPanel';
 import FairValueTable from './components/FairValueTable';
@@ -33,6 +37,7 @@ import { mergeHistory } from './lib/history';
 import {
   GROUPS,
   ALL_METRICS,
+  getMetric,
   computeAverages,
   computeRanges,
   computePercentiles,
@@ -51,7 +56,7 @@ import {
 } from './lib/watchlist';
 
 const QUICK_TICKERS = ['AAPL', 'MSFT', 'ULTA', 'COST', 'META', 'AMZN', 'GOOGL', 'NFLX'];
-const APP_VERSION   = 'v0.18.5';
+const APP_VERSION   = 'v0.19.0';
 
 // The view the app opens on when the URL names neither a company nor a view.
 const DEFAULT_VIEW = 'indices';
@@ -161,6 +166,10 @@ export default function App() {
   // ── Watchlist ────────────────────────────────────────────────────────────────
   const [watchlist, setWatchlist] = useState(() => getWatchlist());
 
+  // Compare mode: secondary tickers' data, keyed by symbol with per-ticker
+  // status so one failure never touches the others (or the primary).
+  const [peers, setPeers] = useState({});
+
   // Tabs stay mounted once opened (hidden, not unmounted), so switching away
   // never drops fetched data or in-progress Thesis keystrokes. Reset per
   // company. Initialised with the deep-linked tab so a shared &tab= URL
@@ -215,16 +224,24 @@ export default function App() {
     if (!sym) return;
     const next = { ticker: sym };
     if (key !== 'overview') next.tab = key;
-    setSearchParams(next, { replace: true });
+    setSearchParams(carryCompare(next), { replace: true });
   };
 
   // Company-scoped views carry the active tab through, so Earnings tab →
   // transcript → back lands on Earnings rather than resetting to Overview.
+  const carryCompare = (next) => {
+    const vs = searchParams.get('vs');
+    const metric = searchParams.get('metric');
+    if (vs) next.vs = vs;
+    if (vs && metric) next.metric = metric;
+    return next;
+  };
+
   const openView = (name) => {
     if (!sym) return;
     const next = { ticker: sym, view: name };
     if (activeTab !== 'overview') next.tab = activeTab;
-    setSearchParams(next, { replace: false });
+    setSearchParams(carryCompare(next), { replace: false });
     window.scrollTo(0, 0);
   };
 
@@ -251,7 +268,7 @@ export default function App() {
     if (!sym) { setSearchParams({ view: 'valuation' }); return; }
     const next = { ticker: sym };
     if (activeTab !== 'overview') next.tab = activeTab;
-    setSearchParams(next, { replace: false });
+    setSearchParams(carryCompare(next), { replace: false });
     window.scrollTo(0, 0);
   };
 
@@ -266,13 +283,20 @@ export default function App() {
     setData(null);
     setDescOpen(false);
     setActivePill(null);
-    const currentView = keepView ? searchParams.get('view') : null;
-    const currentTab  = keepView ? searchParams.get('tab')  : null;
+    const currentView   = keepView ? searchParams.get('view')   : null;
+    const currentTab    = keepView ? searchParams.get('tab')    : null;
+    const currentVs     = keepView ? searchParams.get('vs')     : null;
+    const currentMetric = keepView ? searchParams.get('metric') : null;
     const nextParams = { ticker: sym };
     if (currentView) nextParams.view = currentView;
     if (currentTab && COMPANY_TABS.some((t) => t.value === currentTab)) nextParams.tab = currentTab;
+    if (currentVs) nextParams.vs = currentVs;
+    if (currentVs && currentMetric) nextParams.metric = currentMetric;
     setSearchParams(nextParams, { replace: true });
     setVisitedTabs(new Set(['overview', currentTab || 'overview']));
+    // A new subject is a new question — searching a company clears the
+    // comparison; a deep link (keepView) restores it via the effect above.
+    if (!keepView) setPeers({});
     activeSymbol.current = sym;
     try {
       const result = await fetchFinancials(sym);
@@ -304,6 +328,26 @@ export default function App() {
       setError(`Failed to load ${sym}: ${e.message}`);
     }
     setLoading(false);
+  };
+
+  // loadCompany minus every side effect: no URL write, no recents, no group
+  // auto-select, no watchlist summary. Same silent SEC-merge contract.
+  const loadPeer = async (s) => {
+    setPeers((p) => ({ ...p, [s]: { status: 'loading' } }));
+    try {
+      const result = await fetchFinancials(s);
+      setPeers((p) => ({ ...p, [s]: { status: 'ready', data: result } }));
+      fetchHistory(s)
+        .then((deep) => {
+          if (!deep?.years?.length) return;
+          setPeers((p) => (p[s]?.status === 'ready'
+            ? { ...p, [s]: { ...p[s], data: { ...p[s].data, years: mergeHistory(p[s].data.years, deep.years) } } }
+            : p));
+        })
+        .catch(() => {});
+    } catch (e) {
+      setPeers((p) => ({ ...p, [s]: { status: 'error', error: e.message } }));
+    }
   };
 
   // ── Derived data ─────────────────────────────────────────────────────────────
@@ -382,11 +426,89 @@ export default function App() {
     ),
   }));
 
+  // ── Compare mode ─────────────────────────────────────────────────────────────
+  // The URL is the source of truth for which tickers are compared, so deep
+  // links and the share button carry a comparison for free.
+  const compareList = useMemo(() => {
+    const raw = searchParams.get('vs') || '';
+    return [...new Set(
+      raw.split(',')
+        .map((t) => t.trim().toUpperCase())
+        .filter((t) => /^[A-Z.\-]{1,10}$/.test(t) && t !== sym)
+    )].slice(0, 2);
+  }, [searchParams, sym]);
+  const comparing = compareList.length > 0 && !!data;
+
+  const rawMetric = searchParams.get('metric');
+  const compareMetric = ALL_METRICS.some((m) => m.key === rawMetric)
+    ? rawMetric
+    : (selected[0] || 'pe');
+  const compareMetricDef = getMetric(compareMetric);
+
+  // Merge-write for compare params only. The literal writes elsewhere are
+  // intentional resets; these four actions must not clobber ticker/tab/view.
+  const updateParams = (mutate, replace = true) => {
+    const next = Object.fromEntries(searchParams.entries());
+    mutate(next);
+    Object.keys(next).forEach((k) => next[k] == null && delete next[k]);
+    setSearchParams(next, { replace });
+  };
+
+  const addCompare = (t) => {
+    const list = [...new Set([...compareList, t])].slice(0, 2);
+    updateParams((pr) => { pr.vs = list.join(','); }, false);
+  };
+  const removeCompare = (t) => {
+    const list = compareList.filter((x) => x !== t);
+    updateParams((pr) => {
+      if (list.length) pr.vs = list.join(',');
+      else { pr.vs = null; pr.metric = null; }
+    });
+    setPeers((pm) => { const { [t]: _gone, ...rest } = pm; return rest; });
+  };
+  const exitCompare = () => {
+    updateParams((pr) => { pr.vs = null; pr.metric = null; });
+    setPeers({});
+  };
+  const setCompareMetric = (k) => updateParams((pr) => { pr.metric = k; });
+
+  // Load whatever the URL says we're comparing — covers adds and deep links.
+  useEffect(() => {
+    compareList.forEach((t) => { if (!peers[t]) loadPeer(t); });
+  }, [compareList]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const compareColors = useMemo(() => {
+    const map = { [sym]: TICKER_COLORS[0] };
+    compareList.forEach((t, i) => { map[t] = TICKER_COLORS[i + 1]; });
+    return map;
+  }, [sym, compareList]);
+
+  const compareSeries = useMemo(() => {
+    if (!comparing) return null;
+    const map = { [sym]: years };
+    for (const t of compareList) {
+      if (peers[t]?.status === 'ready') map[t] = peers[t].data.years;
+    }
+    return map;
+  }, [comparing, sym, years, compareList, peers]);
+
+  const compareRows = useMemo(
+    () => (comparing && compareSeries ? buildCompareData(compareSeries, compareMetric, period) : []),
+    [comparing, compareSeries, compareMetric, period],
+  );
+  const cStats = useMemo(
+    () => (comparing && compareSeries ? compareStats(compareSeries, compareMetric, period) : {}),
+    [comparing, compareSeries, compareMetric, period],
+  );
+
   const toggle = (k) =>
     setSelected((p) => (p.includes(k) ? p.filter((x) => x !== k) : [...p, k]));
   const switchGroup = (g) => {
     setGroup(g);
     setSelected(GROUPS[g].map((m) => m.key).slice(0, 2));
+    // While comparing, the chart is single-metric: entering a group selects
+    // its first metric for the comparison.
+    if (comparing) setCompareMetric(GROUPS[g][0].key);
   };
 
   const fmtMarketCap = (m) => {
@@ -726,7 +848,22 @@ export default function App() {
               )}
               {REGIME && <RegimeBadge label={REGIME.label} color={REGIME.color} />}
             </div>
+            {comparing && (
+              <CompareGrid
+                symbols={[sym, ...compareList]}
+                colors={compareColors}
+                stats={cStats}
+                statuses={Object.fromEntries([[sym, 'ready'], ...compareList.map((t) => [t, peers[t]?.status || 'loading'])])}
+                errors={Object.fromEntries(compareList.map((t) => [t, peers[t]?.error]))}
+                isYield={!!compareMetricDef?.isYield}
+                metricLabel={compareMetricDef?.label || compareMetric}
+                onRetry={loadPeer}
+                onRemove={removeCompare}
+              />
+            )}
+
             <div
+              hidden={comparing}
               className="flex gap-1.5 overflow-x-auto pb-1 snap-x snap-mandatory"
               style={{ WebkitOverflowScrolling: 'touch' }}
             >
@@ -796,19 +933,20 @@ export default function App() {
             <div className="flex gap-1 mt-2 flex-wrap">
               {metrics.map((m) => {
                 const isRec = isRecommendedMetric(data.sector, m.key);
+                const isOn = comparing ? m.key === compareMetric : selected.includes(m.key);
                 return (
                   <button
                     key={m.key}
-                    onClick={() => toggle(m.key)}
+                    onClick={() => (comparing ? setCompareMetric(m.key) : toggle(m.key))}
                     className="rounded-md px-2.5 py-1 text-label font-medium font-mono cursor-pointer border transition-all flex items-center gap-1"
                     style={{
-                      background:  selected.includes(m.key) ? tint(m.color, 0.08) : 'transparent',
-                      color:       selected.includes(m.key) ? m.color : isRec ? 'rgb(var(--vs-soft))' : 'rgb(var(--vs-dim))',
-                      borderColor: selected.includes(m.key) ? m.color : isRec ? 'rgb(var(--vs-blue) / 0.35)' : 'rgb(var(--vs-border))',
+                      background:  isOn ? tint(m.color, 0.08) : 'transparent',
+                      color:       isOn ? m.color : isRec ? 'rgb(var(--vs-soft))' : 'rgb(var(--vs-dim))',
+                      borderColor: isOn ? m.color : isRec ? 'rgb(var(--vs-blue) / 0.35)' : 'rgb(var(--vs-border))',
                     }}
                   >
                     {m.label}
-                    {isRec && !selected.includes(m.key) && (
+                    {isRec && !isOn && (
                       <span
                         className="inline-block w-1 h-1 rounded-full flex-shrink-0"
                         style={{ background: 'rgb(var(--vs-blue))' }}
@@ -819,15 +957,35 @@ export default function App() {
               })}
             </div>
 
+            {/* Compare control — chips double as the compare chart's legend */}
+            <CompareControl
+              className="mt-3"
+              primary={sym}
+              compareList={compareList}
+              colors={compareColors}
+              onAdd={addCompare}
+              onRemove={removeCompare}
+              onExit={exitCompare}
+            />
+
             {/* Chart */}
             <Suspense fallback={<div className="bg-vs-card border border-vs-border rounded-xl mt-3 h-[292px] sm:h-[382px] md:h-[452px] animate-pulse" />}>
-              <ValuChart
-                chartData={chartData}
-                selectedMetrics={selected}
-                averages={avgs}
-                isYield={isYield}
-                isDark={isDark}
-              />
+              {comparing ? (
+                <CompareChart
+                  rows={compareRows}
+                  symbols={[sym, ...compareList.filter((t) => peers[t]?.status === 'ready')]}
+                  colors={compareColors}
+                  isYield={!!compareMetricDef?.isYield}
+                />
+              ) : (
+                <ValuChart
+                  chartData={chartData}
+                  selectedMetrics={selected}
+                  averages={avgs}
+                  isYield={isYield}
+                  isDark={isDark}
+                />
+              )}
             </Suspense>
 
             {/* Section tabs — everything below the chart lives in one of these */}

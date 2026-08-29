@@ -175,6 +175,15 @@ export function getMetric(key) {
   return ALL_METRICS.find((m) => m.key === key);
 }
 
+// 93 → "93rd". English ordinals for percentile labels.
+export function ordinal(n) {
+  const v = Math.abs(Math.round(n));
+  const mod100 = v % 100;
+  if (mod100 >= 11 && mod100 <= 13) return `${n}th`;
+  const suffix = { 1: 'st', 2: 'nd', 3: 'rd' }[v % 10] || 'th';
+  return `${n}${suffix}`;
+}
+
 export function formatMultiple(value, isYield = false) {
   if (value == null || !isFinite(value)) return '\u2014';
   if (isYield) return value.toFixed(1) + '%';
