@@ -5,9 +5,6 @@
   "functions": {
     "api/summarize.js": {
       "maxDuration": 60
-    },
-    "api/brief.js": {
-      "maxDuration": 60
     }
   },
   "rewrites": [

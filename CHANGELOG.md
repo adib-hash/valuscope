@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.20.4 — 2026-08-29
+
+### Removed
+- **The AI company brief.** In practice it restated the page's own multiples and history-relative framing in prose — by design, since strict grounding was the guardrail, but that made it a summary of what the dashboard already shows rather than something worth generating. Gone: the Overview card, `/api/brief`, and its input assembler. The call-summary feature on the transcript page is untouched — that one condenses material you can't see at a glance.
+
+### Notes
+- Function count drops to 11 of the Hobby plan's 12, which restores one slot of headroom for whatever earns it next.
+
 ## 0.20.3 — 2026-08-29
 
 ### Fixed
