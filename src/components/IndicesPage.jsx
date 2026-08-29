@@ -1,6 +1,9 @@
 import { Fragment, useEffect, useMemo, useState } from 'react';
 import { fetchIndices } from '../lib/api';
 import { tint } from '../lib/metrics';
+import BackButton from './ui/BackButton';
+import ErrorBanner from './ui/ErrorBanner';
+import SegmentedControl from './ui/SegmentedControl';
 
 const MODES = [
   { key: 'total', label: 'Total return · USD' },
@@ -114,44 +117,28 @@ export default function IndicesPage({ onBack }) {
 
   return (
     <div className="mt-5 pb-8">
-      {onBack && (
-        <button
-          onClick={onBack}
-          className="text-vs-dim hover:text-vs-soft text-[11px] font-mono cursor-pointer mb-2 flex items-center gap-1"
-        >
-          <span>←</span> Back to overview
-        </button>
-      )}
+      {onBack && <BackButton onClick={onBack} />}
 
-      <div className="text-vs-dim text-[11px] font-mono tracking-widest">WORLD INDICES</div>
-      <h1 className="font-display text-[26px] font-extrabold mt-1 leading-tight text-vs-text">
+      <div className="text-vs-dim text-label font-mono tracking-widest">WORLD INDICES</div>
+      <h1 className="font-display text-display font-extrabold mt-1 leading-tight text-vs-text">
         Index returns
       </h1>
-      <p className="text-vs-soft text-[13px] mt-0.5 max-w-[68ch]">
+      <p className="text-vs-soft text-body mt-0.5 max-w-[68ch]">
         {isTotal
           ? 'Dividends and coupons reinvested, everything converted to USD, so every row is measured the same way.'
           : 'The indices themselves, in their own currency, price only — the numbers you see quoted in the press.'}
       </p>
 
       {/* Basis toggle */}
-      <div className="flex items-center gap-1 mt-4 flex-wrap">
-        {MODES.map((m) => (
-          <button
-            key={m.key}
-            onClick={() => setMode(m.key)}
-            className={`rounded px-2.5 py-1.5 text-[11px] font-mono font-semibold cursor-pointer border transition-all ${
-              mode === m.key
-                ? 'bg-vs-blue/15 text-vs-blue border-vs-blue/50'
-                : 'bg-transparent text-vs-dim border-vs-border hover:border-vs-borderLight hover:text-vs-soft'
-            }`}
-          >
-            {m.label}
-          </button>
-        ))}
-      </div>
+      <SegmentedControl
+        className="mt-4"
+        options={MODES.map((m) => ({ value: m.key, label: m.label }))}
+        value={mode}
+        onChange={setMode}
+      />
 
       {/* Why the toggle exists. Worth saying once, plainly. */}
-      <p className="text-vs-soft text-[10px] font-mono mt-2 max-w-[68ch] leading-relaxed">
+      <p className="text-vs-soft text-micro font-mono mt-2 max-w-[68ch] leading-relaxed">
         {isTotal
           ? 'Bonds and property earn most of their return as income, so price-only figures understate them badly.'
           : 'Price return ignores income. US bonds look like a loss on this basis; on a total-return basis they are not.'}
@@ -160,11 +147,11 @@ export default function IndicesPage({ onBack }) {
       {/* Heat scale legend */}
       {!loading && !error && rows.length > 0 && (
         <div className="flex items-center gap-2 mt-3 flex-wrap">
-          <span className="text-vs-soft text-[9px] font-mono uppercase tracking-wider">
+          <span className="text-vs-soft text-micro font-mono uppercase tracking-wider">
             Shaded per column
           </span>
           <div className="flex items-center gap-1">
-            <span className="text-vs-soft text-[9px] font-mono">loss</span>
+            <span className="text-vs-soft text-micro font-mono">loss</span>
             {[-1, -0.55, -0.2, 0.2, 0.55, 1].map((step) => (
               <span
                 key={step}
@@ -172,23 +159,19 @@ export default function IndicesPage({ onBack }) {
                 style={heatStyle(step, 1)}
               />
             ))}
-            <span className="text-vs-soft text-[9px] font-mono">gain</span>
+            <span className="text-vs-soft text-micro font-mono">gain</span>
           </div>
         </div>
       )}
 
-      {error && (
-        <div className="mt-5 text-vs-red font-mono text-[13px] px-4 py-3 bg-vs-red/5 rounded-lg border border-vs-red/20">
-          {error}
-        </div>
-      )}
+      {error && <ErrorBanner className="mt-5">{error}</ErrorBanner>}
 
       {loading && (
         <div className="mt-4 rounded-xl border border-vs-border bg-vs-card px-4 py-6">
           <div className="animate-pulse space-y-2">
-            <div className="h-3 bg-vs-border rounded w-48" />
+            <div className="h-3 bg-vs-border rounded-md w-48" />
             {Array.from({ length: 8 }).map((_, i) => (
-              <div key={i} className="h-8 bg-vs-border rounded" />
+              <div key={i} className="h-8 bg-vs-border rounded-md" />
             ))}
           </div>
         </div>
@@ -197,7 +180,7 @@ export default function IndicesPage({ onBack }) {
       {!loading && !error && rows.length > 0 && (
         <div className="mt-4 rounded-xl border border-vs-border bg-vs-card overflow-hidden">
           <div className="overflow-x-auto">
-            <table className="w-full font-mono text-[11px]">
+            <table className="w-full font-mono text-dense">
               <thead>
                 <tr className="border-b border-vs-border">
                   <th className="text-left px-4 py-2 text-vs-soft font-medium sticky left-0 bg-vs-card z-10 min-w-[150px]">
@@ -218,7 +201,7 @@ export default function IndicesPage({ onBack }) {
                     <tr className="bg-vs-card2">
                       <td
                         colSpan={COLUMNS.length + 3}
-                        className="px-4 py-1.5 text-vs-soft font-bold text-[9px] tracking-widest uppercase sticky left-0 bg-vs-card2 z-10"
+                        className="px-4 py-1.5 text-vs-soft font-bold text-micro tracking-widest uppercase sticky left-0 bg-vs-card2 z-10"
                       >
                         {group.name}
                       </td>
@@ -228,7 +211,7 @@ export default function IndicesPage({ onBack }) {
                       <tr key={row.key} className="border-t border-vs-border">
                         <td className="px-4 py-2 sticky left-0 bg-vs-card z-10">
                           <span className="text-vs-text font-semibold">{row.label}</span>
-                          <span className="block text-vs-soft text-[9px] mt-0.5 whitespace-nowrap">
+                          <span className="block text-vs-soft text-micro mt-0.5 whitespace-nowrap">
                             via {row.symbol}
                             {row.isProxy ? ' · proxy' : ''}
                             {row.currency && row.currency !== 'USD' ? ` · ${row.currency}` : ''}
@@ -269,7 +252,7 @@ export default function IndicesPage({ onBack }) {
                     <tr className="bg-vs-card2">
                       <td
                         colSpan={COLUMNS.length + 3}
-                        className="px-4 py-1.5 text-vs-soft font-bold text-[9px] tracking-widest uppercase sticky left-0 bg-vs-card2 z-10"
+                        className="px-4 py-1.5 text-vs-soft font-bold text-micro tracking-widest uppercase sticky left-0 bg-vs-card2 z-10"
                       >
                         Volatility
                       </td>
@@ -277,7 +260,7 @@ export default function IndicesPage({ onBack }) {
                     <tr className="border-t border-vs-border">
                       <td className="px-4 py-2 sticky left-0 bg-vs-card z-10">
                         <span className="text-vs-text font-semibold">{vix.label}</span>
-                        <span className="block text-vs-soft text-[9px] mt-0.5 whitespace-nowrap">
+                        <span className="block text-vs-soft text-micro mt-0.5 whitespace-nowrap">
                           via {vix.symbol} · level, not a return
                         </span>
                       </td>
@@ -301,12 +284,12 @@ export default function IndicesPage({ onBack }) {
           </div>
 
           <div className="px-4 py-3 border-t border-vs-border">
-            <p className="text-vs-soft text-[9px] font-mono leading-relaxed max-w-[80ch]">
+            <p className="text-vs-soft text-micro font-mono leading-relaxed max-w-[80ch]">
               {isTotal
                 ? 'Total return uses investable ETFs as the measuring instrument, priced in USD with distributions reinvested. FTSE 100 and Nikkei 225 have no free total-return series, so MSCI UK and MSCI Japan stand in — those rows are marked as proxies and are not the same indices. Annualised figures are suppressed where the instrument has too little history to cover the window.'
                 : 'Price return excludes dividends and coupons, and each index is shown in its own currency, so rows are not comparable with one another. Real estate, energy and bond rows still use ETFs — no free index series exists for them — which is why their price returns understate what a holder actually earned.'}
             </p>
-            <p className="text-vs-soft text-[9px] font-mono mt-1.5">
+            <p className="text-vs-soft text-micro font-mono mt-1.5">
               Data: Yahoo Finance. Past returns say nothing about future ones.
             </p>
           </div>

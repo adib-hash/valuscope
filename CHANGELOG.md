@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.18.5 — 2026-08-28
+
+### Changed
+- **Every component is on the type scale now.** The migration announced in 0.18.1 is complete: 199 ad-hoc pixel sizes across 18 files collapsed onto the seven tokens. In practice that means the 9px micro-labels everywhere are 10px, secondary text and buttons sit at 12px instead of 11px, and every table deliberately still reads at 11px. The one remaining literal is the search input's 16px mobile size, which is what stops iOS zooming the page.
+- **The shared primitives reached everywhere.** Back buttons (previously three byte-identical copies and one variant), error banners (three recipes plus two bare-text renders), segmented toggles (Indices basis, 13F quarters and tabs, price-history ranges, watchlist sorts) and section labels are now single components. The panel chips in Fundamentals and Earnings share one StatChip.
+- **The data table finally got a card.** It was the only dashboard section rendered without one; its sticky first column now matches the card surface instead of the page background.
+- The watchlist staleness timestamp dropped its extra 30% opacity, which was quietly undoing the contrast fix underneath it.
+
+### Notes
+- Recharts axis ticks keep numeric font sizes in JS — they were never Tailwind classes.
+- Verified: labels compute to 10px and tables to 11px in the browser, no horizontal overflow at 390px, both themes render with the new dim value, and the full grep gate passes — no `text-[Npx]` outside the documented exception, no preset-scale stragglers.
+
 ## 0.18.4 — 2026-08-28
 
 ### Added

@@ -130,10 +130,10 @@ export default function SearchBar({ onSelectTicker, onSelectFiler, loading }) {
           aria-selected={active}
         >
           <div className="min-w-0">
-            <span className="text-vs-text font-semibold font-mono text-[13px]">{c.symbol}</span>
-            <span className="text-vs-soft text-xs ml-2.5">{c.name}</span>
+            <span className="text-vs-text font-semibold font-mono text-body">{c.symbol}</span>
+            <span className="text-vs-soft text-label ml-2.5">{c.name}</span>
           </div>
-          <span className="text-vs-dim text-[10px] font-mono flex-shrink-0">{c.exchange}</span>
+          <span className="text-vs-dim text-micro font-mono flex-shrink-0">{c.exchange}</span>
         </div>
       );
     }
@@ -147,14 +147,14 @@ export default function SearchBar({ onSelectTicker, onSelectFiler, loading }) {
         role="option"
         aria-selected={active}
       >
-        <span className="text-vs-text text-[13px]">{f.name}</span>
-        <span className="block text-vs-soft text-[10px] font-mono mt-0.5">CIK {f.cik}</span>
+        <span className="text-vs-text text-body">{f.name}</span>
+        <span className="block text-vs-soft text-micro font-mono mt-0.5">CIK {f.cik}</span>
       </div>
     );
   };
 
   const groupLabel = (text) => (
-    <div className="px-3.5 pt-2 pb-1 text-vs-dim text-[9px] font-mono uppercase tracking-widest bg-vs-card2">
+    <div className="px-3.5 pt-2 pb-1 text-vs-dim text-micro font-mono uppercase tracking-widest bg-vs-card2">
       {text}
     </div>
   );
@@ -174,12 +174,12 @@ export default function SearchBar({ onSelectTicker, onSelectFiler, loading }) {
           autoComplete="off"
           /* 16px on mobile is what stops iOS zooming the page when the field is
              focused; the tighter size is safe from the sm breakpoint up. */
-          className="flex-1 bg-vs-card border border-vs-borderLight rounded-lg px-4 py-3 text-vs-text text-[16px] sm:text-[15px] font-mono outline-none focus:border-vs-blue transition-colors min-w-0"
+          className="flex-1 bg-vs-card border border-vs-borderLight rounded-lg px-4 py-3 text-vs-text text-[16px] sm:text-prose font-mono outline-none focus:border-vs-blue transition-colors min-w-0"
         />
         <button
           onClick={submitRaw}
           disabled={loading}
-          className={`rounded-lg px-5 py-3 text-sm font-bold font-mono transition-all flex-shrink-0 ${
+          className={`rounded-lg px-5 py-3 text-body font-bold font-mono transition-all flex-shrink-0 ${
             loading
               ? 'bg-vs-dim text-vs-bg cursor-wait opacity-60'
               : 'bg-vs-blue text-vs-bg cursor-pointer hover:brightness-110'
@@ -190,7 +190,7 @@ export default function SearchBar({ onSelectTicker, onSelectFiler, loading }) {
       </div>
 
       {busy && (
-        <span className="absolute right-[86px] top-1/2 -translate-y-1/2 text-vs-dim text-[10px] font-mono pointer-events-none">
+        <span className="absolute right-[86px] top-1/2 -translate-y-1/2 text-vs-dim text-micro font-mono pointer-events-none">
           searching…
         </span>
       )}

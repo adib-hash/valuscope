@@ -1,28 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { fetchEarnings } from '../lib/api';
-
-function SectionHeader({ children, aside }) {
-  return (
-    <div className="flex items-baseline justify-between gap-2 mb-2.5">
-      <p className="text-vs-dim text-[9px] font-mono uppercase tracking-widest">{children}</p>
-      {aside && <span className="text-vs-dim text-[9px] font-mono">{aside}</span>}
-    </div>
-  );
-}
-
-function Stat({ label, value, color }) {
-  if (value == null) return null;
-  return (
-    <div className="flex flex-col">
-      <span className="text-vs-dim text-[9px] font-mono uppercase tracking-wider leading-none mb-0.5">
-        {label}
-      </span>
-      <span className="font-mono text-[13px] font-semibold" style={{ color: color || 'rgb(var(--vs-text))' }}>
-        {value}
-      </span>
-    </div>
-  );
-}
+import SectionLabel from './ui/SectionLabel';
+import StatChip from './ui/StatChip';
 
 const fmtEps = (v) => (v == null ? null : `$${v.toFixed(2)}`);
 
@@ -93,8 +72,8 @@ export default function EarningsPanel({ symbol, onOpenTranscript }) {
     return (
       <div className="mt-4 rounded-xl border border-vs-border bg-vs-card px-4 py-3.5">
         <div className="animate-pulse space-y-2">
-          <div className="h-2 bg-vs-card2 rounded w-24" />
-          <div className="h-4 bg-vs-card2 rounded w-40" />
+          <div className="h-2 bg-vs-card2 rounded-md w-24" />
+          <div className="h-4 bg-vs-card2 rounded-md w-40" />
         </div>
       </div>
     );
@@ -111,28 +90,28 @@ export default function EarningsPanel({ symbol, onOpenTranscript }) {
 
         {next && (
           <div className="px-4 py-3.5">
-            <SectionHeader aside={next.isEstimate ? 'date estimated' : null}>
+            <SectionLabel className="mb-2.5" aside={next.isEstimate ? 'date estimated' : null}>
               Next Earnings
-            </SectionHeader>
+            </SectionLabel>
             <div className="flex items-baseline gap-2 flex-wrap">
-              <span className="font-mono text-[15px] font-semibold text-vs-text">
+              <span className="font-mono text-prose font-semibold text-vs-text">
                 {fmtDate(next.date)}
               </span>
-              <span className="text-vs-blue text-[11px] font-mono">
+              <span className="text-vs-blue text-label font-mono">
                 {relativeDays(next.date)}
               </span>
             </div>
             {onOpenTranscript && (
               <button
                 onClick={onOpenTranscript}
-                className="mt-2 text-vs-blue hover:underline text-[11px] font-mono cursor-pointer"
+                className="mt-2 text-vs-blue hover:underline text-label font-mono cursor-pointer"
               >
                 Read the last earnings call →
               </button>
             )}
             {(next.epsEstimate != null || next.revenueEstimate != null) && (
               <div className="flex gap-4 flex-wrap mt-2.5">
-                <Stat label="Consensus EPS" value={fmtEps(next.epsEstimate)} />
+                <StatChip label="Consensus EPS" value={fmtEps(next.epsEstimate)} />
                 {next.epsLow != null && next.epsHigh != null && (
                   <Stat
                     label="Range"
@@ -140,7 +119,7 @@ export default function EarningsPanel({ symbol, onOpenTranscript }) {
                     color="rgb(var(--vs-soft))"
                   />
                 )}
-                <Stat label="Consensus Rev" value={fmtBig(next.revenueEstimate)} />
+                <StatChip label="Consensus Rev" value={fmtBig(next.revenueEstimate)} />
               </div>
             )}
           </div>
@@ -148,11 +127,12 @@ export default function EarningsPanel({ symbol, onOpenTranscript }) {
 
         {history.length > 0 && (
           <div className="px-4 py-3.5">
-            <SectionHeader
+            <SectionLabel
+              className="mb-2.5"
               aside={beatRate != null ? `beat ${beatRate}% of last ${history.length}` : null}
             >
               EPS vs Estimate
-            </SectionHeader>
+            </SectionLabel>
             <div className="flex gap-2 overflow-x-auto pb-0.5" style={{ WebkitOverflowScrolling: 'touch' }}>
               {history.map((h) => {
                 const beat = h.surprisePercent != null && h.surprisePercent >= 0;
@@ -163,14 +143,14 @@ export default function EarningsPanel({ symbol, onOpenTranscript }) {
                     key={h.quarter}
                     className="flex-1 min-w-[74px] rounded-lg border border-vs-border bg-vs-card2 px-2.5 py-2"
                   >
-                    <div className="text-vs-dim text-[9px] font-mono uppercase tracking-wider leading-none mb-1">
+                    <div className="text-vs-dim text-micro font-mono uppercase tracking-wider leading-none mb-1">
                       {quarterLabel(h.quarter)}
                     </div>
-                    <div className="font-mono text-[13px] font-semibold leading-none" style={{ color }}>
+                    <div className="font-mono text-body font-semibold leading-none" style={{ color }}>
                       {h.surprisePercent == null ? '—'
                         : `${h.surprisePercent >= 0 ? '+' : ''}${h.surprisePercent.toFixed(1)}%`}
                     </div>
-                    <div className="text-vs-dim text-[9px] font-mono mt-1 leading-none">
+                    <div className="text-vs-dim text-micro font-mono mt-1 leading-none">
                       {fmtEps(h.epsActual)} vs {fmtEps(h.epsEstimate)}
                     </div>
                   </div>
@@ -182,15 +162,15 @@ export default function EarningsPanel({ symbol, onOpenTranscript }) {
 
         {(fy || nextFy) && (
           <div className="px-4 py-3.5">
-            <SectionHeader>Analyst Estimates</SectionHeader>
+            <SectionLabel className="mb-2.5">Analyst Estimates</SectionLabel>
             <div className="space-y-2">
               {[fy, nextFy].filter(Boolean).map((est, i) => (
                 <div key={est.period} className="flex items-center gap-4 flex-wrap">
-                  <span className="text-vs-dim font-mono text-[10px] w-14 flex-shrink-0">
+                  <span className="text-vs-dim font-mono text-micro w-14 flex-shrink-0">
                     {i === 0 ? 'This FY' : 'Next FY'}
                   </span>
-                  <Stat label="EPS" value={fmtEps(est.epsEstimate)} />
-                  <Stat label="Revenue" value={fmtBig(est.revenueEstimate)} />
+                  <StatChip label="EPS" value={fmtEps(est.epsEstimate)} />
+                  <StatChip label="Revenue" value={fmtBig(est.revenueEstimate)} />
                   {est.growthPercent != null && (
                     <Stat
                       label="EPS Growth"

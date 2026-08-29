@@ -64,29 +64,29 @@ export default function DataSources() {
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-label="Show all data sources"
-        className="text-vs-soft hover:text-vs-text text-[10px] font-mono cursor-help transition-colors decoration-dotted underline underline-offset-[3px] decoration-vs-border"
+        className="text-vs-soft hover:text-vs-text text-micro font-mono cursor-help transition-colors decoration-dotted underline underline-offset-[3px] decoration-vs-border"
       >
         Data: Yahoo Finance +{DATA_SOURCES.length - 1}
       </button>
 
       {open && (
         <div className="absolute top-full right-0 mt-1.5 w-[340px] bg-vs-card2 border border-vs-border rounded-lg shadow-2xl z-50 p-3.5">
-          <p className="text-vs-soft text-[9px] font-mono uppercase tracking-widest mb-2.5">
+          <p className="text-vs-soft text-micro font-mono uppercase tracking-widest mb-2.5">
             Where the numbers come from
           </p>
           <div className="space-y-2.5">
             {DATA_SOURCES.map((s) => (
               <div key={s.name}>
-                <span className="text-vs-text font-mono text-[11px] font-semibold block">
+                <span className="text-vs-text font-mono text-dense font-semibold block">
                   {s.name}
                 </span>
-                <span className="text-vs-soft text-[11px] leading-snug block mt-0.5">
+                <span className="text-vs-soft text-label leading-snug block mt-0.5">
                   {s.use}
                 </span>
               </div>
             ))}
           </div>
-          <p className="text-vs-soft text-[10px] font-mono mt-3 pt-2.5 border-t border-vs-border leading-relaxed">
+          <p className="text-vs-soft text-micro font-mono mt-3 pt-2.5 border-t border-vs-border leading-relaxed">
             All free-tier or keyless. Nothing here is real time — quotes are delayed.
           </p>
         </div>

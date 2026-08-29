@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import { fetchHoldings } from '../lib/api';
 import { tint } from '../lib/metrics';
+import BackButton from './ui/BackButton';
+import ErrorBanner from './ui/ErrorBanner';
+import SegmentedControl from './ui/SegmentedControl';
 
 // A few managers worth reading. Shown on the empty state so the page is useful
 // before you know whose name to type.
@@ -90,18 +93,13 @@ export default function InstitutionsPage({ onBack, onSelectTicker, filer, onPick
 
   return (
     <div className="mt-5 pb-8">
-      <button
-        onClick={onBack}
-        className="text-vs-dim hover:text-vs-soft text-[11px] font-mono cursor-pointer mb-2 flex items-center gap-1"
-      >
-        <span>←</span> Back to overview
-      </button>
+      <BackButton onClick={onBack} />
 
-      <div className="text-vs-dim text-[11px] font-mono tracking-widest">13F HOLDINGS</div>
-      <h1 className="font-display text-[26px] font-extrabold mt-1 leading-tight text-vs-text">
+      <div className="text-vs-dim text-label font-mono tracking-widest">13F HOLDINGS</div>
+      <h1 className="font-display text-display font-extrabold mt-1 leading-tight text-vs-text">
         {filer ? filer.name : 'What the big investors own'}
       </h1>
-      <p className="text-vs-soft text-[13px] mt-0.5 max-w-[68ch]">
+      <p className="text-vs-soft text-body mt-0.5 max-w-[68ch]">
         Institutional managers running over $100M must report their US equity positions
         to the SEC every quarter. This reads those filings directly.
       </p>
@@ -109,7 +107,7 @@ export default function InstitutionsPage({ onBack, onSelectTicker, filer, onPick
       {/* Empty state */}
       {!filer && (
         <div className="mt-4">
-          <span className="text-vs-soft text-[10px] font-mono">
+          <span className="text-vs-soft text-micro font-mono">
             Search a manager by name in the box above, or try:
           </span>
           <div className="flex gap-1.5 mt-1.5 flex-wrap">
@@ -117,7 +115,7 @@ export default function InstitutionsPage({ onBack, onSelectTicker, filer, onPick
               <button
                 key={f.cik}
                 onClick={() => onPickFiler(f)}
-                className="rounded px-2.5 py-1.5 text-[11px] font-mono bg-vs-card text-vs-soft border border-vs-border hover:border-vs-borderLight hover:text-vs-text cursor-pointer transition-all"
+                className="rounded-md px-2.5 py-1.5 text-label font-mono bg-vs-card text-vs-soft border border-vs-border hover:border-vs-borderLight hover:text-vs-text cursor-pointer transition-all"
               >
                 {f.name}
               </button>
@@ -126,18 +124,14 @@ export default function InstitutionsPage({ onBack, onSelectTicker, filer, onPick
         </div>
       )}
 
-      {error && (
-        <div className="mt-5 text-vs-red font-mono text-[13px] px-4 py-3 bg-vs-red/5 rounded-lg border border-vs-red/20">
-          {error}
-        </div>
-      )}
+      {error && <ErrorBanner className="mt-5">{error}</ErrorBanner>}
 
       {loading && (
         <div className="mt-4 rounded-xl border border-vs-border bg-vs-card px-4 py-6">
           <div className="animate-pulse space-y-2">
-            <div className="h-3 bg-vs-border rounded w-48" />
+            <div className="h-3 bg-vs-border rounded-md w-48" />
             {Array.from({ length: 8 }).map((_, i) => (
-              <div key={i} className="h-8 bg-vs-border rounded" />
+              <div key={i} className="h-8 bg-vs-border rounded-md" />
             ))}
           </div>
         </div>
@@ -148,34 +142,34 @@ export default function InstitutionsPage({ onBack, onSelectTicker, filer, onPick
           {/* Portfolio summary */}
           <div className="mt-4 flex items-baseline gap-4 flex-wrap">
             <div>
-              <span className="text-vs-soft text-[9px] font-mono uppercase tracking-wider block">
+              <span className="text-vs-soft text-micro font-mono uppercase tracking-wider block">
                 Portfolio value
               </span>
-              <span className="font-mono text-[15px] font-semibold text-vs-text">
+              <span className="font-mono text-prose font-semibold text-vs-text">
                 {fmtValue(data.totalValue)}
               </span>
             </div>
             <div>
-              <span className="text-vs-soft text-[9px] font-mono uppercase tracking-wider block">
+              <span className="text-vs-soft text-micro font-mono uppercase tracking-wider block">
                 Positions
               </span>
-              <span className="font-mono text-[15px] font-semibold text-vs-text">
+              <span className="font-mono text-prose font-semibold text-vs-text">
                 {data.positionCount}
               </span>
             </div>
             <div>
-              <span className="text-vs-soft text-[9px] font-mono uppercase tracking-wider block">
+              <span className="text-vs-soft text-micro font-mono uppercase tracking-wider block">
                 Quarter
               </span>
-              <span className="font-mono text-[15px] font-semibold text-vs-text">
+              <span className="font-mono text-prose font-semibold text-vs-text">
                 {quarterLabel(data.period)}
               </span>
             </div>
             <div>
-              <span className="text-vs-soft text-[9px] font-mono uppercase tracking-wider block">
+              <span className="text-vs-soft text-micro font-mono uppercase tracking-wider block">
                 Filed
               </span>
-              <span className="font-mono text-[15px] font-semibold text-vs-text">
+              <span className="font-mono text-prose font-semibold text-vs-text">
                 {data.filingDate}
               </span>
             </div>
@@ -183,51 +177,38 @@ export default function InstitutionsPage({ onBack, onSelectTicker, filer, onPick
 
           {/* Quarter picker */}
           <div className="mt-4">
-            <span className="text-vs-soft text-[9px] font-mono uppercase tracking-wider">Jump to quarter</span>
-            <div className="flex gap-1 mt-1.5 overflow-x-auto pb-1">
-              {data.quarters.slice(0, 24).map((q) => (
-                <button
-                  key={q.reportDate}
-                  onClick={() => setPeriod(q.reportDate)}
-                  className={`rounded px-2.5 py-1.5 text-[11px] font-mono font-semibold cursor-pointer border transition-all whitespace-nowrap ${
-                    data.period === q.reportDate
-                      ? 'bg-vs-blue/15 text-vs-blue border-vs-blue/50'
-                      : 'bg-transparent text-vs-soft border-vs-border hover:border-vs-borderLight hover:text-vs-text'
-                  }`}
-                >
-                  {quarterLabel(q.reportDate)}
-                </button>
-              ))}
+            <span className="text-vs-soft text-micro font-mono uppercase tracking-wider">Jump to quarter</span>
+            <div className="mt-1.5 overflow-x-auto pb-1">
+              <SegmentedControl
+                className="flex-nowrap"
+                options={data.quarters.slice(0, 24).map((q) => ({
+                  value: q.reportDate,
+                  label: <span className="whitespace-nowrap">{quarterLabel(q.reportDate)}</span>,
+                }))}
+                value={data.period}
+                onChange={setPeriod}
+              />
             </div>
           </div>
 
           {/* Tabs */}
-          <div className="flex items-center gap-1 mt-3 flex-wrap">
-            {TABS.map((t) => (
-              <button
-                key={t.key}
-                onClick={() => setTab(t.key)}
-                disabled={t.key === 'changes' && !data.comparedTo}
-                className={`rounded px-2.5 py-1.5 text-[11px] font-mono font-semibold border transition-all ${
-                  tab === t.key
-                    ? 'bg-vs-blue/15 text-vs-blue border-vs-blue/50 cursor-pointer'
-                    : t.key === 'changes' && !data.comparedTo
-                      ? 'bg-transparent text-vs-dim border-vs-border opacity-50 cursor-not-allowed'
-                      : 'bg-transparent text-vs-soft border-vs-border hover:border-vs-borderLight hover:text-vs-text cursor-pointer'
-                }`}
-              >
-                {t.label}
-                {t.key === 'changes' && data.comparedTo
-                  ? ` vs ${quarterLabel(data.comparedTo.reportDate)}`
-                  : ''}
-              </button>
-            ))}
-          </div>
+          <SegmentedControl
+            className="mt-3"
+            options={TABS.map((t) => ({
+              value: t.key,
+              disabled: t.key === 'changes' && !data.comparedTo,
+              label: t.key === 'changes' && data.comparedTo
+                ? `${t.label} vs ${quarterLabel(data.comparedTo.reportDate)}`
+                : t.label,
+            }))}
+            value={tab}
+            onChange={setTab}
+          />
 
           {/* Table */}
           <div className="mt-3 rounded-xl border border-vs-border bg-vs-card overflow-hidden">
             <div className="overflow-x-auto">
-              <table className="w-full font-mono text-[11px]">
+              <table className="w-full font-mono text-dense">
                 <thead>
                   <tr className="border-b border-vs-border">
                     <th className="text-left px-4 py-2 text-vs-soft font-medium sticky left-0 bg-vs-card z-10 min-w-[170px]">
@@ -258,7 +239,7 @@ export default function InstitutionsPage({ onBack, onSelectTicker, filer, onPick
                           {p.ticker
                             ? <span className="text-vs-blue font-semibold">{p.ticker}</span>
                             : <span className="text-vs-text font-semibold">{p.issuer}</span>}
-                          <span className="block text-vs-soft text-[9px] mt-0.5 whitespace-nowrap">
+                          <span className="block text-vs-soft text-micro mt-0.5 whitespace-nowrap">
                             {p.ticker ? p.issuer : `CUSIP ${p.cusip}`}
                             {p.putCall ? ` · ${p.putCall}` : ''}
                           </span>
@@ -267,7 +248,7 @@ export default function InstitutionsPage({ onBack, onSelectTicker, filer, onPick
                         {tab === 'changes' && (
                           <td className="px-3 py-2 whitespace-nowrap">
                             <span
-                              className="inline-block rounded px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider"
+                              className="inline-block rounded-md px-1.5 py-0.5 text-micro font-bold uppercase tracking-wider"
                               style={{
                                 color: status.color,
                                 border: `1px solid ${tint(status.color, 0.25)}`,
@@ -307,7 +288,7 @@ export default function InstitutionsPage({ onBack, onSelectTicker, filer, onPick
             </div>
 
             {rows.length === 0 && (
-              <p className="px-4 py-4 text-vs-soft text-[12px] font-mono">
+              <p className="px-4 py-4 text-vs-soft text-label font-mono">
                 {tab === 'changes'
                   ? 'No position changes between these two quarters.'
                   : 'No positions in this filing.'}
@@ -315,10 +296,10 @@ export default function InstitutionsPage({ onBack, onSelectTicker, filer, onPick
             )}
 
             <div className="px-4 py-3 border-t border-vs-border">
-              <p className="text-vs-soft text-[9px] font-mono leading-relaxed max-w-[80ch]">
+              <p className="text-vs-soft text-micro font-mono leading-relaxed max-w-[80ch]">
                 {`13Fs are filed up to 45 days after quarter-end, so this shows what was held on ${data.period}, not today. They cover US-listed long equity only — short positions, bonds, cash and foreign holdings never appear, so this is not the whole portfolio. Duplicate rows for the same security across managing entities are combined${data.rawRows !== data.positionCount ? `: ${data.rawRows} filed rows became ${data.positionCount} positions` : ''}.`}
               </p>
-              <p className="text-vs-soft text-[9px] font-mono mt-1.5">
+              <p className="text-vs-soft text-micro font-mono mt-1.5">
                 Source: SEC EDGAR {data.form} · tickers matched by CUSIP via OpenFIGI, blank where unmatched.
               </p>
             </div>

@@ -110,10 +110,10 @@ export default function WatchlistDashboard({ symbols, onSelectTicker }) {
     <div className="mt-8 text-left">
       <div className="flex items-end justify-between gap-3 mb-2.5 flex-wrap">
         <div>
-          <p className="text-vs-dim text-[10px] font-mono uppercase tracking-widest">
+          <p className="text-vs-dim text-micro font-mono uppercase tracking-widest">
             Watchlist
           </p>
-          <p className="text-vs-soft text-[11px] font-mono mt-0.5">
+          <p className="text-vs-soft text-label font-mono mt-0.5">
             {symbols.length} ticker{symbols.length !== 1 ? 's' : ''}
             {loading && ' · loading quotes…'}
           </p>
@@ -139,17 +139,17 @@ export default function WatchlistDashboard({ symbols, onSelectTicker }) {
               {/* Line 1: identity and price */}
               <div className="flex items-baseline justify-between gap-3">
                 <div className="flex items-baseline gap-2 min-w-0">
-                  <span className="font-mono text-[13px] font-bold text-vs-text">{symbol}</span>
-                  <span className="text-vs-dim text-[11px] truncate">
+                  <span className="font-mono text-body font-bold text-vs-text">{symbol}</span>
+                  <span className="text-vs-dim text-label truncate">
                     {quote?.name || summary?.name || ''}
                   </span>
                 </div>
                 <div className="flex items-baseline gap-2 flex-shrink-0">
-                  <span className="font-mono text-[13px] text-vs-text">
+                  <span className="font-mono text-body text-vs-text">
                     {fmtPrice(quote?.price, quote?.currency)}
                   </span>
                   <span
-                    className="font-mono text-[11px] font-semibold w-[58px] text-right inline-block"
+                    className="font-mono text-dense font-semibold w-[58px] text-right inline-block"
                     style={{ color: changeColor(quote?.changePercent) }}
                   >
                     {fmtPct(quote?.changePercent)}
@@ -163,28 +163,28 @@ export default function WatchlistDashboard({ symbols, onSelectTicker }) {
                   <>
                     <RegimeBadge label={summary.regimeLabel} color={summary.regimeColor} />
                     {summary.percentile != null && (
-                      <span className="text-vs-dim text-[10px] font-mono">
+                      <span className="text-vs-dim text-micro font-mono">
                         {summary.percentile}th pct vs {summary.histYears}y
                       </span>
                     )}
                     {summary.upsidePercent != null && (
-                      <span className="text-[10px] font-mono" style={{ color: changeColor(summary.upsidePercent) }}>
+                      <span className="text-micro font-mono" style={{ color: changeColor(summary.upsidePercent) }}>
                         {fmtPct(summary.upsidePercent)} to fair value
                       </span>
                     )}
                     {/* Least load-bearing item on the line — dropped on narrow
                         screens so the row stays a single line. */}
-                    <span className="text-vs-dim text-[9px] font-mono opacity-70 hidden sm:inline">
+                    <span className="text-vs-dim text-micro font-mono hidden sm:inline">
                       {staleness(summary.updatedAt)}
                     </span>
                   </>
                 ) : (
-                  <span className="text-vs-dim text-[10px] font-mono">
+                  <span className="text-vs-dim text-micro font-mono">
                     Open to compute valuation
                   </span>
                 )}
                 {earnings && (
-                  <span className="text-vs-amber text-[10px] font-mono ml-auto whitespace-nowrap">
+                  <span className="text-vs-amber text-micro font-mono ml-auto whitespace-nowrap">
                     Earnings {earnings}
                   </span>
                 )}
@@ -195,7 +195,7 @@ export default function WatchlistDashboard({ symbols, onSelectTicker }) {
       </div>
 
       {!anySummary && !loading && (
-        <p className="text-vs-dim text-[10px] font-mono mt-2">
+        <p className="text-vs-dim text-micro font-mono mt-2">
           Valuation figures fill in as you open each ticker.
         </p>
       )}

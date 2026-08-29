@@ -66,18 +66,18 @@ export default function DataTable({ years, averages, defaultOpen = false }) {
     <>
       <button
         onClick={() => setOpen(!open)}
-        className="mt-4 w-full bg-vs-card text-vs-soft border border-vs-border rounded-lg py-2.5 text-xs font-semibold font-mono cursor-pointer text-center hover:bg-vs-card2 transition-colors flex items-center justify-center"
+        className="mt-4 w-full bg-vs-card text-vs-soft border border-vs-border rounded-lg py-2.5 text-label font-semibold font-mono cursor-pointer text-center hover:bg-vs-card2 transition-colors flex items-center justify-center"
       >
         {open ? 'Hide' : 'Show'} Full Data Table
         <ChevronIcon open={open} />
       </button>
 
       {open && (
-        <div className="overflow-x-auto mt-2 rounded-lg border border-vs-border">
-          <table className="w-full border-collapse font-mono text-[11px]">
+        <div className="overflow-x-auto mt-2 rounded-xl border border-vs-border bg-vs-card">
+          <table className="w-full border-collapse font-mono text-dense">
             <thead>
               <tr className="border-b-2 border-vs-border">
-                <th className="text-left px-2.5 py-2 text-vs-dim font-medium sticky left-0 bg-vs-bg min-w-[120px]">
+                <th className="text-left px-2.5 py-2 text-vs-dim font-medium sticky left-0 bg-vs-card min-w-[120px]">
                   Metric
                 </th>
                 {years.map((d) => (
@@ -104,7 +104,7 @@ export default function DataTable({ years, averages, defaultOpen = false }) {
                     <tr key={row.section}>
                       <td
                         colSpan={years.length + 2}
-                        className="px-2.5 pt-3 pb-1 text-vs-blue font-bold text-[9px] tracking-widest border-b border-vs-border"
+                        className="px-2.5 pt-3 pb-1 text-vs-blue font-bold text-micro tracking-widest border-b border-vs-border"
                       >
                         {row.section}
                       </td>
@@ -115,7 +115,7 @@ export default function DataTable({ years, averages, defaultOpen = false }) {
                 return (
                   <tr key={row.key} className="border-b border-vs-border/10">
                     <td
-                      className="px-2.5 py-1 text-vs-soft sticky left-0 bg-vs-bg"
+                      className="px-2.5 py-1 text-vs-soft sticky left-0 bg-vs-card"
                       title={(() => {
                         const m = getMetric(row.key);
                         if (!m) return undefined;

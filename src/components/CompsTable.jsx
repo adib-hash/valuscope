@@ -121,10 +121,10 @@ export default function CompsTable({ symbol, sector, onSelectTicker, defaultExpa
           className="w-full px-4 py-3.5 flex items-center justify-between cursor-pointer hover:bg-vs-card2 transition-colors"
         >
           <div className="text-left">
-            <p className="font-display text-[14px] font-bold text-vs-text leading-tight">
+            <p className="font-display text-prose font-bold text-vs-text leading-tight">
               Comps
             </p>
-            <p className="text-vs-dim text-[10px] font-mono mt-0.5">
+            <p className="text-vs-dim text-micro font-mono mt-0.5">
               {`${peers.length} peer${peers.length !== 1 ? 's' : ''} \u00b7 ${SOURCE_LABELS[source] || 'peers'} \u00b7 LTM multiples`}
             </p>
           </div>
@@ -149,10 +149,10 @@ export default function CompsTable({ symbol, sector, onSelectTicker, defaultExpa
         className="w-full px-4 pt-3.5 pb-1 flex items-center justify-between cursor-pointer"
       >
         <div className="text-left">
-          <p className="font-display text-[14px] font-bold text-vs-text leading-tight">
+          <p className="font-display text-prose font-bold text-vs-text leading-tight">
             Comps
           </p>
-          <p className="text-vs-dim text-[10px] font-mono mt-0.5">
+          <p className="text-vs-dim text-micro font-mono mt-0.5">
             {peers.length
               ? `${peers.length} peer${peers.length !== 1 ? 's' : ''} \u00b7 ${SOURCE_LABELS[source] || 'peers'} \u00b7 LTM multiples`
               : 'Loading\u2026'}
@@ -172,17 +172,17 @@ export default function CompsTable({ symbol, sector, onSelectTicker, defaultExpa
       {loading && (
         <div className="px-4 py-6">
           <div className="animate-pulse space-y-2">
-            <div className="h-3 bg-vs-border rounded w-48" />
-            <div className="h-8 bg-vs-border rounded" />
-            <div className="h-8 bg-vs-border rounded" />
-            <div className="h-8 bg-vs-border rounded" />
+            <div className="h-3 bg-vs-border rounded-md w-48" />
+            <div className="h-8 bg-vs-border rounded-md" />
+            <div className="h-8 bg-vs-border rounded-md" />
+            <div className="h-8 bg-vs-border rounded-md" />
           </div>
         </div>
       )}
 
       {/* Error */}
       {error && (
-        <p className="px-4 py-4 text-vs-red text-[12px] font-mono">
+        <p className="px-4 py-4 text-vs-red text-label font-mono">
           {error}
         </p>
       )}
@@ -190,7 +190,7 @@ export default function CompsTable({ symbol, sector, onSelectTicker, defaultExpa
       {/* Table */}
       {!loading && !error && comps && peers.length > 0 && (
         <div className="overflow-x-auto">
-          <table className="w-full font-mono text-[11px]">
+          <table className="w-full font-mono text-dense">
             <thead>
               <tr className="border-y border-vs-border">
                 <th className="text-left px-4 py-2 text-vs-dim font-medium sticky left-0 bg-vs-card z-10 min-w-[120px]">
@@ -247,7 +247,7 @@ export default function CompsTable({ symbol, sector, onSelectTicker, defaultExpa
                     <span className="text-vs-soft hover:text-vs-blue transition-colors">
                       {peer.symbol}
                     </span>
-                    <span className="text-vs-dim text-[9px] ml-1.5 hidden sm:inline">
+                    <span className="text-vs-dim text-micro ml-1.5 hidden sm:inline">
                       {peer.name?.length > 20 ? peer.name.slice(0, 20) + '\u2026' : peer.name}
                     </span>
                   </td>
@@ -283,12 +283,12 @@ export default function CompsTable({ symbol, sector, onSelectTicker, defaultExpa
 
       {/* No peers */}
       {!loading && !error && comps && peers.length === 0 && (
-        <p className="px-4 py-4 text-vs-dim text-[12px]">
+        <p className="px-4 py-4 text-vs-dim text-label">
           No comparable companies found for {symbol}.
         </p>
       )}
 
-      <p className="px-4 py-2.5 text-vs-dim text-[9px] font-mono">
+      <p className="px-4 py-2.5 text-vs-dim text-micro font-mono">
         {SOURCE_FOOTNOTES[source] || 'Peer set'} &middot; LTM multiples &middot; Tap a peer to view
       </p>
     </div>

@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { fetchTranscript } from '../lib/api';
 import CallSummary from './CallSummary';
+import BackButton from './ui/BackButton';
+import ErrorBanner from './ui/ErrorBanner';
 
 const QUARTER_LABEL = (q) => `Q${q.quarter} FY${q.year}`;
 
@@ -50,7 +52,7 @@ function Highlighted({ text, query }) {
   const parts = text.split(new RegExp(`(${escaped})`, 'ig'));
   return parts.map((part, i) =>
     part.toLowerCase() === query.toLowerCase()
-      ? <mark key={i} className="bg-vs-amber/30 text-vs-text rounded px-0.5">{part}</mark>
+      ? <mark key={i} className="bg-vs-amber/30 text-vs-text rounded-md px-0.5">{part}</mark>
       : <span key={i}>{part}</span>
   );
 }
@@ -97,18 +99,18 @@ export default function TranscriptPage({ ticker, companyName, onBack }) {
     <div className="mt-5 pb-10">
       <button
         onClick={onBack}
-        className="text-vs-dim hover:text-vs-soft transition-colors text-[11px] font-mono cursor-pointer inline-flex items-center gap-1"
+        className="text-vs-dim hover:text-vs-soft transition-colors text-label font-mono cursor-pointer inline-flex items-center gap-1"
       >
         ← Back
       </button>
 
       <div className="mt-3 flex items-start justify-between gap-3 flex-wrap">
         <div className="min-w-0">
-          <p className="text-vs-dim text-[11px] font-mono tracking-widest">{ticker}</p>
-          <h1 className="font-display text-[26px] font-extrabold leading-tight text-vs-text mt-0.5">
+          <p className="text-vs-dim text-label font-mono tracking-widest">{ticker}</p>
+          <h1 className="font-display text-display font-extrabold leading-tight text-vs-text mt-0.5">
             {companyName || ticker}
           </h1>
-          <p className="text-vs-soft text-[13px] mt-1">
+          <p className="text-vs-soft text-body mt-1">
             Earnings Call
             {data && (
               <>
@@ -124,7 +126,7 @@ export default function TranscriptPage({ ticker, companyName, onBack }) {
           <div className="relative">
             <button
               onClick={() => setPickerOpen((o) => !o)}
-              className="rounded-md px-3 py-2 text-[12px] font-mono font-semibold cursor-pointer border bg-vs-card text-vs-soft border-vs-border hover:border-vs-borderLight transition-colors flex items-center gap-2"
+              className="rounded-md px-3 py-2 text-label font-mono font-semibold cursor-pointer border bg-vs-card text-vs-soft border-vs-border hover:border-vs-borderLight transition-colors flex items-center gap-2"
             >
               {data ? `Q${data.quarter} FY${data.year}` : 'Select quarter'}
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -141,7 +143,7 @@ export default function TranscriptPage({ ticker, companyName, onBack }) {
                       <button
                         key={`${q.year}-${q.quarter}`}
                         onClick={() => { setSelected({ year: q.year, quarter: q.quarter }); setPickerOpen(false); setQuery(''); }}
-                        className={`w-full text-left px-3.5 py-2 text-[12px] font-mono cursor-pointer transition-colors ${
+                        className={`w-full text-left px-3.5 py-2 text-label font-mono cursor-pointer transition-colors ${
                           active ? 'bg-vs-blue/15 text-vs-blue' : 'text-vs-soft hover:bg-vs-card2'
                         }`}
                       >
@@ -181,7 +183,7 @@ export default function TranscriptPage({ ticker, companyName, onBack }) {
             className="flex-1 min-w-[180px] bg-vs-card border border-vs-border rounded-lg px-3.5 py-2 text-vs-text placeholder:text-vs-dim outline-none focus:border-vs-blue transition-colors"
           />
           {query && (
-            <span className="text-vs-dim text-[11px] font-mono">
+            <span className="text-vs-dim text-label font-mono">
               {filtered.length} of {paragraphs.length}
             </span>
           )}
@@ -192,26 +194,24 @@ export default function TranscriptPage({ ticker, companyName, onBack }) {
         <div className="mt-6 animate-pulse space-y-3">
           {[...Array(5)].map((_, i) => (
             <div key={i} className="space-y-1.5">
-              <div className="h-2.5 bg-vs-card rounded w-32" />
-              <div className="h-3 bg-vs-card rounded w-full" />
-              <div className="h-3 bg-vs-card rounded w-[92%]" />
+              <div className="h-2.5 bg-vs-card rounded-md w-32" />
+              <div className="h-3 bg-vs-card rounded-md w-full" />
+              <div className="h-3 bg-vs-card rounded-md w-[92%]" />
             </div>
           ))}
         </div>
       )}
 
       {error && !loading && (
-        <div className="mt-5 text-vs-red font-mono text-[13px] px-4 py-3 bg-vs-red/5 rounded-lg border border-vs-red/20">
-          {error}
-        </div>
+        <ErrorBanner className="mt-5">{error}</ErrorBanner>
       )}
 
       {!loading && !error && !paragraphs.length && (
-        <p className="mt-6 text-vs-soft text-[14px]">No transcript available for {ticker}.</p>
+        <p className="mt-6 text-vs-soft text-prose">No transcript available for {ticker}.</p>
       )}
 
       {!loading && !error && query && !filtered.length && (
-        <p className="mt-6 text-vs-soft text-[14px]">No matches for &ldquo;{query}&rdquo;.</p>
+        <p className="mt-6 text-vs-soft text-prose">No matches for &ldquo;{query}&rdquo;.</p>
       )}
 
       {/* The call itself. Body type here is deliberately larger than the rest of
@@ -219,7 +219,7 @@ export default function TranscriptPage({ ticker, companyName, onBack }) {
       {!loading && sections.map((section, si) => (
         <div key={si} className="mt-7">
           {section.title && (
-            <h2 className="text-vs-dim text-[10px] font-mono uppercase tracking-widest mb-4 pb-2 border-b border-vs-border">
+            <h2 className="text-vs-dim text-micro font-mono uppercase tracking-widest mb-4 pb-2 border-b border-vs-border">
               {section.title}
             </h2>
           )}
@@ -227,11 +227,11 @@ export default function TranscriptPage({ ticker, companyName, onBack }) {
             {section.items.map((p) => (
               <div key={p.n}>
                 {p.speaker && (
-                  <p className="font-mono text-[12px] font-semibold text-vs-blue mb-1">
+                  <p className="font-mono text-label font-semibold text-vs-blue mb-1">
                     <Highlighted text={p.speaker} query={query} />
                   </p>
                 )}
-                <p className="text-vs-text text-[15px] leading-[1.7] max-w-[68ch]">
+                <p className="text-vs-text text-prose leading-[1.7] max-w-[68ch]">
                   <Highlighted text={p.content} query={query} />
                 </p>
               </div>
@@ -241,7 +241,7 @@ export default function TranscriptPage({ ticker, companyName, onBack }) {
       ))}
 
       {data && (
-        <p className="mt-10 pt-4 border-t border-vs-border text-vs-dim text-[10px] font-mono">
+        <p className="mt-10 pt-4 border-t border-vs-border text-vs-dim text-micro font-mono">
           Transcript data via{' '}
           <a
             href="https://huggingface.co/datasets/defeatbeta/yahoo-finance-data"

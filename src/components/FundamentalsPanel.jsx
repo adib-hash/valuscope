@@ -1,27 +1,7 @@
 import { useMemo } from 'react';
 import { computeGrowthStats, computeMarginsTrend } from '../lib/fundamentals';
-
-function SectionHeader({ children }) {
-  return (
-    <p className="text-vs-dim text-[9px] font-mono uppercase tracking-widest mb-2.5">
-      {children}
-    </p>
-  );
-}
-
-function StatChip({ label, value, color }) {
-  if (value == null) return null;
-  return (
-    <div className="flex flex-col">
-      <span className="text-vs-dim text-[9px] font-mono uppercase tracking-wider leading-none mb-0.5">
-        {label}
-      </span>
-      <span className="font-mono text-[13px] font-semibold" style={{ color }}>
-        {value}
-      </span>
-    </div>
-  );
-}
+import SectionLabel from './ui/SectionLabel';
+import StatChip from './ui/StatChip';
 
 function TrendArrow({ direction }) {
   if (direction === 'up') {
@@ -88,16 +68,16 @@ export default function FundamentalsPanel({ hist, now, data }) {
         {/* Growth */}
         {hasGrowth && (
           <div className="px-4 py-3.5">
-            <SectionHeader>Growth</SectionHeader>
+            <SectionLabel className="mb-2.5">Growth</SectionLabel>
             <div className="space-y-2">
               <div className="flex items-center gap-4 flex-wrap">
-                <span className="text-vs-dim font-mono text-[10px] w-14">Revenue</span>
+                <span className="text-vs-dim font-mono text-micro w-14">Revenue</span>
                 <StatChip label="1yr" value={fmtPct(growth.rev1yr, true)} color={growth.rev1yr >= 0 ? 'rgb(var(--vs-green))' : 'rgb(var(--vs-red))'} />
                 <StatChip label="3yr CAGR" value={fmtPct(growth.rev3yr, true)} color={growth.rev3yr >= 0 ? 'rgb(var(--vs-green))' : 'rgb(var(--vs-red))'} />
                 <StatChip label="5yr CAGR" value={fmtPct(growth.rev5yr, true)} color={growth.rev5yr >= 0 ? 'rgb(var(--vs-green))' : 'rgb(var(--vs-red))'} />
               </div>
               <div className="flex items-center gap-4 flex-wrap">
-                <span className="text-vs-dim font-mono text-[10px] w-14">EBITDA</span>
+                <span className="text-vs-dim font-mono text-micro w-14">EBITDA</span>
                 <StatChip label="1yr" value={fmtPct(growth.ebitda1yr, true)} color={growth.ebitda1yr >= 0 ? 'rgb(var(--vs-green))' : 'rgb(var(--vs-red))'} />
                 <StatChip label="3yr CAGR" value={fmtPct(growth.ebitda3yr, true)} color={growth.ebitda3yr >= 0 ? 'rgb(var(--vs-green))' : 'rgb(var(--vs-red))'} />
               </div>
@@ -108,7 +88,7 @@ export default function FundamentalsPanel({ hist, now, data }) {
         {/* Margins (LTM) */}
         {hasMargins && (
           <div className="px-4 py-3.5">
-            <SectionHeader>Margins (LTM)</SectionHeader>
+            <SectionLabel className="mb-2.5">Margins (LTM)</SectionLabel>
             <div className="flex gap-4 flex-wrap">
               {Object.entries(MARGIN_LABELS).map(([key, label]) => {
                 const val = now[key];
@@ -116,10 +96,10 @@ export default function FundamentalsPanel({ hist, now, data }) {
                 const trend = margins[key];
                 return (
                   <div key={key} className="flex flex-col">
-                    <span className="text-vs-dim text-[9px] font-mono uppercase tracking-wider leading-none mb-0.5">
+                    <span className="text-vs-dim text-micro font-mono uppercase tracking-wider leading-none mb-0.5">
                       {label}
                     </span>
-                    <span className="font-mono text-[13px] font-semibold text-vs-text">
+                    <span className="font-mono text-body font-semibold text-vs-text">
                       {val.toFixed(1)}%
                       {trend && <TrendArrow direction={trend.direction} />}
                     </span>
@@ -133,15 +113,15 @@ export default function FundamentalsPanel({ hist, now, data }) {
         {/* Leverage (LTM) */}
         {hasLeverage && (
           <div className="px-4 py-3.5">
-            <SectionHeader>Leverage (LTM)</SectionHeader>
+            <SectionLabel className="mb-2.5">Leverage (LTM)</SectionLabel>
             <div className="flex gap-4 flex-wrap">
               {now.netDebt != null && (
                 <div className="flex flex-col">
-                  <span className="text-vs-dim text-[9px] font-mono uppercase tracking-wider leading-none mb-0.5">
+                  <span className="text-vs-dim text-micro font-mono uppercase tracking-wider leading-none mb-0.5">
                     Net {now.netDebt < 0 ? 'Cash' : 'Debt'}
                   </span>
                   <span
-                    className="font-mono text-[13px] font-semibold"
+                    className="font-mono text-body font-semibold"
                     style={{ color: now.netDebt < 0 ? 'rgb(var(--vs-green))' : 'rgb(var(--vs-text))' }}
                   >
                     {fmtDollarM(Math.abs(now.netDebt))}
@@ -177,7 +157,7 @@ export default function FundamentalsPanel({ hist, now, data }) {
         {/* Signals */}
         {hasSignals && (
           <div className="px-4 py-3.5">
-            <SectionHeader>Signals</SectionHeader>
+            <SectionLabel className="mb-2.5">Signals</SectionLabel>
             <div className="flex gap-4 flex-wrap">
               {data.forwardPE != null && (
                 <StatChip label="Fwd P/E (NTM)" value={data.forwardPE.toFixed(1) + 'x'} color="rgb(var(--vs-blue))" />

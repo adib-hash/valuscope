@@ -14,9 +14,9 @@ function CustomTooltip({ active, payload, label }) {
   if (!active || !payload?.length) return null;
   return (
     <div className="bg-vs-card border border-vs-border rounded-lg px-4 py-3 shadow-2xl">
-      <p className="text-vs-text font-semibold mb-1.5 text-[13px] font-mono">{label}</p>
+      <p className="text-vs-text font-semibold mb-1.5 text-body font-mono">{label}</p>
       {payload.map((e, i) => (
-        <p key={i} className="text-xs font-mono my-0.5" style={{ color: e.color }}>
+        <p key={i} className="text-label font-mono my-0.5" style={{ color: e.color }}>
           {e.name}:{' '}
           <strong>
             {typeof e.value === 'number'

@@ -23,10 +23,10 @@ export default function Pill({ label, current, avg, min, max, percentile, isYiel
       tabIndex={0}
       onKeyDown={(e) => e.key === 'Enter' && onClick?.()}
     >
-      <div className="text-vs-dim text-[9px] font-mono uppercase tracking-wider mb-1">
+      <div className="text-vs-dim text-micro font-mono uppercase tracking-wider mb-1">
         {label}
       </div>
-      <div className="text-vs-text text-xl font-bold font-mono">
+      <div className="text-vs-text text-title font-bold font-mono">
         {formatMultiple(current, isYield)}
       </div>
       <div className="mt-1 flex items-center gap-1">
@@ -34,7 +34,7 @@ export default function Pill({ label, current, avg, min, max, percentile, isYiel
           className="inline-block w-[5px] h-[5px] rounded-full flex-shrink-0"
           style={{ background: accentColor }}
         />
-        <span className="text-[10px] font-semibold font-mono" style={{ color: accentColor }}>
+        <span className="text-micro font-semibold font-mono" style={{ color: accentColor }}>
           {pct}% {better ? 'below' : 'above'} avg
         </span>
       </div>
@@ -70,7 +70,7 @@ export default function Pill({ label, current, avg, min, max, percentile, isYiel
           these sit in scrolls horizontally, which would clip a floating
           tooltip, so the value is swapped in here instead. */}
       {(showRange || percentile != null) && (
-        <div className="h-[13px] leading-[13px] text-[9px] font-mono">
+        <div className="h-[13px] leading-[13px] text-micro font-mono">
           {hoverAvg && showRange ? (
             <span className="text-vs-amber font-semibold">
               Avg {formatMultiple(avg, isYield)}

@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { Plus } from 'lucide-react';
 
 function relativeTime(isoString) {
   if (!isoString) return '';
@@ -76,11 +77,9 @@ export default function Thesis({ sym }) {
       <div className="mt-4">
         <button
           onClick={() => setOpen(true)}
-          className="flex items-center gap-1.5 text-vs-dim text-[11px] font-mono hover:text-vs-soft transition-colors cursor-pointer"
+          className="flex items-center gap-1.5 text-vs-dim text-label font-mono hover:text-vs-soft transition-colors cursor-pointer"
         >
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
-          </svg>
+          <Plus size={12} strokeWidth={2.5} aria-hidden="true" />
           Add investment thesis
         </button>
       </div>
@@ -91,23 +90,23 @@ export default function Thesis({ sym }) {
     <div className="mt-4 rounded-xl border border-vs-border bg-vs-card">
       <div className="flex items-center justify-between px-4 pt-3 pb-1.5">
         <div className="flex items-center gap-2">
-          <p className="text-vs-dim text-[9px] font-mono uppercase tracking-widest">
+          <p className="text-vs-dim text-micro font-mono uppercase tracking-widest">
             My Thesis
           </p>
           {savedAt && (
-            <span className="text-vs-dim text-[9px] font-mono">
+            <span className="text-vs-dim text-micro font-mono">
               &middot; {relativeTime(savedAt)}
             </span>
           )}
           {showSaved && (
-            <span className="text-[9px] font-mono" style={{ color: 'rgb(var(--vs-green))' }}>
+            <span className="text-micro font-mono" style={{ color: 'rgb(var(--vs-green))' }}>
               Saved
             </span>
           )}
         </div>
         <div className="flex items-center gap-2">
           {text.length > 0 && (
-            <span className="text-vs-dim text-[9px] font-mono">
+            <span className="text-vs-dim text-micro font-mono">
               {text.length} chars
             </span>
           )}
@@ -129,7 +128,7 @@ export default function Thesis({ sym }) {
           value={text}
           onChange={handleChange}
           placeholder="Why are you watching this? What would change your thesis?"
-          className="w-full bg-transparent text-vs-text text-[13px] leading-relaxed resize-none outline-none placeholder:text-vs-dim border-0 min-h-[80px]"
+          className="w-full bg-transparent text-vs-text text-body leading-relaxed resize-none outline-none placeholder:text-vs-dim border-0 min-h-[80px]"
           style={{ fontSize: '16px' }}
         />
       </div>

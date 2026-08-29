@@ -10,6 +10,8 @@ import {
   YAxis,
 } from 'recharts';
 import { fetchPriceHistory } from '../lib/api';
+import BackButton from './ui/BackButton';
+import SegmentedControl from './ui/SegmentedControl';
 
 const RANGES = [
   { key: '1D',  label: 'Today' },
@@ -63,10 +65,10 @@ function PriceTooltip({ active, payload, range, currency }) {
   const p = payload[0].payload;
   return (
     <div className="bg-vs-card border border-vs-border rounded-lg px-3.5 py-2.5 shadow-2xl">
-      <p className="text-vs-dim text-[10px] font-mono mb-0.5">
+      <p className="text-vs-dim text-micro font-mono mb-0.5">
         {formatTooltipDate(p.date, range)}
       </p>
-      <p className="text-vs-text text-[14px] font-mono font-semibold">
+      <p className="text-vs-text text-prose font-mono font-semibold">
         {fmtPrice(p.close, currency)}
       </p>
     </div>
@@ -166,30 +168,25 @@ export default function PriceHistoryPage({ ticker, companyName, onBack }) {
       {/* Header */}
       <div className="flex items-start justify-between gap-3 flex-wrap">
         <div className="min-w-0">
-          <button
-            onClick={onBack}
-            className="text-vs-dim hover:text-vs-soft text-[11px] font-mono cursor-pointer mb-2 flex items-center gap-1"
-          >
-            <span>←</span> Back to overview
-          </button>
-          <div className="text-vs-dim text-[11px] font-mono tracking-widest">
+          <BackButton onClick={onBack} />
+          <div className="text-vs-dim text-label font-mono tracking-widest">
             {ticker} · PRICE HISTORY
           </div>
-          <h1 className="font-display text-[26px] font-extrabold mt-1 leading-tight text-vs-text">
+          <h1 className="font-display text-display font-extrabold mt-1 leading-tight text-vs-text">
             {companyName || ticker}
           </h1>
           {data && (
-            <p className="text-vs-soft text-[13px] mt-0.5 flex items-center gap-2 flex-wrap">
+            <p className="text-vs-soft text-body mt-0.5 flex items-center gap-2 flex-wrap">
               <span className="font-mono font-semibold text-vs-text">
                 {fmtPrice(data.last, currency)}
               </span>
               <span
-                className="font-mono text-[12px]"
+                className="font-mono text-label"
                 style={{ color: lineColor }}
               >
                 {up ? '+' : ''}{(data.change ?? 0).toFixed(2)} ({up ? '+' : ''}{(data.changePct ?? 0).toFixed(2)}%)
               </span>
-              <span className="text-vs-dim text-[11px]">
+              <span className="text-vs-dim text-label">
                 {RANGES.find((r) => r.key === range)?.label} change
               </span>
             </p>
@@ -198,26 +195,17 @@ export default function PriceHistoryPage({ ticker, companyName, onBack }) {
       </div>
 
       {/* Range buttons */}
-      <div className="flex gap-1 mt-4 flex-wrap">
-        {RANGES.map((r) => (
-          <button
-            key={r.key}
-            onClick={() => setRange(r.key)}
-            className={`px-3 py-1.5 text-[11px] font-mono rounded border transition-colors cursor-pointer ${
-              range === r.key
-                ? 'bg-vs-blue/15 text-vs-blue border-vs-blue'
-                : 'bg-vs-card text-vs-soft border-vs-border hover:border-vs-borderLight'
-            }`}
-          >
-            {r.label}
-          </button>
-        ))}
-      </div>
+      <SegmentedControl
+        className="mt-4"
+        options={RANGES.map((r) => ({ value: r.key, label: r.label }))}
+        value={range}
+        onChange={setRange}
+      />
 
       {/* Selection summary */}
       {hasSelection && selStartQuote && selEndQuote && (
         <div className="mt-3 flex items-center justify-between gap-2 flex-wrap bg-vs-card border border-vs-border rounded-lg px-3.5 py-2">
-          <div className="flex items-center gap-2 flex-wrap text-[11px] font-mono">
+          <div className="flex items-center gap-2 flex-wrap text-label font-mono">
             <span className="text-vs-dim">Selection</span>
             <span className="text-vs-soft">
               {formatTooltipDate(selStartQuote.date, range)}
@@ -227,7 +215,7 @@ export default function PriceHistoryPage({ ticker, companyName, onBack }) {
               {formatTooltipDate(selEndQuote.date, range)}
             </span>
           </div>
-          <div className="flex items-center gap-3 flex-wrap text-[12px] font-mono">
+          <div className="flex items-center gap-3 flex-wrap text-label font-mono">
             <span style={{ color: selUp ? 'rgb(var(--vs-green))' : 'rgb(var(--vs-red))' }} className="font-semibold">
               {selUp ? '+' : ''}{selPct?.toFixed(2)}%
             </span>
@@ -244,7 +232,7 @@ export default function PriceHistoryPage({ ticker, companyName, onBack }) {
             )}
             <button
               onClick={clearSelection}
-              className="text-vs-dim hover:text-vs-soft text-[10px] font-mono cursor-pointer underline"
+              className="text-vs-dim hover:text-vs-soft text-micro font-mono cursor-pointer underline"
             >
               clear
             </button>
@@ -253,7 +241,7 @@ export default function PriceHistoryPage({ ticker, companyName, onBack }) {
       )}
 
       {!hasSelection && quotes.length > 0 && !loading && (
-        <p className="text-vs-dim text-[10px] font-mono mt-2">
+        <p className="text-vs-dim text-micro font-mono mt-2">
           Tip: drag across the chart to measure return between any two points
         </p>
       )}
@@ -262,12 +250,12 @@ export default function PriceHistoryPage({ ticker, companyName, onBack }) {
       <div className="bg-vs-card border border-vs-border rounded-xl mt-4 p-4 select-none">
         <div className="h-[320px] sm:h-[420px] md:h-[480px]">
           {loading && (
-            <div className="h-full flex items-center justify-center text-vs-dim text-[12px] font-mono">
+            <div className="h-full flex items-center justify-center text-vs-dim text-label font-mono">
               Loading price history…
             </div>
           )}
           {error && !loading && (
-            <div className="h-full flex items-center justify-center text-vs-red text-[12px] font-mono">
+            <div className="h-full flex items-center justify-center text-vs-red text-label font-mono">
               {error}
             </div>
           )}
@@ -331,7 +319,7 @@ export default function PriceHistoryPage({ ticker, companyName, onBack }) {
       </div>
 
       {data && (
-        <p className="text-vs-dim text-[10px] font-mono mt-2">
+        <p className="text-vs-dim text-micro font-mono mt-2">
           {quotes.length} points · interval {data.interval} · {data.exchange || 'Yahoo Finance'}
         </p>
       )}

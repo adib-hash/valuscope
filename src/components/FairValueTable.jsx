@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { computeFairValue, median } from '../lib/fundamentals';
 import { formatMultiple } from '../lib/metrics';
+import Card from './ui/Card';
 
 export default function FairValueTable({ hist, now, currentPrice }) {
   const rows = useMemo(
@@ -17,18 +18,14 @@ export default function FairValueTable({ hist, now, currentPrice }) {
   const histYears = hist.length;
 
   return (
-    <div className="mt-4 rounded-xl border border-vs-border bg-vs-card overflow-hidden">
-      <div className="px-4 pt-3.5 pb-1">
-        <p className="font-display text-[14px] font-bold text-vs-text leading-tight">
-          If we return to the historical average&hellip;
-        </p>
-        <p className="text-vs-dim text-[10px] font-mono mt-0.5">
-          Implied price if each multiple reverted to its {histYears}-year average
-        </p>
-      </div>
+    <Card
+      className="mt-4"
+      title={<>If we return to the historical average&hellip;</>}
+      subtitle={`Implied price if each multiple reverted to its ${histYears}-year average`}
+    >
 
       <div className="overflow-x-auto">
-        <table className="w-full font-mono text-[11px]">
+        <table className="w-full font-mono text-dense">
           <thead>
             <tr className="border-y border-vs-border">
               <th className="text-left px-4 py-2 text-vs-dim font-medium">Metric</th>
@@ -66,11 +63,11 @@ export default function FairValueTable({ hist, now, currentPrice }) {
                 <td className="px-4 py-2.5 text-vs-text font-semibold" colSpan={3}>
                   Blended (median)
                 </td>
-                <td className="px-4 py-2.5 text-right font-bold text-[13px] text-vs-text">
+                <td className="px-4 py-2.5 text-right font-bold text-body text-vs-text">
                   ${blendedPrice.toFixed(2)}
                 </td>
                 <td
-                  className="px-4 py-2.5 text-right font-bold text-[13px]"
+                  className="px-4 py-2.5 text-right font-bold text-body"
                   style={{ color: blendedUpside >= 0 ? 'rgb(var(--vs-green))' : 'rgb(var(--vs-red))' }}
                 >
                   {blendedUpside >= 0 ? '+' : ''}{blendedUpside.toFixed(1)}%
@@ -81,9 +78,9 @@ export default function FairValueTable({ hist, now, currentPrice }) {
         </table>
       </div>
 
-      <p className="px-4 py-2.5 text-vs-dim text-[9px] font-mono">
+      <p className="px-4 py-2.5 text-vs-dim text-micro font-mono">
         Assumes multiples revert to {histYears}-year average. Not financial advice.
       </p>
-    </div>
+    </Card>
   );
 }

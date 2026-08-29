@@ -47,13 +47,13 @@ export default function PillDetail({ metric, chartData, averages, years, isDark,
         {/* Header */}
         <div className="flex items-start justify-between px-5 pt-3 pb-1">
           <div>
-            <p className="text-vs-dim text-[10px] font-mono uppercase tracking-wider">
+            <p className="text-vs-dim text-micro font-mono uppercase tracking-wider">
               {metric.label}
             </p>
-            <p className="text-vs-text text-[28px] font-bold font-mono leading-tight">
+            <p className="text-vs-text text-display font-bold font-mono leading-tight">
               {formatMultiple(now?.[metric.key], metric.isYield)}
             </p>
-            <p className="text-vs-soft text-[12px] mt-0.5">
+            <p className="text-vs-soft text-label mt-0.5">
               Avg: {formatMultiple(averages[metric.key], metric.isYield)}
               {histVals.length > 0 && (
                 <span className="ml-2.5 text-vs-dim">
@@ -66,12 +66,12 @@ export default function PillDetail({ metric, chartData, averages, years, isDark,
             </p>
             {metric.formula && (
               <div className="mt-2 pt-2 border-t border-vs-border/40">
-                <p className="text-vs-dim text-[10px] leading-relaxed">
+                <p className="text-vs-dim text-micro leading-relaxed">
                   <span className="text-vs-soft font-medium">Formula: </span>
                   {metric.formula}
                 </p>
                 {metric.period && (
-                  <p className="text-vs-dim text-[10px] leading-relaxed mt-0.5 opacity-80">
+                  <p className="text-vs-dim text-micro leading-relaxed mt-0.5 opacity-80">
                     <span className="font-medium">Period: </span>
                     {metric.period}
                   </p>
@@ -105,7 +105,7 @@ export default function PillDetail({ metric, chartData, averages, years, isDark,
 
         {/* Year-by-year table */}
         <div className="px-5 pb-[calc(2.5rem_+_env(safe-area-inset-bottom))]">
-          <p className="text-vs-dim text-[9px] font-mono uppercase tracking-widest mb-2">
+          <p className="text-vs-dim text-micro font-mono uppercase tracking-widest mb-2">
             Historical Data
           </p>
           <div>
@@ -119,10 +119,10 @@ export default function PillDetail({ metric, chartData, averages, years, isDark,
                     isNow ? 'text-vs-blue' : ''
                   }`}
                 >
-                  <span className={`font-mono text-[12px] ${isNow ? 'text-vs-blue font-semibold' : 'text-vs-soft'}`}>
+                  <span className={`font-mono text-label ${isNow ? 'text-vs-blue font-semibold' : 'text-vs-soft'}`}>
                     {y.fiscalYear}
                   </span>
-                  <span className={`font-mono text-[12px] font-semibold ${isNow ? 'text-vs-blue' : 'text-vs-text'}`}>
+                  <span className={`font-mono text-label font-semibold ${isNow ? 'text-vs-blue' : 'text-vs-text'}`}>
                     {formatMultiple(val, metric.isYield)}
                   </span>
                 </div>

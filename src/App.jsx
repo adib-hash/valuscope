@@ -51,7 +51,7 @@ import {
 } from './lib/watchlist';
 
 const QUICK_TICKERS = ['AAPL', 'MSFT', 'ULTA', 'COST', 'META', 'AMZN', 'GOOGL', 'NFLX'];
-const APP_VERSION   = 'v0.18.4';
+const APP_VERSION   = 'v0.18.5';
 
 // The view the app opens on when the URL names neither a company nor a view.
 const DEFAULT_VIEW = 'indices';
@@ -417,7 +417,7 @@ export default function App() {
             aria-label="ValueScope home"
             className="flex items-baseline gap-2 bg-transparent border-0 p-0 cursor-pointer"
           >
-            <span className="font-display text-[22px] font-extrabold text-vs-text">
+            <span className="font-display text-title font-extrabold text-vs-text">
               ValueScope
             </span>
           </button>
@@ -466,7 +466,7 @@ export default function App() {
         {/* Recent searches */}
         {history.length > 0 && !loading && (
           <div className="flex gap-1.5 mt-2.5 flex-wrap items-center">
-            <span className="text-vs-dim text-[10px] font-mono leading-6">Recent:</span>
+            <span className="text-vs-dim text-micro font-mono leading-6">Recent:</span>
             {history.map((h) => (
               <Button
                 key={h}
@@ -484,9 +484,9 @@ export default function App() {
         {loading && (
           <div className="mt-6">
             <div className="animate-pulse space-y-2.5">
-              <div className="h-3 bg-vs-card rounded w-28" />
-              <div className="h-7 bg-vs-card rounded w-56" />
-              <div className="h-3 bg-vs-card rounded w-44" />
+              <div className="h-3 bg-vs-card rounded-md w-28" />
+              <div className="h-7 bg-vs-card rounded-md w-56" />
+              <div className="h-3 bg-vs-card rounded-md w-44" />
             </div>
             <div className="flex gap-1.5 mt-5 overflow-x-hidden">
               {[...Array(6)].map((_, i) => (
@@ -497,7 +497,7 @@ export default function App() {
               ))}
             </div>
             <div className="animate-pulse mt-6 space-y-2">
-              <div className="h-3 bg-vs-card rounded w-36" />
+              <div className="h-3 bg-vs-card rounded-md w-36" />
               <div className="bg-vs-card border border-vs-border rounded-xl h-[260px] sm:h-[350px]" />
             </div>
           </div>
@@ -517,10 +517,10 @@ export default function App() {
                 <rect x="17" y="3"  width="4" height="18" rx="1" className="fill-vs-dim" />
               </svg>
             </div>
-            <div className="text-vs-soft text-[15px]">
+            <div className="text-vs-soft text-prose">
               Search any US public company by ticker
             </div>
-            <div className="text-vs-dim text-xs mt-1.5">
+            <div className="text-vs-dim text-label mt-1.5">
               Historical valuation multiples from Yahoo Finance
             </div>
 
@@ -530,7 +530,7 @@ export default function App() {
             {/* Quick picks */}
             <div className={watchlist.length > 0 ? 'mt-8' : 'mt-5'}>
               {watchlist.length > 0 && (
-                <p className="text-vs-dim text-[10px] font-mono uppercase tracking-widest mb-2.5 text-left">
+                <p className="text-vs-dim text-micro font-mono uppercase tracking-widest mb-2.5 text-left">
                   Quick Picks
                 </p>
               )}
@@ -604,17 +604,17 @@ export default function App() {
               <div className="flex items-start justify-between gap-2">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-baseline gap-2.5 flex-wrap">
-                    <span className="text-vs-dim text-[11px] font-mono tracking-widest">
+                    <span className="text-vs-dim text-label font-mono tracking-widest">
                       {data.exchange}: {sym}
                     </span>
                     {data.sector && (
-                      <span className="text-vs-dim text-[11px]">&middot; {data.sector}</span>
+                      <span className="text-vs-dim text-label">&middot; {data.sector}</span>
                     )}
                   </div>
-                  <h1 className="font-display text-[28px] font-extrabold mt-1 leading-tight text-vs-text">
+                  <h1 className="font-display text-display font-extrabold mt-1 leading-tight text-vs-text">
                     {data.companyName || sym}
                   </h1>
-                  <p className="text-vs-soft text-[13px] mt-0.5 flex flex-wrap items-center gap-x-1.5">
+                  <p className="text-vs-soft text-body mt-0.5 flex flex-wrap items-center gap-x-1.5">
                     {data.currentPrice && <span>${data.currentPrice.toFixed(2)}</span>}
                     {data.change != null && (
                       <span style={{ color: data.change >= 0 ? 'rgb(var(--vs-green))' : 'rgb(var(--vs-red))' }}>
@@ -637,7 +637,7 @@ export default function App() {
 
                   {/* Collapsible company description */}
                   {data.description && (
-                    <p className="text-vs-dim text-[12px] mt-2 leading-relaxed">
+                    <p className="text-vs-dim text-label mt-2 leading-relaxed">
                       {descOpen
                         ? data.description
                         : data.description.slice(0, 150)}
@@ -646,7 +646,7 @@ export default function App() {
                           {!descOpen && '...'}
                           <button
                             onClick={() => setDescOpen(!descOpen)}
-                            className="ml-1.5 text-vs-blue text-[11px] font-mono cursor-pointer hover:underline"
+                            className="ml-1.5 text-vs-blue text-label font-mono cursor-pointer hover:underline"
                           >
                             {descOpen ? 'less' : 'more'}
                           </button>
@@ -685,19 +685,19 @@ export default function App() {
                 href={`https://stockanalysis.com/stocks/${sym.toLowerCase()}/financials/ratios/`}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-block mt-2 text-vs-dim hover:text-vs-soft hover:underline transition-colors text-[11px] font-mono"
+                className="inline-block mt-2 text-vs-dim hover:text-vs-soft hover:underline transition-colors text-label font-mono"
               >
                 StockAnalysis &#x2197;
               </a>
               <button
                 onClick={() => openView('price')}
-                className="inline-flex items-center gap-1 ml-3 text-vs-blue hover:underline text-[11px] font-mono cursor-pointer"
+                className="inline-flex items-center gap-1 ml-3 text-vs-blue hover:underline text-label font-mono cursor-pointer"
               >
                 Price chart →
               </button>
               <button
                 onClick={() => openView('transcript')}
-                className="inline-flex items-center gap-1 ml-3 text-vs-blue hover:underline text-[11px] font-mono cursor-pointer"
+                className="inline-flex items-center gap-1 ml-3 text-vs-blue hover:underline text-label font-mono cursor-pointer"
               >
                 Earnings call →
               </button>
@@ -705,7 +705,7 @@ export default function App() {
 
             {/* Sector valuation insight */}
             {data.sector && getSectorRecommendation(data.sector) && (
-              <p className="mt-5 mb-0 text-vs-soft text-[11px] leading-relaxed">
+              <p className="mt-5 mb-0 text-vs-soft text-label leading-relaxed">
                 <span className="font-mono font-semibold text-vs-blue">{data.sector}:</span>{' '}
                 {getSectorRecommendation(data.sector).rationale}
               </p>
@@ -713,12 +713,12 @@ export default function App() {
 
             {/* Pills — snap-scroll on mobile, with inline regime badge */}
             <div className={`flex items-center gap-2 mb-1.5 ${data.sector && getSectorRecommendation(data.sector) ? 'mt-3' : 'mt-5'}`}>
-              <span className="text-vs-dim text-[10px] font-mono">
+              <span className="text-vs-dim text-micro font-mono">
                 LTM vs {hist.length}yr avg
               </span>
               {data.historySource === 'sec-edgar' && (
                 <span
-                  className="text-vs-dim text-[9px] font-mono hidden sm:inline"
+                  className="text-vs-dim text-micro font-mono hidden sm:inline"
                   title="Years beyond Yahoo Finance's ~4-year window come from SEC EDGAR filings"
                 >
                   &middot; SEC EDGAR
@@ -800,7 +800,7 @@ export default function App() {
                   <button
                     key={m.key}
                     onClick={() => toggle(m.key)}
-                    className="rounded-md px-2.5 py-1 text-[11px] font-medium font-mono cursor-pointer border transition-all flex items-center gap-1"
+                    className="rounded-md px-2.5 py-1 text-label font-medium font-mono cursor-pointer border transition-all flex items-center gap-1"
                     style={{
                       background:  selected.includes(m.key) ? tint(m.color, 0.08) : 'transparent',
                       color:       selected.includes(m.key) ? m.color : isRec ? 'rgb(var(--vs-soft))' : 'rgb(var(--vs-dim))',
@@ -870,7 +870,7 @@ export default function App() {
               </div>
             )}
 
-            <div className="mt-4 text-center text-vs-dim text-[10px] font-mono pb-8">
+            <div className="mt-4 text-center text-vs-dim text-micro font-mono pb-8">
               Not financial advice
             </div>
           </>
@@ -887,7 +887,7 @@ export default function App() {
           />
           <div className="relative bg-vs-card border border-vs-border rounded-t-2xl sm:rounded-2xl w-full sm:max-w-sm mx-0 sm:mx-4 p-6 pb-[calc(2.5rem_+_env(safe-area-inset-bottom))] sm:pb-6 z-10">
             <div className="flex items-center justify-between mb-5">
-              <span className="font-display text-[18px] font-bold text-vs-text">Settings</span>
+              <span className="font-display text-title font-bold text-vs-text">Settings</span>
               <button
                 onClick={() => setSettingsOpen(false)}
                 aria-label="Close settings"
@@ -905,39 +905,39 @@ export default function App() {
                 { label: 'Version', value: APP_VERSION },
               ].map(({ label, value }) => (
                 <div key={label} className="flex justify-between items-center py-3">
-                  <span className="text-vs-soft text-[13px]">{label}</span>
-                  <span className="text-vs-text font-mono text-[13px] font-semibold">{value}</span>
+                  <span className="text-vs-soft text-body">{label}</span>
+                  <span className="text-vs-text font-mono text-body font-semibold">{value}</span>
                 </div>
               ))}
               <div className="flex justify-between items-center py-3">
-                <span className="text-vs-soft text-[13px]">Theme</span>
+                <span className="text-vs-soft text-body">Theme</span>
                 <button
                   onClick={() => setIsDark(!isDark)}
-                  className="text-vs-blue font-mono text-[13px] cursor-pointer hover:underline"
+                  className="text-vs-blue font-mono text-body cursor-pointer hover:underline"
                 >
                   {isDark ? 'Dark' : 'Light'}
                 </button>
               </div>
               <div className="py-3">
-                <span className="text-vs-soft text-[13px] block mb-2">Data sources</span>
+                <span className="text-vs-soft text-body block mb-2">Data sources</span>
                 <div className="space-y-1.5">
                   {DATA_SOURCES.map((s) => (
                     <div key={s.name} className="flex justify-between items-baseline gap-3">
-                      <span className="text-vs-text font-mono text-[12px] flex-shrink-0">{s.name}</span>
-                      <span className="text-vs-soft text-[11px] text-right leading-snug">{s.use}</span>
+                      <span className="text-vs-text font-mono text-label flex-shrink-0">{s.name}</span>
+                      <span className="text-vs-soft text-label text-right leading-snug">{s.use}</span>
                     </div>
                   ))}
                 </div>
               </div>
               <div className="flex justify-between items-center py-3">
-                <span className="text-vs-soft text-[13px]">Watchlist</span>
-                <span className="text-vs-dim font-mono text-[13px]">
+                <span className="text-vs-soft text-body">Watchlist</span>
+                <span className="text-vs-dim font-mono text-body">
                   {watchlist.length} ticker{watchlist.length !== 1 ? 's' : ''}
                 </span>
               </div>
             </div>
 
-            <p className="text-vs-dim text-[10px] font-mono mt-6 text-center">
+            <p className="text-vs-dim text-micro font-mono mt-6 text-center">
               Historical valuation multiples &middot; Not financial advice
             </p>
           </div>
