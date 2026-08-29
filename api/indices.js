@@ -34,6 +34,10 @@ const INDICES = [
     total: { symbol: 'QQQ', via: 'Invesco QQQ — NASDAQ-100' },
     price: { symbol: '^IXIC', via: 'NASDAQ Composite index' } },
 
+  { key: 'russell', label: 'Russell 2000', group: 'Developed',
+    total: { symbol: 'IWM', via: 'iShares Russell 2000 ETF' },
+    price: { symbol: '^RUT', via: 'Russell 2000 index' } },
+
   { key: 'ftse', label: 'FTSE 100', group: 'Developed',
     total: { symbol: 'EWU', via: 'iShares MSCI UK ETF', proxy: true },
     price: { symbol: '^FTSE', via: 'FTSE 100 index' } },
@@ -58,6 +62,10 @@ const INDICES = [
     total: { symbol: 'XLE', via: 'Energy Select Sector SPDR' },
     price: { symbol: 'XLE', via: 'Energy Select Sector SPDR' } },
 
+  { key: 'biotech', label: 'Biotech', group: 'Sectors & rates',
+    total: { symbol: 'XBI', via: 'SPDR S&P Biotech ETF' },
+    price: { symbol: 'XBI', via: 'SPDR S&P Biotech ETF' } },
+
   { key: 'bonds', label: 'US bonds', group: 'Sectors & rates',
     total: { symbol: 'AGG', via: 'iShares Core US Aggregate Bond ETF' },
     price: { symbol: 'AGG', via: 'iShares Core US Aggregate Bond ETF' } },
@@ -70,13 +78,33 @@ const VIX = { key: 'vix', label: 'VIX', symbol: '^VIX', via: 'CBOE Volatility In
 
 const YEAR_MS = 365.25 * 24 * 60 * 60 * 1000;
 const HISTORY_YEARS = 11; // one spare year so the 10Y window is always covered
-const SPARK_YEARS = 5;
-const SPARK_POINTS = 60;
 
 const yearsAgo = (n) => {
   const d = new Date();
   d.setFullYear(d.getFullYear() - n);
   return d;
+};
+
+// Week- and month-to-date measure from the last close *before* the period
+// began. The boundaries are UTC because Yahoo stamps each daily bar at that
+// market's open — 13:30 UTC for New York, 00:00 for Tokyo — so the UTC date is
+// the trading date for every row here. Rolling back a millisecond keeps a bar
+// stamped exactly on the boundary (Tokyo, midnight) out of the base, which
+// would otherwise swallow the first trading day of the period.
+const startOfYearUTC = () => {
+  const d = new Date();
+  return Date.UTC(d.getUTCFullYear(), 0, 1) - 1;
+};
+
+const startOfMonthUTC = () => {
+  const d = new Date();
+  return Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), 1) - 1;
+};
+
+const startOfWeekUTC = () => {
+  const d = new Date();
+  const back = (d.getUTCDay() + 6) % 7; // rewind to Monday; Date.UTC handles rollover
+  return Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate() - back) - 1;
 };
 
 // Total return reads adjclose, which folds dividends back in. Price return
@@ -126,22 +154,6 @@ function annualisedReturn(series, years) {
   return (Math.pow(end.v / start.v, 1 / actualYears) - 1) * 100;
 }
 
-// Rebased to 100 at the start so every sparkline shares a y-axis meaning.
-function sparkline(series) {
-  const cut = yearsAgo(SPARK_YEARS).getTime();
-  const window = series.filter((p) => p.t >= cut);
-  if (window.length < 2) return [];
-  const base = window[0].v;
-  const step = Math.max(1, Math.floor(window.length / SPARK_POINTS));
-  const out = [];
-  for (let i = 0; i < window.length; i += step) {
-    out.push(Math.round((window[i].v / base) * 10000) / 100);
-  }
-  const last = window[window.length - 1];
-  out.push(Math.round((last.v / base) * 10000) / 100);
-  return out;
-}
-
 async function fetchSeries(symbol) {
   try {
     const chart = await yahooFinance.chart(
@@ -174,7 +186,9 @@ export default async function handler(req, res) {
     const quoteBy = new Map(quoteList.filter(Boolean).map((q) => [q.symbol, q]));
     const seriesBy = new Map(allSymbols.map((s, i) => [s, seriesResults[i]]));
 
-    const jan1 = new Date(new Date().getFullYear(), 0, 1).getTime();
+    const weekStart = startOfWeekUTC();
+    const monthStart = startOfMonthUTC();
+    const yearStart = startOfYearUTC();
 
     const rows = INDICES.map((idx) => {
       const spec = idx[mode];
@@ -202,12 +216,12 @@ export default async function handler(req, res) {
         ...base,
         available: true,
         level: base.level ?? series[series.length - 1].v,
-        ytd: cumulativeReturn(series, jan1),
+        wtd: cumulativeReturn(series, weekStart),
+        mtd: cumulativeReturn(series, monthStart),
+        ytd: cumulativeReturn(series, yearStart),
         r1y: cumulativeReturn(series, yearsAgo(1).getTime()),
-        r3y: annualisedReturn(series, 3),
         r5y: annualisedReturn(series, 5),
         r10y: annualisedReturn(series, 10),
-        spark: sparkline(series),
         since: new Date(series[0].t).toISOString().slice(0, 10),
       };
     });
@@ -232,7 +246,6 @@ export default async function handler(req, res) {
           high: values[values.length - 1],
           median: values[Math.floor(values.length / 2)],
           percentile: Math.round((below / values.length) * 100),
-          spark: sparkline(decade),
         };
       }
     }

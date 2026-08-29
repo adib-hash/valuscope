@@ -7,10 +7,12 @@ const MODES = [
   { key: 'price', label: 'Price · local' },
 ];
 
+// Shortest window first, so a row reads left-to-right as it zooms out.
 const COLUMNS = [
+  { key: 'wtd', label: 'WTD' },
+  { key: 'mtd', label: 'MTD' },
   { key: 'ytd', label: 'YTD' },
   { key: 'r1y', label: '1Y' },
-  { key: 'r3y', label: '3Y p.a.' },
   { key: 'r5y', label: '5Y p.a.' },
   { key: 'r10y', label: '10Y p.a.' },
 ];
@@ -74,30 +76,6 @@ function heatStyle(value, maxAbs) {
   return { background: tint(token, Number(alpha.toFixed(3))) };
 }
 
-// Hand-rolled rather than Recharts. Eleven ResponsiveContainers to draw eleven
-// 92x24 shapes is a lot of machinery for a decoration, and these never need a
-// tooltip or an axis.
-function Sparkline({ points, width = 92, height = 24 }) {
-  if (!points || points.length < 2) return <span className="text-vs-soft">{DASH}</span>;
-
-  const min = Math.min(...points);
-  const max = Math.max(...points);
-  const span = max - min || 1;
-  const stepX = width / (points.length - 1);
-  const y = (v) => height - 2 - ((v - min) / span) * (height - 4);
-
-  const line = points.map((v, i) => `${i === 0 ? 'M' : 'L'}${(i * stepX).toFixed(1)},${y(v).toFixed(1)}`).join(' ');
-  const area = `${line} L${width},${height} L0,${height} Z`;
-  const color = points[points.length - 1] >= points[0] ? 'rgb(var(--vs-green))' : 'rgb(var(--vs-red))';
-
-  return (
-    <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`} aria-hidden="true" className="block">
-      <path d={area} fill={color} fillOpacity="0.12" />
-      <path d={line} fill="none" stroke={color} strokeWidth="1.25" strokeLinejoin="round" strokeLinecap="round" />
-    </svg>
-  );
-}
-
 export default function IndicesPage({ onBack }) {
   const [mode, setMode] = useState('total');
   const [data, setData] = useState(null);
@@ -136,12 +114,14 @@ export default function IndicesPage({ onBack }) {
 
   return (
     <div className="mt-5 pb-8">
-      <button
-        onClick={onBack}
-        className="text-vs-dim hover:text-vs-soft text-[11px] font-mono cursor-pointer mb-2 flex items-center gap-1"
-      >
-        <span>←</span> Back to overview
-      </button>
+      {onBack && (
+        <button
+          onClick={onBack}
+          className="text-vs-dim hover:text-vs-soft text-[11px] font-mono cursor-pointer mb-2 flex items-center gap-1"
+        >
+          <span>←</span> Back to overview
+        </button>
+      )}
 
       <div className="text-vs-dim text-[11px] font-mono tracking-widest">WORLD INDICES</div>
       <h1 className="font-display text-[26px] font-extrabold mt-1 leading-tight text-vs-text">
@@ -230,7 +210,6 @@ export default function IndicesPage({ onBack }) {
                       {c.label}
                     </th>
                   ))}
-                  <th className="text-right px-4 py-2 text-vs-soft font-medium whitespace-nowrap">5-yr shape</th>
                 </tr>
               </thead>
               <tbody>
@@ -238,7 +217,7 @@ export default function IndicesPage({ onBack }) {
                   <Fragment key={group.name}>
                     <tr className="bg-vs-card2">
                       <td
-                        colSpan={COLUMNS.length + 4}
+                        colSpan={COLUMNS.length + 3}
                         className="px-4 py-1.5 text-vs-soft font-bold text-[9px] tracking-widest uppercase sticky left-0 bg-vs-card2 z-10"
                       >
                         {group.name}
@@ -279,11 +258,6 @@ export default function IndicesPage({ onBack }) {
                           </td>
                         ))}
 
-                        <td className="px-4 py-2 text-right">
-                          <div className="flex justify-end">
-                            <Sparkline points={row.spark} />
-                          </div>
-                        </td>
                       </tr>
                     ))}
                   </Fragment>
@@ -294,7 +268,7 @@ export default function IndicesPage({ onBack }) {
                   <>
                     <tr className="bg-vs-card2">
                       <td
-                        colSpan={COLUMNS.length + 4}
+                        colSpan={COLUMNS.length + 3}
                         className="px-4 py-1.5 text-vs-soft font-bold text-[9px] tracking-widest uppercase sticky left-0 bg-vs-card2 z-10"
                       >
                         Volatility
@@ -318,11 +292,6 @@ export default function IndicesPage({ onBack }) {
                       </td>
                       <td colSpan={COLUMNS.length} className="px-3 py-2 text-vs-soft">
                         {`10-yr range ${fmtLevel(vix.low)}–${fmtLevel(vix.high)} · median ${fmtLevel(vix.median)} · currently higher than ${vix.percentile}% of the last decade`}
-                      </td>
-                      <td className="px-4 py-2 text-right">
-                        <div className="flex justify-end">
-                          <Sparkline points={vix.spark} />
-                        </div>
                       </td>
                     </tr>
                   </>
