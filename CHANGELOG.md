@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.18.3 — 2026-08-28
+
+### Changed
+- **The company page is tabbed.** The header, metric tiles and chart stay put; everything below now lives in **Overview · Earnings · Comps · Data** instead of one sixteen-section scroll. Overview holds fundamentals, fair value and the thesis; the other three load their code and data the first time they're opened.
+- **Tabs are part of the address.** `?ticker=AAPL&tab=comps` deep-links straight to the comp set; Overview is the clean URL with no param. Opening the transcript or price chart from a tab and coming back returns to that tab, not to Overview.
+- **Switching tabs never loses anything.** Opened tabs stay mounted but hidden, so fetched earnings data, an expanded table, or a half-typed thesis survives moving around. Clicking through to a different company resets to Overview on purpose — a new company is a fresh read.
+
+### Notes
+- Earnings, Comps and Data are code-split; a session that never opens them never downloads them. The Comps tab shows a proper loading and empty state now instead of quietly rendering nothing (a tab you clicked should never be blank).
+- The keep-alive uses hidden containers rather than unmounting — safe here because no chart lives inside a tab; Recharts containers do not remeasure inside `hidden` nodes, which is why the main chart deliberately stays above the tab line.
+
 ## 0.18.2 — 2026-08-28
 
 ### Changed

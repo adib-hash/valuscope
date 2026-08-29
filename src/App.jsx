@@ -11,15 +11,17 @@ import { Sun, Moon, Settings, Link2, Check, Star, X } from 'lucide-react';
 // draws a chart — so everything that imports it loads on demand instead of
 // riding in the entry chunk.
 const ValuChart        = lazy(() => import('./components/ValuChart'));
+// Tab-only panels load when their tab is first opened — the default Overview
+// tab keeps its panels static so it never waterfalls.
+const EarningsPanel    = lazy(() => import('./components/EarningsPanel'));
+const CompsTable       = lazy(() => import('./components/CompsTable'));
+const DataTable        = lazy(() => import('./components/DataTable'));
 const PillDetail       = lazy(() => import('./components/PillDetail'));
 const PriceHistoryPage = lazy(() => import('./components/PriceHistoryPage'));
 import Pill from './components/Pill';
-import DataTable from './components/DataTable';
 import FundamentalsPanel from './components/FundamentalsPanel';
 import FairValueTable from './components/FairValueTable';
 import Thesis from './components/Thesis';
-import CompsTable from './components/CompsTable';
-import EarningsPanel from './components/EarningsPanel';
 import WatchlistDashboard from './components/WatchlistDashboard';
 import TranscriptPage from './components/TranscriptPage';
 import IndicesPage from './components/IndicesPage';
@@ -48,7 +50,7 @@ import {
 } from './lib/watchlist';
 
 const QUICK_TICKERS = ['AAPL', 'MSFT', 'ULTA', 'COST', 'META', 'AMZN', 'GOOGL', 'NFLX'];
-const APP_VERSION   = 'v0.18.2';
+const APP_VERSION   = 'v0.18.3';
 
 // The view the app opens on when the URL names neither a company nor a view.
 const DEFAULT_VIEW = 'indices';
@@ -70,6 +72,15 @@ const PILL_METRICS = [
   { key: 'evSales',  label: 'EV/Sales' },
 ];
 
+// The company page's section tabs. Overview is the default and canonical URL
+// carries no tab param.
+const COMPANY_TABS = [
+  { value: 'overview', label: 'Overview' },
+  { value: 'earnings', label: 'Earnings' },
+  { value: 'comps',    label: 'Comps' },
+  { value: 'data',     label: 'Data' },
+];
+
 // The regime badge and the saved watchlist summary average a wider basket than
 // the tiles show. Holding these six fixed means dropping a tile from the row
 // does not quietly reprice every watchlist entry that was written under the old
@@ -84,6 +95,11 @@ export default function App() {
   // explicit view falls through to the default landing view.
   const view = rawView ?? (searchParams.get('ticker') ? null : DEFAULT_VIEW);
   const isValuationView = view === null || view === 'valuation';
+
+  // Section tab on the company page. Derived from the URL, never useState —
+  // an invalid or absent param is simply Overview.
+  const tabParam = searchParams.get('tab');
+  const activeTab = COMPANY_TABS.some((t) => t.value === tabParam) ? tabParam : 'overview';
 
   // ── Data state ──────────────────────────────────────────────────────────────
   const [loading,  setLoading]  = useState(false);
@@ -133,6 +149,15 @@ export default function App() {
   // ── Watchlist ────────────────────────────────────────────────────────────────
   const [watchlist, setWatchlist] = useState(() => getWatchlist());
 
+  // Tabs stay mounted once opened (hidden, not unmounted), so switching away
+  // never drops fetched data or in-progress Thesis keystrokes. Reset per
+  // company. Initialised with the deep-linked tab so a shared &tab= URL
+  // renders it on first paint.
+  const [visitedTabs, setVisitedTabs] = useState(() => new Set(['overview', activeTab]));
+  useEffect(() => {
+    setVisitedTabs((prev) => (prev.has(activeTab) ? prev : new Set([...prev, activeTab])));
+  }, [activeTab]);
+
   const toggleWatchlist = (sym) => {
     if (isWatched(sym)) removeFromWatchlist(sym);
     else addToWatchlist(sym);
@@ -174,9 +199,20 @@ export default function App() {
     setSearchParams({});
   };
 
+  const setTab = (key) => {
+    if (!sym) return;
+    const next = { ticker: sym };
+    if (key !== 'overview') next.tab = key;
+    setSearchParams(next, { replace: true });
+  };
+
+  // Company-scoped views carry the active tab through, so Earnings tab →
+  // transcript → back lands on Earnings rather than resetting to Overview.
   const openView = (name) => {
     if (!sym) return;
-    setSearchParams({ ticker: sym, view: name }, { replace: false });
+    const next = { ticker: sym, view: name };
+    if (activeTab !== 'overview') next.tab = activeTab;
+    setSearchParams(next, { replace: false });
     window.scrollTo(0, 0);
   };
 
@@ -201,7 +237,9 @@ export default function App() {
 
   const closeView = () => {
     if (!sym) { setSearchParams({ view: 'valuation' }); return; }
-    setSearchParams({ ticker: sym }, { replace: false });
+    const next = { ticker: sym };
+    if (activeTab !== 'overview') next.tab = activeTab;
+    setSearchParams(next, { replace: false });
     window.scrollTo(0, 0);
   };
 
@@ -217,10 +255,12 @@ export default function App() {
     setDescOpen(false);
     setActivePill(null);
     const currentView = keepView ? searchParams.get('view') : null;
-    setSearchParams(
-      currentView ? { ticker: sym, view: currentView } : { ticker: sym },
-      { replace: true },
-    );
+    const currentTab  = keepView ? searchParams.get('tab')  : null;
+    const nextParams = { ticker: sym };
+    if (currentView) nextParams.view = currentView;
+    if (currentTab && COMPANY_TABS.some((t) => t.value === currentTab)) nextParams.tab = currentTab;
+    setSearchParams(nextParams, { replace: true });
+    setVisitedTabs(new Set(['overview', currentTab || 'overview']));
     activeSymbol.current = sym;
     try {
       const result = await fetchFinancials(sym);
@@ -760,23 +800,45 @@ export default function App() {
               />
             </Suspense>
 
-            {/* Fundamentals Panel */}
-            <FundamentalsPanel hist={hist} now={now} data={data} />
+            {/* Section tabs — everything below the chart lives in one of these */}
+            <SegmentedControl
+              size="md"
+              className="mt-6"
+              options={COMPANY_TABS}
+              value={activeTab}
+              onChange={setTab}
+            />
 
-            {/* Earnings — calendar, surprises, forward estimates */}
-            <EarningsPanel symbol={sym} onOpenTranscript={() => openView('transcript')} />
+            {/* Overview — static imports, always mounted */}
+            <div hidden={activeTab !== 'overview'}>
+              <FundamentalsPanel hist={hist} now={now} data={data} />
+              <FairValueTable hist={hist} now={now} currentPrice={data.currentPrice} />
+              <Thesis sym={sym} />
+            </div>
 
-            {/* Fair Value Table */}
-            <FairValueTable hist={hist} now={now} currentPrice={data.currentPrice} />
-
-            {/* Comps Table */}
-            <CompsTable symbol={sym} sector={data.sector} onSelectTicker={loadCompany} />
-
-            {/* Full Data Table */}
-            <DataTable years={visibleYears} averages={avgs} />
-
-            {/* Investment Thesis */}
-            <Thesis sym={sym} />
+            {/* Visited tabs stay mounted but hidden, so their data and any
+                in-progress state survive switching away. */}
+            {visitedTabs.has('earnings') && (
+              <div hidden={activeTab !== 'earnings'}>
+                <Suspense fallback={<div className="mt-4 rounded-xl border border-vs-border bg-vs-card h-40 animate-pulse" />}>
+                  <EarningsPanel symbol={sym} onOpenTranscript={() => openView('transcript')} />
+                </Suspense>
+              </div>
+            )}
+            {visitedTabs.has('comps') && (
+              <div hidden={activeTab !== 'comps'}>
+                <Suspense fallback={<div className="mt-4 rounded-xl border border-vs-border bg-vs-card h-40 animate-pulse" />}>
+                  <CompsTable symbol={sym} sector={data.sector} onSelectTicker={loadCompany} defaultExpanded />
+                </Suspense>
+              </div>
+            )}
+            {visitedTabs.has('data') && (
+              <div hidden={activeTab !== 'data'}>
+                <Suspense fallback={<div className="mt-4 rounded-xl border border-vs-border bg-vs-card h-40 animate-pulse" />}>
+                  <DataTable years={visibleYears} averages={avgs} defaultOpen />
+                </Suspense>
+              </div>
+            )}
 
             <div className="mt-4 text-center text-vs-dim text-[10px] font-mono pb-8">
               Not financial advice

@@ -59,8 +59,8 @@ function ChevronIcon({ open }) {
   );
 }
 
-export default function DataTable({ years, averages }) {
-  const [open, setOpen] = useState(false);
+export default function DataTable({ years, averages, defaultOpen = false }) {
+  const [open, setOpen] = useState(defaultOpen);
 
   return (
     <>

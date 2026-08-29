@@ -54,12 +54,12 @@ function computeMedian(vals) {
   return sorted.length % 2 ? sorted[mid] : (sorted[mid - 1] + sorted[mid]) / 2;
 }
 
-export default function CompsTable({ symbol, sector, onSelectTicker }) {
+export default function CompsTable({ symbol, sector, onSelectTicker, defaultExpanded = false }) {
   const [comps, setComps]     = useState(null);
   const [source, setSource]   = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError]     = useState('');
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState(defaultExpanded);
 
   useEffect(() => {
     if (!symbol) return;
@@ -68,7 +68,7 @@ export default function CompsTable({ symbol, sector, onSelectTicker }) {
     setError('');
     setComps(null);
     setSource(null);
-    setExpanded(false);
+    setExpanded(defaultExpanded);
 
     fetchComps(symbol)
       .then((data) => {
@@ -105,8 +105,10 @@ export default function CompsTable({ symbol, sector, onSelectTicker }) {
 
   if (!symbol) return null;
 
-  // Don't render anything if we loaded and got no real comps
-  if (!loading && !error && source === 'none') return null;
+  // Standalone (collapsed-capable) usage hides itself when there are no real
+  // comps. As a tab's content it must never vanish — the tab was clicked, so
+  // the expanded card's own empty state does the explaining instead.
+  if (!loading && !error && source === 'none' && !defaultExpanded) return null;
 
   // Collapsed state — show just header
   if (!expanded) {
