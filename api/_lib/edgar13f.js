@@ -9,7 +9,7 @@
 // Same conventions as _lib/sec.js: descriptive User-Agent, few requests per
 // invocation, cached hard.
 
-const UA = 'ValuScope/1.0 (adib@ihsan.build)';
+const UA = 'ValueScope/1.0 (adib@ihsan.build)';
 
 const holdingsCache = new Map();
 const HOLDINGS_MAX = 40; // filings are immutable; this only bounds memory

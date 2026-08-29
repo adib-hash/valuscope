@@ -2,7 +2,7 @@
 //
 // 13F filings identify securities by CUSIP and a shouty issuer name
 // ("ALLY FINL INC"). Resolving to a ticker is what lets a holdings row link
-// into the rest of ValuScope. OpenFIGI is free and needs no key.
+// into the rest of ValueScope. OpenFIGI is free and needs no key.
 //
 // This is an enhancement, never a dependency: if OpenFIGI is slow, rate-limited
 // or down, rows keep their issuer names and nothing errors.

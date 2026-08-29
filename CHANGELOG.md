@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.15.2 — 2026-08-28
+
+### Changed
+- **Renamed the app to ValueScope.** The display name now reads ValueScope everywhere it is user-visible: the browser title, the header logo and its `aria-label`, and the App row in Settings. The SEC EDGAR User-Agent was updated to match, since that string is how the app identifies itself to the SEC.
+
+### Notes
+- Infrastructure identifiers were left alone on purpose. The domain is still `valuscope.ihsan.build`, the repo is still `adib-hash/valuscope`, and the package name and Vite dev-plugin slug still read `valuscope`. Changing those means moving DNS and the GitHub remote, which is a separate decision from what the app calls itself.
+- Older changelog entries keep the original spelling, because they describe what shipped at the time.
+
 ## 0.15.1 — 2026-07-31
 
 ### Changed

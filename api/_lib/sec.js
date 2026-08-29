@@ -5,7 +5,7 @@
 // SEC requires a descriptive User-Agent with contact info and rate-limits to
 // 10 req/sec. We make at most 2 requests per cold invocation and cache hard.
 
-const UA = 'ValuScope/1.0 (adib@ihsan.build)';
+const UA = 'ValueScope/1.0 (adib@ihsan.build)';
 
 // Warm-invocation caches. The ticker→CIK map is ~800KB and changes rarely.
 let cikMapPromise = null;

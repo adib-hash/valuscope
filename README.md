@@ -1,4 +1,4 @@
-# ValuScope
+# ValueScope
 
 Historical valuation multiples for any US public company. Look up 3-10 years of P/E, EV/EBITDA, P/FCF, and 20+ other metrics with interactive charts, fair value estimates, and fundamental analysis.
 

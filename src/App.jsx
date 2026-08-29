@@ -38,7 +38,7 @@ import {
 } from './lib/watchlist';
 
 const QUICK_TICKERS = ['AAPL', 'MSFT', 'ULTA', 'COST', 'META', 'AMZN', 'GOOGL', 'NFLX'];
-const APP_VERSION   = 'v0.15.1';
+const APP_VERSION   = 'v0.15.2';
 
 // Top-level nav. `view: null` is the valuation home.
 const NAV_ITEMS = [
@@ -311,11 +311,11 @@ export default function App() {
           {/* Logo — clickable home/reset button */}
           <button
             onClick={resetApp}
-            aria-label="ValuScope home"
+            aria-label="ValueScope home"
             className="flex items-baseline gap-2 bg-transparent border-0 p-0 cursor-pointer"
           >
             <span className="font-display text-[22px] font-extrabold text-vs-text">
-              ValuScope
+              ValueScope
             </span>
             <span className="text-vs-dim text-[11px] font-mono hidden sm:inline">
               historical valuation multiples
@@ -828,7 +828,7 @@ export default function App() {
 
             <div className="divide-y divide-vs-border">
               {[
-                { label: 'App',         value: 'ValuScope' },
+                { label: 'App',         value: 'ValueScope' },
                 { label: 'Version',     value: APP_VERSION },
                 { label: 'Data source', value: 'Yahoo Finance' },
                 { label: 'Deep history', value: 'SEC EDGAR' },
