@@ -43,7 +43,7 @@ import {
 } from './lib/watchlist';
 
 const QUICK_TICKERS = ['AAPL', 'MSFT', 'ULTA', 'COST', 'META', 'AMZN', 'GOOGL', 'NFLX'];
-const APP_VERSION   = 'v0.17.0';
+const APP_VERSION   = 'v0.18.0';
 
 // The view the app opens on when the URL names neither a company nor a view.
 const DEFAULT_VIEW = 'indices';
@@ -113,6 +113,10 @@ export default function App() {
       document.documentElement.classList.remove('dark');
     }
     localStorage.setItem('vs-theme', isDark ? 'dark' : 'light');
+    // Keep the browser chrome color in step with the app theme.
+    document
+      .querySelector('meta[name="theme-color"]')
+      ?.setAttribute('content', isDark ? '#080A10' : '#F4F6FA');
   }, [isDark]);
 
   // Load ticker from URL on mount

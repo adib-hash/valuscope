@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.18.0 — 2026-08-28
+
+### Added
+- **ValueScope is finally an installable PWA.** A proper icon — the three ascending bars from the empty state, in accent blue on the app's dark ground — as favicon, home-screen icon (192/512 plus a maskable variant), and apple-touch-icon. A web manifest makes Add to Home Screen produce a real standalone app instead of a browser shortcut with a blank tile.
+- **Link previews.** Open Graph and Twitter card tags with a rendered 1200×630 card, so a shared ValueScope link unfurls with the mark and wordmark instead of nothing.
+- **The browser chrome follows the theme.** A `theme-color` meta is stamped by the boot script and kept in step by the in-app toggle, so the iOS status bar matches dark or light mode.
+
+### Fixed
+- **Deep links no longer depend on luck.** There was no SPA rewrite, so any path other than `/` would 404 on a fresh load. `vercel.json` now rewrites everything except `/api/*` to the app.
+
+### Notes
+- `viewport-fit=cover` was added alongside the existing zoom guard — it is what makes `env(safe-area-inset-*)` return real values, which the upcoming bottom navigation needs.
+- Icons are rendered from SVG masters at build-prep time, not hand-drawn PNGs; the OG card embeds Playfair Display and Inter rather than trusting whatever fonts the rasterizer finds.
+
 ## 0.17.0 — 2026-08-28
 
 ### Added
