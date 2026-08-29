@@ -97,12 +97,7 @@ export default function TranscriptPage({ ticker, companyName, onBack }) {
 
   return (
     <div className="mt-5 pb-10">
-      <button
-        onClick={onBack}
-        className="text-vs-dim hover:text-vs-soft transition-colors text-label font-mono cursor-pointer inline-flex items-center gap-1"
-      >
-        ← Back
-      </button>
+      <BackButton onClick={onBack} label="Back" className="mb-3" />
 
       <div className="mt-3 flex items-start justify-between gap-3 flex-wrap">
         <div className="min-w-0">

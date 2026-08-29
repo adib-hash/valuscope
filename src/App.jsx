@@ -6,6 +6,7 @@ import Button from './components/ui/Button';
 import ErrorBanner from './components/ui/ErrorBanner';
 import RegimeBadge from './components/ui/RegimeBadge';
 import BottomNav from './components/ui/BottomNav';
+import ErrorBoundary from './components/ui/ErrorBoundary';
 import CompareControl from './components/CompareControl';
 import CompanyBrief from './components/CompanyBrief';
 import CompareGrid from './components/CompareGrid';
@@ -57,7 +58,7 @@ import {
 } from './lib/watchlist';
 
 const QUICK_TICKERS = ['AAPL', 'MSFT', 'ULTA', 'COST', 'META', 'AMZN', 'GOOGL', 'NFLX'];
-const APP_VERSION   = 'v0.20.0';
+const APP_VERSION   = 'v0.20.1';
 
 // The view the app opens on when the URL names neither a company nor a view.
 const DEFAULT_VIEW = 'indices';
@@ -178,6 +179,10 @@ export default function App() {
   const [visitedTabs, setVisitedTabs] = useState(() => new Set(['overview', activeTab]));
   useEffect(() => {
     setVisitedTabs((prev) => (prev.has(activeTab) ? prev : new Set([...prev, activeTab])));
+    if (pinTabsRef.current) {
+      pinTabsRef.current = false;
+      tabStripRef.current?.scrollIntoView({ block: 'start' });
+    }
   }, [activeTab]);
 
   const toggleWatchlist = (sym) => {
@@ -221,10 +226,20 @@ export default function App() {
     setSearchParams({});
   };
 
+  const tabStripRef = useRef(null);
+  const pinTabsRef = useRef(false);
+
   const setTab = (key) => {
     if (!sym) return;
     const next = { ticker: sym };
     if (key !== 'overview') next.tab = key;
+    // Tab contents differ wildly in height; if the strip has scrolled off the
+    // top, the shorter new panel lets the browser clamp the scroll position
+    // somewhere arbitrary. Measure BEFORE the switch — afterwards the clamp
+    // has already moved everything — and pin after React commits (the effect
+    // below), so the scroll targets the final layout, not a mid-render one.
+    pinTabsRef.current =
+      !!tabStripRef.current && tabStripRef.current.getBoundingClientRect().top < 0;
     setSearchParams(carryCompare(next), { replace: true });
   };
 
@@ -669,7 +684,11 @@ export default function App() {
         )}
 
         {/* ── World Indices (no ticker required) ───────────────────────────── */}
-        {view === 'indices' && <IndicesPage onBack={sym ? closeView : null} />}
+        {view === 'indices' && (
+          <ErrorBoundary label="The indices view">
+            <IndicesPage onBack={sym ? closeView : null} />
+          </ErrorBoundary>
+        )}
 
         {/* ── Watchlist (no ticker required) ───────────────────────────────── */}
         {view === 'watchlist' && (
@@ -691,16 +710,19 @@ export default function App() {
 
         {/* ── 13F Holdings (no ticker required) ────────────────────────────── */}
         {view === 'institutions' && (
-          <InstitutionsPage
-            onBack={closeView}
-            onSelectTicker={loadCompany}
-            filer={filer}
-            onPickFiler={setFiler}
-          />
+          <ErrorBoundary label="The 13F view">
+            <InstitutionsPage
+              onBack={closeView}
+              onSelectTicker={loadCompany}
+              filer={filer}
+              onPickFiler={setFiler}
+            />
+          </ErrorBoundary>
         )}
 
         {/* ── Price Chart Page ─────────────────────────────────────────────── */}
         {data && !loading && view === 'price' && (
+          <ErrorBoundary label="The price chart">
           <Suspense fallback={<div className="mt-5 bg-vs-card border border-vs-border rounded-xl h-[320px] animate-pulse" />}>
             <PriceHistoryPage
               ticker={sym}
@@ -708,15 +730,18 @@ export default function App() {
               onBack={closeView}
             />
           </Suspense>
+          </ErrorBoundary>
         )}
 
         {/* ── Earnings Call Transcript ─────────────────────────────────────── */}
         {data && !loading && view === 'transcript' && (
-          <TranscriptPage
-            ticker={sym}
-            companyName={data.companyName}
-            onBack={closeView}
-          />
+          <ErrorBoundary label="The transcript">
+            <TranscriptPage
+              ticker={sym}
+              companyName={data.companyName}
+              onBack={closeView}
+            />
+          </ErrorBoundary>
         )}
 
         {/* ── Dashboard ──────────────────────────────────────────────────────── */}
@@ -863,8 +888,8 @@ export default function App() {
               />
             )}
 
+            {!comparing && (
             <div
-              hidden={comparing}
               className="flex gap-1.5 overflow-x-auto pb-1 snap-x snap-mandatory"
               style={{ WebkitOverflowScrolling: 'touch' }}
             >
@@ -894,6 +919,7 @@ export default function App() {
                 );
               })}
             </div>
+            )}
 
             {/* Period toggle + Group tabs — single row */}
             <div className="flex items-start justify-between gap-2 mt-5 flex-wrap">
@@ -990,45 +1016,61 @@ export default function App() {
             </Suspense>
 
             {/* Section tabs — everything below the chart lives in one of these */}
-            <SegmentedControl
-              size="md"
-              className="mt-6"
-              options={COMPANY_TABS}
-              value={activeTab}
-              onChange={setTab}
-            />
+            <div ref={tabStripRef} className="scroll-mt-2">
+              <SegmentedControl
+                size="md"
+                className="mt-6"
+                options={COMPANY_TABS}
+                value={activeTab}
+                onChange={setTab}
+              />
+            </div>
 
+            {/* Tab panels. The min-height guarantees a short tab (a single
+                earnings card) still leaves enough page below the strip for the
+                pin-to-top scroll to complete — without it the browser clamps
+                partway and every tab switch lands somewhere different. */}
+            <div className="min-h-screen">
             {/* Overview — static imports, always mounted */}
             <div hidden={activeTab !== 'overview'}>
-              <FundamentalsPanel hist={hist} now={now} data={data} />
-              <FairValueTable hist={hist} now={now} currentPrice={data.currentPrice} />
-              {!comparing && <CompanyBrief ticker={sym} key={sym} />}
-              <Thesis sym={sym} />
+              <ErrorBoundary label="The overview">
+                <FundamentalsPanel hist={hist} now={now} data={data} />
+                <FairValueTable hist={hist} now={now} currentPrice={data.currentPrice} />
+                {!comparing && <CompanyBrief ticker={sym} key={sym} />}
+                <Thesis sym={sym} />
+              </ErrorBoundary>
             </div>
 
             {/* Visited tabs stay mounted but hidden, so their data and any
                 in-progress state survive switching away. */}
             {visitedTabs.has('earnings') && (
               <div hidden={activeTab !== 'earnings'}>
-                <Suspense fallback={<div className="mt-4 rounded-xl border border-vs-border bg-vs-card h-40 animate-pulse" />}>
-                  <EarningsPanel symbol={sym} onOpenTranscript={() => openView('transcript')} />
-                </Suspense>
+                <ErrorBoundary label="The earnings panel">
+                  <Suspense fallback={<div className="mt-4 rounded-xl border border-vs-border bg-vs-card h-40 animate-pulse" />}>
+                    <EarningsPanel symbol={sym} onOpenTranscript={() => openView('transcript')} />
+                  </Suspense>
+                </ErrorBoundary>
               </div>
             )}
             {visitedTabs.has('comps') && (
               <div hidden={activeTab !== 'comps'}>
-                <Suspense fallback={<div className="mt-4 rounded-xl border border-vs-border bg-vs-card h-40 animate-pulse" />}>
-                  <CompsTable symbol={sym} sector={data.sector} onSelectTicker={loadCompany} defaultExpanded />
-                </Suspense>
+                <ErrorBoundary label="The comps table">
+                  <Suspense fallback={<div className="mt-4 rounded-xl border border-vs-border bg-vs-card h-40 animate-pulse" />}>
+                    <CompsTable symbol={sym} sector={data.sector} onSelectTicker={loadCompany} defaultExpanded />
+                  </Suspense>
+                </ErrorBoundary>
               </div>
             )}
             {visitedTabs.has('data') && (
               <div hidden={activeTab !== 'data'}>
-                <Suspense fallback={<div className="mt-4 rounded-xl border border-vs-border bg-vs-card h-40 animate-pulse" />}>
-                  <DataTable years={visibleYears} averages={avgs} defaultOpen />
-                </Suspense>
+                <ErrorBoundary label="The data table">
+                  <Suspense fallback={<div className="mt-4 rounded-xl border border-vs-border bg-vs-card h-40 animate-pulse" />}>
+                    <DataTable years={visibleYears} averages={avgs} defaultOpen />
+                  </Suspense>
+                </ErrorBoundary>
               </div>
             )}
+            </div>
 
             <div className="mt-4 text-center text-vs-dim text-micro font-mono pb-8">
               Not financial advice

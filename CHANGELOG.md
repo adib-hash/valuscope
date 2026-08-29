@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.20.1 — 2026-08-29
+
+### Fixed
+- **The Earnings tab crashed the whole app.** The 0.18.5 migration renamed the panel's stat component but missed three multiline usages — the build cannot catch an undefined JSX identifier, so it surfaced only at runtime, and with no error boundary one broken panel blanked the entire page. Both halves are fixed: the rename is complete, and **error boundaries now wrap every major section**, so a future bug in one card degrades to an error message in that card instead of a white screen.
+- **Tab switches no longer fling the scroll position around.** Tab contents differ wildly in height, so switching from a deep scroll let the browser clamp to somewhere arbitrary — the "every tap pulls me up" feeling. Tab switches from below the fold now pin the tab strip to the top of the viewport, every time, on every tab; switches while the strip is visible don't move at all. The tab region keeps a minimum height so the pin can always complete.
+- **Compare mode showed the metric tiles and the comparison grid at once.** The tiles were hidden with the HTML `hidden` attribute, which their `flex` class silently overrides — same specificity, later stylesheet layer. They are now conditionally rendered.
+- The transcript page's back button was the one survivor of the 0.18.5 back-button consolidation — a raw `←` next to everyone else's Lucide arrow. Consolidated.
+
+### Notes
+- The white screen is what made everything feel broken at once: after the crash, every tap did nothing until a reload, which lands at the top. Crash, boundary and scroll behavior were verified together across all four tabs, desktop and mobile widths.
+- Lesson encoded in the codebase: `hidden` + a display utility class don't mix, and mechanical renames need runtime exercise per component, not just a passing build.
+
 ## 0.20.0 — 2026-08-29
 
 ### Added

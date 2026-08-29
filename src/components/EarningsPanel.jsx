@@ -113,7 +113,7 @@ export default function EarningsPanel({ symbol, onOpenTranscript }) {
               <div className="flex gap-4 flex-wrap mt-2.5">
                 <StatChip label="Consensus EPS" value={fmtEps(next.epsEstimate)} />
                 {next.epsLow != null && next.epsHigh != null && (
-                  <Stat
+                  <StatChip
                     label="Range"
                     value={`${fmtEps(next.epsLow)} – ${fmtEps(next.epsHigh)}`}
                     color="rgb(var(--vs-soft))"
@@ -172,14 +172,14 @@ export default function EarningsPanel({ symbol, onOpenTranscript }) {
                   <StatChip label="EPS" value={fmtEps(est.epsEstimate)} />
                   <StatChip label="Revenue" value={fmtBig(est.revenueEstimate)} />
                   {est.growthPercent != null && (
-                    <Stat
+                    <StatChip
                       label="EPS Growth"
                       value={`${est.growthPercent >= 0 ? '+' : ''}${est.growthPercent.toFixed(1)}%`}
                       color={est.growthPercent >= 0 ? 'rgb(var(--vs-green))' : 'rgb(var(--vs-red))'}
                     />
                   )}
                   {(est.revisionsUp != null || est.revisionsDown != null) && (
-                    <Stat
+                    <StatChip
                       label="Revisions 30d"
                       value={`${est.revisionsUp ?? 0} up / ${est.revisionsDown ?? 0} down`}
                       color={
