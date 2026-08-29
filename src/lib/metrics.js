@@ -53,36 +53,36 @@ export const GROUPS = {
       period:  'Historical: FY repurchases ÷ FY-end market cap. Now (LTM): most recent annual repurchases ÷ current market cap.' },
   ],
   'Growth & Margins': [
-    { key: 'revenueGrowth',   label: 'Rev. Growth',   color: 'rgb(var(--vs-green))', isYield: true,
+    { key: 'revenueGrowth', signed: true,   label: 'Rev. Growth',   color: 'rgb(var(--vs-green))', isYield: true,
       formula: '(Revenue − Prior Year Revenue) ÷ Prior Year Revenue × 100',
       period:  'YoY growth using annual fiscal year revenues. "Now (LTM)" not computed (no prior TTM baseline).' },
-    { key: 'grossMargin',     label: 'Gross Margin',  color: 'rgb(var(--vs-blue))', isYield: true,
+    { key: 'grossMargin', signed: true,     label: 'Gross Margin',  color: 'rgb(var(--vs-blue))', isYield: true,
       formula: 'Gross Profit ÷ Revenue × 100',
       period:  'Historical: FY basis. Now (LTM): TTM gross profit ÷ TTM revenue.' },
-    { key: 'ebitdaMargin',    label: 'EBITDA Margin', color: 'rgb(var(--vs-amber))', isYield: true,
+    { key: 'ebitdaMargin', signed: true,    label: 'EBITDA Margin', color: 'rgb(var(--vs-amber))', isYield: true,
       formula: 'EBITDA ÷ Revenue × 100',
       period:  'Historical: FY basis. Now (LTM): TTM EBITDA ÷ TTM revenue.' },
-    { key: 'operatingMargin', label: 'Op. Margin',    color: 'rgb(var(--vs-violet))', isYield: true,
+    { key: 'operatingMargin', signed: true, label: 'Op. Margin',    color: 'rgb(var(--vs-violet))', isYield: true,
       formula: 'EBIT (Operating Income) ÷ Revenue × 100',
       period:  'Historical: FY basis. Now (LTM): most recent FY EBIT ÷ TTM revenue (proxy — TTM EBIT unavailable).' },
-    { key: 'netMargin',       label: 'Net Margin',    color: 'rgb(var(--vs-rose))', isYield: true,
+    { key: 'netMargin', signed: true,       label: 'Net Margin',    color: 'rgb(var(--vs-rose))', isYield: true,
       formula: 'Net Income ÷ Revenue × 100',
       period:  'Historical: FY basis. Now (LTM): TTM net income (derived from trailing P/E) ÷ TTM revenue.' },
-    { key: 'fcfMargin',       label: 'FCF Margin',    color: 'rgb(var(--vs-orange))', isYield: true,
+    { key: 'fcfMargin', signed: true,       label: 'FCF Margin',    color: 'rgb(var(--vs-orange))', isYield: true,
       formula: 'Free Cash Flow ÷ Revenue × 100',
       period:  'Historical: FY basis. Now (LTM): TTM FCF ÷ TTM revenue.' },
   ],
   'Leverage & Returns': [
-    { key: 'netDebtToEbitda',  label: 'ND/EBITDA',      color: 'rgb(var(--vs-red))',
+    { key: 'netDebtToEbitda', signed: true,  label: 'ND/EBITDA',      color: 'rgb(var(--vs-red))',
       formula: '(Total Debt − Cash) ÷ EBITDA',
       period:  'Historical: FY-end balance sheet debt/cash ÷ FY EBITDA. Now (LTM): current debt/cash ÷ TTM EBITDA. Negative = net cash position.' },
-    { key: 'interestCoverage', label: 'Int. Coverage',  color: 'rgb(var(--vs-blue))',
+    { key: 'interestCoverage', signed: true, label: 'Int. Coverage',  color: 'rgb(var(--vs-blue))',
       formula: 'EBIT ÷ Interest Expense',
       period:  'Historical: FY EBIT ÷ FY interest expense. Now (LTM): most recent FY EBIT ÷ most recent FY interest expense (proxy).' },
     { key: 'currentRatio',     label: 'Current Ratio',  color: 'rgb(var(--vs-amber))',
       formula: 'Current Assets ÷ Current Liabilities',
       period:  'Historical: FY-end balance sheet. Now (LTM): most recent annual balance sheet.' },
-    { key: 'roic',             label: 'ROIC',           color: 'rgb(var(--vs-green))', isYield: true,
+    { key: 'roic', signed: true,             label: 'ROIC',           color: 'rgb(var(--vs-green))', isYield: true,
       formula: 'NOPAT ÷ Invested Capital × 100  (NOPAT = EBIT × (1 − Effective Tax Rate); Invested Capital = Debt + Book Equity − Cash)',
       period:  'Historical: FY basis with FY effective tax rate. Now (LTM): most recent FY EBIT × (1 − last effective tax rate) ÷ current invested capital.' },
   ],
@@ -181,12 +181,17 @@ export function formatMultiple(value, isYield = false) {
   return (value < 10 ? value.toFixed(2) : value.toFixed(1)) + 'x';
 }
 
+// Multiples and yields only exist above zero — a negative P/E is a loss year,
+// not a cheap one — so unsigned metrics keep the positive-only filter. Signed
+// metrics (growth, margins, ROIC, leverage) carry real information below zero:
+// dropping a company's down years from its average revenue growth, or its
+// net-cash years from ND/EBITDA, overstates both.
+const usable = (m) => (v) => v != null && isFinite(v) && (m.signed || v > 0);
+
 export function computeAverages(years) {
   const result = {};
   ALL_METRICS.forEach((m) => {
-    const vals = years
-      .map((d) => d[m.key])
-      .filter((v) => v != null && isFinite(v) && v > 0);
+    const vals = years.map((d) => d[m.key]).filter(usable(m));
     result[m.key] = vals.length ? vals.reduce((a, b) => a + b, 0) / vals.length : null;
   });
   return result;
@@ -196,9 +201,7 @@ export function computeAverages(years) {
 export function computeRanges(years) {
   const result = {};
   ALL_METRICS.forEach((m) => {
-    const vals = years
-      .map((d) => d[m.key])
-      .filter((v) => v != null && isFinite(v) && v > 0);
+    const vals = years.map((d) => d[m.key]).filter(usable(m));
     if (!vals.length) { result[m.key] = null; return; }
     result[m.key] = {
       min: Math.min(...vals),
@@ -213,9 +216,7 @@ export function computeRanges(years) {
 export function computePercentiles(histYears, nowYear) {
   const result = {};
   ALL_METRICS.forEach((m) => {
-    const vals = histYears
-      .map((d) => d[m.key])
-      .filter((v) => v != null && isFinite(v) && v > 0);
+    const vals = histYears.map((d) => d[m.key]).filter(usable(m));
     const current = nowYear?.[m.key];
     if (!vals.length || current == null || !isFinite(current)) {
       result[m.key] = null;

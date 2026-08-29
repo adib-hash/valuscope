@@ -1,17 +1,21 @@
-import { useState, useMemo, useEffect, useRef } from 'react';
+import { useState, useMemo, useEffect, useRef, lazy, Suspense } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import SearchBar from './components/SearchBar';
+
+// Recharts is over a third of the bundle, and the Indices landing view never
+// draws a chart — so everything that imports it loads on demand instead of
+// riding in the entry chunk.
+const ValuChart        = lazy(() => import('./components/ValuChart'));
+const PillDetail       = lazy(() => import('./components/PillDetail'));
+const PriceHistoryPage = lazy(() => import('./components/PriceHistoryPage'));
 import Pill from './components/Pill';
-import ValuChart from './components/ValuChart';
 import DataTable from './components/DataTable';
-import PillDetail from './components/PillDetail';
 import FundamentalsPanel from './components/FundamentalsPanel';
 import FairValueTable from './components/FairValueTable';
 import Thesis from './components/Thesis';
 import CompsTable from './components/CompsTable';
 import EarningsPanel from './components/EarningsPanel';
 import WatchlistDashboard from './components/WatchlistDashboard';
-import PriceHistoryPage from './components/PriceHistoryPage';
 import TranscriptPage from './components/TranscriptPage';
 import IndicesPage from './components/IndicesPage';
 import DataSources, { DATA_SOURCES } from './components/DataSources';
@@ -39,7 +43,7 @@ import {
 } from './lib/watchlist';
 
 const QUICK_TICKERS = ['AAPL', 'MSFT', 'ULTA', 'COST', 'META', 'AMZN', 'GOOGL', 'NFLX'];
-const APP_VERSION   = 'v0.16.0';
+const APP_VERSION   = 'v0.16.1';
 
 // The view the app opens on when the URL names neither a company nor a view.
 const DEFAULT_VIEW = 'indices';
@@ -261,9 +265,15 @@ export default function App() {
     return opts;
   }, [allHist.length]);
 
-  const avgs        = useMemo(() => computeAverages(hist),               [hist]);
-  const ranges      = useMemo(() => computeRanges(hist),                 [hist]);
-  const percentiles = useMemo(() => computePercentiles(hist, now),       [hist, now]);
+  const avgs   = useMemo(() => computeAverages(hist), [hist]);
+  const ranges = useMemo(() => computeRanges(hist),   [hist]);
+
+  // Averages and ranges follow the visible period — that is the point of the
+  // toggle, and the heading says so. Percentiles do not: the tiles label them
+  // "pctl of hist." and the regime badge must agree with the one the watchlist
+  // saves, which is deliberately full-history. Scoping them to a 3-year default
+  // would also leave only four rankable observations.
+  const percentiles = useMemo(() => computePercentiles(allHist, now), [allHist, now]);
 
   const regimePercentile = useMemo(() => {
     const vals = REGIME_METRICS.map((k) => percentiles[k]).filter((v) => v != null);
@@ -529,11 +539,13 @@ export default function App() {
 
         {/* ── Price Chart Page ─────────────────────────────────────────────── */}
         {data && !loading && view === 'price' && (
-          <PriceHistoryPage
-            ticker={sym}
-            companyName={data.companyName}
-            onBack={closeView}
-          />
+          <Suspense fallback={<div className="mt-5 bg-vs-card border border-vs-border rounded-xl h-[320px] animate-pulse" />}>
+            <PriceHistoryPage
+              ticker={sym}
+              companyName={data.companyName}
+              onBack={closeView}
+            />
+          </Suspense>
         )}
 
         {/* ── Earnings Call Transcript ─────────────────────────────────────── */}
@@ -807,13 +819,15 @@ export default function App() {
             </div>
 
             {/* Chart */}
-            <ValuChart
-              chartData={chartData}
-              selectedMetrics={selected}
-              averages={avgs}
-              isYield={isYield}
-              isDark={isDark}
-            />
+            <Suspense fallback={<div className="bg-vs-card border border-vs-border rounded-xl mt-3 h-[292px] sm:h-[382px] md:h-[452px] animate-pulse" />}>
+              <ValuChart
+                chartData={chartData}
+                selectedMetrics={selected}
+                averages={avgs}
+                isYield={isYield}
+                isDark={isDark}
+              />
+            </Suspense>
 
             {/* Fundamentals Panel */}
             <FundamentalsPanel hist={hist} now={now} data={data} />
@@ -909,14 +923,16 @@ export default function App() {
 
       {/* ── Pill detail bottom sheet ──────────────────────────────────────────── */}
       {activePill && (
-        <PillDetail
-          metric={activePill}
-          chartData={chartData}
-          averages={avgs}
-          years={years}
-          isDark={isDark}
-          onClose={() => setActivePill(null)}
-        />
+        <Suspense fallback={null}>
+          <PillDetail
+            metric={activePill}
+            chartData={chartData}
+            averages={avgs}
+            years={years}
+            isDark={isDark}
+            onClose={() => setActivePill(null)}
+          />
+        </Suspense>
       )}
     </div>
   );
