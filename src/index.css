@@ -11,7 +11,7 @@
   --vs-borderLight: 200 208 224;   /* #C8D0E0 */
   --vs-text:        26  31  46;    /* #1A1F2E */
   --vs-soft:        74  84  108;   /* #4A546C */
-  --vs-dim:         108 118 140;   /* #6C768C */
+  --vs-dim:         93  104 128;   /* #5D6880 — 5.0:1 on card2, the darkest light surface */
   /* Accent colors — light theme.
      These are deliberately darker than their dark-theme counterparts. The
      brighter accents below are legible on a near-black background but wash out
@@ -37,7 +37,7 @@
   --vs-borderLight: 40  52  72;    /* #283448 */
   --vs-text:        228 231 238;   /* #E4E7EE */
   --vs-soft:        148 160 184;   /* #94A0B8 */
-  --vs-dim:         90  106 130;   /* #5A6A82 */
+  --vs-dim:         122 139 165;   /* #7A8BA5 — 4.9:1 on card2; the old value sat at 3.3:1 */
   /* Accent colors — dark theme. Brighter, for a near-black background. */
   --vs-blue:   78  148 248;
   --vs-green:  56  216 154;

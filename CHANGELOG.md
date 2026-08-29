@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.18.1 — 2026-08-28
+
+### Changed
+- **The dim text color now passes WCAG AA everywhere.** `--vs-dim` is the app's most-used text color — 103 static uses — and measured 3.3:1 on dark cards, well under the 4.5:1 floor. Both themes' values were replaced (dark #5A6A82 → #7A8BA5, light #6C768C → #5D6880) and verified at 4.9–5.7:1 on every surface, while staying clearly subordinate to `--vs-soft`. Footnotes and labels are now legible without losing their tertiary rank.
+
+### Added
+- **A seven-token type scale** (`micro 10 · dense 11 · label 12 · body 13 · prose 15 · title 22 · display 28`) in the Tailwind config. Components migrate onto it file by file in an upcoming release; nothing visible changes in this one. Tables keep 11px deliberately — density is the point of this app — but the scale retires 9px text and lifts secondary text to 12px as files adopt it.
+
+### Fixed
+- The Tailwind config claimed accent colors are "identical in dark and light modes"; they have per-theme values tuned for AA contrast. The comment now says so.
+
 ## 0.18.0 — 2026-08-28
 
 ### Added
