@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.16.1 — 2026-08-28
+
+### Fixed
+- **Every historical year was priced one month after its fiscal year end.** Yahoo's monthly bars are timestamped at the start of the month while their close prints at the end of it, so nearest-date matching against a year end picked the following month's bar. In a quiet month that is a few percent; NVIDIA's January 2023 year end came out 19% high. Bars are now matched on the date their close actually printed. Verified to the penny: AAPL FY2022 now prices at $138.20 and KO FY2022 at $63.61, the actual year-end closes. Both the Yahoo and SEC EDGAR paths shared the bug and both are fixed.
+- **Historical prices no longer use dividend-adjusted closes.** The Yahoo path fell back to `adjclose`, which backs dividends out of every past price — right for total-return math, wrong for a point-in-time market cap, and worth ~10% on a decade of a payer like Coca-Cola. The SEC path already knew this; now both use the actual close.
+- **Down years count again.** Averages, ranges and percentiles filtered every metric to positive values, which is right for multiples — a negative P/E is a loss year, not a cheap one — but wrong for the nine metrics where the sign is the information: revenue growth, the five margins, ROIC, ND/EBITDA and interest coverage. A company's average growth no longer pretends its down years didn't happen, and net-cash years no longer vanish from leverage history.
+- **Percentiles are full-history again.** With the period toggle defaulting to 3Y, the "Nth pctl of hist." tile labels and the regime badge were quietly being scored against three years — four observations — and the on-page badge could disagree with the one the watchlist saves. Both now always measure against all available history; averages and ranges still follow the visible period, which is what the toggle is for.
+- **Four dead tickers in the comp sets.** PXD (absorbed by Exxon), SQ (now XYZ), GPS (now GAP) and ADYEN (never a US symbol; the ADR is ADYEY) failed silently and shrank their comp tables. Worse, PARA now resolves to an unrelated penny stock that would have rendered in the streaming set as if it were Paramount — it is PSKY now. All five verified live.
+
+### Performance
+- **The entry bundle dropped from 685 KB to 260 KB** (191 KB to 77 KB gzipped). Recharts is over a third of the app and the Indices landing view never draws a chart, so the chart components now load on demand. The landing page ships no charting code at all.
+
+### Notes
+- The month-end fix lives in `api/_lib/prices.js`, shared by both data paths so the seam between Yahoo and EDGAR years stays on one formula.
+- Known proxies left as documented behaviour, not bugs: the price chart plots dividend-adjusted closes (its CAGR is total return, so the two agree); TTM quarters are the last four with data, which can lag a quarter for slow filers; the comps table's EV omits minority interest because Yahoo's summary endpoint doesn't carry it.
+
 ## 0.16.0 — 2026-08-28
 
 ### Added
