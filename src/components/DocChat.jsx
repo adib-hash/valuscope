@@ -2,6 +2,15 @@ import { useRef, useState } from 'react';
 import { MessageCircleQuestion } from 'lucide-react';
 import { askDocument } from '../lib/api';
 
+// Gemini answers arrive with light markdown. Render **bold** inline instead
+// of showing literal asterisks; everything else stays plain text.
+const renderAnswer = (text) =>
+  String(text).split(/(\*\*[^*]+\*\*)/g).map((part, i) =>
+    part.startsWith('**') && part.endsWith('**')
+      ? <strong key={i} className="font-semibold text-vs-text">{part.slice(2, -2)}</strong>
+      : part
+  );
+
 // Ask-this-document. Stateless server, history lives here and resets with the
 // document. Deliberately small: a question box and a transcript, nothing more.
 export default function DocChat({ cik, accession, doc }) {
@@ -67,7 +76,7 @@ export default function DocChat({ cik, accession, doc }) {
                   ? 'text-vs-text font-medium'
                   : t.error ? 'text-vs-red' : 'text-vs-soft whitespace-pre-wrap'
               }`}>
-                {t.role === 'user' ? '› ' : ''}{t.text}
+                {t.role === 'user' ? `› ${t.text}` : t.error ? t.text : renderAnswer(t.text)}
               </p>
               {t.note && <p className="text-vs-dim text-micro font-mono mt-1">{t.note}</p>}
             </div>

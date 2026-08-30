@@ -873,7 +873,7 @@ export default function App() {
                   <Button
                     variant="ghost"
                     onClick={copyShare}
-                    aria-label="Copy share link"
+                    aria-label={copied ? 'Link copied' : 'Copy share link'}
                     title={copied ? 'Copied!' : 'Copy link'}
                     className={copied ? '!text-vs-green' : ''}
                   >
@@ -881,6 +881,17 @@ export default function App() {
                       ? <Check size={16} strokeWidth={2.5} aria-hidden="true" />
                       : <Link2 size={16} strokeWidth={2} aria-hidden="true" />}
                   </Button>
+                  {/* aria-live so the icon swap is also announced */}
+                  <span aria-live="polite" className="sr-only">{copied ? 'Link copied' : ''}</span>
+                  {copied && (
+                    <div
+                      className="fixed bottom-20 sm:bottom-8 left-1/2 -translate-x-1/2 z-50 rounded-lg border border-vs-border bg-vs-card px-3.5 py-2 text-label font-mono text-vs-text shadow-lg flex items-center gap-1.5"
+                      role="status"
+                    >
+                      <Check size={13} strokeWidth={2.5} aria-hidden="true" className="text-vs-green" />
+                      Link copied
+                    </div>
+                  )}
                   <Button
                     variant="ghost"
                     onClick={() => toggleWatchlist(sym)}

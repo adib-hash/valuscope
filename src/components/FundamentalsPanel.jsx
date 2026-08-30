@@ -54,6 +54,11 @@ export default function FundamentalsPanel({ hist, now, data }) {
   const growth  = useMemo(() => computeGrowthStats(hist),            [hist]);
   const margins = useMemo(() => computeMarginsTrend(hist, now),      [hist, now]);
 
+  // Interest expense is a bank's cost of goods and FCF ignores loan-book
+  // mechanics, so both stats read as noise for financials — same reasoning
+  // that already hides EBITDA multiples for the sector.
+  const isFinancial = data?.sector === 'Financial Services';
+
   const hasGrowth  = Object.values(growth).some((v) => v != null);
   const hasMargins = now && Object.keys(MARGIN_LABELS).some((k) => now[k] != null);
   const hasLeverage = now && (now.netDebt != null || now.netDebtToEbitda != null || now.interestCoverage != null || now.currentRatio != null);
@@ -93,6 +98,7 @@ export default function FundamentalsPanel({ hist, now, data }) {
               {Object.entries(MARGIN_LABELS).map(([key, label]) => {
                 const val = now[key];
                 if (val == null) return null;
+                if (key === 'fcfMargin' && isFinancial) return null;
                 const trend = margins[key];
                 return (
                   <div key={key} className="flex flex-col">
@@ -134,21 +140,27 @@ export default function FundamentalsPanel({ hist, now, data }) {
                 now.netDebtToEbitda < 2 ? 'rgb(var(--vs-text))' :
                 now.netDebtToEbitda < 4 ? 'rgb(var(--vs-amber))' : 'rgb(var(--vs-red))'
               } />
-              <StatChip label="Int. Coverage" value={fmtMult(now.interestCoverage)} color={
-                now.interestCoverage == null ? undefined :
-                now.interestCoverage > 5 ? 'rgb(var(--vs-green))' :
-                now.interestCoverage > 2 ? 'rgb(var(--vs-amber))' : 'rgb(var(--vs-red))'
-              } />
+              {!isFinancial && (
+                <StatChip label="Int. Coverage" value={fmtMult(now.interestCoverage)} color={
+                  now.interestCoverage == null ? undefined :
+                  now.interestCoverage > 5 ? 'rgb(var(--vs-green))' :
+                  now.interestCoverage > 2 ? 'rgb(var(--vs-amber))' : 'rgb(var(--vs-red))'
+                } />
+              )}
               <StatChip label="Current Ratio" value={fmtMult(now.currentRatio)} color={
                 now.currentRatio == null ? undefined :
                 now.currentRatio > 2 ? 'rgb(var(--vs-green))' :
                 now.currentRatio > 1 ? 'rgb(var(--vs-text))' : 'rgb(var(--vs-red))'
               } />
               {now.roic != null && (
-                <StatChip label="ROIC" value={now.roic.toFixed(1) + '%'} color={
-                  now.roic > 15 ? 'rgb(var(--vs-green))' :
-                  now.roic > 8  ? 'rgb(var(--vs-text))' : 'rgb(var(--vs-red))'
-                } />
+                <span title={now.roic > 150
+                  ? 'Invested capital is near zero (usually after heavy buybacks), so ROIC loses meaning at this scale.'
+                  : undefined}>
+                  <StatChip label="ROIC" value={now.roic > 150 ? '>150%' : now.roic.toFixed(1) + '%'} color={
+                    now.roic > 15 ? 'rgb(var(--vs-green))' :
+                    now.roic > 8  ? 'rgb(var(--vs-text))' : 'rgb(var(--vs-red))'
+                  } />
+                </span>
               )}
             </div>
           </div>

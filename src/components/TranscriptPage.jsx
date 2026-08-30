@@ -129,6 +129,7 @@ export default function TranscriptPage({ ticker, companyName, onBack }) {
                     return (
                       <button
                         key={`${q.year}-${q.quarter}`}
+                        aria-label={q.reportDate ? `${QUARTER_LABEL(q)}, call date ${q.reportDate}` : QUARTER_LABEL(q)}
                         onClick={() => { setSelected({ year: q.year, quarter: q.quarter }); setPickerOpen(false); setQuery(''); }}
                         className={`w-full text-left px-3.5 py-2 text-label font-mono cursor-pointer transition-colors ${
                           active ? 'bg-vs-blue/15 text-vs-blue' : 'text-vs-soft hover:bg-vs-card2'
