@@ -58,7 +58,7 @@ import {
 } from './lib/watchlist';
 
 const QUICK_TICKERS = ['AAPL', 'MSFT', 'ULTA', 'COST', 'META', 'AMZN', 'GOOGL', 'NFLX'];
-const APP_VERSION   = 'v0.23.0';
+const APP_VERSION   = 'v0.24.0';
 
 // The view the app opens on when the URL names neither a company nor a view.
 const DEFAULT_VIEW = 'indices';

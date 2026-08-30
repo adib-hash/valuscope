@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.24.0 — 2026-08-29
+
+### Fixed
+- **Foreign filers no longer mix currencies.** Yahoo's statement modules report in the filing currency while ADRs trade in USD, so Toyota showed an EV of $31.9T and Sony an EV/EBITDA of 0.09x, with confident badges computed on top. Statement values are now converted at each period's own exchange rate (and the page says so); if the rate can't be fetched, the page warns instead of silently serving garbage. The comps table applies the same conversion to foreign peers like TSM and SAP.
+- **Daily change on ticker headers was ~100x too small** (AAPL showed +0.02% when the day was +1.63%) — the quoteSummary API returns a fraction where the batch-quote API returns a percent, and the header trusted the wrong one. Header, watchlist and comps now agree.
+- **The "Today" price range worked never** — the API 404ed for every ticker, and the chart quietly kept the previous range's series while relabeling its change as "Today" (+112% on a 5Y series). The API now trims a multi-day intraday window to the last trading session in the exchange's own timezone, measures against the previous close like any quote screen, and the chart clears stale data on error.
+- **The comps table now agrees with the overview.** P/FCF used Yahoo's levered-FCF field while the overview computes TTM from quarterly cash flow — the same company showed 43x and 34x on one page. GOOGL and GOOG no longer both occupy peer slots (Alphabet was double-weighted in every mega-cap median); share classes dedupe by company name across all discovery paths.
+- **`BRK.B` now works.** Dot-notation class shares retry as Yahoo's dash form automatically; real exchange suffixes (RIO.L) still fail with an honest message.
+- **Light theme now clears WCAG AA everywhere.** The accents passed on white but accent text actually sits on tinted chips, where they measured 3.5:1 — all eight accents darkened; audits of the main pages now report zero failures in either theme. The light-mode bottom nav and search field also stopped disappearing into the page.
+- **Layout polish.** The four headline metric tiles are finally the same width and fill the desktop column; wide tables show scrolling shadows instead of slicing digits at the card edge on mobile; wrapped quick-links no longer inherit a phantom indent.
+- **Small dignities.** Filing Q&A renders bold instead of literal asterisks; banks no longer show FCF margin or interest coverage (noise for a lender, same logic that hides their EBITDA multiples); ROIC displays ">150%" with an explanation when buybacks have shrunk invested capital to nothing; copying a share link shows a toast and tells screen readers; Recharts' off-screen measurement span stops leaking "0.0x" into the accessibility tree.
+
+
 ## 0.23.0 — 2026-08-29
 
 ### Added
