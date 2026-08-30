@@ -179,7 +179,7 @@ export default function IndicesPage({ onBack }) {
 
       {!loading && !error && rows.length > 0 && (
         <div className="mt-4 rounded-xl border border-vs-border bg-vs-card overflow-hidden">
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto scroll-shadow-x">
             <table className="w-full font-mono text-dense">
               <thead>
                 <tr className="border-b border-vs-border">

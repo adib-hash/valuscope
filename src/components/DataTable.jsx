@@ -73,7 +73,7 @@ export default function DataTable({ years, averages, defaultOpen = false }) {
       </button>
 
       {open && (
-        <div className="overflow-x-auto mt-2 rounded-xl border border-vs-border bg-vs-card">
+        <div className="overflow-x-auto scroll-shadow-x mt-2 rounded-xl border border-vs-border bg-vs-card">
           <table className="w-full border-collapse font-mono text-dense">
             <thead>
               <tr className="border-b-2 border-vs-border">

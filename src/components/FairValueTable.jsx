@@ -24,7 +24,7 @@ export default function FairValueTable({ hist, now, currentPrice }) {
       subtitle={`Implied price if each multiple reverted to its ${histYears}-year average`}
     >
 
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto scroll-shadow-x">
         <table className="w-full font-mono text-dense">
           <thead>
             <tr className="border-y border-vs-border">

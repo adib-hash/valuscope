@@ -892,33 +892,36 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Research link */}
-              <a
-                href={`https://stockanalysis.com/stocks/${sym.toLowerCase()}/financials/ratios/`}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-block mt-2 text-vs-dim hover:text-vs-soft hover:underline transition-colors text-label font-mono"
-              >
-                StockAnalysis &#x2197;
-              </a>
-              <button
-                onClick={() => openView('price')}
-                className="inline-flex items-center gap-1 ml-3 text-vs-blue hover:underline text-label font-mono cursor-pointer"
-              >
-                Price chart →
-              </button>
-              <button
-                onClick={() => openView('transcript')}
-                className="inline-flex items-center gap-1 ml-3 text-vs-blue hover:underline text-label font-mono cursor-pointer"
-              >
-                Earnings call →
-              </button>
-              <button
-                onClick={() => openView('docs')}
-                className="inline-flex items-center gap-1 ml-3 text-vs-blue hover:underline text-label font-mono cursor-pointer"
-              >
-                Filings →
-              </button>
+              {/* Research link — gap spacing, not margins, so a wrapped line
+                  starts flush instead of inheriting a phantom indent */}
+              <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1">
+                <a
+                  href={`https://stockanalysis.com/stocks/${sym.toLowerCase()}/financials/ratios/`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-vs-dim hover:text-vs-soft hover:underline transition-colors text-label font-mono"
+                >
+                  StockAnalysis &#x2197;
+                </a>
+                <button
+                  onClick={() => openView('price')}
+                  className="inline-flex items-center gap-1 text-vs-blue hover:underline text-label font-mono cursor-pointer"
+                >
+                  Price chart →
+                </button>
+                <button
+                  onClick={() => openView('transcript')}
+                  className="inline-flex items-center gap-1 text-vs-blue hover:underline text-label font-mono cursor-pointer"
+                >
+                  Earnings call →
+                </button>
+                <button
+                  onClick={() => openView('docs')}
+                  className="inline-flex items-center gap-1 text-vs-blue hover:underline text-label font-mono cursor-pointer"
+                >
+                  Filings →
+                </button>
+              </div>
             </div>
 
             {/* Sector valuation insight */}
@@ -966,7 +969,7 @@ export default function App() {
               {PILL_METRICS.map(({ key, label, isYield: pillIsYield }) => {
                 const metricInfo = ALL_METRICS.find((m) => m.key === key);
                 return (
-                  <div key={key} className="snap-start shrink-0">
+                  <div key={key} className="snap-start shrink-0 flex-1 min-w-[130px] flex">
                     <Pill
                       label={label}
                       current={now[key]}
