@@ -98,7 +98,12 @@ export default function PriceHistoryPage({ ticker, companyName, onBack }) {
         const result = await fetchPriceHistory(ticker, range);
         if (!cancelled) setData(result);
       } catch (e) {
-        if (!cancelled) setError(e.message || 'Failed to load price history');
+        if (!cancelled) {
+          // Drop the previous range's series too — keeping it would show a
+          // stale chart and header mislabeled with the failed range.
+          setData(null);
+          setError(e.message || 'Failed to load price history');
+        }
       } finally {
         if (!cancelled) setLoading(false);
       }

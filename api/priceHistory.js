@@ -20,7 +20,9 @@ function resolveRange(range) {
   };
 
   switch (r) {
-    case '1D':  return { period1: daysAgo(1),  interval: '5m'  };
+    // Yahoo returns an empty set when the 5m window starts mid-session or on a
+    // non-trading day, so ask for a few days and trim to the last session below.
+    case '1D':  return { period1: daysAgo(5),  interval: '5m', lastSessionOnly: true };
     case '5D':  return { period1: daysAgo(5),  interval: '30m' };
     case '1M':  return { period1: daysAgo(31), interval: '1d'  };
     case 'YTD': return { period1: new Date(now.getFullYear(), 0, 1), interval: '1d' };
@@ -36,7 +38,7 @@ export default async function handler(req, res) {
   if (!ticker) return res.status(400).json({ error: 'Missing ticker parameter' });
 
   const symbol = ticker.toUpperCase().trim();
-  const { period1, interval } = resolveRange(range);
+  const { period1, interval, lastSessionOnly } = resolveRange(range);
 
   try {
     const chart = await yahooFinance.chart(
@@ -45,7 +47,7 @@ export default async function handler(req, res) {
       { validateResult: false }
     );
 
-    const quotes = (chart?.quotes || [])
+    let quotes = (chart?.quotes || [])
       .filter((q) => q && q.date && (q.close != null || q.adjclose != null))
       .map((q) => ({
         date:  new Date(q.date).toISOString(),
@@ -53,11 +55,27 @@ export default async function handler(req, res) {
         volume: q.volume ?? null,
       }));
 
+    if (lastSessionOnly && quotes.length) {
+      // Keep only bars from the most recent trading day, grouped by the
+      // exchange's local calendar so sessions that straddle UTC midnight
+      // (e.g. ASX) stay whole.
+      const tz = chart?.meta?.exchangeTimezoneName || 'America/New_York';
+      const dayKey = (iso) =>
+        new Intl.DateTimeFormat('en-CA', { timeZone: tz }).format(new Date(iso));
+      const lastDay = dayKey(quotes[quotes.length - 1].date);
+      quotes = quotes.filter((q) => dayKey(q.date) === lastDay);
+    }
+
     if (!quotes.length) {
       return res.status(404).json({ error: `No price history for ${symbol}.` });
     }
 
-    const first = quotes[0].close;
+    // "Today" is measured against the previous close, like any quote screen;
+    // longer ranges measure from the first bar in the window.
+    const prevClose = lastSessionOnly
+      ? (chart?.meta?.previousClose ?? chart?.meta?.chartPreviousClose)
+      : null;
+    const first = Number.isFinite(prevClose) ? prevClose : quotes[0].close;
     const last  = quotes[quotes.length - 1].close;
     const change = last - first;
     const changePct = first > 0 ? (change / first) * 100 : null;
