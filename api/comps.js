@@ -174,7 +174,8 @@ async function fetchMultiples(sym) {
     description: prof.longBusinessSummary || '',
     mktCap:  mktCap != null ? mktCap / 1e6 : null,
     price:   curPrice,
-    change:  price.regularMarketChangePercent ?? null,
+    change:  price.regularMarketChangePercent != null
+                 ? price.regularMarketChangePercent * 100 : null, // quoteSummary returns a fraction, not a percent
     pe, pb, ps, pfcf,
     evEbitda, evSales, evFcf,
     fcfYield, earningsYield,

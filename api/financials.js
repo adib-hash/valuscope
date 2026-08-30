@@ -365,7 +365,8 @@ export default async function handler(req, res) {
       industry:      profile.industry            || '',
       description:   profile.longBusinessSummary || '',
       currentPrice,
-      change:        priceData.regularMarketChangePercent ?? null,
+      change:        priceData.regularMarketChangePercent != null
+                       ? priceData.regularMarketChangePercent * 100 : null, // quoteSummary returns a fraction, not a percent
       currentMktCap: currentMktCap != null ? currentMktCap / 1e6 : null,
       // Signal fields
       beta:                sd.beta                    ?? null,
