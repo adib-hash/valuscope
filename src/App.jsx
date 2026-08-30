@@ -359,6 +359,17 @@ export default function App() {
         setSelected(['pe', 'evEbitda']);
       }
     } catch (e) {
+      // Class shares are usually typed with a dot (BRK.B) but Yahoo indexes
+      // them with a dash (BRK-B). Probe the dash form before giving up; real
+      // dot suffixes (RIO.L, 7203.T) fail both ways and keep the original
+      // symbol in the error message.
+      const dashed = sym.replace(/\./g, '-');
+      if (dashed !== sym) {
+        try {
+          await fetchFinancials(dashed);
+          return loadCompany(dashed, keepView);
+        } catch { /* fall through to the original error */ }
+      }
       setError(`Failed to load ${sym}: ${e.message}`);
     }
     setLoading(false);
