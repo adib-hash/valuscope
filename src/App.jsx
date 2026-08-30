@@ -836,6 +836,17 @@ export default function App() {
                     )}
                   </p>
 
+                  {data.fxConverted && (
+                    <p className="text-vs-dim text-label mt-1">
+                      Financials reported in {data.financialCurrency}, converted to {data.currency} at each period's exchange rate.
+                    </p>
+                  )}
+                  {data.fxUnconverted && (
+                    <p className="text-label mt-1" style={{ color: 'rgb(var(--vs-amber))' }}>
+                      Financials are reported in {data.financialCurrency} and could not be converted — multiples on this page mix currencies and are unreliable.
+                    </p>
+                  )}
+
                   {/* Collapsible company description */}
                   {data.description && (
                     <p className="text-vs-dim text-label mt-2 leading-relaxed">

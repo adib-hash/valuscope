@@ -96,6 +96,59 @@ export default async function handler(req, res) {
     const currentMktCap = priceData.marketCap          ?? null;
     // currentEV is computed below in the Now section after latestBs is available
 
+    // ── Currency normalization ──────────────────────────────────────────────
+    // ADRs trade in USD while Yahoo's statement modules report in the filing
+    // currency (Toyota: JPY), which used to mix currencies inside every
+    // multiple (EV came out at $31T). Convert statement values into the
+    // trading currency at each period's own FX rate so historical multiples
+    // keep their era's exchange rate.
+    const FIN_FIELDS = ['totalRevenue', 'grossProfit', 'EBIT', 'operatingIncome', 'EBITDA',
+      'normalizedEBITDA', 'netIncome', 'interestExpense', 'taxProvision', 'pretaxIncome'];
+    const BS_FIELDS  = ['commonStockEquity', 'stockholdersEquity', 'totalDebt',
+      'cashCashEquivalentsAndShortTermInvestments', 'cashAndCashEquivalents',
+      'minorityInterest', 'currentAssets', 'currentLiabilities'];
+    const CF_FIELDS  = ['operatingCashFlow', 'freeCashFlow', 'repurchaseOfCapitalStock'];
+    const FD_FIELDS  = ['totalRevenue', 'grossProfits', 'ebitda', 'operatingCashflow',
+      'freeCashflow', 'totalDebt', 'totalCash'];
+
+    const tradeCcy = priceData.currency          || null;
+    const finCcy   = fd.financialCurrency || null; // lives on financialData, not price
+    let fxConverted = false;
+    let fxUnconverted = false; // mismatch detected but conversion unavailable
+    if (finCcy && tradeCcy && finCcy !== tradeCcy && tradeCcy !== 'GBp') {
+      try {
+        const fxChart = await yahooFinance.chart(`${finCcy}${tradeCcy}=X`,
+          { period1, interval: '1mo' }, { validateResult: false });
+        const fxBars = (fxChart?.quotes || [])
+          .filter((q) => q?.date && (q.adjclose ?? q.close) != null)
+          .map((q) => ({ t: new Date(q.date).getTime(), rate: q.adjclose ?? q.close }));
+        if (!fxBars.length) throw new Error('empty FX series');
+        const fxNear = (date) => {
+          const t = new Date(date).getTime();
+          let best = fxBars[fxBars.length - 1], diff = Infinity;
+          for (const b of fxBars) {
+            const d = Math.abs(b.t - t);
+            if (d < diff) { diff = d; best = b; }
+          }
+          return best.rate;
+        };
+        const convert = (row, fields, rate) => {
+          for (const f of fields) if (row && row[f] != null) row[f] *= rate;
+        };
+        for (const row of finSeries    || []) convert(row, FIN_FIELDS, fxNear(row.date));
+        for (const row of bsSeries     || []) convert(row, BS_FIELDS,  fxNear(row.date));
+        for (const row of cfSeries     || []) convert(row, CF_FIELDS,  fxNear(row.date));
+        for (const row of qtrFinSeries || []) convert(row, FIN_FIELDS, fxNear(row.date));
+        for (const row of qtrCfSeries  || []) convert(row, CF_FIELDS,  fxNear(row.date));
+        convert(fd, FD_FIELDS, fxBars[fxBars.length - 1].rate);
+        fxConverted = true;
+      } catch {
+        // Serving unconverted numbers silently is exactly the bug this block
+        // exists to fix — flag it so the UI can warn instead.
+        fxUnconverted = true;
+      }
+    }
+
     const years = validFinYears.map((fin, i) => {
       const endDate = fin.date;
       const yr      = endDate ? new Date(endDate).getFullYear() : '?';
@@ -256,7 +309,10 @@ export default async function handler(req, res) {
     // (more accurate than recomputing from TTM net income, which can differ due to
     // adjustments Yahoo makes)
     const nowPe   = sd.trailingPE  || stats.trailingPE  || null;
-    const nowPb   = stats.priceToBook                   ?? null;
+    const nowPb   = fxConverted || fxUnconverted
+      ? (currentMktCap && (latestBs.commonStockEquity ?? 0) > 0
+          ? currentMktCap / latestBs.commonStockEquity : null)
+      : (stats.priceToBook ?? null);
     const nowPs   = currentMktCap && nowRevenue     > 0 ? currentMktCap / nowRevenue     : null;
     const nowPfcf = currentMktCap && nowFcf         > 0 ? currentMktCap / nowFcf         : null;
     const nowPocf = currentMktCap && nowOcf         > 0 ? currentMktCap / nowOcf         : null;
@@ -365,6 +421,10 @@ export default async function handler(req, res) {
       industry:      profile.industry            || '',
       description:   profile.longBusinessSummary || '',
       currentPrice,
+      currency:          tradeCcy || 'USD',
+      financialCurrency: finCcy   || tradeCcy || 'USD',
+      fxConverted,
+      fxUnconverted,
       change:        priceData.regularMarketChangePercent != null
                        ? priceData.regularMarketChangePercent * 100 : null, // quoteSummary returns a fraction, not a percent
       currentMktCap: currentMktCap != null ? currentMktCap / 1e6 : null,
