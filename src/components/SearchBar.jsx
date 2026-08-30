@@ -174,7 +174,7 @@ export default function SearchBar({ onSelectTicker, onSelectFiler, loading }) {
           autoComplete="off"
           /* 16px on mobile is what stops iOS zooming the page when the field is
              focused; the tighter size is safe from the sm breakpoint up. */
-          className="flex-1 bg-vs-card border border-vs-borderLight rounded-lg px-4 py-3 text-vs-text text-[16px] sm:text-prose font-mono outline-none focus:border-vs-blue transition-colors min-w-0"
+          className="flex-1 bg-vs-card border border-vs-borderLight rounded-lg px-4 py-3 text-vs-text placeholder:text-vs-dim text-[16px] sm:text-prose font-mono outline-none focus:border-vs-blue transition-colors min-w-0 shadow-sm"
         />
         <button
           onClick={submitRaw}

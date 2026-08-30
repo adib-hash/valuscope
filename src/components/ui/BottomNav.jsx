@@ -3,7 +3,7 @@
 export default function BottomNav({ items, activeKey, onSelect }) {
   return (
     <nav
-      className="fixed bottom-0 inset-x-0 z-40 sm:hidden border-t border-vs-border bg-vs-card/95 backdrop-blur"
+      className="fixed bottom-0 inset-x-0 z-40 sm:hidden border-t border-vs-borderLight bg-vs-card/95 backdrop-blur shadow-[0_-4px_16px_rgba(15,23,42,0.10)]"
       style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
     >
       <div className="flex h-14">

@@ -15,17 +15,19 @@
   /* Accent colors — light theme.
      These are deliberately darker than their dark-theme counterparts. The
      brighter accents below are legible on a near-black background but wash out
-     badly on white: the dark-theme green reads 1.8:1 against a light card,
-     where WCAG AA wants 4.5:1. Every value here clears 4.5:1 on white and 4:1
-     on --vs-card2, the darkest light surface. */
-  --vs-blue:   55  118 208;
-  --vs-green:  18  134 89;
-  --vs-red:    206 70  70;
-  --vs-amber:  158 109 14;
-  --vs-violet: 128 98  211;
-  --vs-rose:   184 84  127;
-  --vs-orange: 176 97  30;
-  --vs-cyan:   21  130 143;
+     badly on white. The real bar is not white though: accent text sits on its
+     own 15% tint (active chips, the STRETCHED badge), which is darker than
+     white — the previous values cleared 4.5:1 on white but measured 3.5–3.8:1
+     on their tints. Every value here clears 4.5:1 on its own /15 tint over
+     white, which also clears white and --vs-card2 by a wider margin. */
+  --vs-blue:   38  96  176;
+  --vs-green:  13  110 72;
+  --vs-red:    180 52  52;
+  --vs-amber:  130 88  8;
+  --vs-violet: 106 78  186;
+  --vs-rose:   160 62  105;
+  --vs-orange: 150 80  16;
+  --vs-cyan:   14  108 119;
 }
 
 /* ── Dark theme ── */
@@ -47,6 +49,20 @@
   --vs-rose:   224 112 160;
   --vs-orange: 232 138 58;
   --vs-cyan:   56  200 216;
+}
+
+/* Horizontal-scroll affordance for wide tables. Scrolling shadows: the card
+   background scrolls with the content (background-attachment: local) and
+   covers the fixed edge shadows, so a shadow only shows on a side that still
+   has content off-screen — and disappears when scrolled to that end. */
+.scroll-shadow-x {
+  background:
+    linear-gradient(to right, rgb(var(--vs-card)) 30%, rgb(var(--vs-card) / 0)) left / 32px 100%,
+    linear-gradient(to left,  rgb(var(--vs-card)) 30%, rgb(var(--vs-card) / 0)) right / 32px 100%,
+    radial-gradient(farthest-side at 0 50%,   rgb(0 0 0 / 0.22), transparent) left / 14px 100%,
+    radial-gradient(farthest-side at 100% 50%, rgb(0 0 0 / 0.22), transparent) right / 14px 100%;
+  background-repeat: no-repeat;
+  background-attachment: local, local, scroll, scroll;
 }
 
 body {
