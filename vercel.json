@@ -8,6 +8,9 @@
     },
     "api/docs.js": {
       "maxDuration": 60
+    },
+    "api/earnings.js": {
+      "maxDuration": 60
     }
   },
   "rewrites": [

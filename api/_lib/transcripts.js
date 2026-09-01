@@ -72,6 +72,61 @@ const toDate = (v) => {
   return isNaN(d) ? null : d.toISOString().slice(0, 10);
 };
 
+// Every call in the dataset, keyed by symbol, newest first — the index columns
+// only, read across the whole file. That sounds expensive and is not: the
+// columns are a symbol, two small integers and a date for ~235k rows, a few
+// megabytes against the 2.2 GB the transcripts themselves occupy. It is what
+// lets the earnings calendar ask "which of these five hundred companies has a
+// transcript on this day" in one pass instead of five hundred row-group reads.
+//
+// The dataset is rebuilt daily, so the index is held for a few hours and then
+// re-read; a failed refresh keeps serving the previous copy rather than
+// nothing.
+let indexCache = null; // { bySymbol: Map, builtAt }
+let indexPromise = null;
+const INDEX_TTL_MS = 4 * 60 * 60 * 1000;
+
+async function buildTranscriptIndex() {
+  const file = await getFile();
+  const metadata = await getMetadata(file);
+  const rows = await parquetReadObjects({ file, metadata, compressors, columns: INDEX_COLUMNS });
+
+  const bySymbol = new Map();
+  for (const r of rows) {
+    const symbol = String(r.symbol ?? '').trim();
+    if (!symbol) continue;
+    let list = bySymbol.get(symbol);
+    if (!list) { list = []; bySymbol.set(symbol, list); }
+    list.push({
+      year: Number(r.fiscal_year),
+      quarter: Number(r.fiscal_quarter),
+      reportDate: toDate(r.report_date),
+    });
+  }
+  for (const list of bySymbol.values()) {
+    list.sort((a, b) => (b.year - a.year) || (b.quarter - a.quarter));
+  }
+  return { bySymbol, builtAt: Date.now(), rows: rows.length };
+}
+
+export async function getTranscriptIndex() {
+  const fresh = indexCache && Date.now() - indexCache.builtAt < INDEX_TTL_MS;
+  if (fresh) return indexCache;
+  if (!indexPromise) {
+    indexPromise = buildTranscriptIndex()
+      .then((built) => { indexCache = built; return built; })
+      .catch((err) => {
+        if (indexCache) {
+          console.warn(`Transcript index refresh failed, serving stale copy: ${err.message}`);
+          return indexCache;
+        }
+        throw err;
+      })
+      .finally(() => { indexPromise = null; });
+  }
+  return indexPromise;
+}
+
 // Every quarter we hold for a ticker, newest first.
 export async function listQuarters(symbol) {
   const file = await getFile();

@@ -39,6 +39,11 @@ Historical valuation multiples for any US public company. Look up 3-10 years of 
 ### Valuation Regime Badge
 - Single-word verdict (Deep Value / Undervalued / Fair Value / Stretched / Expensive) based on average percentile of pill metrics
 
+### Earnings Calendar & Digest
+- Every S&P 500 constituent's earnings call on a weekday grid, by month, with a count per day and a mark for calls whose transcript has landed
+- Day view lists who reported, largest first, with session and a link to each transcript
+- One-tap earnings digest: reads every call on the day and lays out results, key metrics, guidance, analyst Q&A and risks per company under a cross-call summary of the day (needs a Gemini key)
+
 ### Company Info
 - Market cap and EV displayed alongside price and daily change
 - Collapsible company description (longBusinessSummary)

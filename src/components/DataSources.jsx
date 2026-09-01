@@ -10,7 +10,7 @@ import { useEffect, useRef, useState } from 'react';
 export const DATA_SOURCES = [
   {
     name: 'Yahoo Finance',
-    use: 'Quotes, financial statements, index levels and returns, price history, earnings estimates, peer comps',
+    use: 'Quotes, financial statements, index levels and returns, price history, earnings dates and estimates, peer comps',
   },
   {
     name: 'SEC EDGAR',
@@ -25,12 +25,16 @@ export const DATA_SOURCES = [
     use: 'Earnings call transcripts',
   },
   {
+    name: 'datasets/s-and-p-500-companies · GitHub',
+    use: 'The S&P 500 constituent list behind the earnings calendar',
+  },
+  {
     name: 'Alpha Vantage',
     use: 'Transcript fallback when the primary dataset is unavailable',
   },
   {
     name: 'Google Gemini',
-    use: 'Earnings call summaries (only when you ask), and comp selection for tickers no other source covers',
+    use: 'Earnings call summaries and the daily earnings digest (only when you ask), and comp selection for tickers no other source covers',
   },
 ];
 

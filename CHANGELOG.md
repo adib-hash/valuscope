@@ -3,6 +3,15 @@
 ## Unreleased
 
 ### Added
+- **S&P 500 earnings calendar.** A new top-level `Earnings` view, reachable without loading a company: a weekday grid of every constituent's call, by month, with a count per day and a mark for how many of those calls already have a transcript. Pick a day to see who reported, largest first, with the session (before open / after close) where Yahoo gives one, and jump straight to a company or its transcript. `?view=calendar&date=YYYY-MM-DD` is a deep link.
+- **One-tap earnings digest.** On any day with transcripts loaded, one button reads every call and lays the day out company by company — the headline numbers as chips, results, guidance, what analysts pressed on, takeaways and risks — under a cross-call read of the day: the tone, the threads that ran through more than one call, and which calls are worth reading in full. Per-call summaries are paced two at a time with a pause-and-retry on the free tier's rate limit, so a thirty-call day reads itself in a few minutes without a wall of failures, and progress is visible throughout.
+- **Call summaries now carry key metrics.** The single-call summary asks Gemini for the headline figures as structured label/value/comparison triples and renders them as chips above the prose; the digest uses the same chips.
+- **Call summaries persist.** Each summary is written once to the artifact store (`summary/{symbol}/{year}-Q{quarter}.json`) and served from there ever after, so a digest re-opened tomorrow, or by someone else, pays only for calls not yet read. The day-level read is stored the same way, keyed by the set of calls it covered, so a day whose transcripts arrive over two mornings gets a fresh read once the set grows.
+
+### Notes
+- Still twelve functions. The calendar is `op=calendar` on `/api/earnings`, the digest is `op=digest` on `/api/summarize`; both functions now carry the 60-second duration cap. Five hundred companies is five batch quotes, not five hundred calls, and transcript availability comes from one pass over the dataset's index columns (a few megabytes, held for four hours) rather than five hundred row-group reads.
+- The constituent list is a bundled snapshot of the `datasets/s-and-p-500-companies` CSV on GitHub, refreshed from the same URL at runtime (daily, with the snapshot as the fallback). `node scripts/gen-sp500.mjs` regenerates the snapshot.
+- A call is filed under the day its transcript carries; a Yahoo date within three days of it is treated as the same call, which absorbs the after-close-on-the-30th, filed-on-the-31st disagreement between the two sources. A recently reported company whose transcript has not landed shows as pending on Yahoo's date.
 - **S&P 500 Growth and Value on the Indices page.** Two new rows directly under the S&P 500, measured through the iShares S&P 500 Growth (IVW) and Value (IVE) ETFs on both bases. Yahoo has no free series for the style indices themselves, and these are the oldest funds tracking them (2000), so the 10-year column is covered. The price-basis footnote now lists them alongside the other ETF-measured rows.
 
 ## 0.24.0 — 2026-08-29

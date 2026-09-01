@@ -8,7 +8,9 @@ async function apiFetch(path) {
   const res = await fetch(path);
   if (!res.ok) {
     const body = await res.json().catch(() => ({}));
-    throw new Error(body.error || `API error: ${res.status}`);
+    const err = new Error(body.error || `API error: ${res.status}`);
+    err.status = res.status; // lets callers tell a rate limit (429) from a real failure
+    throw err;
   }
   return res.json();
 }
@@ -51,11 +53,37 @@ export async function fetchTranscript(ticker, year, quarter) {
 }
 
 // AI summary of an earnings call. Slow (10-15s) and explicitly user-triggered,
-// so it is never called as part of a page load.
+// so it is never called as part of a page load. Generated once per call and
+// then served from the artifact store, which is what makes a day's digest
+// cheap the second time.
 export async function fetchSummary(ticker, year, quarter) {
   const params = new URLSearchParams({ ticker });
   if (year && quarter) { params.set('year', year); params.set('quarter', quarter); }
   return apiFetch(`/api/summarize?${params}`);
+}
+
+// Every S&P 500 call in a date window: who reports when, and which of those
+// calls already has a transcript to read. Same function as the per-company
+// earnings panel, dispatched on op — the twelve-function ceiling again.
+export async function fetchEarningsCalendar(from, to) {
+  return apiFetch(`/api/earnings?op=calendar&from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}`);
+}
+
+// The top of the digest: one read across a day's call summaries. Posted rather
+// than fetched because the summaries are the input.
+export async function synthesizeDigest(date, calls) {
+  const res = await fetch('/api/summarize?op=digest', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ date, calls }),
+  });
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({}));
+    const err = new Error(body.error || `API error: ${res.status}`);
+    err.status = res.status;
+    throw err;
+  }
+  return res.json();
 }
 
 export async function fetchPriceHistory(ticker, range = '1Y') {

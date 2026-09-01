@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Sparkles } from 'lucide-react';
 import { fetchSummary } from '../lib/api';
+import KeyMetrics from './ui/KeyMetrics';
 
 const SECTIONS = [
   { key: 'keyTakeaways',        label: 'Key Takeaways' },
@@ -98,6 +99,8 @@ export default function CallSummary({ ticker, year, quarter }) {
               {summary.overview}
             </p>
           )}
+
+          <KeyMetrics items={summary.keyMetrics} className="mt-4" />
 
           {SECTIONS.map(({ key, label }) => {
             const items = summary[key];

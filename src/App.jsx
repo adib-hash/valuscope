@@ -10,7 +10,7 @@ import ErrorBoundary from './components/ui/ErrorBoundary';
 import CompareControl from './components/CompareControl';
 import CompareGrid from './components/CompareGrid';
 import { TICKER_COLORS, buildCompareData, compareStats } from './lib/compare';
-import { Sun, Moon, Settings, Link2, Check, Star, X, Globe, LineChart, Landmark } from 'lucide-react';
+import { Sun, Moon, Settings, Link2, Check, Star, X, Globe, LineChart, Landmark, CalendarDays } from 'lucide-react';
 
 // Recharts is over a third of the bundle, and the Indices landing view never
 // draws a chart — so everything that imports it loads on demand instead of
@@ -26,6 +26,9 @@ const PriceHistoryPage = lazy(() => import('./components/PriceHistoryPage'));
 const CompareChart     = lazy(() => import('./components/CompareChart'));
 const FilingsPage      = lazy(() => import('./components/FilingsPage'));
 const FilingReader     = lazy(() => import('./components/FilingReader'));
+// The calendar is a landing view too, but its digest machinery has no
+// business in the entry chunk.
+const EarningsCalendarPage = lazy(() => import('./components/EarningsCalendarPage'));
 import Pill from './components/Pill';
 import FundamentalsPanel from './components/FundamentalsPanel';
 import FairValueTable from './components/FairValueTable';
@@ -68,6 +71,7 @@ const DEFAULT_VIEW = 'indices';
 // now that the app no longer lands there.
 const NAV_ITEMS = [
   { label: 'Indices',   view: 'indices' },
+  { label: 'Earnings',  view: 'calendar' },
   { label: 'Valuation', view: 'valuation' },
   { label: '13F',       view: 'institutions' },
   { label: 'Watchlist', view: 'watchlist' },
@@ -78,6 +82,7 @@ const NAV_ITEMS = [
 // was loaded without resetting the whole app.
 const BOTTOM_NAV = [
   { key: 'indices',      label: 'Indices',   icon: Globe },
+  { key: 'calendar',     label: 'Earnings',  icon: CalendarDays },
   { key: 'valuation',    label: 'Valuation', icon: LineChart },
   { key: 'institutions', label: '13F',       icon: Landmark },
   { key: 'watchlist',    label: 'Watchlist', icon: Star },
@@ -301,8 +306,10 @@ export default function App() {
 
   // `keepView` is set when loading straight from the URL, so that a shared link
   // like ?ticker=AAPL&view=transcript lands on the view it names instead of
-  // being reset to the dashboard.
-  const loadCompany = async (ticker, keepView = false) => {
+  // being reset to the dashboard. `opts.view` opens a company straight onto a
+  // named view — the earnings calendar's "read the call" goes to the
+  // transcript, not the dashboard.
+  const loadCompany = async (ticker, keepView = false, opts = {}) => {
     const sym = ticker.toUpperCase().trim();
     if (!sym) return;
     setLoading(true);
@@ -316,6 +323,7 @@ export default function App() {
     const currentMetric = keepView ? searchParams.get('metric') : null;
     const nextParams = { ticker: sym };
     if (currentView) nextParams.view = currentView;
+    if (opts.view) nextParams.view = opts.view;
     if (currentTab && COMPANY_TABS.some((t) => t.value === currentTab)) nextParams.tab = currentTab;
     if (currentVs) nextParams.vs = currentVs;
     if (currentVs && currentMetric) nextParams.metric = currentMetric;
@@ -367,7 +375,7 @@ export default function App() {
       if (dashed !== sym) {
         try {
           await fetchFinancials(dashed);
-          return loadCompany(dashed, keepView);
+          return loadCompany(dashed, keepView, opts);
         } catch { /* fall through to the original error */ }
       }
       setError(`Failed to load ${sym}: ${e.message}`);
@@ -716,6 +724,21 @@ export default function App() {
         {view === 'indices' && (
           <ErrorBoundary label="The indices view">
             <IndicesPage onBack={sym ? closeView : null} />
+          </ErrorBoundary>
+        )}
+
+        {/* ── Earnings calendar (no ticker required) ───────────────────────── */}
+        {view === 'calendar' && (
+          <ErrorBoundary label="The earnings calendar">
+            <Suspense fallback={<div className="mt-5 rounded-xl border border-vs-border bg-vs-card h-80 animate-pulse" />}>
+              <EarningsCalendarPage
+                date={searchParams.get('date')}
+                onSelectDate={(d) => setSearchParams(d ? { view: 'calendar', date: d } : { view: 'calendar' }, { replace: true })}
+                onSelectTicker={loadCompany}
+                onOpenTranscript={(s) => loadCompany(s, false, { view: 'transcript' })}
+                onBack={sym ? closeView : null}
+              />
+            </Suspense>
           </ErrorBoundary>
         )}
 
