@@ -30,6 +30,17 @@ const INDICES = [
     total: { symbol: 'SPY', via: 'SPDR S&P 500 ETF' },
     price: { symbol: '^GSPC', via: 'S&P 500 index' } },
 
+  // The S&P 500 split by style. Yahoo has no free series for the style indices
+  // themselves, so the iShares ETFs stand in on both bases. They are the oldest
+  // funds tracking these indices (2000), so the ten-year column is always covered.
+  { key: 'spxGrowth', label: 'S&P 500 Growth', group: 'Developed',
+    total: { symbol: 'IVW', via: 'iShares S&P 500 Growth ETF' },
+    price: { symbol: 'IVW', via: 'iShares S&P 500 Growth ETF' } },
+
+  { key: 'spxValue', label: 'S&P 500 Value', group: 'Developed',
+    total: { symbol: 'IVE', via: 'iShares S&P 500 Value ETF' },
+    price: { symbol: 'IVE', via: 'iShares S&P 500 Value ETF' } },
+
   { key: 'nasdaq', label: 'NASDAQ', group: 'Developed',
     total: { symbol: 'QQQ', via: 'Invesco QQQ — NASDAQ-100' },
     price: { symbol: '^IXIC', via: 'NASDAQ Composite index' } },

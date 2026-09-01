@@ -287,7 +287,7 @@ export default function IndicesPage({ onBack }) {
             <p className="text-vs-soft text-micro font-mono leading-relaxed max-w-[80ch]">
               {isTotal
                 ? 'Total return uses investable ETFs as the measuring instrument, priced in USD with distributions reinvested. FTSE 100 and Nikkei 225 have no free total-return series, so MSCI UK and MSCI Japan stand in — those rows are marked as proxies and are not the same indices. Annualised figures are suppressed where the instrument has too little history to cover the window.'
-                : 'Price return excludes dividends and coupons, and each index is shown in its own currency, so rows are not comparable with one another. Real estate, energy and bond rows still use ETFs — no free index series exists for them — which is why their price returns understate what a holder actually earned.'}
+                : 'Price return excludes dividends and coupons, and each index is shown in its own currency, so rows are not comparable with one another. The S&P 500 Growth and Value, real estate, energy and bond rows still use ETFs — no free index series exists for them — which is why their price returns understate what a holder actually earned.'}
             </p>
             <p className="text-vs-soft text-micro font-mono mt-1.5">
               Data: Yahoo Finance. Past returns say nothing about future ones.

@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+### Added
+- **S&P 500 Growth and Value on the Indices page.** Two new rows directly under the S&P 500, measured through the iShares S&P 500 Growth (IVW) and Value (IVE) ETFs on both bases. Yahoo has no free series for the style indices themselves, and these are the oldest funds tracking them (2000), so the 10-year column is covered. The price-basis footnote now lists them alongside the other ETF-measured rows.
+
 ## 0.24.0 — 2026-08-29
 
 ### Fixed
