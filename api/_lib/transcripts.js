@@ -86,10 +86,39 @@ let indexCache = null; // { bySymbol: Map, builtAt }
 let indexPromise = null;
 const INDEX_TTL_MS = 4 * 60 * 60 * 1000;
 
+// Row groups per read. One call over the whole file fans out a range request
+// per column chunk per row group at once, and on Vercel that many concurrent
+// lookups of the dataset's CDN has failed with a DNS EBUSY; a handful at a
+// time is well inside what the runtime tolerates and costs a second or two.
+const INDEX_BATCH_GROUPS = 8;
+
+async function readIndexRows(file, metadata) {
+  const groups = metadata.row_groups.map((g) => Number(g.num_rows));
+  const rows = [];
+  let start = 0;
+  for (let i = 0; i < groups.length; i += INDEX_BATCH_GROUPS) {
+    const end = start + groups.slice(i, i + INDEX_BATCH_GROUPS).reduce((a, b) => a + b, 0);
+    const read = () => parquetReadObjects({
+      file, metadata, compressors, columns: INDEX_COLUMNS, rowStart: start, rowEnd: end,
+    });
+    let batch;
+    try {
+      batch = await read();
+    } catch (err) {
+      // One transient failure should not cost the whole index.
+      await new Promise((r) => setTimeout(r, 500));
+      batch = await read();
+    }
+    rows.push(...batch);
+    start = end;
+  }
+  return rows;
+}
+
 async function buildTranscriptIndex() {
   const file = await getFile();
   const metadata = await getMetadata(file);
-  const rows = await parquetReadObjects({ file, metadata, compressors, columns: INDEX_COLUMNS });
+  const rows = await readIndexRows(file, metadata);
 
   const bySymbol = new Map();
   for (const r of rows) {

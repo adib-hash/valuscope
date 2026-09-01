@@ -7,13 +7,15 @@ import { SummaryBody } from './ui/SummarySections';
 export default function CallSummary({ ticker, year, quarter }) {
   const [summary, setSummary] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [stage, setStage]     = useState('extract');
   const [error, setError]     = useState('');
 
   const run = async () => {
     setLoading(true);
+    setStage('extract');
     setError('');
     try {
-      const result = await fetchSummary(ticker, year, quarter);
+      const result = await fetchSummary(ticker, year, quarter, { onStage: setStage });
       setSummary(result.summary);
     } catch (e) {
       setError(e.message || 'Could not generate a summary.');
@@ -34,7 +36,7 @@ export default function CallSummary({ ticker, year, quarter }) {
           Summarize this call
         </button>
         <p className="text-vs-dim text-micro font-mono mt-1.5">
-          Results, guidance, the Q&amp;A that mattered, what changed &middot; takes about half a minute
+          Results, guidance, the Q&amp;A that mattered, what changed &middot; about a minute the first time
         </p>
       </div>
     );
@@ -59,8 +61,10 @@ export default function CallSummary({ ticker, year, quarter }) {
 
       {loading && (
         <div className="px-4 py-4">
-          <p className="text-vs-soft text-label font-mono mb-3">
-            Reading the call&hellip;
+          <p className="text-vs-soft text-label font-mono mb-3" aria-live="polite">
+            {stage === 'compose'
+              ? 'Writing the summary\u2026'
+              : 'Reading the call and last quarter\u2019s\u2026'}
           </p>
           <div className="animate-pulse space-y-2.5">
             <div className="h-3 bg-vs-card rounded-md w-full" />

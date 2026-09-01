@@ -17,10 +17,22 @@
 // The summary itself is a two-pass pipeline (api/_lib/callSummary.js): a
 // structured extraction of the segmented transcript, then prose written from
 // that extraction — and from the prior quarter's extraction, when there is
-// one, for the "what changed" section.
+// one, for the "what changed" section. Each pass is a Gemini call of twenty
+// to forty seconds and a function has sixty, so the passes are separate
+// requests, dispatched on `stage`, with the client carrying results between
+// them (which also means a deployment without a Blob store works):
+//
+//   stage=extract  GET  ?ticker&year?&quarter?  → this call's extraction (or the
+//                                                 stored summary, if one exists)
+//   stage=prior    GET  ?ticker&year?&quarter?  → the quarter before it, extracted
+//   stage=compose  POST {symbol, year, quarter, extraction, prior?} → the summary
+//
+// A GET with no stage runs the whole pipeline in one request — fine locally
+// and for scripts, but it is the request that times out on Vercel, so the
+// app never sends it.
 
 import { createHash } from 'node:crypto';
-import { getTranscript } from './_lib/transcripts.js';
+import { getTranscript as loadTranscript } from './_lib/transcripts.js';
 import { getJson, putJson } from './_lib/store.js';
 import { GEMINI_MODEL, callGemini, geminiFor } from './_lib/gemini.js';
 import { extractCall, composeSummary, wordCount } from './_lib/callSummary.js';
@@ -28,6 +40,10 @@ import { extractCall, composeSummary, wordCount } from './_lib/callSummary.js';
 // Bumped when the summary's shape changes, so stored summaries of the old
 // shape are regenerated rather than served with sections missing.
 const SUMMARY_VERSION = 2;
+
+// The one network dependency the tests need to replace.
+export const deps = { getTranscript: loadTranscript };
+const getTranscript = (...args) => deps.getTranscript(...args);
 
 // One place turns a Gemini failure into a response, so the two ops say the
 // same thing when the free tier's rate limit bites.
@@ -95,50 +111,204 @@ async function priorExtractionFor(gemini, transcript) {
   return { transcript: priorTranscript, extraction };
 }
 
-async function opSummary(req, res, apiKey) {
-  const { ticker, year, quarter } = req.query;
-  if (!ticker) return res.status(400).json({ error: 'Missing ticker parameter' });
+const TICKER_RE = /^[A-Z.\-]{1,10}$/;
 
+// Query validation shared by the GET stages.
+function parseCallQuery(query) {
+  const { ticker, year, quarter } = query;
+  if (!ticker) return { error: 'Missing ticker parameter' };
   const symbol = String(ticker).toUpperCase().trim();
-  if (!/^[A-Z.\-]{1,10}$/.test(symbol)) {
-    return res.status(400).json({ error: 'Invalid ticker' });
-  }
+  if (!TICKER_RE.test(symbol)) return { error: 'Invalid ticker' };
   const fiscalYear = year ? Number(year) : null;
   const fiscalQuarter = quarter ? Number(quarter) : null;
   if ((year && !Number.isInteger(fiscalYear)) || (quarter && !Number.isInteger(fiscalQuarter))) {
-    return res.status(400).json({ error: 'Invalid year or quarter' });
+    return { error: 'Invalid year or quarter' };
   }
+  return { symbol, fiscalYear, fiscalQuarter, specific: Boolean(fiscalYear && fiscalQuarter) };
+}
 
-  const served = (stored) => {
-    res.setHeader('Cache-Control', 's-maxage=2592000, stale-while-revalidate=2592000');
-    return res.status(200).json({ ...stored, cached: true });
-  };
+const IMMUTABLE = 's-maxage=2592000, stale-while-revalidate=2592000';
 
-  // A specific quarter can be answered from the store before the transcript
-  // is even fetched. "Latest" has to resolve the quarter first.
-  if (fiscalYear && fiscalQuarter) {
+// ── stage=extract ──────────────────────────────────────────────────────────
+
+async function stageExtract(req, res, apiKey) {
+  const q = parseCallQuery(req.query);
+  if (q.error) return res.status(400).json({ error: q.error });
+  const { symbol, fiscalYear, fiscalQuarter, specific } = q;
+
+  // A finished summary short-circuits the whole thing.
+  if (specific) {
     const stored = await getJson(summaryKey(symbol, fiscalYear, fiscalQuarter)).catch(() => null);
-    if (stored?.summary) return served(stored);
+    if (stored?.summary) { res.setHeader('Cache-Control', IMMUTABLE); return res.status(200).json({ ...stored, cached: true }); }
   }
-
   const transcript = await getTranscript(symbol, fiscalYear, fiscalQuarter);
   if (!transcript?.paragraphs?.length) {
     return res.status(404).json({ error: `No transcript available for ${symbol}.` });
   }
+  if (!specific) {
+    const stored = await getJson(summaryKey(symbol, transcript.year, transcript.quarter)).catch(() => null);
+    if (stored?.summary) { res.setHeader('Cache-Control', IMMUTABLE); return res.status(200).json({ ...stored, cached: true }); }
+  }
 
+  let extraction;
+  try {
+    extraction = await extractionFor(geminiFor(apiKey), transcript);
+  } catch (err) {
+    return geminiFailure(res, err, `Extraction for ${symbol}`);
+  }
+
+  // Immutable once made; "latest" resolves to a different quarter over time,
+  // so only a pinned quarter is cached hard.
+  res.setHeader('Cache-Control', specific ? IMMUTABLE : 's-maxage=3600, stale-while-revalidate=86400');
+  return res.status(200).json({
+    symbol,
+    year: transcript.year,
+    quarter: transcript.quarter,
+    reportDate: transcript.reportDate,
+    extraction,
+    model: GEMINI_MODEL,
+  });
+}
+
+// ── stage=prior ────────────────────────────────────────────────────────────
+
+async function stagePrior(req, res, apiKey) {
+  const q = parseCallQuery(req.query);
+  if (q.error) return res.status(400).json({ error: q.error });
+  const { symbol, fiscalYear, fiscalQuarter, specific } = q;
+
+  // Only the quarter list is needed to find the prior call; the transcript
+  // reader returns it with the (unused) current transcript. Cheap enough.
+  const current = await getTranscript(symbol, fiscalYear, fiscalQuarter);
+  if (!current?.paragraphs?.length) {
+    return res.status(404).json({ error: `No transcript available for ${symbol}.` });
+  }
+  const quarters = current.quarters || [];
+  const i = quarters.findIndex((x) => x.year === current.year && x.quarter === current.quarter);
+  const prev = i >= 0 ? quarters[i + 1] : null;
+  res.setHeader('Cache-Control', specific ? IMMUTABLE : 's-maxage=3600, stale-while-revalidate=86400');
+  if (!prev) return res.status(200).json({ symbol, prior: null });
+
+  const stored = await getJson(extractKey(symbol, prev.year, prev.quarter)).catch(() => null);
+  if (stored?.extraction) {
+    return res.status(200).json({ symbol, year: prev.year, quarter: prev.quarter, extraction: stored.extraction, cached: true });
+  }
+  const priorTranscript = await getTranscript(symbol, prev.year, prev.quarter);
+  if (!priorTranscript?.paragraphs?.length) return res.status(200).json({ symbol, prior: null });
+
+  let extraction;
+  try {
+    extraction = await extractionFor(geminiFor(apiKey), priorTranscript);
+  } catch (err) {
+    return geminiFailure(res, err, `Prior extraction for ${symbol}`);
+  }
+  return res.status(200).json({ symbol, year: prev.year, quarter: prev.quarter, extraction, model: GEMINI_MODEL });
+}
+
+// ── stage=compose ──────────────────────────────────────────────────────────
+
+const MAX_EXTRACTION_BYTES = 400_000;
+
+// The posted extraction is client-carried and therefore untrusted: it is
+// checked for shape and size, and the only thing the model sees is its
+// JSON. Quotes are re-verified against the transcript, which is re-read here
+// for exactly that purpose.
+function validExtraction(x) {
+  if (!x || typeof x !== 'object' || Array.isArray(x)) return false;
+  if (JSON.stringify(x).length > MAX_EXTRACTION_BYTES) return false;
+  return ['speakers', 'exchanges', 'guidance', 'metrics', 'quotes', 'topics', 'newMentions']
+    .every((k) => Array.isArray(x[k]));
+}
+
+async function stageCompose(req, res, apiKey) {
+  if (req.method !== 'POST') return res.status(405).json({ error: 'POST required' });
+  const body = req.body || {};
+  const symbol = String(body.symbol || '').toUpperCase().trim();
+  const year = Number(body.year);
+  const quarter = Number(body.quarter);
+  if (!TICKER_RE.test(symbol) || !Number.isInteger(year) || !Number.isInteger(quarter)) {
+    return res.status(400).json({ error: 'symbol, year and quarter are required' });
+  }
+  if (!validExtraction(body.extraction)) return res.status(400).json({ error: 'extraction is missing or malformed' });
+  let prior = null;
+  if (body.prior) {
+    const py = Number(body.prior.year);
+    const pq = Number(body.prior.quarter);
+    if (!Number.isInteger(py) || !Number.isInteger(pq) || !validExtraction(body.prior.extraction)) {
+      return res.status(400).json({ error: 'prior is malformed' });
+    }
+    prior = { transcript: { symbol, year: py, quarter: pq }, extraction: body.prior.extraction };
+  }
+
+  const key = summaryKey(symbol, year, quarter);
+  const stored = await getJson(key).catch(() => null);
+  if (stored?.summary) { res.setHeader('Cache-Control', 'no-store'); return res.status(200).json({ ...stored, cached: true }); }
+
+  const transcript = await getTranscript(symbol, year, quarter);
+  if (!transcript?.paragraphs?.length) {
+    return res.status(404).json({ error: `No transcript available for ${symbol}.` });
+  }
+
+  const started = Date.now();
+  let summary;
+  try {
+    summary = await composeSummary(geminiFor(apiKey), transcript, body.extraction, prior);
+  } catch (err) {
+    return geminiFailure(res, err, `Composition for ${symbol}`);
+  }
+  console.log(`Summary ${symbol} Q${quarter} ${year}: ${wordCount(summary)} words, `
+    + `${body.extraction.segmentation?.exchanges ?? body.extraction.exchanges.length} exchanges, `
+    + `prior ${prior ? `Q${prior.transcript.quarter} ${prior.transcript.year}` : 'none'}, compose ${Date.now() - started}ms`);
+
+  const out = finishedSummary(transcript, summary, body.extraction, prior);
+  await putJson(key, out).catch((err) => console.warn(`Summary store write failed for ${key}: ${err.message}`));
+  res.setHeader('Cache-Control', 'no-store');
+  return res.status(200).json(out);
+}
+
+const finishedSummary = (transcript, summary, extraction, prior) => ({
+  symbol: transcript.symbol,
+  year: transcript.year,
+  quarter: transcript.quarter,
+  reportDate: transcript.reportDate,
+  summary,
+  version: SUMMARY_VERSION,
+  pipeline: {
+    segmentation: extraction.segmentation || null,
+    comparedWith: prior ? { year: prior.transcript.year, quarter: prior.transcript.quarter } : null,
+  },
+  model: GEMINI_MODEL,
+  generatedAt: new Date().toISOString(),
+});
+
+// ── no stage: the whole pipeline in one request ─────────────────────────────
+// Local dev and scripts only; see the header.
+
+async function opSummary(req, res, apiKey) {
+  const q = parseCallQuery(req.query);
+  if (q.error) return res.status(400).json({ error: q.error });
+  const { symbol, fiscalYear, fiscalQuarter, specific } = q;
+
+  const served = (stored) => { res.setHeader('Cache-Control', IMMUTABLE); return res.status(200).json({ ...stored, cached: true }); };
+  if (specific) {
+    const stored = await getJson(summaryKey(symbol, fiscalYear, fiscalQuarter)).catch(() => null);
+    if (stored?.summary) return served(stored);
+  }
+  const transcript = await getTranscript(symbol, fiscalYear, fiscalQuarter);
+  if (!transcript?.paragraphs?.length) {
+    return res.status(404).json({ error: `No transcript available for ${symbol}.` });
+  }
   const key = summaryKey(symbol, transcript.year, transcript.quarter);
-  if (!(fiscalYear && fiscalQuarter)) {
+  if (!specific) {
     const stored = await getJson(key).catch(() => null);
     if (stored?.summary) return served(stored);
   }
 
   const gemini = geminiFor(apiKey);
-  const started = Date.now();
   let summary;
   let extraction;
   let prior = null;
   try {
-    // Both extractions at once; the prior one is best-effort and on a clock.
     [extraction, prior] = await Promise.all([
       extractionFor(gemini, transcript),
       withBudget(
@@ -154,31 +324,10 @@ async function opSummary(req, res, apiKey) {
     return geminiFailure(res, err, `Summary for ${symbol}`);
   }
 
-  console.log(`Summary ${symbol} Q${transcript.quarter} ${transcript.year}: ${wordCount(summary)} words, `
-    + `${extraction.segmentation?.exchanges ?? 0} exchanges, prior ${prior ? `Q${prior.transcript.quarter} ${prior.transcript.year}` : 'none'}, `
-    + `${Date.now() - started}ms`);
-
-  const body = {
-    symbol,
-    year: transcript.year,
-    quarter: transcript.quarter,
-    reportDate: transcript.reportDate,
-    summary,
-    version: SUMMARY_VERSION,
-    pipeline: {
-      segmentation: extraction.segmentation || null,
-      comparedWith: prior ? { year: prior.transcript.year, quarter: prior.transcript.quarter } : null,
-    },
-    model: GEMINI_MODEL,
-    generatedAt: new Date().toISOString(),
-  };
-  // The store is an optimisation, never a dependency: a missing token on
-  // Vercel throws here, and the summary is still returned.
-  await putJson(key, body).catch((err) => console.warn(`Summary store write failed for ${key}: ${err.message}`));
-
-  // Same transcript in, same summary out — cache hard, refresh in background.
-  res.setHeader('Cache-Control', 's-maxage=2592000, stale-while-revalidate=2592000');
-  return res.status(200).json(body);
+  const out = finishedSummary(transcript, summary, extraction, prior);
+  await putJson(key, out).catch((err) => console.warn(`Summary store write failed for ${key}: ${err.message}`));
+  res.setHeader('Cache-Control', IMMUTABLE);
+  return res.status(200).json(out);
 }
 
 // ── op=digest — the day, read across every call ─────────────────────────────
@@ -344,6 +493,11 @@ export default async function handler(req, res) {
 
   try {
     if (req.query.op === 'digest') return await opDigest(req, res, apiKey);
+    const stage = req.query.stage;
+    if (stage === 'extract') return await stageExtract(req, res, apiKey);
+    if (stage === 'prior') return await stagePrior(req, res, apiKey);
+    if (stage === 'compose') return await stageCompose(req, res, apiKey);
+    if (stage) return res.status(400).json({ error: `Unknown stage: ${stage}` });
     return await opSummary(req, res, apiKey);
   } catch (err) {
     console.error('Summarize error:', err);

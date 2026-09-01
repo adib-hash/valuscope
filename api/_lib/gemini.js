@@ -5,6 +5,15 @@
 export const GEMINI_MODEL = 'gemini-3.6-flash';
 const ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
 
+// Latency knob. Flash models reason before answering by default, and on a
+// long structured extraction that reasoning is most of the wall time. Set
+// GEMINI_THINKING_LEVEL (e.g. "low") to pass a thinkingConfig; unset, nothing
+// is sent, so a model that does not accept the field is never sent it.
+const thinkingConfig = () => {
+  const level = process.env.GEMINI_THINKING_LEVEL;
+  return level ? { thinkingConfig: { thinkingLevel: level } } : {};
+};
+
 export async function callGemini(apiKey, systemText, userText, schema, temperature = 0.2) {
   const response = await fetch(ENDPOINT, {
     method: 'POST',
@@ -12,7 +21,7 @@ export async function callGemini(apiKey, systemText, userText, schema, temperatu
     body: JSON.stringify({
       systemInstruction: { parts: [{ text: systemText }] },
       contents: [{ role: 'user', parts: [{ text: userText }] }],
-      generationConfig: { responseMimeType: 'application/json', responseSchema: schema, temperature },
+      generationConfig: { responseMimeType: 'application/json', responseSchema: schema, temperature, ...thinkingConfig() },
     }),
   });
   if (!response.ok) {

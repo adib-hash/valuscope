@@ -1,6 +1,8 @@
 // Client-side data fetching — calls our own /api routes, which reach Yahoo
 // Finance and SEC EDGAR server-side.
 
+import { getCallSummary, saveCallSummary } from './callSummaryCache';
+
 const isDev = import.meta.env.DEV;
 
 // In dev, Vite proxy handles /api. In prod, Vercel serverless handles /api.
@@ -52,14 +54,66 @@ export async function fetchTranscript(ticker, year, quarter) {
   return apiFetch(`/api/transcript?${params}`);
 }
 
-// AI summary of an earnings call. Slow (10-15s) and explicitly user-triggered,
-// so it is never called as part of a page load. Generated once per call and
-// then served from the artifact store, which is what makes a day's digest
-// cheap the second time.
-export async function fetchSummary(ticker, year, quarter) {
-  const params = new URLSearchParams({ ticker });
-  if (year && quarter) { params.set('year', year); params.set('quarter', quarter); }
-  return apiFetch(`/api/summarize?${params}`);
+// AI summary of an earnings call. Explicitly user-triggered, never part of a
+// page load.
+//
+// Three requests, not one: the summary is a two-pass pipeline (extract this
+// call, extract the prior call, compose), each pass a Gemini call of twenty
+// to forty seconds, and a Vercel function has sixty. Each stage is its own
+// request and this function carries the results between them, so no request
+// ever holds more than one model call — and a deployment without a Blob
+// store still works, because nothing has to persist server-side between
+// stages. Finished summaries are kept in localStorage; the stage responses
+// are immutable and edge-cached, so a retry after a rate limit mostly hits
+// caches.
+//
+// `onStage` reports progress: 'extract' | 'compose' | 'done'.
+export async function fetchSummary(ticker, year, quarter, { onStage } = {}) {
+  const cached = getCallSummary(ticker, year, quarter);
+  if (cached) { onStage?.('done'); return cached; }
+
+  const params = (extra) => {
+    const q = new URLSearchParams({ ticker, ...extra });
+    if (year && quarter) { q.set('year', year); q.set('quarter', quarter); }
+    return q;
+  };
+
+  onStage?.('extract');
+  // The prior quarter's extraction is wanted for "what changed" but never
+  // required: its failure costs the section, not the summary.
+  const [current, prior] = await Promise.all([
+    apiFetch(`/api/summarize?${params({ stage: 'extract' })}`),
+    apiFetch(`/api/summarize?${params({ stage: 'prior' })}`).catch(() => null),
+  ]);
+  if (current.summary) {
+    // Already in the server-side store.
+    saveCallSummary(current);
+    onStage?.('done');
+    return current;
+  }
+
+  onStage?.('compose');
+  const res = await fetch('/api/summarize?stage=compose', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      symbol: current.symbol,
+      year: current.year,
+      quarter: current.quarter,
+      extraction: current.extraction,
+      prior: prior?.extraction ? { year: prior.year, quarter: prior.quarter, extraction: prior.extraction } : null,
+    }),
+  });
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({}));
+    const err = new Error(body.error || `API error: ${res.status}`);
+    err.status = res.status;
+    throw err;
+  }
+  const summary = await res.json();
+  saveCallSummary(summary);
+  onStage?.('done');
+  return summary;
 }
 
 // Every S&P 500 call in a date window: who reports when, and which of those
