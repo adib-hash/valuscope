@@ -1,0 +1,423 @@
+<title>ValuScope Regime</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+  /* ────────────────────────────────────────────────────────────────
+     VALUSCOPE REGIME — design-refresh concept no. 3
+     Direction: the company page as a single-screen instrument. The
+     chart is the environment, not a widget, and the interface itself
+     is tinted by the verdict — an undervalued stock lives on a deep
+     green field, an expensive one on oxblood. This concept commits
+     to one dark visual world; every color is painted explicitly.
+     Type: Chakra Petch (display) · IBM Plex Sans / Mono
+     ──────────────────────────────────────────────────────────────── */
+
+  .frame {
+    /* Undervalued — the default regime */
+    --field0:  #041710;
+    --field1:  #07231B;
+    --field2:  #0B2F24;
+    --accent:  #4FE3A1;
+    --accent-dim: rgba(79,227,161,.16);
+  }
+  .frame[data-regime="deep"]      { --field0:#03130B; --field1:#052117; --field2:#083023; --accent:#3BF2A6; --accent-dim:rgba(59,242,166,.16); }
+  .frame[data-regime="fair"]      { --field0:#0C0F14; --field1:#12161D; --field2:#1A2029; --accent:#9DB4CE; --accent-dim:rgba(157,180,206,.16); }
+  .frame[data-regime="stretched"] { --field0:#170E03; --field1:#221507; --field2:#2F1E0B; --accent:#FFB25C; --accent-dim:rgba(255,178,92,.16); }
+  .frame[data-regime="expensive"] { --field0:#190708; --field1:#250D0E; --field2:#331314; --accent:#FF8078; --accent-dim:rgba(255,128,120,.16); }
+
+  :root {
+    --ink:   #F1F4F0;
+    --soft:  #B7C4BC;
+    --faint: #78877F;
+    --hair:  rgba(255,255,255,.14);
+    --hair2: rgba(255,255,255,.07);
+    --pos:   #4FE3A1;
+    --neg:   #FF8078;
+    --warn:  #FFB25C;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: #041710; color: var(--ink);
+    font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 14px; line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh; min-height: 100dvh;
+    display: flex; flex-direction: column;
+  }
+  .mono { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+  .chakra { font-family: 'Chakra Petch', 'IBM Plex Sans', sans-serif; }
+  .up { color: var(--pos); } .down { color: var(--neg); }
+  button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; padding: 0; }
+  button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  .frame {
+    flex: 1; display: flex; flex-direction: column;
+    background: radial-gradient(120% 90% at 20% 0%, var(--field2) 0%, var(--field1) 45%, var(--field0) 100%);
+    transition: background .6s;
+  }
+
+  /* ── Command bar ── */
+  .cmdbar {
+    display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+    padding: 12px 22px; border-bottom: 1px solid var(--hair);
+    font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: .08em;
+  }
+  .cmdbar .prompt { color: var(--faint); }
+  .cmdbar .prompt b { color: var(--accent); font-weight: 500; }
+  .cmdbar .query { color: var(--ink); }
+  .cmdbar .caret { display:inline-block; width: 8px; height: 15px; background: var(--accent); vertical-align: -2px; animation: blink 1.2s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+  .cmdbar .right { margin-left: auto; display: flex; gap: 18px; color: var(--faint); font-size: 11px; }
+  .cmdbar .right a { color: var(--faint); text-decoration: none; }
+  .cmdbar .right a:hover { color: var(--ink); }
+
+  /* ── Stage: chart as environment ── */
+  .stage { position: relative; flex: 1; min-height: 430px; overflow: hidden; }
+  .stage svg.bg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .yearticks {
+    position: absolute; left: 0; right: 0; bottom: 6px;
+    display: flex; justify-content: space-between; padding: 0 22px;
+    font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em;
+    color: var(--faint); pointer-events: none;
+  }
+
+  .hero {
+    position: absolute; top: 30px; left: 22px; max-width: 560px; pointer-events: none;
+    text-shadow: 0 2px 24px var(--field0), 0 0 8px var(--field0);
+  }
+  .hero .co {
+    font-family:'IBM Plex Mono',monospace; font-size: 11.5px; letter-spacing: .18em;
+    color: var(--soft); text-transform: uppercase; margin-bottom: 10px;
+  }
+  .hero .tick { font-family:'Chakra Petch',sans-serif; font-weight: 700; font-size: 88px; line-height: .95; letter-spacing: .01em; }
+  .hero .word {
+    font-family:'Chakra Petch',sans-serif; font-weight: 700; font-size: 30px;
+    letter-spacing: .16em; text-transform: uppercase; color: var(--accent); margin-top: 6px;
+  }
+  .hero .sub { color: var(--soft); font-size: 13.5px; margin-top: 10px; max-width: 40em; }
+  .hero .sub b { color: var(--ink); font-weight: 600; }
+  .gauge { margin-top: 16px; width: 300px; }
+  .gauge-track { position: relative; height: 4px; background: var(--hair); }
+  .gauge-fill { position: absolute; left: 0; top: 0; bottom: 0; width: 30%; background: var(--accent); transition: width .5s; }
+  .gauge-pin { position: absolute; top: -4px; left: 30%; width: 2px; height: 12px; background: var(--ink); transition: left .5s; }
+  .gauge-cap {
+    display: flex; justify-content: space-between; margin-top: 6px;
+    font-family:'IBM Plex Mono',monospace; font-size: 10px; letter-spacing: .12em; color: var(--faint);
+  }
+
+  /* ── Scrub readout ── */
+  .readout {
+    position: absolute; top: 30px; right: 22px; text-align: right; pointer-events: none;
+    text-shadow: 0 2px 24px var(--field0);
+  }
+  .readout .when { font-family:'IBM Plex Mono',monospace; font-size: 11px; letter-spacing: .18em; color: var(--faint); }
+  .readout .big { font-family:'Chakra Petch',sans-serif; font-weight: 700; font-size: 64px; line-height: 1; margin: 4px 0 2px; }
+  .readout .vs { font-family:'IBM Plex Mono',monospace; font-size: 12.5px; }
+  .readout .fv { margin-top: 18px; font-family:'IBM Plex Mono',monospace; font-size: 12px; color: var(--soft); }
+  .readout .fv b { color: var(--ink); font-weight: 500; font-size: 15px; }
+
+  .periods {
+    position: absolute; right: 22px; bottom: 26px; display: flex; gap: 14px;
+    font-family:'IBM Plex Mono',monospace; font-size: 11.5px; letter-spacing: .1em;
+  }
+  .pd { color: var(--faint); }
+  .pd:hover { color: var(--ink); }
+  .pd.on { color: var(--accent); border-bottom: 2px solid var(--accent); padding-bottom: 2px; }
+
+  /* ── HUD metric strip ── */
+  .hud {
+    display: grid; grid-template-columns: repeat(6, 1fr);
+    border-top: 1px solid var(--hair); background: rgba(0,0,0,.22);
+  }
+  @media (max-width: 900px) { .hud { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 540px) { .hud { grid-template-columns: repeat(2, 1fr); } }
+  .mod { padding: 14px 18px 12px; border-right: 1px solid var(--hair2); text-align: left; }
+  .mod:last-child { border-right: none; }
+  button.mod:hover { background: rgba(255,255,255,.04); }
+  .mod .k {
+    display: flex; justify-content: space-between; align-items: baseline;
+    font-family:'IBM Plex Mono',monospace; font-size: 10px; letter-spacing: .14em;
+    color: var(--faint); text-transform: uppercase;
+  }
+  .mod.on .k { color: var(--accent); }
+  .mod .v { font-family:'Chakra Petch',sans-serif; font-weight: 700; font-size: 26px; margin-top: 4px; }
+  .mod .d { font-family:'IBM Plex Mono',monospace; font-size: 10.5px; margin-top: 1px; }
+  .mod .bar { position: relative; height: 3px; background: var(--hair2); margin-top: 9px; }
+  .mod .bar i { position: absolute; left: 0; top: 0; bottom: 0; background: var(--accent-dim); }
+  .mod .bar b { position: absolute; top: -2.5px; width: 8px; height: 8px; border-radius: 50%; transform: translateX(-50%); }
+
+  /* ── Regime preview + tape ── */
+  .deck {
+    display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+    padding: 10px 22px; border-top: 1px solid var(--hair);
+    font-family:'IBM Plex Mono',monospace; font-size: 10.5px; letter-spacing: .1em;
+  }
+  .deck .lbl { color: var(--faint); }
+  .regimes { display: flex; gap: 8px; flex-wrap: wrap; }
+  .rg {
+    padding: 4px 10px; border: 1px solid var(--hair); border-radius: 3px;
+    color: var(--soft); letter-spacing: .1em; font-size: 10.5px;
+  }
+  .rg:hover { color: var(--ink); border-color: rgba(255,255,255,.3); }
+  .rg.on { color: var(--accent); border-color: var(--accent); background: var(--accent-dim); }
+  .deck .note { margin-left: auto; color: var(--faint); }
+
+  .tape {
+    overflow: hidden; border-top: 1px solid var(--hair); background: rgba(0,0,0,.35);
+    font-family:'IBM Plex Mono',monospace; font-size: 11px; letter-spacing: .08em;
+    padding: 8px 0; white-space: nowrap;
+  }
+  .tape-in { display: inline-block; animation: roll 48s linear infinite; padding-left: 100%; }
+  @keyframes roll { to { transform: translateX(-100%); } }
+  .tape span { margin-right: 34px; color: var(--soft); }
+  .tape .t { color: var(--ink); font-weight: 500; }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+    .tape-in { padding-left: 0; }
+  }
+  @media (max-width: 760px) {
+    .hero .tick { font-size: 56px; }
+    .readout .big { font-size: 40px; }
+    .hero { max-width: 60%; }
+  }
+</style>
+
+<div class="frame" id="frame">
+
+  <div class="cmdbar">
+    <span class="prompt"><b>VALUSCOPE</b> ▸</span>
+    <span class="query">ULTA<span class="caret" aria-hidden="true"></span></span>
+    <span class="right">
+      <a href="#">INDICES</a><a href="#">13F</a><a href="#">WATCHLIST</a><a href="#">EDGAR</a>
+      <span>SEP 01 2026 · 16:00 ET</span>
+    </span>
+  </div>
+
+  <div class="stage" id="stage">
+    <svg class="bg" id="chart" viewBox="0 0 1200 520" preserveAspectRatio="none" role="img"
+         aria-label="P/E ratio over the last ten years drawn across the full screen; period average shown as a dashed rule"></svg>
+    <div class="yearticks" id="yearticks" aria-hidden="true"></div>
+
+    <div class="hero">
+      <div class="co">Ulta Beauty, Inc. — NASDAQ · $472.18 <span class="up">▲1.24%</span> · MC $21.4B · EV $22.9B</div>
+      <div class="tick chakra">ULTA</div>
+      <div class="word" id="verdictWord">Undervalued</div>
+      <p class="sub" style="margin:0">Composite <b id="verdictPct">P30</b> — the median of six multiples, each ranked inside its own ten-year history. Five of six sit below their decade averages.</p>
+      <div class="gauge" role="img" aria-label="Composite percentile gauge at 30 of 100">
+        <div class="gauge-track"><div class="gauge-fill" id="gaugeFill"></div><div class="gauge-pin" id="gaugePin"></div></div>
+        <div class="gauge-cap"><span>0 · CHEAPEST DECADE</span><span>100 · RICHEST</span></div>
+      </div>
+    </div>
+
+    <div class="readout">
+      <div class="when" id="roWhen">NOW · P/E</div>
+      <div class="big chakra" id="roVal">18.1×</div>
+      <div class="vs" id="roVs"><span class="up">−14.6% VS 10Y AVG 21.2×</span></div>
+      <div class="fv">FAIR VALUE · BLENDED MEDIAN<br><b>$549</b> <span class="up">+16.2%</span></div>
+    </div>
+
+    <div class="periods" role="tablist" aria-label="Period">
+      <button class="pd" data-p="36">3Y</button>
+      <button class="pd" data-p="60">5Y</button>
+      <button class="pd on" data-p="999">10Y</button>
+    </div>
+  </div>
+
+  <div class="hud" id="hud">
+    <button class="mod on" data-k="pe">
+      <span class="k"><span>P/E</span><span>P24</span></span>
+      <div class="v chakra">18.1×</div>
+      <div class="d up">▼ 14.6% VS AVG 21.2</div>
+      <div class="bar"><i style="width:24%"></i><b style="left:24%;background:var(--pos)"></b></div>
+    </button>
+    <button class="mod" data-k="ev">
+      <span class="k"><span>EV/EBITDA</span><span>P28</span></span>
+      <div class="v chakra">11.2×</div>
+      <div class="d up">▼ 11.7% VS AVG 12.7</div>
+      <div class="bar"><i style="width:28%"></i><b style="left:28%;background:var(--pos)"></b></div>
+    </button>
+    <button class="mod" data-k="pfcf">
+      <span class="k"><span>P/FCF</span><span>P31</span></span>
+      <div class="v chakra">17.9×</div>
+      <div class="d up">▼ 14.1% VS AVG 20.8</div>
+      <div class="bar"><i style="width:31%"></i><b style="left:31%;background:var(--pos)"></b></div>
+    </button>
+    <div class="mod">
+      <span class="k"><span>EV/SALES</span><span>P18</span></span>
+      <div class="v chakra">2.0×</div>
+      <div class="d up">▼ 23.1% VS AVG 2.6</div>
+      <div class="bar"><i style="width:18%"></i><b style="left:18%;background:var(--pos)"></b></div>
+    </div>
+    <div class="mod">
+      <span class="k"><span>P/B</span><span>P68</span></span>
+      <div class="v chakra">9.4×</div>
+      <div class="d down">▲ 16.0% VS AVG 8.1</div>
+      <div class="bar"><i style="width:68%"></i><b style="left:68%;background:var(--neg)"></b></div>
+    </div>
+    <div class="mod">
+      <span class="k"><span>FCF YIELD</span><span>P69</span></span>
+      <div class="v chakra">5.6%</div>
+      <div class="d up">▲ 0.9PT VS AVG 4.7</div>
+      <div class="bar"><i style="width:69%"></i><b style="left:69%;background:var(--pos)"></b></div>
+    </div>
+  </div>
+
+  <div class="deck">
+    <span class="lbl">CONCEPT — THE FIELD FOLLOWS THE VERDICT ▸ PREVIEW:</span>
+    <span class="regimes" id="regimes">
+      <button class="rg" data-r="deep" data-w="Deep value" data-p="6">DEEP VALUE</button>
+      <button class="rg on" data-r="under" data-w="Undervalued" data-p="30">UNDERVALUED</button>
+      <button class="rg" data-r="fair" data-w="Fair value" data-p="52">FAIR</button>
+      <button class="rg" data-r="stretched" data-w="Stretched" data-p="74">STRETCHED</button>
+      <button class="rg" data-r="expensive" data-w="Expensive" data-p="91">EXPENSIVE</button>
+    </span>
+    <span class="note">MOCKUP · ILLUSTRATIVE DATA · CHAKRA PETCH / IBM PLEX</span>
+  </div>
+
+  <div class="tape" aria-hidden="true">
+    <div class="tape-in">
+      <span><span class="t">AAPL</span> 31.4× P81 EXPENSIVE</span>
+      <span><span class="t">MSFT</span> 33.0× P71 STRETCHED</span>
+      <span><span class="t">COST</span> 52.8× P88 EXPENSIVE</span>
+      <span><span class="t">META</span> 24.1× P44 FAIR</span>
+      <span><span class="t">AMZN</span> 32.6× P22 UNDERVALUED</span>
+      <span><span class="t">GOOGL</span> 22.9× P38 FAIR</span>
+      <span><span class="t">NFLX</span> 41.7× P57 FAIR</span>
+      <span><span class="t">ULTA</span> 18.1× P30 UNDERVALUED</span>
+      <span><span class="t">AAPL</span> 31.4× P81 EXPENSIVE</span>
+      <span><span class="t">MSFT</span> 33.0× P71 STRETCHED</span>
+      <span><span class="t">COST</span> 52.8× P88 EXPENSIVE</span>
+      <span><span class="t">META</span> 24.1× P44 FAIR</span>
+      <span><span class="t">AMZN</span> 32.6× P22 UNDERVALUED</span>
+      <span><span class="t">GOOGL</span> 22.9× P38 FAIR</span>
+      <span><span class="t">NFLX</span> 41.7× P57 FAIR</span>
+      <span><span class="t">ULTA</span> 18.1× P30 UNDERVALUED</span>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── Illustrative series (same numbers as the other concepts) ── */
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function buildSeries(anchors, seed, jitter, finalVal, lo, hi){
+  const r = mulberry32(seed), pts = [];
+  for (let i = 0; i <= 120; i++) {
+    const t = 2016 + 8/12 + i/12;
+    let k = 0; while (k < anchors.length - 2 && anchors[k+1][0] < t) k++;
+    const [t0,v0] = anchors[k], [t1,v1] = anchors[k+1];
+    const f = Math.min(1, Math.max(0, (t - t0) / (t1 - t0)));
+    pts.push(v0 + (v1 - v0) * f + (r() - .5) * jitter);
+  }
+  for (let i = 1; i < 120; i++) pts[i] = (pts[i-1] + 2*pts[i] + pts[i+1]) / 4;
+  const mn = Math.min(...pts), mx = Math.max(...pts);
+  for (let i = 0; i <= 120; i++) pts[i] = lo + (pts[i]-mn)/(mx-mn)*(hi-lo);
+  pts[120] = finalVal;
+  return pts;
+}
+const METRICS = {
+  pe:   { label: 'P/E', unit: '×', cur: 18.1,
+          data: buildSeries([[2016.6,26.5],[2017.5,23.5],[2018.6,29.0],[2019.6,21.0],[2020.25,10.2],[2020.9,29.5],[2021.6,33.5],[2022.5,19.5],[2023.5,15.8],[2024.5,14.2],[2025.5,16.8],[2026.7,18.1]], 7, 1.8, 18.1, 9.8, 34.0) },
+  ev:   { label: 'EV/EBITDA', unit: '×', cur: 11.2,
+          data: buildSeries([[2016.6,15.8],[2017.5,14.2],[2018.6,17.0],[2019.6,12.8],[2020.25,7.4],[2020.9,17.6],[2021.6,19.4],[2022.5,12.2],[2023.5,10.2],[2024.5,9.4],[2025.5,10.6],[2026.7,11.2]], 21, 1.1, 11.2, 7.1, 19.6) },
+  pfcf: { label: 'P/FCF', unit: '×', cur: 17.9,
+          data: buildSeries([[2016.6,27.5],[2017.5,24.0],[2018.6,28.0],[2019.6,21.5],[2020.25,11.5],[2020.9,28.5],[2021.6,31.0],[2022.5,19.0],[2023.5,16.5],[2024.5,15.0],[2025.5,16.8],[2026.7,17.9]], 42, 1.6, 17.9, 11.2, 31.4) },
+};
+
+/* ── Environment chart: no in-plot text, the readout is the label layer ── */
+const svg = document.getElementById('chart');
+const VW = 1200, VH = 520, TOP = 210, BOT = 44;
+let metricKey = 'pe', months = 999, view = null;
+
+function fmtDate(i){ const m0 = 8 + i; const y = 2016 + Math.floor(m0/12); const mo = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'][m0%12]; return mo + ' ’' + String(y).slice(2); }
+function draw(){
+  const M = METRICS[metricKey];
+  const n = Math.min(months + 1, M.data.length);
+  const start = M.data.length - n;
+  const data = M.data.slice(start);
+  const avg = data.reduce((a,b)=>a+b,0)/data.length;
+  const lo = Math.min(...data), hi = Math.max(...data);
+  const y0 = lo - (hi-lo)*.06, y1 = hi + (hi-lo)*.06;
+  const X = i => VW * i/(data.length-1);
+  const Y = v => TOP + (VH-TOP-BOT) * (1 - (v-y0)/(y1-y0));
+  view = { data, start, avg, X, Y, M };
+
+  const line = data.map((v,i)=>`${i?'L':'M'}${X(i).toFixed(1)},${Y(v).toFixed(1)}`).join('');
+  let g = `<defs><linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="rgba(255,255,255,.10)"/>
+      <stop offset="1" stop-color="rgba(255,255,255,0)"/>
+    </linearGradient></defs>`;
+  g += `<path d="${line}L${VW},${VH}L0,${VH}Z" fill="url(#fade)"/>`;
+  const ay = Y(avg);
+  g += `<line x1="0" x2="${VW}" y1="${ay}" y2="${ay}" stroke="rgba(255,255,255,.35)" stroke-width="1.2" stroke-dasharray="7 6" vector-effect="non-scaling-stroke"/>`;
+  g += `<path d="${line}" fill="none" stroke="rgba(255,255,255,.9)" stroke-width="2" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>`;
+  const ex = Math.min(X(data.length-1), VW - 7), ey = Y(data[data.length-1]);
+  g += `<circle cx="${ex}" cy="${ey}" r="5" fill="var(--accent)"/>`;
+  g += `<line id="scrub" y1="${TOP-40}" y2="${VH-BOT+18}" stroke="rgba(255,255,255,.25)" stroke-width="1" vector-effect="non-scaling-stroke" visibility="hidden"/>`;
+  g += `<circle id="scrubDot" r="4.5" fill="var(--accent)" visibility="hidden"/>`;
+  svg.innerHTML = g;
+  svg.setAttribute('aria-label', `${M.label} over the selected period; period average ${avg.toFixed(1)}${M.unit}`);
+
+  // year ticks under the plot
+  const yt = document.getElementById('yearticks');
+  const labels = [];
+  const step = data.length > 70 ? 24 : 12;
+  for (let i = 0; i < data.length; i += step) labels.push(fmtDate(start + i));
+  yt.innerHTML = labels.map(l => `<span>${l}</span>`).join('');
+  resetReadout();
+}
+function resetReadout(){
+  const { M, avg } = view;
+  const d = (M.cur/avg - 1) * 100;
+  document.getElementById('roWhen').textContent = `NOW · ${M.label}`;
+  document.getElementById('roVal').textContent  = M.cur.toFixed(1) + M.unit;
+  document.getElementById('roVs').innerHTML =
+    `<span class="${d < 0 ? 'up' : 'down'}">${d >= 0 ? '+' : '−'}${Math.abs(d).toFixed(1)}% VS ${months > 900 ? '10Y' : months/12 + 'Y'} AVG ${avg.toFixed(1)}${M.unit}</span>`;
+}
+
+/* scrub: the environment answers the pointer */
+const stage = document.getElementById('stage');
+stage.addEventListener('mousemove', e => {
+  if (!view) return;
+  const r = stage.getBoundingClientRect();
+  const fx = (e.clientX - r.left) / r.width;
+  const i = Math.round(fx * (view.data.length - 1));
+  if (i < 0 || i >= view.data.length) return;
+  const v = view.data[i], d = (v/view.avg - 1) * 100;
+  const sc = svg.querySelector('#scrub'), sd = svg.querySelector('#scrubDot');
+  sc.setAttribute('x1', view.X(i)); sc.setAttribute('x2', view.X(i)); sc.setAttribute('visibility','visible');
+  sd.setAttribute('cx', view.X(i)); sd.setAttribute('cy', view.Y(v)); sd.setAttribute('visibility','visible');
+  document.getElementById('roWhen').textContent = `${fmtDate(view.start + i)} · ${view.M.label}`;
+  document.getElementById('roVal').textContent  = v.toFixed(1) + view.M.unit;
+  document.getElementById('roVs').innerHTML =
+    `<span class="${d < 0 ? 'up' : 'down'}">${d >= 0 ? '+' : '−'}${Math.abs(d).toFixed(1)}% VS PERIOD AVG ${view.avg.toFixed(1)}${view.M.unit}</span>`;
+});
+stage.addEventListener('mouseleave', () => {
+  const sc = svg.querySelector('#scrub'), sd = svg.querySelector('#scrubDot');
+  if (sc) { sc.setAttribute('visibility','hidden'); sd.setAttribute('visibility','hidden'); }
+  if (view) resetReadout();
+});
+
+/* HUD metric switching (first three modules carry series) */
+document.querySelectorAll('.mod[data-k]').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('.mod[data-k]').forEach(c => c.classList.toggle('on', c===b));
+  metricKey = b.dataset.k; draw();
+}));
+document.querySelectorAll('.pd').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('.pd').forEach(c => c.classList.toggle('on', c===b));
+  months = +b.dataset.p; draw();
+}));
+
+/* regime preview — demo of the verdict-tinted field */
+document.querySelectorAll('.rg').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('.rg').forEach(c => c.classList.toggle('on', c===b));
+  const frame = document.getElementById('frame');
+  if (b.dataset.r === 'under') delete frame.dataset.regime; else frame.dataset.regime = b.dataset.r;
+  document.getElementById('verdictWord').textContent = b.dataset.w;
+  document.getElementById('verdictPct').textContent = 'P' + b.dataset.p;
+  document.getElementById('gaugeFill').style.width = b.dataset.p + '%';
+  document.getElementById('gaugePin').style.left = b.dataset.p + '%';
+}));
+
+draw();
+</script>
