@@ -1,0 +1,742 @@
+<title>The Analyst's Ledger</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Besley:ital,wght@0,400;0,600;0,800;1,400;1,600&family=Spline+Sans:wght@400;500;600&family=Spline+Sans+Mono:wght@400;500;600&display=swap">
+<style>
+  /* ────────────────────────────────────────────────────────────────
+     THE ANALYST'S LEDGER — a design-refresh concept for ValuScope
+     Direction: the app's thesis is history (today vs. its own past),
+     so the visual language borrows from the accounting ledger —
+     ruled rows, red/green ink, tabular figures, a Clarendon serif —
+     executed with modern density.
+     Type: Besley (display) · Spline Sans (UI) · Spline Sans Mono (data)
+     ──────────────────────────────────────────────────────────────── */
+
+  /* Light — "ledger paper": cool green-gray, not cream */
+  :root {
+    --bg:      #F1F2ED;
+    --card:    #FCFCFA;
+    --card2:   #E9EBE4;
+    --rule:    #DCE0D7;
+    --rule-hi: #C3C9BC;
+    --ink:     #1B211D;
+    --soft:    #48534B;
+    --dim:     #66716A;
+    --green:   #0B7A4B;
+    --red:     #A93B36;
+    --amber:   #8A6414;
+    --blue:    #2D5FA8;
+    --green-tint: rgba(11,122,75,.11);
+    --red-tint:   rgba(169,59,54,.11);
+    --amber-tint: rgba(138,100,20,.13);
+    --blue-tint:  rgba(45,95,168,.10);
+    --chart-fill: rgba(45,95,168,.09);
+    --shadow: 0 1px 2px rgba(27,33,29,.05), 0 4px 14px rgba(27,33,29,.05);
+  }
+  /* Dark — "after-hours ink": green-black, same semantics re-tuned */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg:      #0C110E;
+      --card:    #151B17;
+      --card2:   #1B231E;
+      --rule:    #263029;
+      --rule-hi: #33402F;
+      --ink:     #E8EBE5;
+      --soft:    #A3B0A6;
+      --dim:     #7E8C81;
+      --green:   #49C98D;
+      --red:     #E8736C;
+      --amber:   #D8A83F;
+      --blue:    #74A9E6;
+      --green-tint: rgba(73,201,141,.13);
+      --red-tint:   rgba(232,115,108,.13);
+      --amber-tint: rgba(216,168,63,.14);
+      --blue-tint:  rgba(116,169,230,.12);
+      --chart-fill: rgba(116,169,230,.10);
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 4px 14px rgba(0,0,0,.25);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg:      #0C110E;
+    --card:    #151B17;
+    --card2:   #1B231E;
+    --rule:    #263029;
+    --rule-hi: #33402F;
+    --ink:     #E8EBE5;
+    --soft:    #A3B0A6;
+    --dim:     #7E8C81;
+    --green:   #49C98D;
+    --red:     #E8736C;
+    --amber:   #D8A83F;
+    --blue:    #74A9E6;
+    --green-tint: rgba(73,201,141,.13);
+    --red-tint:   rgba(232,115,108,.13);
+    --amber-tint: rgba(216,168,63,.14);
+    --blue-tint:  rgba(116,169,230,.12);
+    --chart-fill: rgba(116,169,230,.10);
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 4px 14px rgba(0,0,0,.25);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Spline Sans', system-ui, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .serif { font-family: 'Besley', Georgia, serif; }
+  .mono  { font-family: 'Spline Sans Mono', ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+
+  .up   { color: var(--green); }
+  .down { color: var(--red); }
+
+  a { color: var(--blue); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+  button:focus-visible, a:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; border-radius: 4px; }
+
+  /* ── Header ─────────────────────────────────────────── */
+  header {
+    position: sticky; top: 0; z-index: 40;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .header-in {
+    max-width: 1240px; margin: 0 auto; padding: 0 24px;
+    display: flex; align-items: center; gap: 28px; height: 58px;
+  }
+  .wordmark {
+    font-family: 'Besley', Georgia, serif; font-weight: 800; font-size: 21px;
+    letter-spacing: -.01em; white-space: nowrap;
+  }
+  .wordmark em { font-style: italic; font-weight: 400; color: var(--green); }
+  nav.top { display: flex; gap: 4px; }
+  nav.top a {
+    color: var(--soft); font-size: 13px; font-weight: 500;
+    padding: 6px 11px; border-radius: 6px;
+  }
+  nav.top a:hover { color: var(--ink); background: var(--card2); text-decoration: none; }
+  nav.top a[aria-current] { color: var(--ink); background: var(--card2); }
+  .search {
+    margin-left: auto; display: flex; align-items: center; gap: 8px;
+    border: 1px solid var(--rule); background: var(--card);
+    border-radius: 8px; padding: 6px 12px; color: var(--dim);
+    font-size: 13px; min-width: 220px;
+  }
+  .search kbd {
+    margin-left: auto; font-family: 'Spline Sans Mono', monospace; font-size: 10px;
+    border: 1px solid var(--rule); border-radius: 4px; padding: 1px 5px; color: var(--dim);
+  }
+  .theme-toggle {
+    width: 34px; height: 34px; border-radius: 8px; border: 1px solid var(--rule);
+    background: var(--card); display: grid; place-items: center; color: var(--soft);
+    font-size: 15px;
+  }
+  .theme-toggle:hover { color: var(--ink); border-color: var(--rule-hi); }
+
+  /* ── Page grid ──────────────────────────────────────── */
+  .page {
+    max-width: 1240px; margin: 0 auto; padding: 28px 24px 80px;
+    display: grid; grid-template-columns: 330px minmax(0,1fr); gap: 28px;
+    align-items: start;
+  }
+  @media (max-width: 920px) { .page { grid-template-columns: 1fr; } }
+
+  .rail { position: sticky; top: 82px; display: flex; flex-direction: column; gap: 16px; }
+  @media (max-width: 920px) { .rail { position: static; } }
+
+  .card {
+    background: var(--card); border: 1px solid var(--rule);
+    border-radius: 10px; box-shadow: var(--shadow);
+  }
+
+  .eyebrow {
+    font-family: 'Spline Sans Mono', monospace; font-size: 10.5px; font-weight: 500;
+    letter-spacing: .14em; text-transform: uppercase; color: var(--dim);
+  }
+
+  /* ── Identity ───────────────────────────────────────── */
+  .identity { padding: 20px 20px 18px; }
+  .tick-row { display: flex; align-items: baseline; gap: 10px; }
+  .ticker { font-family: 'Besley', Georgia, serif; font-weight: 800; font-size: 34px; letter-spacing: -.01em; line-height: 1; }
+  .exch { font-family: 'Spline Sans Mono', monospace; font-size: 10.5px; color: var(--dim); letter-spacing: .1em; }
+  .coname { color: var(--soft); font-size: 13.5px; margin-top: 3px; }
+  .price-row { display: flex; align-items: baseline; gap: 10px; margin-top: 14px; }
+  .price { font-family: 'Spline Sans Mono', monospace; font-weight: 600; font-size: 26px; letter-spacing: -.01em; }
+  .chg { font-family: 'Spline Sans Mono', monospace; font-size: 13px; font-weight: 500; }
+  .cap-row {
+    display: flex; gap: 18px; margin-top: 12px; padding-top: 12px;
+    border-top: 1px solid var(--rule);
+  }
+  .cap-row div { display: flex; flex-direction: column; gap: 1px; }
+  .cap-row .v { font-family: 'Spline Sans Mono', monospace; font-size: 13px; font-weight: 500; }
+
+  /* ── Verdict ────────────────────────────────────────── */
+  .verdict { padding: 18px 20px 20px; }
+  .verdict-word {
+    font-family: 'Besley', Georgia, serif; font-style: italic; font-weight: 600;
+    font-size: 34px; line-height: 1.1; letter-spacing: -.01em; color: var(--green);
+    margin: 6px 0 4px;
+  }
+  .verdict-sub { color: var(--soft); font-size: 13px; }
+  .verdict-sub b { color: var(--ink); font-weight: 600; }
+
+  .meter { margin-top: 16px; }
+  .meter-track { position: relative; height: 8px; border-radius: 4px; overflow: hidden; display: flex; }
+  .meter-track span { height: 100%; }
+  .mz1 { width: 10%; background: var(--green); opacity: .9; }
+  .mz2 { width: 25%; background: var(--green); opacity: .45; }
+  .mz3 { width: 30%; background: var(--rule-hi); opacity: .6; }
+  .mz4 { width: 20%; background: var(--red); opacity: .45; }
+  .mz5 { width: 15%; background: var(--red); opacity: .9; }
+  .meter-pin {
+    position: relative; height: 0; margin-top: -14px; margin-bottom: 8px;
+  }
+  .meter-pin i {
+    position: absolute; left: 24%; top: 0; transform: translateX(-50%);
+    width: 2px; height: 20px; background: var(--ink); border-radius: 1px; display: block;
+  }
+  .meter-pin i::after {
+    content: ''; position: absolute; top: -5px; left: 50%; transform: translateX(-50%);
+    border: 5px solid transparent; border-top-color: var(--ink); border-bottom: none;
+  }
+  .meter-labels {
+    display: flex; justify-content: space-between; margin-top: 14px;
+    font-family: 'Spline Sans Mono', monospace; font-size: 9.5px; letter-spacing: .08em;
+    color: var(--dim); text-transform: uppercase;
+  }
+
+  /* ── Fair value blend ───────────────────────────────── */
+  .blend { padding: 18px 20px; }
+  .blend-num {
+    display: flex; align-items: baseline; gap: 10px; margin-top: 8px;
+  }
+  .blend-num .px { font-family: 'Spline Sans Mono', monospace; font-weight: 600; font-size: 28px; }
+  .blend-num .pct { font-family: 'Spline Sans Mono', monospace; font-size: 14px; font-weight: 500; }
+  .blend-note { color: var(--dim); font-size: 12px; margin-top: 6px; }
+
+  /* ── Thesis ─────────────────────────────────────────── */
+  .thesis { padding: 18px 20px; }
+  .thesis-body {
+    margin-top: 10px; font-family: 'Besley', Georgia, serif; font-size: 14px;
+    line-height: 1.65; color: var(--soft);
+    border-left: 2px solid var(--rule-hi); padding-left: 12px;
+  }
+  .thesis-meta {
+    display: flex; justify-content: space-between; margin-top: 12px;
+    font-family: 'Spline Sans Mono', monospace; font-size: 10.5px; color: var(--dim);
+  }
+  .linkrow { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 2px; }
+  .linkrow a {
+    font-size: 11.5px; color: var(--dim); border: 1px solid var(--rule);
+    background: var(--card); border-radius: 999px; padding: 4px 11px;
+  }
+  .linkrow a:hover { color: var(--ink); border-color: var(--rule-hi); text-decoration: none; }
+
+  /* ── Main column ────────────────────────────────────── */
+  .main { display: flex; flex-direction: column; gap: 24px; min-width: 0; }
+  .sec-head { display: flex; align-items: baseline; gap: 12px; margin: 4px 2px 0; }
+  .sec-head h2 {
+    font-family: 'Besley', Georgia, serif; font-weight: 600; font-size: 19px;
+    letter-spacing: -.01em; margin: 0; text-wrap: balance;
+  }
+  .sec-head .hint { color: var(--dim); font-size: 12.5px; }
+
+  /* ── The Ledger ─────────────────────────────────────── */
+  .ledger { overflow-x: auto; }
+  .ledger table { border-collapse: collapse; width: 100%; min-width: 660px; }
+  .ledger th {
+    font-family: 'Spline Sans Mono', monospace; font-weight: 500; font-size: 10px;
+    letter-spacing: .12em; text-transform: uppercase; color: var(--dim);
+    text-align: right; padding: 12px 14px 9px; border-bottom: 1px solid var(--rule-hi);
+    white-space: nowrap;
+  }
+  .ledger th:first-child { text-align: left; padding-left: 20px; }
+  .ledger th.range-col { text-align: center; }
+  .ledger td {
+    padding: 11px 14px; border-bottom: 1px solid var(--rule); text-align: right;
+    font-family: 'Spline Sans Mono', monospace; font-size: 13px; white-space: nowrap;
+  }
+  .ledger tr:last-child td { border-bottom: none; }
+  .ledger tbody tr { cursor: pointer; transition: background .12s; }
+  .ledger tbody tr:hover { background: var(--card2); }
+  .ledger td.name {
+    text-align: left; padding-left: 20px; font-family: 'Spline Sans', sans-serif;
+    font-weight: 500; font-size: 13.5px;
+  }
+  .ledger td.name small { display: block; color: var(--dim); font-weight: 400; font-size: 11px; }
+  .ledger .cur { font-weight: 600; }
+  .ledger .delta { font-size: 12px; }
+  .pct-badge {
+    display: inline-block; font-size: 10.5px; font-weight: 500; border-radius: 5px;
+    padding: 2px 7px; letter-spacing: .04em;
+  }
+  .pct-cheap { background: var(--green-tint); color: var(--green); }
+  .pct-rich  { background: var(--red-tint);   color: var(--red); }
+  .pct-fair  { background: var(--card2);      color: var(--soft); }
+
+  .strip { display: flex; align-items: center; gap: 8px; min-width: 190px; }
+  .strip .end { font-size: 10px; color: var(--dim); }
+  .strip-track {
+    position: relative; flex: 1; height: 6px; border-radius: 3px; background: var(--card2);
+    border: 1px solid var(--rule);
+  }
+  .strip-avg {
+    position: absolute; top: -4px; bottom: -4px; width: 2px; border-radius: 1px;
+    background: var(--rule-hi); transform: translateX(-50%);
+  }
+  .strip-dot {
+    position: absolute; top: 50%; width: 11px; height: 11px; border-radius: 50%;
+    transform: translate(-50%,-50%); border: 2px solid var(--card);
+  }
+  .dot-cheap { background: var(--green); }
+  .dot-rich  { background: var(--red); }
+  .dot-fair  { background: var(--dim); }
+
+  /* ── Chart card ─────────────────────────────────────── */
+  .chart-card { padding: 18px 20px 14px; }
+  .chart-top { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .chips { display: flex; gap: 6px; }
+  .chip {
+    font-family: 'Spline Sans Mono', monospace; font-size: 11.5px; font-weight: 500;
+    padding: 5px 12px; border-radius: 999px; border: 1px solid var(--rule);
+    color: var(--soft); background: var(--card); transition: all .12s;
+  }
+  .chip:hover { border-color: var(--rule-hi); color: var(--ink); }
+  .chip.on { background: var(--blue-tint); border-color: var(--blue); color: var(--blue); }
+  .seg {
+    margin-left: auto; display: flex; border: 1px solid var(--rule); border-radius: 8px;
+    overflow: hidden; background: var(--card2);
+  }
+  .seg button {
+    font-family: 'Spline Sans Mono', monospace; font-size: 11.5px; font-weight: 500;
+    padding: 5px 13px; color: var(--dim);
+  }
+  .seg button.on { background: var(--card); color: var(--ink); box-shadow: var(--shadow); border-radius: 7px; }
+
+  .chart-wrap { position: relative; margin-top: 14px; }
+  .chart-wrap svg { display: block; width: 100%; height: auto; }
+  .tt {
+    position: absolute; pointer-events: none; display: none; z-index: 5;
+    background: var(--ink); color: var(--bg); border-radius: 7px;
+    padding: 7px 11px; font-family: 'Spline Sans Mono', monospace; font-size: 11.5px;
+    line-height: 1.5; white-space: nowrap; transform: translate(-50%, -110%);
+  }
+  .tt b { font-weight: 600; }
+  .chart-stats {
+    display: flex; gap: 26px; margin-top: 10px; padding-top: 12px;
+    border-top: 1px solid var(--rule); flex-wrap: wrap;
+  }
+  .chart-stats div { display: flex; flex-direction: column; gap: 1px; }
+  .chart-stats .k { font-family:'Spline Sans Mono',monospace; font-size: 9.5px; letter-spacing:.12em; text-transform: uppercase; color: var(--dim); }
+  .chart-stats .v { font-family:'Spline Sans Mono',monospace; font-size: 14px; font-weight: 600; }
+
+  /* ── Fundamentals ───────────────────────────────────── */
+  .fund-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
+  @media (max-width: 720px) { .fund-grid { grid-template-columns: 1fr; } }
+  .fund-col { padding: 16px 20px; }
+  .fund-col + .fund-col { border-left: 1px solid var(--rule); }
+  @media (max-width: 720px) { .fund-col + .fund-col { border-left: none; border-top: 1px solid var(--rule); } }
+  .fund-col h3 { margin: 0 0 10px; }
+  .fund-row {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 6px 0; border-bottom: 1px dashed var(--rule);
+    font-size: 13px; color: var(--soft);
+  }
+  .fund-row:last-child { border-bottom: none; }
+  .fund-row .v { font-family: 'Spline Sans Mono', monospace; font-weight: 500; color: var(--ink); }
+  .trend { font-size: 11px; margin-left: 5px; }
+  .status-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 6px; vertical-align: 1px; }
+
+  /* ── Fair value detail ──────────────────────────────── */
+  .fv { padding: 6px 0 10px; overflow-x: auto; }
+  .fv-row {
+    display: grid; grid-template-columns: 110px 90px 90px minmax(140px,1fr) 70px;
+    align-items: center; gap: 14px; padding: 9px 20px;
+    border-bottom: 1px dashed var(--rule); min-width: 560px;
+  }
+  .fv-row:last-of-type { border-bottom: none; }
+  .fv-row.head {
+    font-family: 'Spline Sans Mono', monospace; font-size: 10px; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--dim); border-bottom: 1px solid var(--rule-hi);
+    padding-top: 12px; padding-bottom: 9px;
+  }
+  .fv-row .m { font-weight: 500; font-size: 13.5px; }
+  .fv-row .n { font-family: 'Spline Sans Mono', monospace; font-size: 13px; text-align: right; }
+  .fv-bar { position: relative; height: 14px; }
+  .fv-zero { position: absolute; left: 35%; top: -3px; bottom: -3px; width: 1px; background: var(--rule-hi); }
+  .fv-fill { position: absolute; top: 2px; bottom: 2px; border-radius: 3px; }
+  .fv-pos { left: 35%; background: var(--green); opacity: .85; }
+  .fv-neg { right: 65%; background: var(--red); opacity: .85; }
+  .fv-blend-row {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin: 4px 20px 0; padding: 12px 0 14px; border-top: 1px solid var(--rule-hi);
+  }
+  .fv-blend-row .lbl { font-family: 'Besley', Georgia, serif; font-style: italic; font-size: 15px; color: var(--soft); }
+  .fv-blend-row .val { font-family: 'Spline Sans Mono', monospace; font-weight: 600; font-size: 17px; }
+
+  footer {
+    max-width: 1240px; margin: 0 auto; padding: 0 24px 40px;
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    color: var(--dim); font-size: 11.5px;
+  }
+  footer .mono { font-size: 10.5px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+  }
+</style>
+
+<header>
+  <div class="header-in">
+    <div class="wordmark">Valu<em>Scope</em></div>
+    <nav class="top" aria-label="Primary">
+      <a href="#">Indices</a>
+      <a href="#" aria-current="page">Valuation</a>
+      <a href="#">13F</a>
+      <a href="#">Watchlist</a>
+    </nav>
+    <div class="search" role="button" tabindex="0" aria-label="Search companies">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
+      Search a company…
+      <kbd>⌘K</kbd>
+    </div>
+    <button class="theme-toggle" id="themeBtn" aria-label="Toggle color theme">◐</button>
+  </div>
+</header>
+
+<div class="page">
+
+  <!-- ══ Left rail: identity, verdict, blend, thesis ══ -->
+  <aside class="rail">
+
+    <div class="card identity">
+      <div class="tick-row">
+        <span class="ticker">ULTA</span>
+        <span class="exch">NASDAQ · SPECIALTY RETAIL</span>
+      </div>
+      <div class="coname">Ulta Beauty, Inc.</div>
+      <div class="price-row">
+        <span class="price">$472.18</span>
+        <span class="chg up">▲ 1.24&thinsp;%</span>
+      </div>
+      <div class="cap-row">
+        <div><span class="eyebrow">Mkt cap</span><span class="v">$21.4B</span></div>
+        <div><span class="eyebrow">Enterprise value</span><span class="v">$22.9B</span></div>
+        <div><span class="eyebrow">Fwd P/E</span><span class="v">17.2×</span></div>
+      </div>
+    </div>
+
+    <div class="card verdict">
+      <span class="eyebrow">Valuation regime · 10Y basis</span>
+      <div class="verdict-word">Undervalued</div>
+      <p class="verdict-sub" style="margin:0">Trading at the <b>24th percentile</b> of its own ten-year multiple history.</p>
+      <div class="meter" role="img" aria-label="Valuation regime meter: 24th percentile, in the undervalued zone">
+        <div class="meter-track"><span class="mz1"></span><span class="mz2"></span><span class="mz3"></span><span class="mz4"></span><span class="mz5"></span></div>
+        <div class="meter-pin"><i></i></div>
+        <div class="meter-labels"><span>Deep value</span><span>Fair</span><span>Expensive</span></div>
+      </div>
+    </div>
+
+    <div class="card blend">
+      <span class="eyebrow">Fair value · blended median</span>
+      <div class="blend-num">
+        <span class="px">$549</span>
+        <span class="pct up">+16.2% implied</span>
+      </div>
+      <p class="blend-note" style="margin:0">Median across P/E, EV/EBITDA, P/FCF, EV/Sales and P/B reversion to 10-year averages. Not advice — a mirror held to history.</p>
+    </div>
+
+    <div class="card thesis">
+      <span class="eyebrow">My thesis</span>
+      <p class="thesis-body" style="margin:0">Category leader compounding through a sector de-rating. Loyalty base still growing, buybacks running at ~4% of the float, and the multiple assumes the Sephora-at-Kohl's scare is permanent. I don't think it is.</p>
+      <div class="thesis-meta"><span>saved 2m ago</span><span>412 chars</span></div>
+    </div>
+
+    <div class="linkrow" aria-label="External sources">
+      <a href="#">SEC EDGAR</a><a href="#">StockAnalysis</a><a href="#">Yahoo</a><a href="#">Quartr</a><a href="#">8-K feed</a>
+    </div>
+  </aside>
+
+  <!-- ══ Main column ══ -->
+  <main class="main">
+
+    <!-- The Ledger -->
+    <div class="sec-head">
+      <h2 class="serif">The Ledger</h2>
+      <span class="hint">Every multiple against its own ten-year range · tap a row for detail</span>
+    </div>
+    <div class="card ledger">
+      <table>
+        <thead>
+          <tr>
+            <th>Metric</th><th>Current</th><th>vs 10Y avg</th>
+            <th class="range-col">10-year range</th><th>Pctile</th>
+          </tr>
+        </thead>
+        <tbody id="ledgerBody"><!-- rows injected --></tbody>
+      </table>
+    </div>
+
+    <!-- Chart -->
+    <div class="sec-head">
+      <h2 class="serif">Multiple history</h2>
+      <span class="hint">Dashed line marks the period average</span>
+    </div>
+    <div class="card chart-card">
+      <div class="chart-top">
+        <div class="chips" id="chips" role="tablist" aria-label="Metric"></div>
+        <div class="seg" id="seg" role="tablist" aria-label="Period">
+          <button data-p="36">3Y</button><button data-p="60">5Y</button><button data-p="999" class="on">10Y</button>
+        </div>
+      </div>
+      <div class="chart-wrap" id="chartWrap">
+        <svg id="chart" viewBox="0 0 860 300" role="img" aria-label="P/E ratio over the last ten years with period average"></svg>
+        <div class="tt" id="tt"></div>
+      </div>
+      <div class="chart-stats" id="chartStats"></div>
+    </div>
+
+    <!-- Fundamentals -->
+    <div class="sec-head">
+      <h2 class="serif">Fundamentals</h2>
+      <span class="hint">LTM, with trend vs. 3-year average</span>
+    </div>
+    <div class="card fund-grid">
+      <div class="fund-col">
+        <h3 class="eyebrow">Growth · CAGR</h3>
+        <div class="fund-row"><span>Revenue, 1yr</span><span class="v">+6.8%</span></div>
+        <div class="fund-row"><span>Revenue, 3yr</span><span class="v">+9.1%</span></div>
+        <div class="fund-row"><span>Revenue, 5yr</span><span class="v">+11.4%</span></div>
+        <div class="fund-row"><span>EBITDA, 3yr</span><span class="v">+7.5%</span></div>
+      </div>
+      <div class="fund-col">
+        <h3 class="eyebrow">Margins · LTM</h3>
+        <div class="fund-row"><span>Gross</span><span class="v">39.1% <span class="trend up" title="above 3-year average">▲</span></span></div>
+        <div class="fund-row"><span>EBITDA</span><span class="v">17.6% <span class="trend down" title="below 3-year average">▼</span></span></div>
+        <div class="fund-row"><span>Operating</span><span class="v">14.9% <span class="trend down" title="below 3-year average">▼</span></span></div>
+        <div class="fund-row"><span>Free cash flow</span><span class="v">9.8% <span class="trend up" title="above 3-year average">▲</span></span></div>
+      </div>
+      <div class="fund-col">
+        <h3 class="eyebrow">Balance &amp; returns</h3>
+        <div class="fund-row"><span><span class="status-dot" style="background:var(--green)"></span>ND / EBITDA</span><span class="v">0.4×</span></div>
+        <div class="fund-row"><span><span class="status-dot" style="background:var(--green)"></span>Interest coverage</span><span class="v">28.3×</span></div>
+        <div class="fund-row"><span><span class="status-dot" style="background:var(--amber)"></span>Current ratio</span><span class="v">1.5×</span></div>
+        <div class="fund-row"><span><span class="status-dot" style="background:var(--green)"></span>ROIC</span><span class="v">24.7%</span></div>
+      </div>
+    </div>
+
+    <!-- Fair value detail -->
+    <div class="sec-head">
+      <h2 class="serif">If history reasserts itself</h2>
+      <span class="hint">Implied price at each metric's 10-year average</span>
+    </div>
+    <div class="card fv">
+      <div class="fv-row head">
+        <span>Metric</span><span style="text-align:right">10Y avg</span><span style="text-align:right">Implied</span><span></span><span style="text-align:right">Up / down</span>
+      </div>
+      <div class="fv-row">
+        <span class="m">P/E</span><span class="n">21.2×</span><span class="n">$553</span>
+        <span class="fv-bar"><span class="fv-zero"></span><span class="fv-fill fv-pos" style="width:22%"></span></span>
+        <span class="n up">+17.1%</span>
+      </div>
+      <div class="fv-row">
+        <span class="m">EV/EBITDA</span><span class="n">12.7×</span><span class="n">$535</span>
+        <span class="fv-bar"><span class="fv-zero"></span><span class="fv-fill fv-pos" style="width:17%"></span></span>
+        <span class="n up">+13.4%</span>
+      </div>
+      <div class="fv-row">
+        <span class="m">P/FCF</span><span class="n">20.8×</span><span class="n">$549</span>
+        <span class="fv-bar"><span class="fv-zero"></span><span class="fv-fill fv-pos" style="width:21%"></span></span>
+        <span class="n up">+16.2%</span>
+      </div>
+      <div class="fv-row">
+        <span class="m">EV/Sales</span><span class="n">2.6×</span><span class="n">$614</span>
+        <span class="fv-bar"><span class="fv-zero"></span><span class="fv-fill fv-pos" style="width:39%"></span></span>
+        <span class="n up">+30.0%</span>
+      </div>
+      <div class="fv-row">
+        <span class="m">P/B</span><span class="n">8.1×</span><span class="n">$407</span>
+        <span class="fv-bar"><span class="fv-zero"></span><span class="fv-fill fv-neg" style="width:18%"></span></span>
+        <span class="n down">−13.8%</span>
+      </div>
+      <div class="fv-blend-row">
+        <span class="lbl">Blended median, all metrics</span>
+        <span class="val">$549 · <span class="up">+16.2%</span></span>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<footer>
+  <span>Design concept — <em class="serif" style="font-style:italic">The Analyst's Ledger</em> · Besley · Spline Sans · Spline Sans Mono</span>
+  <span class="mono">MOCKUP · ILLUSTRATIVE DATA · v0.25-CONCEPT</span>
+</footer>
+
+<script>
+/* ── Theme toggle: stamps data-theme, starting from the resolved system theme ── */
+(function () {
+  const btn = document.getElementById('themeBtn');
+  const sysDark = () => matchMedia('(prefers-color-scheme: dark)').matches;
+  btn.addEventListener('click', () => {
+    const cur = document.documentElement.dataset.theme || (sysDark() ? 'dark' : 'light');
+    document.documentElement.dataset.theme = cur === 'dark' ? 'light' : 'dark';
+  });
+})();
+
+/* ── Illustrative series: deterministic pseudo-random walk between anchors ── */
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function buildSeries(anchors, seed, jitter, finalVal, lo, hi){
+  // 121 monthly points, Sep-2016 → Sep-2026
+  const r = mulberry32(seed), pts = [];
+  for (let i = 0; i <= 120; i++) {
+    const t = 2016 + 8/12 + i/12;
+    let k = 0; while (k < anchors.length - 2 && anchors[k+1][0] < t) k++;
+    const [t0,v0] = anchors[k], [t1,v1] = anchors[k+1];
+    const f = Math.min(1, Math.max(0, (t - t0) / (t1 - t0)));
+    pts.push(v0 + (v1 - v0) * f + (r() - .5) * jitter);
+  }
+  // light smoothing, remap onto the ledger's quoted range, pin the endpoint
+  for (let i = 1; i < 120; i++) pts[i] = (pts[i-1] + 2*pts[i] + pts[i+1]) / 4;
+  const mn = Math.min(...pts), mx = Math.max(...pts);
+  for (let i = 0; i <= 120; i++) pts[i] = lo + (pts[i]-mn)/(mx-mn)*(hi-lo);
+  pts[120] = finalVal;
+  return pts;
+}
+const METRICS = {
+  pe:   { label: 'P/E',       unit: '×', cur: 18.1,
+          data: buildSeries([[2016.6,26.5],[2017.5,23.5],[2018.6,29.0],[2019.6,21.0],[2020.25,10.2],[2020.9,29.5],[2021.6,33.5],[2022.5,19.5],[2023.5,15.8],[2024.5,14.2],[2025.5,16.8],[2026.7,18.1]], 7, 1.8, 18.1, 9.8, 34.0) },
+  ev:   { label: 'EV/EBITDA', unit: '×', cur: 11.2,
+          data: buildSeries([[2016.6,15.8],[2017.5,14.2],[2018.6,17.0],[2019.6,12.8],[2020.25,7.4],[2020.9,17.6],[2021.6,19.4],[2022.5,12.2],[2023.5,10.2],[2024.5,9.4],[2025.5,10.6],[2026.7,11.2]], 21, 1.1, 11.2, 7.1, 19.6) },
+  pfcf: { label: 'P/FCF',     unit: '×', cur: 17.9,
+          data: buildSeries([[2016.6,27.5],[2017.5,24.0],[2018.6,28.0],[2019.6,21.5],[2020.25,11.5],[2020.9,28.5],[2021.6,31.0],[2022.5,19.0],[2023.5,16.5],[2024.5,15.0],[2025.5,16.8],[2026.7,17.9]], 42, 1.6, 17.9, 11.2, 31.4) },
+};
+
+/* ── The Ledger rows ── */
+const LEDGER = [
+  { name:'P/E',        sub:'price / earnings, LTM',      cur:'18.1×', min:9.8,  max:34.0, avg:21.2, val:18.1, delta:'−14.6%', side:'cheap', pct:24 },
+  { name:'EV/EBITDA',  sub:'enterprise value basis',     cur:'11.2×', min:7.1,  max:19.6, avg:12.7, val:11.2, delta:'−11.7%', side:'cheap', pct:28 },
+  { name:'P/FCF',      sub:'price / free cash flow',     cur:'17.9×', min:11.2, max:31.4, avg:20.8, val:17.9, delta:'−14.1%', side:'cheap', pct:31 },
+  { name:'EV/Sales',   sub:'enterprise value / revenue', cur:'2.0×',  min:1.4,  max:4.1,  avg:2.6,  val:2.0,  delta:'−23.1%', side:'cheap', pct:18 },
+  { name:'P/B',        sub:'price / book value',         cur:'9.4×',  min:4.9,  max:12.6, avg:8.1,  val:9.4,  delta:'+16.0%', side:'rich',  pct:68 },
+  { name:'FCF yield',  sub:'inverse of P/FCF',           cur:'5.6%',  min:3.2,  max:8.9,  avg:4.7,  val:5.6,  delta:'+0.9pt', side:'cheap', pct:69, note:'higher = cheaper' },
+];
+document.getElementById('ledgerBody').innerHTML = LEDGER.map(m => {
+  const pos = a => ((a - m.min) / (m.max - m.min) * 100).toFixed(1);
+  const badge = m.side === 'cheap' ? 'pct-cheap' : (m.side === 'rich' ? 'pct-rich' : 'pct-fair');
+  return `<tr tabindex="0">
+    <td class="name">${m.name}<small>${m.sub}${m.note ? ' · ' + m.note : ''}</small></td>
+    <td class="cur">${m.cur}</td>
+    <td class="delta ${m.side === 'cheap' ? 'up' : 'down'}">${m.delta}</td>
+    <td><span class="strip">
+      <span class="end">${m.min.toFixed(1)}</span>
+      <span class="strip-track">
+        <span class="strip-avg" style="left:${pos(m.avg)}%"></span>
+        <span class="strip-dot dot-${m.side}" style="left:${pos(m.val)}%"></span>
+      </span>
+      <span class="end">${m.max.toFixed(1)}</span>
+    </span></td>
+    <td><span class="pct-badge ${badge}">P${m.pct}</span></td>
+  </tr>`;
+}).join('');
+
+/* ── Chart: single series + dashed period-average, crosshair tooltip ── */
+const svg = document.getElementById('chart'), tt = document.getElementById('tt');
+const W = 860, H = 300, PAD = { l: 44, r: 74, t: 16, b: 26 };
+let metricKey = 'pe', months = 999, view = null;
+
+function fmtDate(i){ const m0 = 8 + i; const y = 2016 + Math.floor(m0/12); const mo = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][m0%12]; return mo + ' ’' + String(y).slice(2); }
+function draw(){
+  const M = METRICS[metricKey];
+  const n = Math.min(months + 1, M.data.length);
+  const start = M.data.length - n;
+  const data = M.data.slice(start);
+  const avg = data.reduce((a,b)=>a+b,0)/data.length;
+  const lo = Math.min(...data), hi = Math.max(...data);
+  const y0 = Math.floor((lo - (hi-lo)*.08)), y1 = Math.ceil((hi + (hi-lo)*.08));
+  const X = i => PAD.l + (W-PAD.l-PAD.r) * i/(data.length-1);
+  const Y = v => PAD.t + (H-PAD.t-PAD.b) * (1 - (v-y0)/(y1-y0));
+  view = { data, start, avg, lo, hi, X, Y };
+
+  let g = '';
+  // horizontal grid + y labels
+  const steps = 4;
+  for (let s = 0; s <= steps; s++) {
+    const v = y0 + (y1-y0)*s/steps, y = Y(v);
+    g += `<line x1="${PAD.l}" x2="${W-PAD.r}" y1="${y}" y2="${y}" stroke="var(--rule)" stroke-width="1"/>`;
+    g += `<text x="${PAD.l-8}" y="${y+3.5}" text-anchor="end" font-family="Spline Sans Mono" font-size="10" fill="var(--dim)">${v.toFixed(0)}×</text>`;
+  }
+  // x year labels
+  const yrStep = data.length > 70 ? 24 : 12;
+  for (let i = data.length - 1; i >= 0; i -= yrStep) {
+    g += `<text x="${X(i)}" y="${H-8}" text-anchor="middle" font-family="Spline Sans Mono" font-size="10" fill="var(--dim)">${fmtDate(start+i)}</text>`;
+  }
+  // area + line
+  const line = data.map((v,i)=>`${i?'L':'M'}${X(i).toFixed(1)},${Y(v).toFixed(1)}`).join('');
+  g += `<path d="${line}L${X(data.length-1)},${Y(y0)}L${X(0)},${Y(y0)}Z" fill="var(--chart-fill)"/>`;
+  // average line, directly labeled
+  const ay = Y(avg);
+  g += `<line x1="${PAD.l}" x2="${W-PAD.r}" y1="${ay}" y2="${ay}" stroke="var(--dim)" stroke-width="1.4" stroke-dasharray="5 5"/>`;
+  g += `<text x="${W-PAD.r+8}" y="${ay+3.5}" font-family="Spline Sans Mono" font-size="10" fill="var(--dim)">AVG ${avg.toFixed(1)}×</text>`;
+  g += `<path d="${line}" fill="none" stroke="var(--blue)" stroke-width="2" stroke-linejoin="round"/>`;
+  // emphasized endpoint
+  const ex = X(data.length-1), ey = Y(data[data.length-1]);
+  g += `<circle cx="${ex}" cy="${ey}" r="4.5" fill="var(--blue)" stroke="var(--card)" stroke-width="2"/>`;
+  g += `<text x="${ex+10}" y="${ey+4}" font-family="Spline Sans Mono" font-size="11" font-weight="600" fill="var(--blue)">${M.cur.toFixed(1)}×</text>`;
+  // crosshair placeholder
+  g += `<line id="xh" y1="${PAD.t}" y2="${H-PAD.b}" stroke="var(--rule-hi)" stroke-width="1" visibility="hidden"/>
+        <circle id="xhd" r="3.5" fill="var(--blue)" visibility="hidden"/>`;
+  svg.innerHTML = g;
+  svg.setAttribute('aria-label', `${M.label} over the selected period; period average ${avg.toFixed(1)}`);
+
+  document.getElementById('chartStats').innerHTML = [
+    ['Current', M.cur.toFixed(1) + M.unit, M.cur < avg ? 'var(--green)' : 'var(--red)'],
+    ['Period avg', avg.toFixed(1) + M.unit, 'var(--ink)'],
+    ['Low', lo.toFixed(1) + M.unit, 'var(--ink)'],
+    ['High', hi.toFixed(1) + M.unit, 'var(--ink)'],
+    ['vs avg', ((M.cur/avg - 1)*100).toFixed(1) + '%', M.cur < avg ? 'var(--green)' : 'var(--red)'],
+  ].map(([k,v,c]) => `<div><span class="k">${k}</span><span class="v" style="color:${c}">${v}</span></div>`).join('');
+}
+
+/* chips + period */
+const chipsEl = document.getElementById('chips');
+chipsEl.innerHTML = Object.entries(METRICS).map(([k,m]) =>
+  `<button class="chip${k==='pe'?' on':''}" data-k="${k}" role="tab" aria-selected="${k==='pe'}">${m.label}</button>`).join('');
+chipsEl.addEventListener('click', e => {
+  const b = e.target.closest('.chip'); if (!b) return;
+  chipsEl.querySelectorAll('.chip').forEach(c => { c.classList.toggle('on', c===b); c.setAttribute('aria-selected', c===b); });
+  metricKey = b.dataset.k; draw();
+});
+document.getElementById('seg').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  document.querySelectorAll('#seg button').forEach(c => c.classList.toggle('on', c===b));
+  months = +b.dataset.p; draw();
+});
+
+/* crosshair + tooltip */
+const wrap = document.getElementById('chartWrap');
+wrap.addEventListener('mousemove', e => {
+  if (!view) return;
+  const r = svg.getBoundingClientRect(), sx = W / r.width;
+  const px = (e.clientX - r.left) * sx;
+  const i = Math.round((px - PAD.l) / (W-PAD.l-PAD.r) * (view.data.length-1));
+  if (i < 0 || i >= view.data.length) { hideTT(); return; }
+  const x = view.X(i), y = view.Y(view.data[i]), v = view.data[i];
+  const xh = svg.querySelector('#xh'), xhd = svg.querySelector('#xhd');
+  xh.setAttribute('x1', x); xh.setAttribute('x2', x); xh.setAttribute('visibility','visible');
+  xhd.setAttribute('cx', x); xhd.setAttribute('cy', y); xhd.setAttribute('visibility','visible');
+  tt.style.display = 'block';
+  tt.style.left = (x / sx) + 'px';
+  tt.style.top  = (y / sx) + 'px';
+  const d = ((v/view.avg - 1) * 100);
+  tt.innerHTML = `${fmtDate(view.start + i)} · <b>${v.toFixed(1)}×</b><br>${d >= 0 ? '+' : ''}${d.toFixed(0)}% vs avg`;
+});
+function hideTT(){ tt.style.display='none'; const a=svg.querySelector('#xh'), b=svg.querySelector('#xhd'); if(a){a.setAttribute('visibility','hidden');b.setAttribute('visibility','hidden');} }
+wrap.addEventListener('mouseleave', hideTT);
+
+draw();
+</script>
