@@ -53,6 +53,16 @@ function monthGrid(year, month) {
 
 const SESSION = { pre: 'Before open', post: 'After close' };
 
+// "3 hours ago" — how stale the transcript index is, in the grid footer.
+function relativeTime(iso) {
+  const ms = Date.now() - new Date(iso).getTime();
+  if (!isFinite(ms) || ms < 0) return 'just now';
+  const h = Math.floor(ms / 3600000);
+  if (h < 1) return `${Math.max(1, Math.floor(ms / 60000))} min ago`;
+  if (h < 48) return `${h} ${h === 1 ? 'hour' : 'hours'} ago`;
+  return `${Math.floor(h / 24)} days ago`;
+}
+
 export default function EarningsCalendarPage({ date, onSelectDate, onSelectTicker, onOpenTranscript, onBack }) {
   const today = todayIso();
   const selectedDate = fromIso(date) ? date : null;
@@ -231,6 +241,7 @@ export default function EarningsCalendarPage({ date, onSelectDate, onSelectTicke
           {universe && (
             <span className="text-vs-dim text-micro font-mono ml-auto">
               {universe.count} constituents · list as of {universe.asOf}
+              {month?.data?.transcriptIndex?.builtAt && ` · transcripts indexed ${relativeTime(month.data.transcriptIndex.builtAt)}`}
             </span>
           )}
         </div>
@@ -298,7 +309,7 @@ export default function EarningsCalendarPage({ date, onSelectDate, onSelectTicke
                 {effectiveDate > today
                   ? 'Transcripts appear here within a day of each call.'
                   : month?.data?.transcriptsAvailable === false
-                    ? 'Transcript availability is unknown right now.'
+                    ? 'Transcript availability is unknown right now — see the note above.'
                     : 'No transcripts have landed for this day yet. They usually arrive within a day of the call.'}
               </p>
             )}

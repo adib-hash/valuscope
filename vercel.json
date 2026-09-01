@@ -10,7 +10,8 @@
       "maxDuration": 60
     },
     "api/earnings.js": {
-      "maxDuration": 60
+      "maxDuration": 60,
+      "includeFiles": "data/transcript-index.json"
     }
   },
   "rewrites": [
@@ -19,4 +20,4 @@
       "destination": "/index.html"
     }
   ]
-}
+}\n

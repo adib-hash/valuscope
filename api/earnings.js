@@ -101,10 +101,15 @@ async function opCalendar(req, res) {
     }),
     getTranscriptIndex().catch((err) => {
       console.error('Calendar transcript index failed:', err);
-      warnings.push('The transcript dataset is unreachable, so transcript availability is unknown.');
+      warnings.push('The transcript index could not be loaded, so transcript availability is unknown.');
       return null;
     }),
   ]);
+  if (index && !index.rows) {
+    warnings.push(index.builtAt
+      ? 'The transcript index is empty, so transcript availability is unknown.'
+      : 'The transcript index has not been built yet, so transcript availability is unknown.');
+  }
   if (quotes.failedBatches && quotes.failedBatches === quotes.batches) {
     warnings.push('Upcoming dates from Yahoo Finance are unavailable right now.');
   } else if (quotes.failedBatches) {
@@ -127,7 +132,8 @@ async function opCalendar(req, res) {
     to,
     events,
     universe: { count: constituents.length, asOf: SP500_AS_OF, source: 'datasets/s-and-p-500-companies' },
-    transcriptsAvailable: !!index,
+    transcriptsAvailable: !!(index && index.rows),
+    transcriptIndex: index ? { builtAt: index.builtAt, rows: index.rows } : null,
     // The digest needs Gemini; the client hides the button on deployments
     // without a key rather than offering an action that can only fail.
     summaryAvailable: !!process.env.GEMINI_API_KEY,

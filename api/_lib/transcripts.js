@@ -72,88 +72,59 @@ const toDate = (v) => {
   return isNaN(d) ? null : d.toISOString().slice(0, 10);
 };
 
-// Every call in the dataset, keyed by symbol, newest first — the index columns
-// only, read across the whole file. That sounds expensive and is not: the
-// columns are a symbol, two small integers and a date for ~235k rows, a few
-// megabytes against the 2.2 GB the transcripts themselves occupy. It is what
-// lets the earnings calendar ask "which of these five hundred companies has a
-// transcript on this day" in one pass instead of five hundred row-group reads.
+// Which calls exist, keyed by symbol, newest first — for the earnings
+// calendar, which asks "does this day's call have a transcript" for five
+// hundred companies at once.
 //
-// The dataset is rebuilt daily, so the index is held for a few hours and then
-// re-read; a failed refresh keeps serving the previous copy rather than
-// nothing.
-let indexCache = null; // { bySymbol: Map, builtAt }
-let indexPromise = null;
-const INDEX_TTL_MS = 4 * 60 * 60 * 1000;
+// This is NOT read from the dataset at request time. Its index columns are
+// spread across hundreds of row groups, so one scan is thousands of range
+// requests; the CDN answers that burst with 429 and a function has sixty
+// seconds anyway. Instead a scheduled workflow reads the dataset slowly, with
+// backoff, and commits data/transcript-index.json (S&P 500, last two years —
+// see scripts/build-transcript-index.mjs). The function reads that file:
+// from the repository first, so a fresh index is served before its deploy
+// finishes, and from the bundled copy otherwise.
+const INDEX_URL = 'https://raw.githubusercontent.com/adib-hash/valuscope/main/data/transcript-index.json';
+const INDEX_FILE = new URL('../../data/transcript-index.json', import.meta.url);
+const INDEX_TTL_MS = 60 * 60 * 1000;
+let indexCache = null; // { value, fetchedAt }
 
-// Row groups per read. One call over the whole file fans out a range request
-// per column chunk per row group at once, and on Vercel that many concurrent
-// lookups of the dataset's CDN has failed with a DNS EBUSY; a handful at a
-// time is well inside what the runtime tolerates and costs a second or two.
-const INDEX_BATCH_GROUPS = 8;
-
-async function readIndexRows(file, metadata) {
-  const groups = metadata.row_groups.map((g) => Number(g.num_rows));
-  const rows = [];
-  let start = 0;
-  for (let i = 0; i < groups.length; i += INDEX_BATCH_GROUPS) {
-    const end = start + groups.slice(i, i + INDEX_BATCH_GROUPS).reduce((a, b) => a + b, 0);
-    const read = () => parquetReadObjects({
-      file, metadata, compressors, columns: INDEX_COLUMNS, rowStart: start, rowEnd: end,
-    });
-    let batch;
-    try {
-      batch = await read();
-    } catch (err) {
-      // One transient failure should not cost the whole index.
-      await new Promise((r) => setTimeout(r, 500));
-      batch = await read();
-    }
-    rows.push(...batch);
-    start = end;
-  }
-  return rows;
-}
-
-async function buildTranscriptIndex() {
-  const file = await getFile();
-  const metadata = await getMetadata(file);
-  const rows = await readIndexRows(file, metadata);
-
+function shapeIndex(data) {
   const bySymbol = new Map();
-  for (const r of rows) {
-    const symbol = String(r.symbol ?? '').trim();
+  for (const row of data?.rows || []) {
+    const [symbol, year, quarter, reportDate] = row;
     if (!symbol) continue;
     let list = bySymbol.get(symbol);
     if (!list) { list = []; bySymbol.set(symbol, list); }
-    list.push({
-      year: Number(r.fiscal_year),
-      quarter: Number(r.fiscal_quarter),
-      reportDate: toDate(r.report_date),
-    });
+    list.push({ year: Number(year), quarter: Number(quarter), reportDate });
   }
-  for (const list of bySymbol.values()) {
-    list.sort((a, b) => (b.year - a.year) || (b.quarter - a.quarter));
-  }
-  return { bySymbol, builtAt: Date.now(), rows: rows.length };
+  for (const list of bySymbol.values()) list.sort((a, b) => (b.year - a.year) || (b.quarter - a.quarter));
+  return { bySymbol, builtAt: data?.builtAt || null, rows: (data?.rows || []).length };
+}
+
+async function readIndexFromRepo() {
+  const res = await fetch(INDEX_URL, { signal: AbortSignal.timeout(5000) });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
+}
+
+async function readBundledIndex() {
+  const { readFile } = await import('node:fs/promises');
+  return JSON.parse(await readFile(INDEX_FILE, 'utf8'));
 }
 
 export async function getTranscriptIndex() {
-  const fresh = indexCache && Date.now() - indexCache.builtAt < INDEX_TTL_MS;
-  if (fresh) return indexCache;
-  if (!indexPromise) {
-    indexPromise = buildTranscriptIndex()
-      .then((built) => { indexCache = built; return built; })
-      .catch((err) => {
-        if (indexCache) {
-          console.warn(`Transcript index refresh failed, serving stale copy: ${err.message}`);
-          return indexCache;
-        }
-        throw err;
-      })
-      .finally(() => { indexPromise = null; });
+  if (indexCache && Date.now() - indexCache.fetchedAt < INDEX_TTL_MS) return indexCache.value;
+  let data = null;
+  try {
+    data = await readIndexFromRepo();
+  } catch (err) {
+    console.warn(`Transcript index: repository copy unavailable (${err.message}), using bundled copy`);
   }
-  return indexPromise;
+  if (!data) data = await readBundledIndex();
+  const value = shapeIndex(data);
+  indexCache = { value, fetchedAt: Date.now() };
+  return value;
 }
 
 // Every quarter we hold for a ticker, newest first.

@@ -1,0 +1,44 @@
+# Rebuilds data/transcript-index.json — which S&P 500 earnings calls the
+# transcript dataset holds — and commits it when the set has changed. The
+# dataset is rebuilt daily, so four runs a day keeps the calendar's
+# "transcript loaded" marks within hours of a call landing. Each commit
+# deploys, which is how the function picks the new file up.
+name: Transcript index
+
+on:
+  schedule:
+    - cron: '17 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: transcript-index
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Build the index
+        run: node scripts/build-transcript-index.mjs
+      - name: Commit if the calls changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/transcript-index.json
+          # builtAt changes every run; only a change in the calls is worth a deploy.
+          if git diff --cached -I '"builtAt"' --quiet; then
+            echo "Index unchanged"
+            exit 0
+          fi
+          git commit -m "chore: refresh transcript index"
+          git push
