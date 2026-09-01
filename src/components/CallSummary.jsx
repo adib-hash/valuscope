@@ -2,16 +2,7 @@ import { useState } from 'react';
 import { Sparkles } from 'lucide-react';
 import { fetchSummary } from '../lib/api';
 import KeyMetrics from './ui/KeyMetrics';
-
-const SECTIONS = [
-  { key: 'keyTakeaways',        label: 'Key Takeaways' },
-  { key: 'financialHighlights', label: 'Financial Highlights' },
-  { key: 'guidance',            label: 'Guidance' },
-  { key: 'analystFocus',        label: 'What Analysts Pressed On' },
-  { key: 'risksMentioned',      label: 'Risks & Headwinds' },
-];
-
-
+import { SummaryBody } from './ui/SummarySections';
 
 export default function CallSummary({ ticker, year, quarter }) {
   const [summary, setSummary] = useState(null);
@@ -43,7 +34,7 @@ export default function CallSummary({ ticker, year, quarter }) {
           Summarize this call
         </button>
         <p className="text-vs-dim text-micro font-mono mt-1.5">
-          Key takeaways, guidance and risks &middot; takes a few seconds
+          Results, guidance, the Q&amp;A that mattered, what changed &middot; takes about half a minute
         </p>
       </div>
     );
@@ -94,33 +85,7 @@ export default function CallSummary({ ticker, year, quarter }) {
 
       {summary && !loading && (
         <div className="px-4 py-4">
-          {summary.overview && (
-            <p className="text-vs-text text-prose leading-[1.65] max-w-[68ch]">
-              {summary.overview}
-            </p>
-          )}
-
-          <KeyMetrics items={summary.keyMetrics} className="mt-4" />
-
-          {SECTIONS.map(({ key, label }) => {
-            const items = summary[key];
-            if (!Array.isArray(items) || !items.length) return null;
-            return (
-              <div key={key} className="mt-4">
-                <p className="text-vs-dim text-micro font-mono uppercase tracking-widest mb-2">
-                  {label}
-                </p>
-                <ul className="space-y-1.5">
-                  {items.map((item, i) => (
-                    <li key={i} className="flex gap-2 text-vs-soft text-body leading-[1.6] max-w-[68ch]">
-                      <span className="text-vs-violet flex-shrink-0 mt-[1px]">&bull;</span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            );
-          })}
+          <SummaryBody summary={summary} KeyMetrics={KeyMetrics} />
 
           <p className="text-vs-dim text-micro font-mono mt-5 pt-3 border-t border-vs-violet/15">
             AI-generated from the transcript above &middot; may contain errors &middot; not financial advice

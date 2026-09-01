@@ -2,16 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Sparkles } from 'lucide-react';
 import { runDigest, digestCacheKey, getFinishedDigest, setFinishedDigest } from '../lib/digest';
 import KeyMetrics from './ui/KeyMetrics';
-
-// What each company's section shows, in reading order. Metrics come first as
-// chips (above), then the prose.
-const SECTIONS = [
-  { key: 'financialHighlights', label: 'Results' },
-  { key: 'guidance',            label: 'Guidance' },
-  { key: 'analystFocus',        label: 'Analyst Q&A' },
-  { key: 'keyTakeaways',        label: 'Takeaways' },
-  { key: 'risksMentioned',      label: 'Risks & Headwinds' },
-];
+import { SummaryBody } from './ui/SummarySections';
 
 const fmtLong = (iso) => {
   const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || '');
@@ -25,20 +16,6 @@ const STATUS_CLASS = {
   done:    'border-vs-green/40 text-vs-green',
   failed:  'border-vs-red/40 text-vs-red',
 };
-
-function Bullets({ items }) {
-  if (!Array.isArray(items) || !items.length) return null;
-  return (
-    <ul className="space-y-1.5">
-      {items.map((item, i) => (
-        <li key={i} className="flex gap-2 text-vs-soft text-body leading-[1.6] max-w-[68ch]">
-          <span className="text-vs-violet flex-shrink-0 mt-[1px]">&bull;</span>
-          <span>{item}</span>
-        </li>
-      ))}
-    </ul>
-  );
-}
 
 export default function EarningsDigest({ date, events, onClose, onOpenTranscript, onSelectTicker }) {
   const cacheKey = digestCacheKey(date, events);
@@ -234,20 +211,7 @@ export default function EarningsDigest({ date, events, onClose, onOpenTranscript
 
               {s && (
                 <div className="mt-3">
-                  {s.overview && (
-                    <p className="text-vs-text text-body leading-[1.65] max-w-[68ch]">{s.overview}</p>
-                  )}
-                  <KeyMetrics items={s.keyMetrics} className="mt-3" />
-                  {SECTIONS.map(({ key, label }) => {
-                    const items = s[key];
-                    if (!Array.isArray(items) || !items.length) return null;
-                    return (
-                      <div key={key} className="mt-3.5">
-                        <p className="text-vs-dim text-micro font-mono uppercase tracking-widest mb-1.5">{label}</p>
-                        <Bullets items={items} />
-                      </div>
-                    );
-                  })}
+                  <SummaryBody summary={s} KeyMetrics={KeyMetrics} />
                 </div>
               )}
             </section>
