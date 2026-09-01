@@ -1,0 +1,600 @@
+<title>ValuScope Meridian</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Sometype+Mono:wght@400;500;600&display=swap">
+<style>
+  /* ────────────────────────────────────────────────────────────────
+     VALUSCOPE MERIDIAN — design-refresh concept no. 4
+     Direction: the production candidate. A calm app shell that keeps
+     the strongest ideas from the bolder concepts — verdict-forward
+     header, the composite percentile strip, range-strip rows — in a
+     quiet skin: warm greige neutrals, one deep marine-teal accent.
+     Type: Familjen Grotesk (UI) · Sometype Mono (data)
+     ──────────────────────────────────────────────────────────────── */
+
+  /* Light — warm greige canvas, white panels */
+  :root {
+    --canvas:  #F3F2EF;
+    --panel:   #FFFFFF;
+    --panel2:  #EFEEE9;
+    --border:  #E2E0D9;
+    --border2: #CFCCC2;
+    --ink:     #21211D;
+    --soft:    #5B5A52;
+    --dim:     #767569;
+    --teal:    #0B6288;
+    --teal-tint: rgba(11,98,136,.09);
+    --pos:     #177A4C;
+    --pos-tint: rgba(23,122,76,.10);
+    --neg:     #B04038;
+    --neg-tint: rgba(176,64,56,.10);
+    --amber:   #92671A;
+    --chart-fill: rgba(11,98,136,.08);
+    --shadow: 0 1px 2px rgba(33,33,29,.04), 0 6px 20px rgba(33,33,29,.05);
+  }
+  /* Dark — warm charcoal, same materials after hours */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --canvas:  #141513;
+      --panel:   #1C1E1B;
+      --panel2:  #242622;
+      --border:  #2D2F2A;
+      --border2: #3C3E38;
+      --ink:     #E9E8E3;
+      --soft:    #ABAAA0;
+      --dim:     #85847A;
+      --teal:    #5CB8DF;
+      --teal-tint: rgba(92,184,223,.12);
+      --pos:     #4FCB92;
+      --pos-tint: rgba(79,203,146,.12);
+      --neg:     #EF7E75;
+      --neg-tint: rgba(239,126,117,.12);
+      --amber:   #DBAA4C;
+      --chart-fill: rgba(92,184,223,.10);
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.25);
+    }
+  }
+  :root[data-theme="dark"] {
+    --canvas:  #141513;
+    --panel:   #1C1E1B;
+    --panel2:  #242622;
+    --border:  #2D2F2A;
+    --border2: #3C3E38;
+    --ink:     #E9E8E3;
+    --soft:    #ABAAA0;
+    --dim:     #85847A;
+    --teal:    #5CB8DF;
+    --teal-tint: rgba(92,184,223,.12);
+    --pos:     #4FCB92;
+    --pos-tint: rgba(79,203,146,.12);
+    --neg:     #EF7E75;
+    --neg-tint: rgba(239,126,117,.12);
+    --amber:   #DBAA4C;
+    --chart-fill: rgba(92,184,223,.10);
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.25);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--canvas); color: var(--ink);
+    font-family: 'Familjen Grotesk', system-ui, sans-serif;
+    font-size: 14px; line-height: 1.5; -webkit-font-smoothing: antialiased;
+  }
+  .mono { font-family: 'Sometype Mono', ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+  .up { color: var(--pos); } .down { color: var(--neg); }
+  a { color: var(--teal); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+  button:focus-visible, a:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; border-radius: 6px; }
+
+  .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 14px; box-shadow: var(--shadow); }
+  .label {
+    font-family: 'Sometype Mono', monospace; font-size: 10.5px; font-weight: 500;
+    letter-spacing: .12em; text-transform: uppercase; color: var(--dim);
+  }
+
+  /* ── Top bar ── */
+  header {
+    position: sticky; top: 0; z-index: 40;
+    background: color-mix(in srgb, var(--canvas) 90%, transparent);
+    backdrop-filter: blur(8px); border-bottom: 1px solid var(--border);
+  }
+  .bar { max-width: 1220px; margin: 0 auto; padding: 0 24px; height: 56px; display: flex; align-items: center; gap: 24px; }
+  .logo { font-weight: 700; font-size: 18.5px; letter-spacing: -.01em; }
+  .logo i { font-style: normal; color: var(--teal); }
+  nav { display: flex; gap: 2px; }
+  nav a { color: var(--soft); font-weight: 500; font-size: 13.5px; padding: 6px 12px; border-radius: 8px; }
+  nav a:hover { color: var(--ink); background: var(--panel2); text-decoration: none; }
+  nav a[aria-current] { color: var(--teal); background: var(--teal-tint); }
+  .search {
+    margin-left: auto; display: flex; align-items: center; gap: 8px; min-width: 230px;
+    border: 1px solid var(--border); background: var(--panel); border-radius: 10px;
+    padding: 7px 12px; color: var(--dim); font-size: 13px;
+  }
+  .search kbd { margin-left: auto; font-family:'Sometype Mono',monospace; font-size: 10px; border: 1px solid var(--border); border-radius: 4px; padding: 1px 5px; }
+  .icon-btn {
+    width: 34px; height: 34px; border-radius: 10px; border: 1px solid var(--border);
+    background: var(--panel); display: grid; place-items: center; color: var(--soft); font-size: 14px;
+  }
+  .icon-btn:hover { color: var(--ink); border-color: var(--border2); }
+
+  .page { max-width: 1220px; margin: 0 auto; padding: 24px 24px 72px; display: flex; flex-direction: column; gap: 20px; }
+
+  /* ── Company header ── */
+  .co-head { padding: 22px 24px 20px; display: flex; flex-direction: column; gap: 18px; }
+  .co-top { display: flex; align-items: flex-start; gap: 20px; flex-wrap: wrap; }
+  .co-id .tk { display: flex; align-items: baseline; gap: 10px; }
+  .co-id .tk b { font-size: 28px; font-weight: 700; letter-spacing: -.01em; }
+  .co-id .tk span { font-family:'Sometype Mono',monospace; font-size: 11px; color: var(--dim); letter-spacing: .08em; }
+  .co-id .nm { color: var(--soft); font-size: 13.5px; margin-top: 1px; }
+  .co-price { display: flex; align-items: baseline; gap: 10px; margin-left: 8px; }
+  .co-price .px { font-family:'Sometype Mono',monospace; font-weight: 600; font-size: 26px; letter-spacing: -.01em; }
+  .co-price .ch { font-family:'Sometype Mono',monospace; font-size: 13px; font-weight: 500; }
+  .co-actions { margin-left: auto; display: flex; gap: 8px; }
+  .chip-btn {
+    display: flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 500;
+    color: var(--soft); border: 1px solid var(--border); background: var(--panel);
+    border-radius: 999px; padding: 6px 13px;
+  }
+  .chip-btn:hover { color: var(--ink); border-color: var(--border2); }
+
+  .verdict-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .verdict-chip {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--pos-tint); color: var(--pos); border-radius: 999px;
+    padding: 7px 15px; font-weight: 600; font-size: 14px; letter-spacing: .01em;
+  }
+  .verdict-chip .p { font-family:'Sometype Mono',monospace; font-size: 11.5px; font-weight: 500; opacity: .85; }
+  .verdict-txt { color: var(--soft); font-size: 14px; }
+  .verdict-txt b { color: var(--ink); font-weight: 600; }
+
+  /* Composite strip — the bolder concepts' axis, at rest */
+  .strip-wrap { display: flex; flex-direction: column; gap: 7px; }
+  .strip-head { display: flex; justify-content: space-between; align-items: baseline; }
+  .strip-cap { font-size: 12px; color: var(--dim); }
+  .comp { position: relative; height: 34px; }
+  .comp .track {
+    position: absolute; left: 0; right: 0; top: 14px; height: 6px; border-radius: 3px;
+    background: linear-gradient(to right, var(--pos-tint) 0 35%, var(--panel2) 35% 65%, var(--neg-tint) 65% 100%);
+    border: 1px solid var(--border);
+  }
+  .comp .tick { position: absolute; top: 10px; width: 1px; height: 14px; background: var(--border2); }
+  .comp .dot {
+    position: absolute; top: 17px; width: 11px; height: 11px; border-radius: 50%;
+    transform: translate(-50%,-50%); border: 2px solid var(--panel); cursor: default;
+    transition: transform .12s;
+  }
+  .comp .dot:hover { transform: translate(-50%,-50%) scale(1.35); }
+  .comp .med {
+    position: absolute; top: 17px; width: 15px; height: 15px; transform: translate(-50%,-50%) rotate(45deg);
+    background: var(--teal); border: 2px solid var(--panel); border-radius: 3px;
+  }
+  .comp-legend { display: flex; justify-content: space-between; font-family:'Sometype Mono',monospace; font-size: 10px; letter-spacing: .1em; color: var(--dim); }
+
+  .stat-row { display: flex; gap: 28px; flex-wrap: wrap; padding-top: 16px; border-top: 1px solid var(--border); }
+  .stat-row .st { display: flex; flex-direction: column; gap: 2px; }
+  .stat-row .v { font-family:'Sometype Mono',monospace; font-size: 15px; font-weight: 600; }
+  .stat-row .v small { font-size: 12px; font-weight: 500; }
+
+  /* ── Content grid ── */
+  .grid { display: grid; grid-template-columns: minmax(0,1fr) 320px; gap: 20px; align-items: start; }
+  @media (max-width: 940px) { .grid { grid-template-columns: 1fr; } }
+  .col { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+
+  .panel-head { display: flex; align-items: center; gap: 12px; padding: 16px 20px 0; flex-wrap: wrap; }
+  .panel-head h2 { font-size: 16px; font-weight: 600; letter-spacing: -.01em; margin: 0; }
+  .panel-head .hint { color: var(--dim); font-size: 12.5px; }
+
+  /* Chart */
+  .chips { display: flex; gap: 6px; }
+  .chip {
+    font-family:'Sometype Mono',monospace; font-size: 11.5px; font-weight: 500;
+    padding: 5px 12px; border-radius: 999px; border: 1px solid var(--border);
+    color: var(--soft); background: var(--panel);
+  }
+  .chip:hover { color: var(--ink); border-color: var(--border2); }
+  .chip.on { background: var(--teal-tint); border-color: var(--teal); color: var(--teal); }
+  .seg { margin-left: auto; display: flex; background: var(--panel2); border: 1px solid var(--border); border-radius: 9px; padding: 2px; }
+  .seg button { font-family:'Sometype Mono',monospace; font-size: 11.5px; font-weight: 500; padding: 4px 12px; color: var(--dim); border-radius: 7px; }
+  .seg button.on { background: var(--panel); color: var(--ink); box-shadow: var(--shadow); }
+
+  .chart-wrap { position: relative; padding: 8px 12px 4px; }
+  .chart-wrap svg { display: block; width: 100%; height: auto; }
+  .tt {
+    position: absolute; pointer-events: none; display: none; z-index: 5;
+    background: var(--ink); color: var(--canvas); border-radius: 8px;
+    padding: 7px 11px; font-family:'Sometype Mono',monospace; font-size: 11.5px;
+    line-height: 1.5; white-space: nowrap; transform: translate(-50%, -115%);
+  }
+  .chart-foot {
+    display: flex; gap: 24px; flex-wrap: wrap; padding: 10px 20px 16px; margin-top: 2px;
+    border-top: 1px solid var(--border);
+  }
+  .chart-foot div { display: flex; flex-direction: column; gap: 1px; }
+  .chart-foot .v { font-family:'Sometype Mono',monospace; font-size: 13.5px; font-weight: 600; }
+
+  /* Multiples rows */
+  .mrows { padding: 6px 0 8px; overflow-x: auto; }
+  .mrow {
+    display: grid; grid-template-columns: 120px 76px 86px minmax(150px,1fr) 56px;
+    gap: 14px; align-items: center; padding: 10px 20px; min-width: 560px;
+  }
+  .mrow + .mrow { border-top: 1px solid var(--border); }
+  .mrow:hover { background: var(--panel2); }
+  .mrow .nm { font-weight: 600; font-size: 13.5px; }
+  .mrow .nm small { display: block; font-weight: 400; color: var(--dim); font-size: 11px; }
+  .mrow .cur { font-family:'Sometype Mono',monospace; font-weight: 600; font-size: 13.5px; text-align: right; }
+  .mrow .dl { font-family:'Sometype Mono',monospace; font-size: 11.5px; text-align: right; }
+  .range { display: flex; align-items: center; gap: 8px; }
+  .range .e { font-family:'Sometype Mono',monospace; font-size: 10px; color: var(--dim); }
+  .range .tr { position: relative; flex: 1; height: 6px; border-radius: 3px; background: var(--panel2); border: 1px solid var(--border); }
+  .range .avg { position: absolute; top: -4px; bottom: -4px; width: 2px; background: var(--border2); transform: translateX(-50%); border-radius: 1px; }
+  .range .cd { position: absolute; top: 50%; width: 10px; height: 10px; border-radius: 50%; transform: translate(-50%,-50%); border: 2px solid var(--panel); }
+  .pcb {
+    font-family:'Sometype Mono',monospace; font-size: 10.5px; font-weight: 500;
+    border-radius: 6px; padding: 3px 7px; text-align: center;
+  }
+  .pcb.c { background: var(--pos-tint); color: var(--pos); }
+  .pcb.r { background: var(--neg-tint); color: var(--neg); }
+
+  /* Fair value */
+  .fv-rows { padding: 4px 0 6px; }
+  .fv-row {
+    display: grid; grid-template-columns: 100px 1fr 76px 70px; gap: 12px; align-items: center;
+    padding: 9px 20px; font-family:'Sometype Mono',monospace; font-size: 12.5px;
+  }
+  .fv-row + .fv-row { border-top: 1px dashed var(--border); }
+  .fv-row .m { font-family:'Familjen Grotesk',sans-serif; font-weight: 600; font-size: 13.5px; }
+  .fv-row .n { text-align: right; }
+  .fv-bar { position: relative; height: 12px; }
+  .fv-zero { position: absolute; left: 32%; top: -2px; bottom: -2px; width: 1px; background: var(--border2); }
+  .fv-fill { position: absolute; top: 3px; bottom: 3px; border-radius: 3px; }
+  .fv-blend {
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    margin: 6px 20px 0; padding: 13px 0 16px; border-top: 1px solid var(--border);
+  }
+  .fv-blend .t { font-size: 13px; color: var(--soft); }
+  .fv-blend .v { font-family:'Sometype Mono',monospace; font-weight: 600; font-size: 16px; }
+
+  /* Rail */
+  .group { padding: 4px 20px 14px; }
+  .group h3 { margin: 12px 0 4px; }
+  .frow {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 7px 0; border-bottom: 1px dashed var(--border); font-size: 13px; color: var(--soft);
+  }
+  .frow:last-child { border-bottom: none; }
+  .frow .v { font-family:'Sometype Mono',monospace; font-weight: 500; color: var(--ink); font-size: 12.5px; }
+  .sdot { display:inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 7px; vertical-align: 1px; }
+
+  .thesis-body {
+    margin: 10px 20px 0; padding: 12px 14px; border: 1px solid var(--border);
+    border-radius: 10px; background: var(--panel2); color: var(--soft);
+    font-size: 13.5px; line-height: 1.6; font-style: italic;
+  }
+  .thesis-meta { display: flex; justify-content: space-between; padding: 10px 20px 14px; font-family:'Sometype Mono',monospace; font-size: 10.5px; color: var(--dim); }
+
+  .links { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 2px; }
+  .links a { font-size: 11.5px; color: var(--dim); border: 1px solid var(--border); background: var(--panel); border-radius: 999px; padding: 4px 11px; }
+  .links a:hover { color: var(--ink); border-color: var(--border2); text-decoration: none; }
+
+  footer { max-width: 1220px; margin: 0 auto; padding: 0 24px 36px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; color: var(--dim); font-size: 11.5px; }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+
+<header>
+  <div class="bar">
+    <span class="logo">ValuScope<i>.</i></span>
+    <nav aria-label="Primary">
+      <a href="#">Indices</a><a href="#" aria-current="page">Valuation</a><a href="#">13F</a><a href="#">Watchlist</a>
+    </nav>
+    <div class="search" role="button" tabindex="0" aria-label="Search companies">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
+      Search a company…<kbd>⌘K</kbd>
+    </div>
+    <button class="icon-btn" id="themeBtn" aria-label="Toggle color theme">◐</button>
+  </div>
+</header>
+
+<div class="page">
+
+  <!-- ── Company header ── -->
+  <section class="panel co-head">
+    <div class="co-top">
+      <div class="co-id">
+        <div class="tk"><b>ULTA</b><span>NASDAQ · SPECIALTY RETAIL</span></div>
+        <div class="nm">Ulta Beauty, Inc.</div>
+      </div>
+      <div class="co-price">
+        <span class="px">$472.18</span>
+        <span class="ch up">▲ 1.24%</span>
+      </div>
+      <div class="co-actions">
+        <button class="chip-btn">☆ Watch</button>
+        <button class="chip-btn">Filings</button>
+        <button class="chip-btn">Transcripts</button>
+      </div>
+    </div>
+
+    <div class="verdict-row">
+      <span class="verdict-chip">Undervalued <span class="p">P30</span></span>
+      <span class="verdict-txt">Below its own ten-year history — <b>five of six multiples</b> sit under their decade averages.</span>
+    </div>
+
+    <div class="strip-wrap">
+      <div class="strip-head">
+        <span class="label">Composite · six multiples on one percentile axis</span>
+        <span class="strip-cap">◆ median · hover a dot for the metric</span>
+      </div>
+      <div class="comp" role="img" aria-label="Composite percentile strip: EV/Sales 18th, P/E 24th, EV/EBITDA 28th, P/FCF 31st percentile cluster low; P/B 68th and FCF yield 69th sit high; median 30th percentile">
+        <div class="track"></div>
+        <div class="tick" style="left:35%"></div>
+        <div class="tick" style="left:65%"></div>
+        <div class="dot" style="left:18%; background:var(--pos)" title="EV/Sales — 18th percentile"></div>
+        <div class="dot" style="left:24%; background:var(--pos)" title="P/E — 24th percentile"></div>
+        <div class="dot" style="left:28%; background:var(--pos)" title="EV/EBITDA — 28th percentile"></div>
+        <div class="dot" style="left:31%; background:var(--pos)" title="P/FCF — 31st percentile"></div>
+        <div class="dot" style="left:68%; background:var(--neg)" title="P/B — 68th percentile"></div>
+        <div class="dot" style="left:69%; background:var(--neg)" title="FCF yield — 69th percentile (richer than usual)"></div>
+        <div class="med" title="Median — 30th percentile"></div>
+      </div>
+      <div class="comp-legend"><span>0 · CHEAPEST DECADE</span><span>FAIR</span><span>100 · RICHEST</span></div>
+    </div>
+
+    <div class="stat-row">
+      <div class="st"><span class="label">Mkt cap</span><span class="v">$21.4B</span></div>
+      <div class="st"><span class="label">Enterprise value</span><span class="v">$22.9B</span></div>
+      <div class="st"><span class="label">Fwd P/E · NTM</span><span class="v">17.2×</span></div>
+      <div class="st"><span class="label">ROIC · LTM</span><span class="v">24.7%</span></div>
+      <div class="st"><span class="label">Fair value · blend</span><span class="v">$549 <small class="up">+16.2%</small></span></div>
+    </div>
+  </section>
+
+  <div class="grid">
+    <!-- ── Main column ── -->
+    <div class="col">
+
+      <section class="panel">
+        <div class="panel-head">
+          <h2>Multiple history</h2>
+          <div class="chips" id="chips" role="tablist" aria-label="Metric"></div>
+          <div class="seg" id="seg" role="tablist" aria-label="Period">
+            <button data-p="36">3Y</button><button data-p="60">5Y</button><button data-p="999" class="on">10Y</button>
+          </div>
+        </div>
+        <div class="chart-wrap" id="chartWrap">
+          <svg id="chart" viewBox="0 0 820 290"></svg>
+          <div class="tt" id="tt"></div>
+        </div>
+        <div class="chart-foot" id="chartFoot"></div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <h2>Multiples vs history</h2>
+          <span class="hint">Ten-year range · dot marks today, notch the average</span>
+        </div>
+        <div class="mrows" id="mrows"></div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <h2>If history reasserts itself</h2>
+          <span class="hint">Implied price at each metric's ten-year average</span>
+        </div>
+        <div class="fv-rows">
+          <div class="fv-row"><span class="m">P/E</span>
+            <span class="fv-bar"><span class="fv-zero"></span><span class="fv-fill" style="left:32%;width:20%;background:var(--pos)"></span></span>
+            <span class="n">$553</span><span class="n up">+17.1%</span></div>
+          <div class="fv-row"><span class="m">EV/EBITDA</span>
+            <span class="fv-bar"><span class="fv-zero"></span><span class="fv-fill" style="left:32%;width:16%;background:var(--pos)"></span></span>
+            <span class="n">$535</span><span class="n up">+13.4%</span></div>
+          <div class="fv-row"><span class="m">P/FCF</span>
+            <span class="fv-bar"><span class="fv-zero"></span><span class="fv-fill" style="left:32%;width:19%;background:var(--pos)"></span></span>
+            <span class="n">$549</span><span class="n up">+16.2%</span></div>
+          <div class="fv-row"><span class="m">EV/Sales</span>
+            <span class="fv-bar"><span class="fv-zero"></span><span class="fv-fill" style="left:32%;width:35%;background:var(--pos)"></span></span>
+            <span class="n">$614</span><span class="n up">+30.0%</span></div>
+          <div class="fv-row"><span class="m">P/B</span>
+            <span class="fv-bar"><span class="fv-zero"></span><span class="fv-fill" style="right:68%;width:16%;background:var(--neg)"></span></span>
+            <span class="n">$407</span><span class="n down">−13.8%</span></div>
+        </div>
+        <div class="fv-blend">
+          <span class="t">Blended median, all metrics — a mirror held to history, not advice.</span>
+          <span class="v">$549 · <span class="up">+16.2%</span></span>
+        </div>
+      </section>
+    </div>
+
+    <!-- ── Rail ── -->
+    <div class="col">
+      <section class="panel">
+        <div class="panel-head"><h2>Fundamentals</h2><span class="hint">LTM</span></div>
+        <div class="group">
+          <h3 class="label">Growth · CAGR</h3>
+          <div class="frow"><span>Revenue, 1yr</span><span class="v">+6.8%</span></div>
+          <div class="frow"><span>Revenue, 3yr</span><span class="v">+9.1%</span></div>
+          <div class="frow"><span>Revenue, 5yr</span><span class="v">+11.4%</span></div>
+          <div class="frow"><span>EBITDA, 3yr</span><span class="v">+7.5%</span></div>
+          <h3 class="label">Margins · vs 3yr avg</h3>
+          <div class="frow"><span>Gross</span><span class="v">39.1% <span class="up">▲</span></span></div>
+          <div class="frow"><span>EBITDA</span><span class="v">17.6% <span class="down">▼</span></span></div>
+          <div class="frow"><span>Operating</span><span class="v">14.9% <span class="down">▼</span></span></div>
+          <div class="frow"><span>Free cash flow</span><span class="v">9.8% <span class="up">▲</span></span></div>
+          <h3 class="label">Balance &amp; returns</h3>
+          <div class="frow"><span><span class="sdot" style="background:var(--pos)"></span>ND / EBITDA</span><span class="v">0.4×</span></div>
+          <div class="frow"><span><span class="sdot" style="background:var(--pos)"></span>Interest coverage</span><span class="v">28.3×</span></div>
+          <div class="frow"><span><span class="sdot" style="background:var(--amber)"></span>Current ratio</span><span class="v">1.5×</span></div>
+          <div class="frow"><span><span class="sdot" style="background:var(--pos)"></span>ROIC</span><span class="v">24.7%</span></div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head"><h2>My thesis</h2></div>
+        <p class="thesis-body" style="margin-bottom:0">Category leader compounding through a sector de-rating. Loyalty base still growing, buybacks running at ~4% of the float, and the multiple assumes the Sephora-at-Kohl's scare is permanent. I don't think it is.</p>
+        <div class="thesis-meta"><span>saved 2m ago</span><span>412 chars</span></div>
+      </section>
+
+      <div class="links" aria-label="External sources">
+        <a href="#">SEC EDGAR</a><a href="#">StockAnalysis</a><a href="#">Yahoo</a><a href="#">Quartr</a><a href="#">8-K feed</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span>Design concept no. 4 — “Meridian” · Familjen Grotesk · Sometype Mono</span>
+  <span class="mono" style="font-size:10.5px">MOCKUP · ILLUSTRATIVE DATA · V0.25-CONCEPT</span>
+</footer>
+
+<script>
+/* ── Theme toggle ── */
+(function () {
+  const btn = document.getElementById('themeBtn');
+  const sysDark = () => matchMedia('(prefers-color-scheme: dark)').matches;
+  btn.addEventListener('click', () => {
+    const cur = document.documentElement.dataset.theme || (sysDark() ? 'dark' : 'light');
+    document.documentElement.dataset.theme = cur === 'dark' ? 'light' : 'dark';
+  });
+})();
+
+/* ── Illustrative series (same numbers as the other concepts) ── */
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function buildSeries(anchors, seed, jitter, finalVal, lo, hi){
+  const r = mulberry32(seed), pts = [];
+  for (let i = 0; i <= 120; i++) {
+    const t = 2016 + 8/12 + i/12;
+    let k = 0; while (k < anchors.length - 2 && anchors[k+1][0] < t) k++;
+    const [t0,v0] = anchors[k], [t1,v1] = anchors[k+1];
+    const f = Math.min(1, Math.max(0, (t - t0) / (t1 - t0)));
+    pts.push(v0 + (v1 - v0) * f + (r() - .5) * jitter);
+  }
+  for (let i = 1; i < 120; i++) pts[i] = (pts[i-1] + 2*pts[i] + pts[i+1]) / 4;
+  const mn = Math.min(...pts), mx = Math.max(...pts);
+  for (let i = 0; i <= 120; i++) pts[i] = lo + (pts[i]-mn)/(mx-mn)*(hi-lo);
+  pts[120] = finalVal;
+  return pts;
+}
+const METRICS = {
+  pe:   { label: 'P/E', unit: '×', cur: 18.1,
+          data: buildSeries([[2016.6,26.5],[2017.5,23.5],[2018.6,29.0],[2019.6,21.0],[2020.25,10.2],[2020.9,29.5],[2021.6,33.5],[2022.5,19.5],[2023.5,15.8],[2024.5,14.2],[2025.5,16.8],[2026.7,18.1]], 7, 1.8, 18.1, 9.8, 34.0) },
+  ev:   { label: 'EV/EBITDA', unit: '×', cur: 11.2,
+          data: buildSeries([[2016.6,15.8],[2017.5,14.2],[2018.6,17.0],[2019.6,12.8],[2020.25,7.4],[2020.9,17.6],[2021.6,19.4],[2022.5,12.2],[2023.5,10.2],[2024.5,9.4],[2025.5,10.6],[2026.7,11.2]], 21, 1.1, 11.2, 7.1, 19.6) },
+  pfcf: { label: 'P/FCF', unit: '×', cur: 17.9,
+          data: buildSeries([[2016.6,27.5],[2017.5,24.0],[2018.6,28.0],[2019.6,21.5],[2020.25,11.5],[2020.9,28.5],[2021.6,31.0],[2022.5,19.0],[2023.5,16.5],[2024.5,15.0],[2025.5,16.8],[2026.7,17.9]], 42, 1.6, 17.9, 11.2, 31.4) },
+};
+
+/* ── Multiples rows ── */
+const ROWS = [
+  { nm:'P/E',       sub:'price / earnings, LTM',      cur:'18.1×', min:9.8,  max:34.0, avg:21.2, val:18.1, dl:'−14.6%', side:'c', pct:24 },
+  { nm:'EV/EBITDA', sub:'enterprise value basis',     cur:'11.2×', min:7.1,  max:19.6, avg:12.7, val:11.2, dl:'−11.7%', side:'c', pct:28 },
+  { nm:'P/FCF',     sub:'price / free cash flow',     cur:'17.9×', min:11.2, max:31.4, avg:20.8, val:17.9, dl:'−14.1%', side:'c', pct:31 },
+  { nm:'EV/Sales',  sub:'enterprise value / revenue', cur:'2.0×',  min:1.4,  max:4.1,  avg:2.6,  val:2.0,  dl:'−23.1%', side:'c', pct:18 },
+  { nm:'P/B',       sub:'price / book value',         cur:'9.4×',  min:4.9,  max:12.6, avg:8.1,  val:9.4,  dl:'+16.0%', side:'r', pct:68 },
+  { nm:'FCF yield', sub:'higher = cheaper',           cur:'5.6%',  min:3.2,  max:8.9,  avg:4.7,  val:5.6,  dl:'+0.9pt', side:'c', pct:69 },
+];
+document.getElementById('mrows').innerHTML = ROWS.map(m => {
+  const pos = a => ((a - m.min) / (m.max - m.min) * 100).toFixed(1);
+  return `<div class="mrow" tabindex="0">
+    <span class="nm">${m.nm}<small>${m.sub}</small></span>
+    <span class="cur">${m.cur}</span>
+    <span class="dl ${m.side === 'c' ? 'up' : 'down'}">${m.dl}</span>
+    <span class="range">
+      <span class="e">${m.min.toFixed(1)}</span>
+      <span class="tr"><span class="avg" style="left:${pos(m.avg)}%"></span>
+        <span class="cd" style="left:${pos(m.val)}%; background:var(--${m.side === 'c' ? 'pos' : 'neg'})"></span></span>
+      <span class="e">${m.max.toFixed(1)}</span>
+    </span>
+    <span class="pcb ${m.side}">P${m.pct}</span>
+  </div>`;
+}).join('');
+
+/* ── Chart ── */
+const svg = document.getElementById('chart'), tt = document.getElementById('tt');
+const W = 820, H = 290, PAD = { l: 40, r: 72, t: 16, b: 26 };
+let metricKey = 'pe', months = 999, view = null;
+
+function fmtDate(i){ const m0 = 8 + i; const y = 2016 + Math.floor(m0/12); const mo = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][m0%12]; return mo + ' ’' + String(y).slice(2); }
+function draw(){
+  const M = METRICS[metricKey];
+  const n = Math.min(months + 1, M.data.length);
+  const start = M.data.length - n;
+  const data = M.data.slice(start);
+  const avg = data.reduce((a,b)=>a+b,0)/data.length;
+  const lo = Math.min(...data), hi = Math.max(...data);
+  const y0 = lo - (hi-lo)*.08, y1 = hi + (hi-lo)*.10;
+  const X = i => PAD.l + (W-PAD.l-PAD.r) * i/(data.length-1);
+  const Y = v => PAD.t + (H-PAD.t-PAD.b) * (1 - (v-y0)/(y1-y0));
+  view = { data, start, avg, X, Y, M };
+
+  let g = '';
+  for (let s = 0; s <= 4; s++) {
+    const v = y0 + (y1-y0)*s/4, y = Y(v);
+    g += `<line x1="${PAD.l}" x2="${W-PAD.r}" y1="${y}" y2="${y}" stroke="var(--border)" stroke-width="1"/>`;
+    g += `<text x="${PAD.l-8}" y="${y+3.5}" text-anchor="end" font-family="Sometype Mono" font-size="10" fill="var(--dim)">${v.toFixed(0)}</text>`;
+  }
+  const yrStep = data.length > 70 ? 24 : 12;
+  for (let i = data.length - 1; i >= 0; i -= yrStep) {
+    g += `<text x="${X(i)}" y="${H-8}" text-anchor="middle" font-family="Sometype Mono" font-size="10" fill="var(--dim)">${fmtDate(start+i)}</text>`;
+  }
+  const line = data.map((v,i)=>`${i?'L':'M'}${X(i).toFixed(1)},${Y(v).toFixed(1)}`).join('');
+  g += `<path d="${line}L${X(data.length-1)},${Y(y0)}L${X(0)},${Y(y0)}Z" fill="var(--chart-fill)"/>`;
+  const ay = Y(avg);
+  g += `<line x1="${PAD.l}" x2="${W-PAD.r}" y1="${ay}" y2="${ay}" stroke="var(--dim)" stroke-width="1.3" stroke-dasharray="5 5"/>`;
+  g += `<text x="${W-PAD.r+8}" y="${ay+3.5}" font-family="Sometype Mono" font-size="10" fill="var(--dim)">AVG ${avg.toFixed(1)}${M.unit}</text>`;
+  g += `<path d="${line}" fill="none" stroke="var(--teal)" stroke-width="2" stroke-linejoin="round"/>`;
+  const ex = X(data.length-1), ey = Y(data[data.length-1]);
+  g += `<circle cx="${ex}" cy="${ey}" r="4.5" fill="var(--teal)" stroke="var(--panel)" stroke-width="2"/>`;
+  g += `<text x="${ex+9}" y="${ey+4}" font-family="Sometype Mono" font-size="11" font-weight="600" fill="var(--teal)">${M.cur.toFixed(1)}${M.unit}</text>`;
+  g += `<line id="xh" y1="${PAD.t}" y2="${H-PAD.b}" stroke="var(--border2)" stroke-width="1" visibility="hidden"/>
+        <circle id="xhd" r="3.5" fill="var(--teal)" visibility="hidden"/>`;
+  svg.innerHTML = g;
+  svg.setAttribute('role','img');
+  svg.setAttribute('aria-label', `${M.label} over the selected period; period average ${avg.toFixed(1)}${M.unit}`);
+
+  const d = (M.cur/avg - 1)*100;
+  document.getElementById('chartFoot').innerHTML = [
+    ['Current', M.cur.toFixed(1) + M.unit, M.cur < avg ? 'var(--pos)' : 'var(--neg)'],
+    ['Period avg', avg.toFixed(1) + M.unit, 'var(--ink)'],
+    ['Low', lo.toFixed(1) + M.unit, 'var(--ink)'],
+    ['High', hi.toFixed(1) + M.unit, 'var(--ink)'],
+    ['vs avg', (d >= 0 ? '+' : '') + d.toFixed(1) + '%', M.cur < avg ? 'var(--pos)' : 'var(--neg)'],
+  ].map(([k,v,c]) => `<div><span class="label">${k}</span><span class="v" style="color:${c}">${v}</span></div>`).join('');
+}
+
+const chipsEl = document.getElementById('chips');
+chipsEl.innerHTML = Object.entries(METRICS).map(([k,m]) =>
+  `<button class="chip${k==='pe'?' on':''}" data-k="${k}" role="tab" aria-selected="${k==='pe'}">${m.label}</button>`).join('');
+chipsEl.addEventListener('click', e => {
+  const b = e.target.closest('.chip'); if (!b) return;
+  chipsEl.querySelectorAll('.chip').forEach(c => { c.classList.toggle('on', c===b); c.setAttribute('aria-selected', c===b); });
+  metricKey = b.dataset.k; draw();
+});
+document.getElementById('seg').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  document.querySelectorAll('#seg button').forEach(c => c.classList.toggle('on', c===b));
+  months = +b.dataset.p; draw();
+});
+
+const wrap = document.getElementById('chartWrap');
+wrap.addEventListener('mousemove', e => {
+  if (!view) return;
+  const r = svg.getBoundingClientRect(), sx = W / r.width;
+  const px = (e.clientX - r.left) * sx;
+  const i = Math.round((px - PAD.l) / (W-PAD.l-PAD.r) * (view.data.length-1));
+  if (i < 0 || i >= view.data.length) { hideTT(); return; }
+  const x = view.X(i), y = view.Y(view.data[i]), v = view.data[i];
+  const xh = svg.querySelector('#xh'), xhd = svg.querySelector('#xhd');
+  xh.setAttribute('x1', x); xh.setAttribute('x2', x); xh.setAttribute('visibility','visible');
+  xhd.setAttribute('cx', x); xhd.setAttribute('cy', y); xhd.setAttribute('visibility','visible');
+  tt.style.display = 'block';
+  tt.style.left = (x / sx) + 'px';
+  tt.style.top  = (y / sx) + 'px';
+  const d = ((v/view.avg - 1) * 100);
+  tt.innerHTML = `${fmtDate(view.start + i)} · <b>${v.toFixed(1)}×</b><br>${d >= 0 ? '+' : ''}${d.toFixed(0)}% vs avg`;
+});
+function hideTT(){ tt.style.display='none'; const a=svg.querySelector('#xh'), b=svg.querySelector('#xhd'); if(a){a.setAttribute('visibility','hidden');b.setAttribute('visibility','hidden');} }
+wrap.addEventListener('mouseleave', hideTT);
+
+draw();
+</script>
