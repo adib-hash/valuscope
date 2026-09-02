@@ -9,6 +9,15 @@ on:
   schedule:
     - cron: '17 */6 * * *'
   workflow_dispatch:
+  # A change to the build itself runs it, which is also how the first index
+  # gets built without waiting for the schedule. The bot's own commit of the
+  # index does not re-trigger: GitHub never runs workflows for pushes made
+  # with the workflow token.
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/transcript-index.yml
+      - scripts/build-transcript-index.mjs
 
 permissions:
   contents: write
