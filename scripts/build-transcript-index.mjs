@@ -158,8 +158,15 @@ const output = {
   keepDays: KEEP_DAYS,
   rows,
 };
+// One row per line: a new call is a one-line diff, and the workflow's
+// "only commit when the calls changed" check can ignore the builtAt line
+// alone — with everything on one line it ignored the whole file.
+const serialised = '{\n'
+  + Object.entries(output).filter(([k]) => k !== 'rows').map(([k, v]) => `${JSON.stringify(k)}: ${JSON.stringify(v)},\n`).join('')
+  + '"rows": [\n' + rows.map((r) => JSON.stringify(r)).join(',\n') + '\n]\n}\n';
 fs.mkdirSync(new URL('../data/', import.meta.url), { recursive: true });
-fs.writeFileSync(OUT, JSON.stringify(output));
+fs.writeFileSync(OUT, serialised);
+JSON.parse(fs.readFileSync(OUT, 'utf8')); // the file must be what a reader expects
 console.error(`wrote ${rows.length} rows for ${symbols.size} symbols (${(fs.statSync(OUT).size / 1024).toFixed(0)} KB) `
   + `from ${readGroups} of ${groups.length} row groups in ${Math.round((Date.now() - started) / 1000)}s, ${requests} requests, ${retries} retries`);
 if (symbols.size < 300) {
