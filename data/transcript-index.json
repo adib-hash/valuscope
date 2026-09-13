@@ -1,5 +1,5 @@
 {
-"builtAt": "2026-09-12T10:55:24.043Z",
+"builtAt": "2026-09-13T04:54:26.368Z",
 "source": "defeatbeta/yahoo-finance-data · stock_earning_call_transcripts.parquet",
 "universe": "S&P 500",
 "keepDays": 730,
@@ -68,7 +68,6 @@
 ["ADBE",2025,2,"2025-06-12"],
 ["ADBE",2025,1,"2025-03-12"],
 ["ADBE",2024,4,"2024-12-11"],
-["ADBE",2024,3,"2024-09-12"],
 ["ADI",2026,3,"2026-08-19"],
 ["ADI",2026,2,"2026-05-20"],
 ["ADI",2026,1,"2026-02-18"],
