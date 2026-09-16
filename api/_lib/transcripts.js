@@ -14,8 +14,11 @@
 import { asyncBufferFromUrl, parquetMetadataAsync, parquetReadObjects } from 'hyparquet';
 import { compressors } from 'hyparquet-compressors';
 
-const DATASET_URL =
-  'https://huggingface.co/datasets/defeatbeta/yahoo-finance-data/resolve/main/data/stock_earning_call_transcripts.parquet';
+// The dataset keeps one folder per market; US moved from data/ to data/US/ in
+// September 2026 and the old path 404s. scripts/build-transcript-index.mjs
+// reads the same file, so the URL lives here alone.
+export const DATASET_URL =
+  'https://huggingface.co/datasets/defeatbeta/yahoo-finance-data/resolve/main/data/US/stock_earning_call_transcripts.parquet';
 
 const INDEX_COLUMNS = ['symbol', 'fiscal_year', 'fiscal_quarter', 'report_date'];
 

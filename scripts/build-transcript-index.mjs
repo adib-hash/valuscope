@@ -20,9 +20,8 @@ import fs from 'node:fs';
 import { asyncBufferFromUrl, parquetMetadataAsync, parquetReadObjects } from 'hyparquet';
 import { compressors } from 'hyparquet-compressors';
 import { getSp500 } from '../api/_lib/sp500.js';
+import { DATASET_URL } from '../api/_lib/transcripts.js';
 
-const DATASET_URL =
-  'https://huggingface.co/datasets/defeatbeta/yahoo-finance-data/resolve/main/data/stock_earning_call_transcripts.parquet';
 const OUT = new URL('../data/transcript-index.json', import.meta.url);
 const INDEX_COLUMNS = ['symbol', 'fiscal_year', 'fiscal_quarter', 'report_date'];
 const KEEP_DAYS = 730;
@@ -96,6 +95,15 @@ const started = Date.now();
 const wanted = new Set((await getSp500()).map((c) => c.symbol));
 console.error(`${wanted.size} S&P 500 symbols`);
 
+// hyparquet reports a missing file only as "fetch head failed 404". The dataset
+// has moved its files before, so say which URL is gone and where to look.
+const head = await politeFetch(DATASET_URL, { method: 'HEAD' });
+if (!head.ok) {
+  console.error(`${head.status} for ${DATASET_URL}\n`
+    + 'The dataset may have moved: check https://huggingface.co/datasets/defeatbeta/yahoo-finance-data/tree/main/data '
+    + 'and update DATASET_URL in api/_lib/transcripts.js');
+  process.exit(1);
+}
 const file = await asyncBufferFromUrl({ url: DATASET_URL, fetch: politeFetch });
 const metadata = await parquetMetadataAsync(file);
 const groups = metadata.row_groups;
