@@ -1,5 +1,5 @@
 {
-"builtAt": "2026-09-14T05:03:39.115Z",
+"builtAt": "2026-09-18T04:48:57.629Z",
 "source": "defeatbeta/yahoo-finance-data · stock_earning_call_transcripts.parquet",
 "universe": "S&P 500",
 "keepDays": 730,
@@ -1430,7 +1430,6 @@
 ["FERG",2025,3,"2025-06-03"],
 ["FERG",2025,2,"2025-03-11"],
 ["FERG",2025,1,"2024-12-10"],
-["FERG",2024,4,"2024-09-17"],
 ["FFIV",2026,3,"2026-07-27"],
 ["FFIV",2026,2,"2026-04-28"],
 ["FFIV",2026,1,"2026-01-27"],
