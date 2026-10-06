@@ -53,6 +53,9 @@ function monthGrid(year, month) {
 
 const SESSION = { pre: 'Before open', post: 'After close' };
 
+// Group tags on a row. The S&P 500 is the default and goes unlabelled.
+const GROUP_TAG = { ipo: 'IPO', tech: 'US tech', global: 'Global' };
+
 // "3 hours ago" — how stale the transcript index is, in the grid footer.
 function relativeTime(iso) {
   const ms = Date.now() - new Date(iso).getTime();
@@ -90,7 +93,13 @@ export default function EarningsCalendarPage({ date, onSelectDate, onSelectTicke
     return () => { cancelled = true; };
   }, [key]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const events = month?.data?.events || [];
+  // Which slice of the universe is on the grid: everything, or one group.
+  const [group, setGroup] = useState('all');
+  const allEvents = month?.data?.events || [];
+  const events = useMemo(
+    () => (group === 'all' ? allEvents : allEvents.filter((e) => (e.group || 'sp500') === group)),
+    [allEvents, group],
+  );
   const byDate = useMemo(() => {
     const map = new Map();
     for (const e of events) {
@@ -129,7 +138,10 @@ export default function EarningsCalendarPage({ date, onSelectDate, onSelectTicke
     onSelectDate?.(iso);
   };
 
-  const universe = month?.data?.universe;
+  // Any loaded month's universe will do, so the filter does not blink out
+  // while the next month loads.
+  const universe = month?.data?.universe
+    || Object.values(months).find((m) => m.data?.universe)?.data.universe;
 
   return (
     <div className="mt-5 pb-8">
@@ -137,12 +149,33 @@ export default function EarningsCalendarPage({ date, onSelectDate, onSelectTicke
 
       <div className="text-vs-dim text-label font-mono tracking-widest">EARNINGS CALENDAR</div>
       <h1 className="font-display text-display font-extrabold mt-1 leading-tight text-vs-text">
-        S&amp;P 500 earnings
+        Earnings calendar
       </h1>
       <p className="text-vs-soft text-body mt-0.5 max-w-[68ch]">
-        Every constituent's call, by day. Pick a day to see who reported, read any call whose
+        Every S&amp;P 500 call, plus recent IPOs, large US tech names and the global companies that
+        move international indices, by day. Pick a day to see who reported, read any call whose
         transcript has landed, or have the whole day read for you.
       </p>
+
+      {/* Universe filter */}
+      {universe?.groups && (
+        <div className="mt-3 flex items-center gap-1.5 flex-wrap" role="group" aria-label="Filter companies">
+          {[{ id: 'all', label: 'All', count: universe.count }, ...universe.groups.filter((g) => g.count > 0)].map((g) => (
+            <button
+              key={g.id}
+              onClick={() => setGroup(g.id)}
+              aria-pressed={group === g.id}
+              className={`rounded-md px-2.5 py-1 text-micro font-mono font-semibold border cursor-pointer transition-colors ${
+                group === g.id
+                  ? 'border-vs-blue/50 bg-vs-blue/10 text-vs-blue'
+                  : 'border-vs-border text-vs-dim hover:border-vs-borderLight hover:text-vs-soft'
+              }`}
+            >
+              {g.label} <span className="opacity-70">{g.count}</span>
+            </button>
+          ))}
+        </div>
+      )}
 
       {/* Month header */}
       <div className="mt-4 flex items-center justify-between gap-2">
@@ -240,7 +273,7 @@ export default function EarningsCalendarPage({ date, onSelectDate, onSelectTicke
           </span>
           {universe && (
             <span className="text-vs-dim text-micro font-mono ml-auto">
-              {universe.count} constituents · list as of {universe.asOf}
+              {universe.count} companies · S&amp;P 500 list as of {universe.asOf}
               {month?.data?.transcriptIndex?.builtAt && ` · transcripts indexed ${relativeTime(month.data.transcriptIndex.builtAt)}`}
             </span>
           )}
@@ -277,7 +310,9 @@ export default function EarningsCalendarPage({ date, onSelectDate, onSelectTicke
         )}
 
         {month?.status === 'ready' && dayEvents.length === 0 && (
-          <p className="mt-3 text-vs-soft text-body">No S&amp;P 500 companies report on this day.</p>
+          <p className="mt-3 text-vs-soft text-body">
+            No {group === 'all' ? '' : `${universe?.groups?.find((g) => g.id === group)?.label ?? ''} `}companies on the calendar report on this day.
+          </p>
         )}
 
         {/* Digest call to action. Sits above the list so it is one tap away
@@ -344,6 +379,7 @@ export default function EarningsCalendarPage({ date, onSelectDate, onSelectTicke
                       <span className="text-vs-text text-body font-semibold truncate">{e.name}</span>
                     </span>
                     <span className="block text-vs-dim text-micro font-mono mt-0.5 truncate">
+                      {GROUP_TAG[e.group] && `${GROUP_TAG[e.group]} · `}
                       {e.sector}
                       {e.marketCap != null && ` · ${fmtCap(e.marketCap)}`}
                       {e.session && ` · ${SESSION[e.session]}`}
@@ -358,8 +394,13 @@ export default function EarningsCalendarPage({ date, onSelectDate, onSelectTicke
                       Q{e.transcript.quarter} FY{e.transcript.year} call →
                     </button>
                   ) : (
-                    <span className="flex-shrink-0 text-vs-dim text-micro font-mono whitespace-nowrap">
-                      {e.date <= today ? 'transcript pending' : 'upcoming'}
+                    <span
+                      className="flex-shrink-0 text-vs-dim text-micro font-mono whitespace-nowrap"
+                      title={e.transcriptSource === false ? 'Home-exchange listing: no transcript source covers it' : undefined}
+                    >
+                      {e.transcriptSource === false
+                        ? (e.date <= today ? 'reported · date only' : 'upcoming · date only')
+                        : e.date <= today ? 'transcript pending' : 'upcoming'}
                     </span>
                   )}
                 </li>
@@ -368,7 +409,8 @@ export default function EarningsCalendarPage({ date, onSelectDate, onSelectTicke
             <div className="px-4 py-2.5 border-t border-vs-border">
               <p className="text-vs-dim text-micro font-mono leading-relaxed">
                 Dates from Yahoo Finance, transcripts from defeatbeta. A call is filed under the day its transcript
-                carries; companies whose date Yahoo has not confirmed are marked estimated.
+                carries; companies whose date Yahoo has not confirmed are marked estimated. Companies listed only
+                abroad are dated in their home market and have no transcript; every market cap is in dollars.
               </p>
             </div>
           </div>

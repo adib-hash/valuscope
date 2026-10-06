@@ -1,4 +1,4 @@
-# Rebuilds data/transcript-index.json — which S&P 500 earnings calls the
+# Rebuilds data/transcript-index.json — which calendar companies' earnings calls the
 # transcript dataset holds — and commits it when the set has changed. The
 # dataset is rebuilt daily, so four runs a day keeps the calendar's
 # "transcript loaded" marks within hours of a call landing. Each commit
@@ -18,6 +18,7 @@ on:
     paths:
       - .github/workflows/transcript-index.yml
       - scripts/build-transcript-index.mjs
+      - api/_lib/watchlist.js
 
 permissions:
   contents: write

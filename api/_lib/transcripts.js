@@ -76,14 +76,14 @@ const toDate = (v) => {
 };
 
 // Which calls exist, keyed by symbol, newest first — for the earnings
-// calendar, which asks "does this day's call have a transcript" for five
+// calendar, which asks "does this day's call have a transcript" for six
 // hundred companies at once.
 //
 // This is NOT read from the dataset at request time. Its index columns are
 // spread across hundreds of row groups, so one scan is thousands of range
 // requests; the CDN answers that burst with 429 and a function has sixty
 // seconds anyway. Instead a scheduled workflow reads the dataset slowly, with
-// backoff, and commits data/transcript-index.json (S&P 500, last two years —
+// backoff, and commits data/transcript-index.json (calendar companies, last two years —
 // see scripts/build-transcript-index.mjs). The function reads that file:
 // from the repository first, so a fresh index is served before its deploy
 // finishes, and from the bundled copy otherwise.

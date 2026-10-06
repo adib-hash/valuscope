@@ -1,5 +1,5 @@
 // Builds data/transcript-index.json: which earnings calls the transcript
-// dataset holds for every S&P 500 company, by fiscal quarter and report date.
+// dataset holds for every company on the calendar, by fiscal quarter and report date.
 //
 //   node scripts/build-transcript-index.mjs
 //
@@ -13,13 +13,14 @@
 // a scheduled workflow (.github/workflows/transcript-index.yml). The function
 // then reads a small JSON file and never touches the dataset for this.
 //
-// Only S&P 500 constituents, and only calls reported in the last two years:
-// that keeps the file around 150 KB.
+// Only the calendar's companies with a US listing (the S&P 500 plus the
+// watchlist in api/_lib/watchlist.js), and only calls reported in the last
+// two years: that keeps the file under 200 KB.
 
 import fs from 'node:fs';
 import { asyncBufferFromUrl, parquetMetadataAsync, parquetReadObjects } from 'hyparquet';
 import { compressors } from 'hyparquet-compressors';
-import { getSp500 } from '../api/_lib/sp500.js';
+import { getCalendarUniverse } from '../api/_lib/watchlist.js';
 import { DATASET_URL } from '../api/_lib/transcripts.js';
 
 const OUT = new URL('../data/transcript-index.json', import.meta.url);
@@ -92,8 +93,9 @@ const toDate = (v) => {
 };
 
 const started = Date.now();
-const wanted = new Set((await getSp500()).map((c) => c.symbol));
-console.error(`${wanted.size} S&P 500 symbols`);
+// Home-exchange listings are left out: the dataset holds US symbols only.
+const wanted = new Set((await getCalendarUniverse()).companies.filter((c) => !c.timeZone).map((c) => c.symbol));
+console.error(`${wanted.size} calendar symbols`);
 
 // hyparquet reports a missing file only as "fetch head failed 404". The dataset
 // has moved its files before, so say which URL is gone and where to look.

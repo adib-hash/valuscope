@@ -40,7 +40,7 @@ Historical valuation multiples for any US public company. Look up 3-10 years of 
 - Single-word verdict (Deep Value / Undervalued / Fair Value / Stretched / Expensive) based on average percentile of pill metrics
 
 ### Earnings Calendar & Digest
-- Every S&P 500 constituent's earnings call on a weekday grid, by month, with a count per day and a mark for calls whose transcript has landed
+- Every S&P 500 constituent's earnings call, plus a watchlist of recent IPOs, large US tech names and global index heavyweights (`api/_lib/watchlist.js`), on a weekday grid by month, filterable by group, with a count per day and a mark for calls whose transcript has landed
 - Day view lists who reported, largest first, with session and a link to each transcript
 - One-tap earnings digest: reads every call on the day and lays out results, key metrics, guidance, the Q&A that mattered, what management didn't answer, notable quotes and what changed since last quarter, per company, under a cross-call summary of the day (needs a Gemini key)
 - Call summaries are a two-pass pipeline (segment → structured extraction → prose) with verbatim-quote checking; `node scripts/compare-summary.mjs TICKER YEAR QUARTER` prints old vs new for any call

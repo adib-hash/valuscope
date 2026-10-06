@@ -338,7 +338,7 @@ async function opSummary(req, res, apiKey) {
 // step a small prompt over a few thousand words rather than a million-token
 // read of thirty transcripts.
 
-const DIGEST_SYSTEM = `You write the top of an earnings digest: one investor's morning read across every S&P 500 company that reported on a single day. You are given each company's call summary, already extracted from its transcript, including the Q&A exchanges that carried signal and the questions management did not answer.
+const DIGEST_SYSTEM = `You write the top of an earnings digest: one investor's morning read across every company on the calendar (the S&P 500, plus major US tech names, recent IPOs and global heavyweights) that reported on a single day. You are given each company's call summary, already extracted from its transcript, including the Q&A exchanges that carried signal and the questions management did not answer.
 
 Rules:
 - Use only the supplied summaries. Never add outside knowledge, never speculate about companies not listed, and never guess at share price reactions.
@@ -463,7 +463,7 @@ async function opDigest(req, res, apiKey) {
     digest = await callGemini(
       apiKey,
       DIGEST_SYSTEM,
-      `Write the digest for ${date}. ${clean.length} S&P 500 ${clean.length === 1 ? 'company' : 'companies'} reported.\n\n`
+      `Write the digest for ${date}. ${clean.length} ${clean.length === 1 ? 'company' : 'companies'} reported.\n\n`
         + `<summaries>\n${clean.map(renderCall).join('\n')}\n</summaries>`,
       DIGEST_SCHEMA,
       0.3,

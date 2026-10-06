@@ -1,16 +1,17 @@
 // Earnings: one company's calendar, surprise history and estimates, and the
-// S&P 500-wide calendar. Two ops in one function because the Hobby plan caps
+// market-wide calendar (the S&P 500 plus a watchlist of recent IPOs, large
+// tech names and global heavyweights). Two ops in one function because the Hobby plan caps
 // a deployment at twelve and this app sits on the cap.
 //
 //   (default)    GET ?ticker=AAPL          → next date, surprise history, estimates
-//   op=calendar  GET ?from=&to=            → every S&P 500 call in the window
+//   op=calendar  GET ?from=&to=            → every calendar company's call in the window
 //
 // Valuations reprice around earnings, so knowing when the next call lands, how
 // reliably the company has beaten expectations, and which way estimates are
 // moving is context the multiples alone can't give.
 
 import YahooFinance from 'yahoo-finance2';
-import { getSp500, SP500_AS_OF } from './_lib/sp500.js';
+import { getCalendarUniverse } from './_lib/watchlist.js';
 import { getTranscriptIndex } from './_lib/transcripts.js';
 import { buildCalendar, isIsoDate } from './_lib/calendar.js';
 
@@ -27,7 +28,7 @@ const pct = (v) => (v == null ? null : v * 100);
 
 // ── op=calendar ─────────────────────────────────────────────────────────────
 //
-// Five hundred companies is five batch quotes, not five hundred calls: the
+// Six hundred companies is six batch quotes, not six hundred calls: the
 // quote endpoint carries each company's earnings timestamp, which is all the
 // calendar needs from Yahoo. The transcript dataset's index supplies the
 // other half — which of those calls has a transcript to read — in one pass.
@@ -68,6 +69,7 @@ async function quoteAll(symbols) {
         shortName: q.shortName,
         longName: q.longName,
         marketCap: q.marketCap ?? null,
+        currency: q.currency || null,
         earningsTimestamp: seconds(q.earningsTimestamp),
         earningsTimestampStart: seconds(q.earningsTimestampStart),
         earningsTimestampEnd: seconds(q.earningsTimestampEnd),
@@ -75,6 +77,39 @@ async function quoteAll(symbols) {
     }
   });
   return { bySymbol, failedBatches: failed, batches: batches.length };
+}
+
+// Home-exchange listings quote their market cap in won, yen or francs, and a
+// day's list is sorted by size, so those are put into dollars first. Yahoo's
+// CUR=X pairs are units of the currency per dollar. Minor units (GBp, ILA)
+// are a hundredth of the major. A cap whose currency has no rate is dropped
+// rather than compared in the wrong unit.
+const MINOR_UNITS = { GBp: 'GBP', GBX: 'GBP', ILA: 'ILS', ZAc: 'ZAR' };
+
+async function toUsdCaps(bySymbol) {
+  const majors = new Set();
+  for (const q of bySymbol.values()) {
+    if (q.marketCap == null || !q.currency || q.currency === 'USD') continue;
+    majors.add(MINOR_UNITS[q.currency] || q.currency);
+  }
+  if (!majors.size) return;
+  const pairs = [...majors].map((c) => `${c}=X`);
+  const perUsd = new Map();
+  try {
+    const fx = await yahooFinance.quote(pairs, {}, { validateResult: false });
+    for (const q of Array.isArray(fx) ? fx : [fx]) {
+      const rate = q?.regularMarketPrice;
+      if (q?.symbol && rate > 0) perUsd.set(q.symbol.replace('=X', ''), rate);
+    }
+  } catch (err) {
+    console.warn(`Calendar FX quotes failed: ${err.message}`);
+  }
+  for (const q of bySymbol.values()) {
+    if (q.marketCap == null || !q.currency || q.currency === 'USD') continue;
+    const major = MINOR_UNITS[q.currency] || q.currency;
+    const rate = perUsd.get(major);
+    q.marketCap = rate ? q.marketCap / rate / (MINOR_UNITS[q.currency] ? 100 : 1) : null;
+  }
 }
 
 async function opCalendar(req, res) {
@@ -87,14 +122,14 @@ async function opCalendar(req, res) {
     return res.status(400).json({ error: `Window must run forwards and cover at most ${MAX_WINDOW_DAYS} days` });
   }
 
-  const constituents = await getSp500();
+  const { companies: constituents, meta: universe } = await getCalendarUniverse();
   const symbols = constituents.map((c) => c.symbol);
   const warnings = [];
 
   // Both halves in parallel; either can fail on its own and the calendar
   // still renders from the other, labelled as such.
   const [quotes, index] = await Promise.all([
-    quoteAll(symbols).catch((err) => {
+    quoteAll(symbols).then(async (q) => { await toUsdCaps(q.bySymbol); return q; }).catch((err) => {
       console.error('Calendar quotes failed:', err);
       warnings.push('Upcoming dates from Yahoo Finance are unavailable right now.');
       return { bySymbol: new Map(), failedBatches: 0, batches: 0 };
@@ -125,13 +160,13 @@ async function opCalendar(req, res) {
   });
 
   // Dates move and transcripts land daily; half an hour is fresh enough and
-  // keeps a busy earnings week from re-quoting five hundred names per visitor.
+  // keeps a busy earnings week from re-quoting six hundred names per visitor.
   res.setHeader('Cache-Control', warnings.length ? 's-maxage=120' : 's-maxage=1800, stale-while-revalidate=3600');
   return res.status(200).json({
     from,
     to,
     events,
-    universe: { count: constituents.length, asOf: SP500_AS_OF, source: 'datasets/s-and-p-500-companies' },
+    universe,
     transcriptsAvailable: !!(index && index.rows),
     transcriptIndex: index ? { builtAt: index.builtAt, rows: index.rows } : null,
     // The digest needs Gemini; the client hides the button on deployments

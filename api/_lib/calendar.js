@@ -23,6 +23,22 @@ export function etDate(unixSeconds) {
   return isNaN(d) ? null : ET_DATE.format(d);
 }
 
+// A home-exchange listing is dated where it reports. Yahoo often stamps those
+// calls at midnight UTC, which New York would file on the evening before.
+const zoneFormats = new Map();
+export function localDate(unixSeconds, timeZone) {
+  if (!timeZone) return etDate(unixSeconds);
+  if (!unixSeconds) return null;
+  const d = new Date(unixSeconds * 1000);
+  if (isNaN(d)) return null;
+  let fmt = zoneFormats.get(timeZone);
+  if (!fmt) {
+    fmt = new Intl.DateTimeFormat('en-CA', { timeZone, year: 'numeric', month: '2-digit', day: '2-digit' });
+    zoneFormats.set(timeZone, fmt);
+  }
+  return fmt.format(d);
+}
+
 // Before the open, after the close, or unknown. Yahoo's timestamps are only
 // as good as the company's own announcement, so a call that lands inside
 // market hours is far more likely to be a placeholder than a lunchtime
@@ -50,7 +66,9 @@ const dayNumber = (isoDate) => Math.round(Date.parse(`${isoDate}T00:00:00Z`) / 8
 const SAME_CALL_DAYS = 3;
 
 /**
- * @param {Array<{symbol, name, sector}>} constituents
+ * @param {Array<{symbol, name, sector, group?, timeZone?}>} constituents
+ *   timeZone marks a home-exchange listing: dated in that zone, no New York
+ *   session, and no transcript source to wait on.
  * @param {Map<string, object>} quotesBySymbol   Yahoo quote objects, keyed by symbol
  * @param {Map<string, Array<{year, quarter, reportDate}>>} transcriptsBySymbol
  * @param {string} from  YYYY-MM-DD inclusive
@@ -72,7 +90,10 @@ export function buildCalendar({ constituents, quotesBySymbol, transcriptsBySymbo
       symbol: company.symbol,
       name: quote?.longName || quote?.shortName || company.name,
       sector: company.sector,
+      group: company.group || 'sp500',
       marketCap: quote?.marketCap ?? null,
+      // The transcript dataset holds US symbols only.
+      transcriptSource: !company.timeZone,
     };
 
     // The transcript side: every call the dataset holds for this company
@@ -93,7 +114,7 @@ export function buildCalendar({ constituents, quotesBySymbol, transcriptsBySymbo
     const stamp = quote?.earningsTimestamp
       || quote?.earningsTimestampStart
       || null;
-    const yahooDate = etDate(stamp);
+    const yahooDate = localDate(stamp, company.timeZone);
     if (yahooDate) {
       const start = quote.earningsTimestampStart;
       const end = quote.earningsTimestampEnd;
@@ -101,7 +122,7 @@ export function buildCalendar({ constituents, quotesBySymbol, transcriptsBySymbo
       const yahooEvent = {
         ...base,
         date: yahooDate,
-        session: etSession(stamp),
+        session: company.timeZone ? null : etSession(stamp),
         isEstimate: windowDays > 1,
         transcript: null,
         source: 'yahoo',

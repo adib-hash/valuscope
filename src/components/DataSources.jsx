@@ -26,7 +26,7 @@ export const DATA_SOURCES = [
   },
   {
     name: 'datasets/s-and-p-500-companies · GitHub',
-    use: 'The S&P 500 constituent list behind the earnings calendar',
+    use: 'The S&P 500 constituent list behind the earnings calendar (alongside a curated watchlist of IPOs, tech and global names)',
   },
   {
     name: 'Alpha Vantage',

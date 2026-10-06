@@ -116,7 +116,7 @@ export async function fetchSummary(ticker, year, quarter, { onStage } = {}) {
   return summary;
 }
 
-// Every S&P 500 call in a date window: who reports when, and which of those
+// Every calendar company's call (S&P 500 plus the watchlist) in a date window: who reports when, and which of those
 // calls already has a transcript to read. Same function as the per-company
 // earnings panel, dispatched on op — the twelve-function ceiling again.
 export async function fetchEarningsCalendar(from, to) {
