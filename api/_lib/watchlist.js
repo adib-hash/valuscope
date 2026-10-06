@@ -6,7 +6,8 @@
 //
 // Symbols are Yahoo's. A US listing (common stock or ADR) is preferred
 // wherever one exists, because the transcript dataset only covers US symbols.
-// A suffixed symbol (005930.KS, MC.PA) is a home-exchange listing: the
+// Roche and Nestlé use their OTC ADRs because Yahoo does not resolve their
+// Swiss symbols. A suffixed symbol (005930.KS, MC.PA) is a home-exchange listing: the
 // calendar shows its date, dated in that exchange's time zone, but there is no
 // transcript to read and no before-open / after-close label, since those are
 // New York sessions.
@@ -74,8 +75,8 @@ export const WATCHLIST = [
   ['NVO', 'Novo Nordisk', 'Health Care', 'global'],
   ['AZN', 'AstraZeneca', 'Health Care', 'global'],
   ['NVS', 'Novartis', 'Health Care', 'global'],
-  ['ROG.SW', 'Roche', 'Health Care', 'global'],
-  ['NESN.SW', 'Nestlé', 'Consumer Staples', 'global'],
+  ['RHHBY', 'Roche', 'Health Care', 'global'],
+  ['NSRGY', 'Nestlé', 'Consumer Staples', 'global'],
   ['MC.PA', 'LVMH', 'Consumer Discretionary', 'global'],
   ['SIE.DE', 'Siemens', 'Industrials', 'global'],
   ['SHEL', 'Shell', 'Energy', 'global'],
@@ -128,7 +129,6 @@ const EXCHANGE_TZ = {
   T: 'Asia/Tokyo',
   HK: 'Asia/Hong_Kong',
   NS: 'Asia/Kolkata',
-  SW: 'Europe/Zurich',
   PA: 'Europe/Paris',
   DE: 'Europe/Berlin',
 };
