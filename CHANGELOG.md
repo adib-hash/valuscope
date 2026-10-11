@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.27.0 — 2026-10-11
+
+### Added
+- **Insiders tab: who inside the company bought and sold its stock.** A new company tab built from SEC Forms 3, 4 and 5. It shows open-market selling and buying over the last 6, 12 or 18 months, a monthly bar chart of each, and every insider ranked by dollars traded, with their role as filed. Tap an insider for each filing, and tap a trade for the exact price from the filing and whether it was pre-scheduled under a Rule 10b5-1 plan, with a link to the filing on EDGAR. Grants, option exercises, tax withholding and gifts are hidden by default, because they don't reflect a view on the price, and one switch shows them. Dollar amounts are estimates (shares × that day's close) until a trade is opened; they usually land within a few percent. Meta over 18 months: about $611M sold by 11 insiders, led by Mark Zuckerberg at about $232M, and no open-market purchases. The data comes from EDGAR's per-company ownership table, about 80 transactions a page and fetched four pages at a time: about 7 seconds for a busy issuer like Meta the first time, then cached for six hours. It rides on `/api/holdings` (`op=insiders`, `op=insiderFiling`), because the deployment is at the twelve-function limit.
+
+### Fixed
+- **Q&A questions read as broken sentences.** The summary glued each question onto "asked about" or "on", which read wrongly whenever the model wrote an actual question: "Lloyd Walmsley, Mizuho asked about Is Airtable's faster growth a shift…?". The question now follows the analyst's name the way the answer follows the executive's ("Lloyd Walmsley, Mizuho: Is Airtable's faster growth a shift…?"), in both the Q&A and the unanswered list. Summaries already generated are fixed too, since this is display only.
+- **The summary button only appeared when a Gemini key was set.** Since summaries moved to Claude, a deployment with only an Anthropic key would have hidden the button and the digest. Either key now turns them on.
+
 ## 0.26.0 — 2026-10-11
 
 ### Changed
