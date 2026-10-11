@@ -1,0 +1,120 @@
+You are judging comparable-company sets ("comp sets") built by different AI systems for an equity valuation tool. The systems are anonymous and in random order. Each set will be shown as a table of trading multiples next to the subject company.
+
+Subject: e.l.f. Beauty, Inc. (ELF)
+Sector: Consumer Defensive. Industry: Household & Personal Products. Market cap: $6.4B.
+Business: e.l.f. Beauty, Inc., a beauty company, provides cosmetics and skin care products worldwide. The company offers eye, lip, face, and skin care products. It offers products under the e.l.f. Cosmetics, e.l.f. Skin, Well People, Naturium, and Rhode brand names. The company sells its products through national and international retailers and direct-to-consumer through its e-commerce channel. The company was formerly known as J.A. Cosmetics Holdings, Inc. and changed its name to e.l.f. Beauty, Inc. in April 2016. e.l.f. Beauty, Inc. was founded in 2004 and is headquartered in Oakland, California.
+
+The systems were told: 8 to 10 peers that share the subject's business model and industry economics, the companies an analyst would actually put in the same table; US-listed common stocks only; no ETFs, private companies or subsidiaries; prefer comparable scale but include a clear direct competitor regardless of size.
+
+### Set A
+- COTY (Coty Inc.)
+- EL (The Estée Lauder Companies Inc.)
+- ULTA (Ulta Beauty, Inc.)
+- OLPX (Olaplex Holdings, Inc.)  [ticker did not resolve to a live US equity quote; the app drops it]
+- IPAR (Interparfums, Inc.)
+- KVUE (Kenvue Inc.)
+- EPC (Edgewell Personal Care Company)
+- CHD (Church & Dwight Co., Inc.)
+- CL (Colgate-Palmolive Company)
+
+### Set B
+- HNST (The Honest Company, Inc.)
+- EL (The Estée Lauder Companies Inc.)
+- COTY (Coty Inc.)
+- ULTA (Ulta Beauty, Inc.)
+- IPC  [ticker did not resolve to a live US equity quote; the app drops it]
+- CL (Colgate-Palmolive Company)
+- PG (The Procter & Gamble Company)
+- KMB (Kimberly-Clark Corporation)
+- CHD (Church & Dwight Co., Inc.)
+- KVUE (Kenvue Inc.)
+
+### Set C
+- COT (Coty Inc.)  [ticker did not resolve to a live US equity quote; the app drops it]
+- EL (The Estée Lauder Companies Inc.)
+- ULTA (Ulta Beauty, Inc.)
+- PG (The Procter & Gamble Company)
+- CL (Colgate-Palmolive Company)
+- KMB (Kimberly-Clark Corporation)
+- CHD (Church & Dwight Co., Inc.)
+- REV (Revlon, Inc.)  [ticker did not resolve to a live US equity quote; the app drops it]
+
+### Set D
+- EL (The Estée Lauder Companies Inc.)
+- COTY (Coty Inc.)
+- REV (Revlon, Inc.)  [ticker did not resolve to a live US equity quote; the app drops it]
+- OLPX (Olaplex Holdings, Inc.)  [ticker did not resolve to a live US equity quote; the app drops it]
+- IPAR (Interparfums, Inc.)
+- ULTA (Ulta Beauty, Inc.)
+- NUS (Nu Skin Enterprises, Inc.)
+- PRGO (Perrigo Company plc)
+- EWCZ (European Wax Center, Inc.)  [ticker did not resolve to a live US equity quote; the app drops it]
+- KVUE (Kenvue Inc.)
+
+### Set E
+- COTY (Coty Inc.)
+- EL (The Estée Lauder Companies Inc.)
+- IPAR (Interparfums, Inc.)
+- EPC (Edgewell Personal Care Company)
+- NUVA (Nu Skin Enterprises, Inc.)  [ticker did not resolve to a live US equity quote; the app drops it]
+- ULTA (Ulta Beauty, Inc.)
+- KVUE (Kenvue Inc.)
+- CHD (Church & Dwight Co., Inc.)
+
+### Set F
+- COTY (Coty Inc.)
+- EL (The Estée Lauder Companies Inc.)
+- ULTA (Ulta Beauty, Inc.)
+- OLPX (Olaplex Holdings, Inc.)  [ticker did not resolve to a live US equity quote; the app drops it]
+- IPAR (Interparfums, Inc.)
+- EPC (Edgewell Personal Care Company)
+- HIMS (Hims & Hers Health, Inc.)
+- NUS (Nu Skin Enterprises, Inc.)
+- KVUE (Kenvue Inc.)
+- SKIN (SkinHealth Systems Inc.)
+
+### Set G
+- COTY (Coty Inc.)
+- EL (The Estée Lauder Companies Inc.)
+- ULTA (Ulta Beauty, Inc.)
+- OLPX (Olaplex Holdings, Inc.)  [ticker did not resolve to a live US equity quote; the app drops it]
+- HIMS (Hims & Hers Health, Inc.)
+- CL (Colgate-Palmolive Company)
+- KVUE (Kenvue Inc.)
+- CHD (Church & Dwight Co., Inc.)
+- SPB (Spectrum Brands Holdings, Inc.)
+- HELE (Helen of Troy Limited)
+
+### Set H
+- EL (The Estée Lauder Companies Inc.)
+- COTY (Coty Inc.)
+- ULTA (Ulta Beauty, Inc.)
+- IPAR (Interparfums, Inc.)
+- OLPX (Olaplex Holdings, Inc.)  [ticker did not resolve to a live US equity quote; the app drops it]
+- SBH (Sally Beauty Holdings, Inc.)
+- EPC (Edgewell Personal Care Company)
+- NUS (Nu Skin Enterprises, Inc.)
+- HNST (The Honest Company, Inc.)
+
+### Set I
+- EL (The Estée Lauder Companies Inc.)
+- COTY (Coty Inc.)
+- ULTA (Ulta Beauty, Inc.)
+- IPC (Inter Parfums, Inc.)  [ticker did not resolve to a live US equity quote; the app drops it]
+- CL (Colgate-Palmolive Company)
+- PG (The Procter & Gamble Company)
+- KMB (Kimberly-Clark Corporation)
+- CHD (Church & Dwight Co., Inc.)
+- KVUE (Kenvue Inc.)
+
+Score every set from 1 to 10 on each criterion, using the full range and comparing sets against each other. Judge the set as the app would show it: tickers marked as not resolving are dropped.
+- relevance: do the peers share the subject's business model and economics, so their multiples are a meaningful benchmark?
+- coverage: are the obvious direct competitors that an analyst would expect present?
+- scale: are the peers of sensible scale, with outliers justified by direct competition?
+- noise: are there peers that clearly do not belong (penalise each one), wrong tickers, or companies that are not what the system thought they were?
+- overall: would an equity analyst accept this comp set with only light edits?
+
+Name any peers that clearly do not belong, and any obvious peers missing from every set.
+
+Return only JSON, no other text, in this shape:
+{"sets": [{"letter": "A", "relevance": 0, "coverage": 0, "scale": 0, "noise": 0, "overall": 0, "misfits": ["TICKER: why"], "comment": "one sentence"}], "missingEverywhere": ["TICKER: why"]}

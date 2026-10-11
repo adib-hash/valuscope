@@ -1,0 +1,113 @@
+You are judging comparable-company sets ("comp sets") built by different AI systems for an equity valuation tool. The systems are anonymous and in random order. Each set will be shown as a table of trading multiples next to the subject company.
+
+Subject: Hims & Hers Health, Inc. (HIMS)
+Sector: Healthcare. Industry: Drug Manufacturers - Specialty & Generic. Market cap: $7.2B.
+Business: Hims & Hers Health, Inc. operates as a consumer-first health and wellness platform that connects consumers to licensed healthcare professionals in the United States, the United Kingdom, Canada, Germany, the Republic of Ireland, France, Spain, Australia, and internationally. The company offers a range of curated prescription and non-prescription health and wellness products and services available to purchase on its websites and mobile application directly by customers. It also provides personalized health and wellness products; over-the-counter drug and device products, cosmetics, and supplement products primarily focusing on general wellness, skincare, sexual health and wellness, and hair care under the Hims & Hers brand name; and laboratory testing services to measure a set of biomarkers. Additionally, it offers medical consultation, post-consultation support services, and delivery of l
+
+The systems were told: 8 to 10 peers that share the subject's business model and industry economics, the companies an analyst would actually put in the same table; US-listed common stocks only; no ETFs, private companies or subsidiaries; prefer comparable scale but include a clear direct competitor regardless of size.
+
+### Set A
+- TDOC (Teladoc Health, Inc.)
+- LFMD (LifeMD, Inc.)
+- WW (WW International, Inc.)
+- DOCS (Doximity, Inc.)
+- AMWL (American Well Corporation)
+- GDRX (GoodRx Holdings, Inc.)
+- TALK (Talkspace, Inc.)  [ticker did not resolve to a live US equity quote; the app drops it]
+- WRBY (Warby Parker Inc.)
+- ELF (e.l.f. Beauty, Inc.)
+- HNGE (Hinge Health, Inc.)
+
+### Set B
+- TDOC (Teladoc Health, Inc.)
+- GDRX (GoodRx Holdings, Inc.)
+- DOCS (Doximity, Inc.)
+- AMWL (American Well Corporation)
+- ACCD (Accolade, Inc.)  [ticker did not resolve to a live US equity quote; the app drops it]
+- PGNY (Progyny, Inc.)
+- PRVA (Privia Health Group, Inc.)
+- LFST (LifeStance Health Group, Inc.)
+- PRGO (Perrigo Company plc)
+
+### Set C
+- TDOC (Teladoc Health, Inc.)
+- AMZN (Amazon.com, Inc.)
+- CVS (CVS Health Corporation)
+- WBA  [ticker did not resolve to a live US equity quote; the app drops it]
+- GDRX (GoodRx Holdings, Inc.)
+- RRX (Regal Rexnord Corporation)
+- DOCS (Doximity, Inc.)
+- CLOV (Clover Health Investments, Corp.)
+- ONON (On Holding AG)
+
+### Set D
+- TDOC (Teladoc Health, Inc.)
+- AMWL (American Well Corporation)
+- DOCS (Doximity, Inc.)
+- ACCD (Accolade, Inc.)  [ticker did not resolve to a live US equity quote; the app drops it]
+- OMCL (Omnicell, Inc.)
+- SDGR (Schrödinger, Inc.)
+- EXAS (Exact Sciences Corporation)  [ticker did not resolve to a live US equity quote; the app drops it]
+- RVPH (Reviva Pharmaceuticals Holdings, Inc.)
+- VTRS (Viatris Inc.)
+
+### Set E
+- WW (WW International, Inc.)
+- TDOC (Teladoc Health, Inc.)
+- DOCS (Doximity, Inc.)
+- HALO (Halozyme Therapeutics, Inc.)
+- PRGO (Perrigo Company plc)
+- ELF (e.l.f. Beauty, Inc.)
+- CHWY (Chewy, Inc.)
+- GDRX (GoodRx Holdings, Inc.)
+
+### Set F
+- TDOC (Teladoc Health, Inc.)
+- AMZN (Amazon.com, Inc.)
+- CVS (CVS Health Corporation)
+- WBA (Walgreens Boots Alliance, Inc.)  [ticker did not resolve to a live US equity quote; the app drops it]
+- GDRX (GoodRx Holdings, Inc.)
+- RRX (Regal Rexnord Corporation)
+- DOCS (Doximity, Inc.)
+- CLOV (Clover Health Investments, Corp.)
+- ONON (On Holding AG)
+
+### Set G
+- TDOC (Teladoc Health, Inc.)
+- LFMD (LifeMD, Inc.)
+- WW (WW International, Inc.)
+
+### Set H
+- LFMD (LifeMD, Inc.)
+- TDOC (Teladoc Health, Inc.)
+- AMWL (American Well Corporation)
+- DOCS (Doximity, Inc.)
+- WRBY (Warby Parker Inc.)
+- ELF (e.l.f. Beauty, Inc.)
+- PRGO (Perrigo Company plc)
+- HNST (The Honest Company, Inc.)
+- OMCL (Omnicell, Inc.)
+- PETS (PetMed Express, Inc.)
+
+### Set I
+- TDOC (Teladoc Health, Inc.)
+- GDRX (GoodRx Holdings, Inc.)
+- LFMD (LifeMD, Inc.)
+- AMWL (American Well Corporation)
+- DOCS (Doximity, Inc.)
+- RXRX (Recursion Pharmaceuticals, Inc.)
+- WW (WW International, Inc.)
+- CHWY (Chewy, Inc.)
+- ROVR (Rover Group, Inc.)  [ticker did not resolve to a live US equity quote; the app drops it]
+
+Score every set from 1 to 10 on each criterion, using the full range and comparing sets against each other. Judge the set as the app would show it: tickers marked as not resolving are dropped.
+- relevance: do the peers share the subject's business model and economics, so their multiples are a meaningful benchmark?
+- coverage: are the obvious direct competitors that an analyst would expect present?
+- scale: are the peers of sensible scale, with outliers justified by direct competition?
+- noise: are there peers that clearly do not belong (penalise each one), wrong tickers, or companies that are not what the system thought they were?
+- overall: would an equity analyst accept this comp set with only light edits?
+
+Name any peers that clearly do not belong, and any obvious peers missing from every set.
+
+Return only JSON, no other text, in this shape:
+{"sets": [{"letter": "A", "relevance": 0, "coverage": 0, "scale": 0, "noise": 0, "overall": 0, "misfits": ["TICKER: why"], "comment": "one sentence"}], "missingEverywhere": ["TICKER: why"]}

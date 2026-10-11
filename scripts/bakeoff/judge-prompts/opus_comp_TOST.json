@@ -1,0 +1,128 @@
+{
+ "sets": [
+  {
+   "letter": "A",
+   "relevance": 5,
+   "coverage": 4,
+   "scale": 6,
+   "noise": 5,
+   "overall": 4,
+   "misfits": [
+    "ACIW: bank/enterprise payments software",
+    "PYPL: consumer wallet and checkout, weak restaurant overlap"
+   ],
+   "comment": "With SQ and LIGHT dropped it loses Block and Lightspeed, leaving PAR and FOUR as the only real restaurant-POS peers."
+  },
+  {
+   "letter": "B",
+   "relevance": 6,
+   "coverage": 6,
+   "scale": 6,
+   "noise": 6,
+   "overall": 6,
+   "misfits": [
+    "PAYO: cross-border B2B payments"
+   ],
+   "comment": "LSPD, PAR, FOUR and SHOP are on point, but Block and Fiserv are lost to stale tickers."
+  },
+  {
+   "letter": "C",
+   "relevance": 7,
+   "coverage": 7,
+   "scale": 7,
+   "noise": 6,
+   "overall": 7,
+   "misfits": [
+    "PAYC: HCM/payroll software, only adjacent to Toast's payroll add-on",
+    "PCTY: HCM/payroll software"
+   ],
+   "comment": "The only set with Block under its current XYZ ticker, plus LSPD, PAR and FOUR, padded with payroll SaaS."
+  },
+  {
+   "letter": "D",
+   "relevance": 5,
+   "coverage": 6,
+   "scale": 5,
+   "noise": 3,
+   "overall": 4,
+   "misfits": [
+    "OTTR: electric utility, almost certainly a ticker error"
+   ],
+   "comment": "AGYS, PAR and LSPD are good hospitality-tech picks, but a utility in the table is a glaring error."
+  },
+  {
+   "letter": "E",
+   "relevance": 8,
+   "coverage": 6,
+   "scale": 5,
+   "noise": 8,
+   "overall": 6,
+   "misfits": [],
+   "comment": "The purest hospitality-POS set (LSPD, PAR, AGYS, VYX, FOUR), but thin after three dead tickers and without Block."
+  },
+  {
+   "letter": "F",
+   "relevance": 2,
+   "coverage": 2,
+   "scale": 4,
+   "noise": 1,
+   "overall": 1,
+   "misfits": [
+    "DECK: footwear brand",
+    "RPD: cybersecurity software",
+    "ALRM: home-security software",
+    "PAYC: HCM/payroll software",
+    "PCTY: HCM/payroll software"
+   ],
+   "comment": "Mostly unrelated names; an analyst would discard it."
+  },
+  {
+   "letter": "G",
+   "relevance": 4,
+   "coverage": 3,
+   "scale": 6,
+   "noise": 4,
+   "overall": 3,
+   "misfits": [
+    "PAYC: HCM/payroll software",
+    "PCTY: HCM/payroll software"
+   ],
+   "comment": "Six names, only FOUR and GPN on the payments side and no restaurant-POS pure play."
+  },
+  {
+   "letter": "H",
+   "relevance": 5,
+   "coverage": 5,
+   "scale": 6,
+   "noise": 4,
+   "overall": 4,
+   "misfits": [
+    "PAYC: HCM/payroll software",
+    "PCTY: HCM/payroll software",
+    "PAY: bill-pay platform for billers",
+    "PSFE: digital wallets and iGaming payments"
+   ],
+   "comment": "LSPD and FOUR are right, but most of the table is generic payments and payroll."
+  },
+  {
+   "letter": "I",
+   "relevance": 1,
+   "coverage": 1,
+   "scale": 5,
+   "noise": 1,
+   "overall": 1,
+   "misfits": [
+    "IOT: fleet IoT",
+    "GTLB: DevOps",
+    "MDB: databases",
+    "DOCN: cloud hosting",
+    "RBRK: data security",
+    "MNDY: work management"
+   ],
+   "comment": "A generic infrastructure-software list with no restaurant, POS or payments exposure."
+  }
+ ],
+ "missingEverywhere": [
+  "FISV: Fiserv (Clover) is Toast's largest POS competitor; every set that tried used the stale FI ticker"
+ ]
+}

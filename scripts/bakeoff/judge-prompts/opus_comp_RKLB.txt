@@ -1,0 +1,121 @@
+You are judging comparable-company sets ("comp sets") built by different AI systems for an equity valuation tool. The systems are anonymous and in random order. Each set will be shown as a table of trading multiples next to the subject company.
+
+Subject: Rocket Lab Corporation (RKLB)
+Sector: Industrials. Industry: Aerospace & Defense. Market cap: $43.6B.
+Business: Rocket Lab Corporation, a space company, provides launch services and space systems solutions in the United States, Canada, Japan, and internationally. The company operates through launch services and space systems segments. The company provides launch services, spacecraft design services, spacecraft components, spacecraft manufacturing, optical systems, and other spacecraft and on-orbit management solutions and constellation management services, as well as designs and manufactures small and medium-class rockets and develops flight and ground software. It also designs, manufactures, and sells Electron, an orbital small launch vehicle for small spacecraft launch services, as well as develops Neutron launch vehicles for large constellation deployments, interplanetary missions, and potentially for human spaceflight. In addition, the company designs and manufactures a range of components and
+
+The systems were told: 8 to 10 peers that share the subject's business model and industry economics, the companies an analyst would actually put in the same table; US-listed common stocks only; no ETFs, private companies or subsidiaries; prefer comparable scale but include a clear direct competitor regardless of size.
+
+### Set A
+- ASTS (AST SpaceMobile, Inc.)
+- PL (Planet Labs PBC)
+- RDW (Redwire Corporation)
+- LUNR (Intuitive Machines, Inc.)
+- BKSY (BlackSky Technology Inc.)
+- SPIR (Spire Global, Inc.)
+- FLY (Firefly Aerospace Inc.)
+- KTOS (Kratos Defense & Security Solutions, Inc.)
+- ASTR (Astra Space, Inc.)  [ticker did not resolve to a live US equity quote; the app drops it]
+- IRDM (Iridium Communications Inc.)
+
+### Set B
+- ASTS (AST SpaceMobile, Inc.)
+- LUNR (Intuitive Machines, Inc.)
+- RDW (Redwire Corporation)
+- SPCE (Virgin Galactic Holdings, Inc.)
+- BKSY (BlackSky Technology Inc.)
+- SPIR (Spire Global, Inc.)
+- PL (Planet Labs PBC)
+- SIDU (Sidus Space, Inc.)
+
+### Set C
+- ASTS (AST SpaceMobile, Inc.)
+- FLY (Firefly Aerospace Inc.)
+- PL (Planet Labs PBC)
+- LUNR (Intuitive Machines, Inc.)
+- RDW (Redwire Corporation)
+- BKSY (BlackSky Technology Inc.)
+- SPCE (Virgin Galactic Holdings, Inc.)
+- KRMN (Karman Holdings Inc.)
+- MNTS (Momentus Inc.)
+- SATS (EchoStar Corporation)  [ticker did not resolve to a live US equity quote; the app drops it]
+
+### Set D
+- LUNR (Intuitive Machines, Inc.)
+- RDW (Redwire Corporation)
+- ASTS (AST SpaceMobile, Inc.)
+- BKSY (BlackSky Technology Inc.)
+- PL (Planet Labs PBC)
+- SPIR (Spire Global, Inc.)
+- KTOS (Kratos Defense & Security Solutions, Inc.)
+- LHX (L3Harris Technologies, Inc.)
+- AVAV (AeroVironment, Inc.)
+
+### Set E
+- ASTS (AST SpaceMobile, Inc.)
+- PL (Planet Labs PBC)
+- LUNR (Intuitive Machines, Inc.)
+- RDW (Redwire Corporation)
+- FLY (Firefly Aerospace Inc.)
+- KRMN (Karman Holdings Inc.)
+- BKSY (BlackSky Technology Inc.)
+- SPCE (Virgin Galactic Holdings, Inc.)
+- KTOS (Kratos Defense & Security Solutions, Inc.)
+- HEI (HEICO Corporation)
+
+### Set F
+- ASTS (AST SpaceMobile, Inc.)
+- PL (Planet Labs PBC)
+- LUNR (Intuitive Machines, Inc.)
+- BKSY (BlackSky Technology Inc.)
+- SATS (EchoStar Corporation)  [ticker did not resolve to a live US equity quote; the app drops it]
+- VOYG (Voyager Technologies, Inc.)
+- KTOS (Kratos Defense & Security Solutions, Inc.)
+- LHX (L3Harris Technologies, Inc.)
+- NOC (Northrop Grumman Corporation)
+- MAXR (Maxar Technologies Holdings Inc.)  [ticker did not resolve to a live US equity quote; the app drops it]
+
+### Set G
+- PL (Planet Labs PBC)
+- LUNR (Intuitive Machines, Inc.)
+- ASTS (AST SpaceMobile, Inc.)
+- RDW (Redwire Corporation)
+- BKSY (BlackSky Technology Inc.)
+- SPCE (Virgin Galactic Holdings, Inc.)
+- AVAV (AeroVironment, Inc.)
+- KTOS (Kratos Defense & Security Solutions, Inc.)
+- NOC (Northrop Grumman Corporation)
+
+### Set H
+- LUNR (Intuitive Machines, Inc.)
+- RDW (Redwire Corporation)
+- ASTS (AST SpaceMobile, Inc.)
+- BKSY (BlackSky Technology Inc.)
+- PL (Planet Labs PBC)
+- SPIR (Spire Global, Inc.)
+- KTOS (Kratos Defense & Security Solutions, Inc.)
+- LHX (L3Harris Technologies, Inc.)
+- AVAV (AeroVironment, Inc.)
+
+### Set I
+- SPCE (Virgin Galactic Holdings, Inc.)
+- PL (Planet Labs PBC)
+- SPIR (Spire Global, Inc.)
+- RDW (Redwire Corporation)
+- LUNR (Intuitive Machines, Inc.)
+- ASTS (AST SpaceMobile, Inc.)
+- BKSY (BlackSky Technology Inc.)
+- LMT (Lockheed Martin Corporation)
+- NOC (Northrop Grumman Corporation)
+
+Score every set from 1 to 10 on each criterion, using the full range and comparing sets against each other. Judge the set as the app would show it: tickers marked as not resolving are dropped.
+- relevance: do the peers share the subject's business model and economics, so their multiples are a meaningful benchmark?
+- coverage: are the obvious direct competitors that an analyst would expect present?
+- scale: are the peers of sensible scale, with outliers justified by direct competition?
+- noise: are there peers that clearly do not belong (penalise each one), wrong tickers, or companies that are not what the system thought they were?
+- overall: would an equity analyst accept this comp set with only light edits?
+
+Name any peers that clearly do not belong, and any obvious peers missing from every set.
+
+Return only JSON, no other text, in this shape:
+{"sets": [{"letter": "A", "relevance": 0, "coverage": 0, "scale": 0, "noise": 0, "overall": 0, "misfits": ["TICKER: why"], "comment": "one sentence"}], "missingEverywhere": ["TICKER: why"]}

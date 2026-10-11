@@ -1,0 +1,12 @@
+{"sets": [
+{"letter": "A", "relevance": 6, "coverage": 8, "scale": 6, "noise": 5, "overall": 6, "misfits": ["ROP: diversified vertical-software conglomerate", "PTC: CAD/PLM engineering software", "ACIW: payments software, only loosely tied to fraud/decisioning"], "comment": "Strong data/scores core but padded to 11 names with ROP, PTC and ACIW."},
+{"letter": "B", "relevance": 9, "coverage": 9, "scale": 7, "noise": 8, "overall": 9, "misfits": [], "comment": "The only set with Experian alongside EFX and TRU, plus ratings/data peers and PEGA for the decisioning software, which an analyst would take almost as-is."},
+{"letter": "C", "relevance": 5, "coverage": 7, "scale": 4, "noise": 3, "overall": 4, "misfits": ["ADBE: creative software, unrelated", "ADP: payroll/HCM services", "TYL: public-sector software", "INTU: consumer tax and SMB software, only tangential via Credit Karma"], "comment": "Good bureau and ratings core spoiled by four generic large-cap software names."},
+{"letter": "D", "relevance": 9, "coverage": 8, "scale": 7, "noise": 9, "overall": 8, "misfits": [], "comment": "Tight, clean set of bureaus, ratings and data franchises plus PEGA, missing only Experian."},
+{"letter": "E", "relevance": 7, "coverage": 8, "scale": 6, "noise": 6, "overall": 7, "misfits": ["JKHY: bank core-processing software", "ICE: exchange operator, mortgage-tech data only a partial link"], "comment": "Right core but ICE and JKHY dilute it."},
+{"letter": "F", "relevance": 6, "coverage": 8, "scale": 6, "noise": 3, "overall": 5, "misfits": ["EXPD: freight forwarder, almost certainly a ticker confusion with Experian", "JKHY: bank core-processing software"], "comment": "EXPD is a glaring error that an analyst would immediately strike."},
+{"letter": "G", "relevance": 7, "coverage": 8, "scale": 6, "noise": 6, "overall": 7, "misfits": ["SSNC: fund-administration software and services"], "comment": "Solid data-franchise set; MORN is defensible, SSNC less so."},
+{"letter": "H", "relevance": 7, "coverage": 7, "scale": 7, "noise": 7, "overall": 7, "misfits": ["TYL: public-sector software"], "comment": "Clean data-franchise core but no decisioning-software peer and an odd TYL inclusion."},
+{"letter": "I", "relevance": 8, "coverage": 8, "scale": 7, "noise": 7, "overall": 8, "misfits": ["ACIW: payments software, only loosely tied to fraud/decisioning"], "comment": "Good core with PEGA for software; ACIW is a stretch but not a disaster."}
+],
+"missingEverywhere": []}

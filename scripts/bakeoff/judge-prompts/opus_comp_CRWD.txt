@@ -1,0 +1,121 @@
+You are judging comparable-company sets ("comp sets") built by different AI systems for an equity valuation tool. The systems are anonymous and in random order. Each set will be shown as a table of trading multiples next to the subject company.
+
+Subject: CrowdStrike Holdings, Inc. (CRWD)
+Sector: Technology. Industry: Software - Infrastructure. Market cap: $281.6B.
+Business: CrowdStrike Holdings, Inc. provides cybersecurity solutions in the United States and internationally. Its unified platform provides cloud-delivered protection of endpoints, cloud workloads, identity, and data through a software as a service (SaaS) subscription-based model. The company offers corporate endpoint and cloud workload security, managed security, security and vulnerability management, IT operations management, identity protection, threat intelligence, data protection, SaaS security posture management, and AI powered workflow automation, and securing generative AI workload services, as well as security orchestration, automation, and response; and security information and event management, and log management services. It primarily sells subscriptions to its Falcon platform and cloud modules. The company has a strategic alliance with Cognizant Technology Solutions Corporation to h
+
+The systems were told: 8 to 10 peers that share the subject's business model and industry economics, the companies an analyst would actually put in the same table; US-listed common stocks only; no ETFs, private companies or subsidiaries; prefer comparable scale but include a clear direct competitor regardless of size.
+
+### Set A
+- PANW (Palo Alto Networks, Inc.)
+- FTNT (Fortinet, Inc.)
+- ZS (Zscaler, Inc.)
+- NET (Cloudflare, Inc.)
+- OKTA (Okta, Inc.)
+- S (SentinelOne, Inc.)
+- CYBR (CyberArk Software Ltd.)  [ticker did not resolve to a live US equity quote; the app drops it]
+- TENB (Tenable Holdings, Inc.)
+- QLYS (Qualys, Inc.)
+- RPD (Rapid7, Inc.)
+
+### Set B
+- PANW (Palo Alto Networks, Inc.)
+- ZS (Zscaler, Inc.)
+- FTNT (Fortinet, Inc.)
+- S (SentinelOne, Inc.)
+- NET (Cloudflare, Inc.)
+- OKTA (Okta, Inc.)
+- CYBR (CyberArk Software Ltd.)  [ticker did not resolve to a live US equity quote; the app drops it]
+- CHKP (Check Point Software Technologies Ltd.)
+- QLYS (Qualys, Inc.)
+- RPD (Rapid7, Inc.)
+
+### Set C
+- PANW (Palo Alto Networks, Inc.)
+- FTNT (Fortinet, Inc.)
+- ZS (Zscaler, Inc.)
+- S (SentinelOne, Inc.)
+- NET (Cloudflare, Inc.)
+- OKTA (Okta, Inc.)
+- CYBR (CyberArk Software Ltd.)  [ticker did not resolve to a live US equity quote; the app drops it]
+- CHKP (Check Point Software Technologies Ltd.)
+- RBRK (Rubrik, Inc.)
+- DDOG (Datadog, Inc.)
+
+### Set D
+- PANW (Palo Alto Networks, Inc.)
+- FTNT (Fortinet, Inc.)
+- ZS (Zscaler, Inc.)
+- NET (Cloudflare, Inc.)
+- S (SentinelOne, Inc.)
+- OKTA (Okta, Inc.)
+- GEN (Gen Digital Inc.)
+- TENB (Tenable Holdings, Inc.)
+- VRNS (Varonis Systems, Inc.)
+- RPD (Rapid7, Inc.)
+
+### Set E
+- PANW (Palo Alto Networks, Inc.)
+- FTNT (Fortinet, Inc.)
+- ZS (Zscaler, Inc.)
+- S (SentinelOne, Inc.)
+- NET (Cloudflare, Inc.)
+- OKTA (Okta, Inc.)
+- CYBR (CyberArk Software Ltd.)  [ticker did not resolve to a live US equity quote; the app drops it]
+- CHKP (Check Point Software Technologies Ltd.)
+- TENB (Tenable Holdings, Inc.)
+
+### Set F
+- PANW (Palo Alto Networks, Inc.)
+- ZS (Zscaler, Inc.)
+- FTNT (Fortinet, Inc.)
+- S (SentinelOne, Inc.)
+- NET (Cloudflare, Inc.)
+- OKTA (Okta, Inc.)
+- CYBR (CyberArk Software Ltd.)  [ticker did not resolve to a live US equity quote; the app drops it]
+- DDOG (Datadog, Inc.)
+- SNOW (Snowflake Inc.)
+- NOW (ServiceNow, Inc.)
+
+### Set G
+- PANW (Palo Alto Networks, Inc.)
+- FTNT (Fortinet, Inc.)
+- ZS (Zscaler, Inc.)
+- S (SentinelOne, Inc.)
+- CYBR (CyberArk Software Ltd.)  [ticker did not resolve to a live US equity quote; the app drops it]
+- OKTA (Okta, Inc.)
+- CHKP (Check Point Software Technologies Ltd.)
+- TENB (Tenable Holdings, Inc.)
+- QLYS (Qualys, Inc.)
+
+### Set H
+- PANW (Palo Alto Networks, Inc.)
+- S (SentinelOne, Inc.)
+- FTNT (Fortinet, Inc.)
+- ZS (Zscaler, Inc.)
+- OKTA (Okta, Inc.)
+- NET (Cloudflare, Inc.)
+- CYBR (CyberArk Software, Ltd.)  [ticker did not resolve to a live US equity quote; the app drops it]
+- TENB (Tenable Holdings, Inc.)
+
+### Set I
+- MSFT (Microsoft Corporation)
+- AMZN (Amazon.com, Inc.)
+- GOOGL (Alphabet Inc.)
+- SNOW (Snowflake Inc.)
+- MDB (MongoDB, Inc.)
+- DDOG (Datadog, Inc.)
+- NET (Cloudflare, Inc.)
+- NVDA (NVIDIA Corporation)
+
+Score every set from 1 to 10 on each criterion, using the full range and comparing sets against each other. Judge the set as the app would show it: tickers marked as not resolving are dropped.
+- relevance: do the peers share the subject's business model and economics, so their multiples are a meaningful benchmark?
+- coverage: are the obvious direct competitors that an analyst would expect present?
+- scale: are the peers of sensible scale, with outliers justified by direct competition?
+- noise: are there peers that clearly do not belong (penalise each one), wrong tickers, or companies that are not what the system thought they were?
+- overall: would an equity analyst accept this comp set with only light edits?
+
+Name any peers that clearly do not belong, and any obvious peers missing from every set.
+
+Return only JSON, no other text, in this shape:
+{"sets": [{"letter": "A", "relevance": 0, "coverage": 0, "scale": 0, "noise": 0, "overall": 0, "misfits": ["TICKER: why"], "comment": "one sentence"}], "missingEverywhere": ["TICKER: why"]}

@@ -1,0 +1,116 @@
+You are judging comparable-company sets ("comp sets") built by different AI systems for an equity valuation tool. The systems are anonymous and in random order. Each set will be shown as a table of trading multiples next to the subject company.
+
+Subject: Toast, Inc. (TOST)
+Sector: Technology. Industry: Software - Infrastructure. Market cap: $18.1B.
+Business: Toast, Inc. operates a cloud-based digital technology platform for the restaurant industry in the United States, Ireland, India, and internationally. It offers a platform of software-as-a-service for restaurant operations and point of sale, such as Toast POS; Toast IQ, a conversational artificial intelligence; vendor management; multi-location management; kitchen display system; online ordering and delivery. It offers payroll and team management; inventory and supply chain tools; xtraCHEF by toast, a set of back-office tools for restaurants, including accounts payable automation, inventory management, ingredient price tracking, and recipe costing; financial technology solutions, including integrated payment processing, and restaurant-grade hardware. The company was formerly known as Opti Systems, Inc. and changed its name to Toast, Inc. in May 2012. Toast, Inc. was incorporated in 2011 a
+
+The systems were told: 8 to 10 peers that share the subject's business model and industry economics, the companies an analyst would actually put in the same table; US-listed common stocks only; no ETFs, private companies or subsidiaries; prefer comparable scale but include a clear direct competitor regardless of size.
+
+### Set A
+- SQ (Block, Inc.)  [ticker did not resolve to a live US equity quote; the app drops it]
+- PAR (PAR Technology Corporation)
+- LIGHT (Lightspeed Commerce Inc.)  [ticker did not resolve to a live US equity quote; the app drops it]
+- SHOP (Shopify Inc.)
+- FOUR (Shift4 Payments, Inc.)
+- BILL (BILL Holdings, Inc.)
+- PYPL (PayPal Holdings, Inc.)
+- GPN (Global Payments Inc.)
+- ACIW (ACI Worldwide, Inc.)
+
+### Set B
+- SQ (Block, Inc.)  [ticker did not resolve to a live US equity quote; the app drops it]
+- SHOP (Shopify Inc.)
+- LSPD (Lightspeed Commerce Inc.)
+- OLO (Olo Inc.)  [ticker did not resolve to a live US equity quote; the app drops it]
+- PAR (PAR Technology Corporation)
+- FI (Fiserv, Inc.)  [ticker did not resolve to a live US equity quote; the app drops it]
+- BILL (BILL Holdings, Inc.)
+- FOUR (Shift4 Payments, Inc.)
+- PAYO (Payoneer Global Inc.)
+- GPN (Global Payments Inc.)
+
+### Set C
+- XYZ (Block, Inc.)
+- FI (Fiserv, Inc.)  [ticker did not resolve to a live US equity quote; the app drops it]
+- SHOP (Shopify Inc.)
+- PAYC (Paycom Software, Inc.)
+- PCTY (Paylocity Holding Corporation)
+- LSPD (Lightspeed Commerce Inc.)
+- PAR (PAR Technology Corporation)
+- OLO (Olo Inc.)  [ticker did not resolve to a live US equity quote; the app drops it]
+- FOUR (Shift4 Payments, Inc.)
+- BILL (BILL Holdings, Inc.)
+
+### Set D
+- SQ (Block, Inc.)  [ticker did not resolve to a live US equity quote; the app drops it]
+- PAR (PAR Technology Corporation)
+- LSPD (Lightspeed Commerce Inc.)
+- SHOP (Shopify Inc.)
+- FOUR (Shift4 Payments, Inc.)
+- OTTR (Otter Tail Corporation)
+- AGYS (Agilysys, Inc.)
+- FLYV (Flywire Corporation)  [ticker did not resolve to a live US equity quote; the app drops it]
+- GPN (Global Payments Inc.)
+
+### Set E
+- SQ (Block, Inc.)  [ticker did not resolve to a live US equity quote; the app drops it]
+- LSPD (Lightspeed Commerce Inc.)
+- FOUR (Shift4 Payments, Inc.)
+- OLO (Olo Inc.)  [ticker did not resolve to a live US equity quote; the app drops it]
+- PAR (PAR Technology Corporation)
+- FI (Fiserv, Inc.)  [ticker did not resolve to a live US equity quote; the app drops it]
+- VYX (NCR Voyix Corporation)
+- AGYS (Agilysys, Inc.)
+- GPN (Global Payments Inc.)
+
+### Set F
+- SQ (Block, Inc.)  [ticker did not resolve to a live US equity quote; the app drops it]
+- SHOP (Shopify Inc.)
+- DECK (Deckers Outdoor Corporation)
+- PAYC (Paycom Software, Inc.)
+- PCTY (Paylocity Holding Corporation)
+- RPD (Rapid7, Inc.)
+- ALRM (Alarm.com Holdings, Inc.)
+- BILL (BILL Holdings, Inc.)
+
+### Set G
+- SQ (Block, Inc.)  [ticker did not resolve to a live US equity quote; the app drops it]
+- SHOP (Shopify Inc.)
+- FOUR (Shift4 Payments, Inc.)
+- BILL (BILL Holdings, Inc.)
+- PAYC (Paycom Software, Inc.)
+- PCTY (Paylocity Holding Corporation)
+- FI (Fiserv, Inc.)  [ticker did not resolve to a live US equity quote; the app drops it]
+- GPN (Global Payments Inc.)
+
+### Set H
+- PAYC (Paycom Software, Inc.)
+- PCTY (Paylocity Holding Corporation)
+- FI (Fiserv, Inc.)  [ticker did not resolve to a live US equity quote; the app drops it]
+- GPN (Global Payments Inc.)
+- SHOP (Shopify Inc.)
+- LSPD (Lightspeed Commerce Inc.)
+- PAY (Paymentus Holdings, Inc.)
+- FOUR (Shift4 Payments, Inc.)
+- BILL (BILL Holdings, Inc.)
+- PSFE (Paysafe Limited)
+
+### Set I
+- IOT (Samsara Inc.)
+- GTLB (GitLab Inc.)
+- MDB (MongoDB, Inc.)
+- DOCN (DigitalOcean Holdings, Inc.)
+- RBRK (Rubrik, Inc.)
+- MNDY (monday.com Ltd.)
+
+Score every set from 1 to 10 on each criterion, using the full range and comparing sets against each other. Judge the set as the app would show it: tickers marked as not resolving are dropped.
+- relevance: do the peers share the subject's business model and economics, so their multiples are a meaningful benchmark?
+- coverage: are the obvious direct competitors that an analyst would expect present?
+- scale: are the peers of sensible scale, with outliers justified by direct competition?
+- noise: are there peers that clearly do not belong (penalise each one), wrong tickers, or companies that are not what the system thought they were?
+- overall: would an equity analyst accept this comp set with only light edits?
+
+Name any peers that clearly do not belong, and any obvious peers missing from every set.
+
+Return only JSON, no other text, in this shape:
+{"sets": [{"letter": "A", "relevance": 0, "coverage": 0, "scale": 0, "noise": 0, "overall": 0, "misfits": ["TICKER: why"], "comment": "one sentence"}], "missingEverywhere": ["TICKER: why"]}

@@ -1,0 +1,12 @@
+{"sets": [
+{"letter": "A", "relevance": 8, "coverage": 9, "scale": 6, "noise": 8, "overall": 8, "misfits": ["IRDM: mature satellite-communications operator rather than a launch/space-systems builder"], "comment": "Includes Firefly, the clearest launch competitor, plus the new-space cohort and KTOS; the best overall table."},
+{"letter": "B", "relevance": 6, "coverage": 5, "scale": 4, "noise": 6, "overall": 5, "misfits": ["SPCE: suborbital space tourism", "SIDU: micro-cap with negligible scale"], "comment": "New-space names only, missing Firefly, with SPCE and SIDU weak."},
+{"letter": "C", "relevance": 7, "coverage": 8, "scale": 5, "noise": 6, "overall": 7, "misfits": ["MNTS: distressed micro-cap orbital transfer company", "SPCE: suborbital space tourism"], "comment": "Firefly and Karman add real relevance, but MNTS and SPCE are poor benchmarks."},
+{"letter": "D", "relevance": 7, "coverage": 6, "scale": 7, "noise": 7, "overall": 6, "misfits": ["AVAV: drones and loitering munitions, not space"], "comment": "Balanced new-space plus defense primes, but no launch peer like Firefly."},
+{"letter": "E", "relevance": 7, "coverage": 9, "scale": 6, "noise": 6, "overall": 7, "misfits": ["HEI: aerospace aftermarket parts, different economics", "SPCE: suborbital space tourism"], "comment": "Strong coverage with FLY and KRMN, slightly diluted by HEI and SPCE."},
+{"letter": "F", "relevance": 6, "coverage": 5, "scale": 6, "noise": 6, "overall": 5, "misfits": ["NOC: diversified defense prime"], "comment": "VOYG is a good pick, but two dead tickers leave it without RDW or Firefly and leaning on primes."},
+{"letter": "G", "relevance": 6, "coverage": 6, "scale": 6, "noise": 5, "overall": 5, "misfits": ["AVAV: drones and loitering munitions, not space", "SPCE: suborbital space tourism", "NOC: diversified defense prime"], "comment": "Reasonable core but no launch peer and three weak fillers."},
+{"letter": "H", "relevance": 7, "coverage": 6, "scale": 7, "noise": 7, "overall": 6, "misfits": ["AVAV: drones and loitering munitions, not space"], "comment": "Identical to D: sound but missing Firefly."},
+{"letter": "I", "relevance": 6, "coverage": 5, "scale": 5, "noise": 5, "overall": 5, "misfits": ["SPCE: suborbital space tourism", "LMT: diversified defense prime", "NOC: diversified defense prime"], "comment": "New-space core with mega-cap primes bolted on and no launch competitor."}
+],
+"missingEverywhere": []}

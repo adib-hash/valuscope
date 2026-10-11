@@ -1,0 +1,5500 @@
+{
+ "gpro|sum|JPM": {
+  "order": [
+   [
+    "A",
+    "fable"
+   ],
+   [
+    "B",
+    "g36f"
+   ],
+   [
+    "C",
+    "g31p"
+   ],
+   [
+    "D",
+    "g35fl"
+   ],
+   [
+    "E",
+    "opus"
+   ],
+   [
+    "F",
+    "haiku"
+   ],
+   [
+    "G",
+    "g38f"
+   ],
+   [
+    "H",
+    "sonnet"
+   ]
+  ],
+  "scores": {
+   "fable": {
+    "letter": "A",
+    "accuracy": 10,
+    "coverage": 10,
+    "insight": 10,
+    "concision": 8,
+    "discipline": 10,
+    "overall": 9,
+    "errors": [],
+    "comment": "Highly detailed and accurate. Captures all the nuanced guidance changes, the specific drivers of the outperformance, and the exact context of the succession changes."
+   },
+   "g36f": {
+    "letter": "B",
+    "accuracy": 5,
+    "coverage": 5,
+    "insight": 4,
+    "concision": 7,
+    "discipline": 9,
+    "overall": 4,
+    "errors": [
+     "States 'Management elevated Doug and Troy to co-presidents... following Marianne's decision to retire.' The transcript states the opposite causality and actor: 'The board made a decision to go ahead with making two co-presidents... As a result, she decided... that she'd rather retire'."
+    ],
+    "comment": "Contains a major factual error regarding the causality of the executive changes. Also misses most of the specific segment metrics and the context for the guidance revisions."
+   },
+   "g31p": {
+    "letter": "C",
+    "accuracy": 9,
+    "coverage": 5,
+    "insight": 5,
+    "concision": 8,
+    "discipline": 9,
+    "overall": 6,
+    "errors": [],
+    "comment": "Accurate but far too brief. Misses the segment-level performance details, the context of the guidance raises, and the rich discussion on capital markets outperformance."
+   },
+   "g35fl": {
+    "letter": "D",
+    "accuracy": 9,
+    "coverage": 6,
+    "insight": 5,
+    "concision": 8,
+    "discipline": 9,
+    "overall": 6,
+    "errors": [],
+    "comment": "Accurate but lacks depth. It lists the new guidance numbers without noting that they were raised or explaining the drivers behind the changes."
+   },
+   "opus": {
+    "letter": "E",
+    "accuracy": 10,
+    "coverage": 9,
+    "insight": 10,
+    "concision": 9,
+    "discipline": 10,
+    "overall": 9,
+    "errors": [],
+    "comment": "Excellent summary. Captures the key financial metrics, the specific drivers of the guidance raises, and the nuanced commentary on the sustainability of capital markets revenues and credit underwriting."
+   },
+   "haiku": {
+    "letter": "F",
+    "accuracy": 10,
+    "coverage": 9,
+    "insight": 9,
+    "concision": 9,
+    "discipline": 10,
+    "overall": 9,
+    "errors": [],
+    "comment": "Very strong summary. Accurately captures the financial results, guidance changes, and the specific commentary on AI token expenses and the smart cash tool."
+   },
+   "g38f": {
+    "letter": "G",
+    "accuracy": 7,
+    "coverage": 7,
+    "insight": 7,
+    "concision": 8,
+    "discipline": 9,
+    "overall": 7,
+    "errors": [
+     "States 'Executive leadership named Doug and Troy as co-presidents'. The transcript explicitly states 'The board made a decision to go ahead with making two co-presidents'."
+    ],
+    "comment": "Generally good coverage but contains a factual error regarding who made the decision on the co-presidents. Misses some of the deeper insights on the capital markets outperformance."
+   },
+   "sonnet": {
+    "letter": "H",
+    "accuracy": 9,
+    "coverage": 9,
+    "insight": 9,
+    "concision": 9,
+    "discipline": 10,
+    "overall": 9,
+    "errors": [],
+    "comment": "A very strong, comprehensive summary. It accurately captures the financial results, the guidance revisions, and the nuanced Q&A discussions on succession, capital deployment, and credit."
+   }
+  },
+  "ms": 31706.44325,
+  "inTok": 24637,
+  "outTok": 4443
+ },
+ "opus|sum|AAPL": {
+  "order": [
+   [
+    "A",
+    "g35fl"
+   ],
+   [
+    "B",
+    "g38f"
+   ],
+   [
+    "C",
+    "opus"
+   ],
+   [
+    "D",
+    "g31p"
+   ],
+   [
+    "E",
+    "fable"
+   ],
+   [
+    "F",
+    "haiku"
+   ],
+   [
+    "G",
+    "g36f"
+   ],
+   [
+    "H",
+    "sonnet"
+   ]
+  ],
+  "scores": {
+   "g35fl": {
+    "letter": "A",
+    "accuracy": 8,
+    "coverage": 6,
+    "insight": 4,
+    "concision": 6,
+    "discipline": 7,
+    "overall": 6,
+    "errors": [
+     "\"Compute costs, pricing flexibility, and capital intensity related to Apple Intelligence and Siri AI workloads\" — the pricing discussion (Woodring) concerned product price increases driven by memory costs, not Siri AI or Apple Intelligence."
+    ],
+    "comment": "Figures are correct, but the key takeaways mostly restate the headline numbers, omit the memory '100-year flood' and the price increases, and the guidance bullets lack explicit management attribution."
+   },
+   "g38f": {
+    "letter": "B",
+    "accuracy": 8,
+    "coverage": 8,
+    "insight": 7,
+    "concision": 7,
+    "discipline": 8,
+    "overall": 7,
+    "errors": [
+     "\"Apple returned $33 billion to shareholders during the quarter, comprising $4 billion in dividends and $25.8 billion in share repurchases\" — the transcript says the $33 billion 'included' these items, which total only $29.8 billion, so 'comprising' misstates the breakdown."
+    ],
+    "comment": "A solid, well-attributed note covering strategic news and analyst themes, with minor embellishments: Mac growth 'particularly across enterprise and education' and memory inflation called 'compounding'."
+   },
+   "opus": {
+    "letter": "C",
+    "accuracy": 10,
+    "coverage": 10,
+    "insight": 9,
+    "concision": 6,
+    "discipline": 9,
+    "overall": 9,
+    "errors": [],
+    "comment": "Highly accurate and comprehensive, with sharp insight on the supply cause, the memory-driven margin walk and the per-analyst Q&A, though somewhat long and repeating the CEO transition and revenue figures."
+   },
+   "g31p": {
+    "letter": "D",
+    "accuracy": 8,
+    "coverage": 4,
+    "insight": 5,
+    "concision": 8,
+    "discipline": 8,
+    "overall": 5,
+    "errors": [
+     "\"market pricing for memory continues to increase exponentially\" — Cook used 'exponential' to describe the increases that prompted the 100-year-flood price rises; for beyond September he said only that market pricing is 'continuing to increase'."
+    ],
+    "comment": "Concise but thin: it omits iPad and Wearables results, iPhone and Services guidance, and capital return, and its overview gives no revenue figure."
+   },
+   "fable": {
+    "letter": "E",
+    "accuracy": 10,
+    "coverage": 10,
+    "insight": 9,
+    "concision": 4,
+    "discipline": 9,
+    "overall": 8,
+    "errors": [],
+    "comment": "Exhaustive and accurate, with strong insight on memory, supply and Services drivers, but heavily padded: a dense overview plus takeaways that repeat the financial highlights."
+   },
+   "haiku": {
+    "letter": "F",
+    "accuracy": 7,
+    "coverage": 8,
+    "insight": 5,
+    "concision": 7,
+    "discipline": 7,
+    "overall": 6,
+    "errors": [
+     "\"with management noting the refund benefit will not persist indefinitely\" — management made no such statement; it only guided an approximately one percentage point tariff refund benefit for the September quarter.",
+     "\"Uncertainty around Siri AI compute costs and the balance between OpEx and cost of sales for AI spend\" — Cook said the uncertain balance is between Siri AI costs and iCloud+ upgrade offsets, not between OpEx and COGS."
+    ],
+    "comment": "Broad numeric coverage, but the takeaways restate metrics, the analyst section lists questions without answers, and two risk bullets contain unsupported claims."
+   },
+   "g36f": {
+    "letter": "G",
+    "accuracy": 7,
+    "coverage": 5,
+    "insight": 5,
+    "concision": 8,
+    "discipline": 8,
+    "overall": 5,
+    "errors": [
+     "\"Apple announced plans to reinvest its tariff refunds into the U.S. supply chain and advanced manufacturing facilities, including the Apple Advanced Manufacturing Center in Houston\" — Cook said only that Apple plans to reinvest tariff refunds 'into the U.S.' (a plan stated before); the Houston center was not tied to the refunds."
+    ],
+    "comment": "Tidy but thin: it omits Services guidance, iPad, cash and capital return, and the price increases, and it overstates how the tariff refunds will be used."
+   },
+   "sonnet": {
+    "letter": "H",
+    "accuracy": 10,
+    "coverage": 9,
+    "insight": 9,
+    "concision": 8,
+    "discipline": 9,
+    "overall": 9,
+    "errors": [],
+    "comment": "Accurate, well attributed and efficiently structured, capturing nuances such as Mac being hit hardest by supply limits, Siri AI on Mac in the EU and diminishing carry-in benefit, with little padding."
+   }
+  },
+  "ms": 48137.688875,
+  "inTok": 31143,
+  "outTok": 5831
+ },
+ "opus|sum|LLY": {
+  "order": [
+   [
+    "A",
+    "sonnet"
+   ],
+   [
+    "B",
+    "g31p"
+   ],
+   [
+    "C",
+    "fable"
+   ],
+   [
+    "D",
+    "haiku"
+   ],
+   [
+    "E",
+    "g38f"
+   ],
+   [
+    "F",
+    "g35fl"
+   ],
+   [
+    "G",
+    "g36f"
+   ],
+   [
+    "H",
+    "opus"
+   ]
+  ],
+  "scores": {
+   "sonnet": {
+    "letter": "A",
+    "accuracy": 8,
+    "coverage": 10,
+    "insight": 9,
+    "concision": 5,
+    "discipline": 9,
+    "overall": 9,
+    "errors": [
+     "\"Management expects more than 40 additional countries to review Foundayo\" — the transcript says Foundayo is already under regulatory review in over 40 additional countries, not that review is expected."
+    ],
+    "comment": "Very thorough and largely accurate, covering results, guidance mechanics, the Foundayo inflection, net-price commentary and analyst themes, though it is long."
+   },
+   "g31p": {
+    "letter": "B",
+    "accuracy": 9,
+    "coverage": 6,
+    "insight": 3,
+    "concision": 5,
+    "discipline": 9,
+    "overall": 6,
+    "errors": [],
+    "comment": "Figures are accurate but read like a press release: key takeaways are only forward-looking items, the guidance raise amounts are missing, and analyst-focus bullets are padded with repetitive 'Analysts asked' phrasing."
+   },
+   "fable": {
+    "letter": "C",
+    "accuracy": 9,
+    "coverage": 10,
+    "insight": 9,
+    "concision": 6,
+    "discipline": 9,
+    "overall": 9,
+    "errors": [],
+    "comment": "Comprehensive and accurate, with clinical data, prescriber growth, Bridge mix and the drivers behind second-half guidance, though revenue, Mounjaro/Zepbound and buyback figures repeat across sections."
+   },
+   "haiku": {
+    "letter": "D",
+    "accuracy": 7,
+    "coverage": 7,
+    "insight": 6,
+    "concision": 5,
+    "discipline": 9,
+    "overall": 7,
+    "errors": [
+     "\"medical exceptions and CVS formulary changes are putting downward pressure on ZEPBOUND price\" — management said medical exceptions currently support price, and price is expected to fall as CVS access returns and medical exceptions diminish; the summary inverts the mechanism."
+    ],
+    "comment": "Solid core coverage, but it misstates the medical-exception price dynamic and repeats guidance in both the financial highlights and guidance sections."
+   },
+   "g38f": {
+    "letter": "E",
+    "accuracy": 8,
+    "coverage": 6,
+    "insight": 6,
+    "concision": 6,
+    "discipline": 8,
+    "overall": 6,
+    "errors": [
+     "\"head品质winds\" — garbled text in the seasonality risk bullet."
+    ],
+    "comment": "Accurate on the headline numbers and notes the $2.5B midpoint raise, but omits regional growth, key product details and several analyst themes, and contains a garbled text artifact."
+   },
+   "g35fl": {
+    "letter": "F",
+    "accuracy": 5,
+    "coverage": 5,
+    "insight": 3,
+    "concision": 7,
+    "discipline": 8,
+    "overall": 4,
+    "errors": [
+     "\"International markets face potential noise and supply constraints related to competing generic orally delivered therapies\" — the transcript discusses generic semaglutide with supply constraints; the 'noise' remark referred to early Foundayo launch data, and the generics were not described as oral.",
+     "\"net pricing impacts under the Medicare GLP-1 Bridge Program\" — the net pricing question concerned ZEPBOUND commercial pricing and medical exceptions with CVS, not the Bridge Program."
+    ],
+    "comment": "Thin, generic coverage that conflates distinct topics in the risks and analyst sections."
+   },
+   "g36f": {
+    "letter": "G",
+    "accuracy": 8,
+    "coverage": 5,
+    "insight": 4,
+    "concision": 7,
+    "discipline": 9,
+    "overall": 5,
+    "errors": [
+     "\"consumer pricing dynamics for Foundayo\" — analysts did not ask about Foundayo pricing; the pricing question concerned ZEPBOUND net price and medical exceptions."
+    ],
+    "comment": "Accurate on the headline numbers, but shallow and omits regional results, the Foundayo inflection data and most guidance mechanics."
+   },
+   "opus": {
+    "letter": "H",
+    "accuracy": 9,
+    "coverage": 10,
+    "insight": 9,
+    "concision": 5,
+    "discipline": 9,
+    "overall": 9,
+    "errors": [],
+    "comment": "The most complete note, covering the Foundayo inflection and prescriber growth, regulatory milestones, guidance mechanics, net-price outlook and a full set of risks, at the cost of length and a run-on overview."
+   }
+  },
+  "ms": 49129.744084,
+  "inTok": 33951,
+  "outTok": 5798
+ },
+ "opus|sum|JPM": {
+  "order": [
+   [
+    "A",
+    "g31p"
+   ],
+   [
+    "B",
+    "g36f"
+   ],
+   [
+    "C",
+    "opus"
+   ],
+   [
+    "D",
+    "g35fl"
+   ],
+   [
+    "E",
+    "g38f"
+   ],
+   [
+    "F",
+    "haiku"
+   ],
+   [
+    "G",
+    "fable"
+   ],
+   [
+    "H",
+    "sonnet"
+   ]
+  ],
+  "scores": {
+   "g31p": {
+    "letter": "A",
+    "accuracy": 8,
+    "coverage": 6,
+    "insight": 4,
+    "concision": 8,
+    "discipline": 8,
+    "overall": 6,
+    "errors": [],
+    "comment": "Its figures are correct, but it never says guidance was raised or that the NCO outlook improved, and its takeaways are generic."
+   },
+   "g36f": {
+    "letter": "B",
+    "accuracy": 6,
+    "coverage": 7,
+    "insight": 5,
+    "concision": 8,
+    "discipline": 7,
+    "overall": 6,
+    "errors": [
+     "'Management elevated Doug and Troy to co-presidents ... following Marianne's decision to retire' reverses the sequence: the board decided on the co-presidents, and Marianne chose to retire once she knew of the plans.",
+     "'record equities performance': the transcript says equities revenue was up 86% and 'exceptionally strong', not a record.",
+     "'unhedged interest rate exposures': Dimon referred to rollover risk and how much interest rate exposure lenders take, not unhedged exposures."
+    ],
+    "comment": "A solid structure is undermined by a reversed succession narrative and embellished characterizations."
+   },
+   "opus": {
+    "letter": "C",
+    "accuracy": 9,
+    "coverage": 10,
+    "insight": 9,
+    "concision": 6,
+    "discipline": 9,
+    "overall": 9,
+    "errors": [],
+    "comment": "Highly accurate and comprehensive, with sharp guidance detail ($95B to $96.5B, $1B implied H2 expense, $150M equity allocation effect), though long."
+   },
+   "g35fl": {
+    "letter": "D",
+    "accuracy": 6,
+    "coverage": 5,
+    "insight": 3,
+    "concision": 8,
+    "discipline": 8,
+    "overall": 5,
+    "errors": [
+     "'drove exceptionally strong performance in equities and fixed income within the CIB': only equities was described as exceptionally strong, while fixed income was up 6% with 'solid performance' and lower commodities revenue."
+    ],
+    "comment": "Thin and generic, with no indication that guidance changed and vague risks."
+   },
+   "g38f": {
+    "letter": "E",
+    "accuracy": 7,
+    "coverage": 7,
+    "insight": 7,
+    "concision": 7,
+    "discipline": 7,
+    "overall": 7,
+    "errors": [
+     "'record AUM of $5.1 trillion': the transcript says AUM was up 18% year-on-year and never calls it a record.",
+     "'covenant-lite structures': Dimon said 'some weaker covenants', not covenant-lite."
+    ],
+    "comment": "It frames the guidance changes well but adds unsupported 'record' language and repeats guidance across sections."
+   },
+   "haiku": {
+    "letter": "F",
+    "accuracy": 7,
+    "coverage": 9,
+    "insight": 7,
+    "concision": 5,
+    "discipline": 7,
+    "overall": 7,
+    "errors": [
+     "'record-level markets and investment banking results': the transcript never describes results as record-level.",
+     "'new consumer smart cash tool': Dimon described tests for a narrow segment of accounts competing for investment and deposit business, not specifically a consumer tool."
+    ],
+    "comment": "Broad and mostly accurate, but guidance is repeated across key takeaways, financial highlights and guidance, and it embellishes with 'record'."
+   },
+   "fable": {
+    "letter": "G",
+    "accuracy": 8,
+    "coverage": 10,
+    "insight": 9,
+    "concision": 4,
+    "discipline": 7,
+    "overall": 8,
+    "errors": [
+     "'Marianne Lake': the transcript gives only 'Marianne', so the surname is outside knowledge.",
+     "''several years, plus or minus'' is presented as a quote, but Dimon said 'Several years, you can use a few years, you can use plus or minus'."
+    ],
+    "comment": "The most exhaustive and insightful summary, but its bullets are multi-clause paragraphs and it imports a surname from outside the transcript."
+   },
+   "sonnet": {
+    "letter": "H",
+    "accuracy": 9,
+    "coverage": 9,
+    "insight": 8,
+    "concision": 8,
+    "discipline": 9,
+    "overall": 9,
+    "errors": [],
+    "comment": "Accurate, well-balanced and scannable, capturing guidance changes, succession, capital philosophy and key risks with proper attribution."
+   }
+  },
+  "ms": 49242.673584,
+  "inTok": 35288,
+  "outTok": 5594
+ },
+ "gpro|sum|CMG": {
+  "order": [
+   [
+    "A",
+    "sonnet"
+   ],
+   [
+    "B",
+    "g31p"
+   ],
+   [
+    "C",
+    "g35fl"
+   ],
+   [
+    "D",
+    "g38f"
+   ],
+   [
+    "E",
+    "fable"
+   ],
+   [
+    "F",
+    "g36f"
+   ],
+   [
+    "G",
+    "haiku"
+   ],
+   [
+    "H",
+    "opus"
+   ]
+  ],
+  "scores": {
+   "sonnet": {
+    "letter": "A",
+    "accuracy": 10,
+    "coverage": 9,
+    "insight": 9,
+    "concision": 9,
+    "discipline": 10,
+    "overall": 9,
+    "errors": [],
+    "comment": "Excellent summary. Captures the key financial metrics, the Q3 comp guidance, the Cyclospora impact, and the insights from the Q&A regarding cohort performance and LTO returns. Follows all instructions perfectly."
+   },
+   "g31p": {
+    "letter": "B",
+    "accuracy": 10,
+    "coverage": 5,
+    "insight": 5,
+    "concision": 9,
+    "discipline": 10,
+    "overall": 6,
+    "errors": [],
+    "comment": "Too brief. Misses the critical Q3 comp guidance of +1% and fails to mention the Cyclospora issue in the main takeaways (only burying it in the risks section). Leaves out important margin and pricing details."
+   },
+   "g35fl": {
+    "letter": "C",
+    "accuracy": 10,
+    "coverage": 6,
+    "insight": 6,
+    "concision": 9,
+    "discipline": 10,
+    "overall": 6,
+    "errors": [],
+    "comment": "Accurate and well-formatted, but misses the most important piece of near-term guidance: the Q3 comp guide of +1% and the associated 200 bps headwind from the Cyclospora issue. Also misses the share repurchase activity."
+   },
+   "g38f": {
+    "letter": "D",
+    "accuracy": 10,
+    "coverage": 8,
+    "insight": 7,
+    "concision": 9,
+    "discipline": 6,
+    "overall": 7,
+    "errors": [],
+    "comment": "Solid coverage of the quarter, but fails the strict instruction to attribute forward-looking statements to management in the Guidance section, relying heavily on passive voice ('Pricing is anticipated...', 'Cost of sales is projected...')."
+   },
+   "fable": {
+    "letter": "E",
+    "accuracy": 10,
+    "coverage": 9,
+    "insight": 9,
+    "concision": 9,
+    "discipline": 10,
+    "overall": 9,
+    "errors": [],
+    "comment": "Very strong summary. Captures the Q3 comp guide, the Cyclospora impact, the detailed G&A breakdown, and the Q&A insights regarding wallet share and the pricing-versus-inflation gap."
+   },
+   "g36f": {
+    "letter": "F",
+    "accuracy": 10,
+    "coverage": 6,
+    "insight": 6,
+    "concision": 9,
+    "discipline": 10,
+    "overall": 6,
+    "errors": [],
+    "comment": "Accurate but sparse. Misses the share repurchase activity entirely and lacks the depth of insight from the Q&A that investors would need (e.g., throughput numbers, cohort trends, margin dynamics)."
+   },
+   "haiku": {
+    "letter": "G",
+    "accuracy": 10,
+    "coverage": 8,
+    "insight": 8,
+    "concision": 8,
+    "discipline": 10,
+    "overall": 8,
+    "errors": [],
+    "comment": "Good coverage and accurate. Captures the Q3 comp guide and the Cyclospora impact. The guidance section is a bit repetitive in its sentence structure, but it follows all instructions well."
+   },
+   "opus": {
+    "letter": "H",
+    "accuracy": 10,
+    "coverage": 10,
+    "insight": 10,
+    "concision": 10,
+    "discipline": 10,
+    "overall": 10,
+    "errors": [],
+    "comment": "Exceptional summary. Extracts the exact granular details analysts care about that aren't in the press release: the 3% underlying trend vs. the 2% headwind, the 2-4 hours of labor savings from HEAP, the specific Max 15 throughput numbers, and the <5 bps World Cup impact. Flawless execution."
+   }
+  },
+  "ms": 59564.783124999994,
+  "inTok": 23557,
+  "outTok": 9384
+ },
+ "opus|sum|KNSL": {
+  "order": [
+   [
+    "A",
+    "fable"
+   ],
+   [
+    "B",
+    "g36f"
+   ],
+   [
+    "C",
+    "opus"
+   ],
+   [
+    "D",
+    "sonnet"
+   ],
+   [
+    "E",
+    "haiku"
+   ],
+   [
+    "F",
+    "g31p"
+   ],
+   [
+    "G",
+    "g35fl"
+   ],
+   [
+    "H",
+    "g38f"
+   ]
+  ],
+  "scores": {
+   "fable": {
+    "letter": "A",
+    "accuracy": 9,
+    "coverage": 10,
+    "insight": 9,
+    "concision": 6,
+    "discipline": 9,
+    "overall": 8,
+    "errors": [],
+    "comment": "This is the most exhaustive and accurate summary, covering the $80M buyback remainder, the 20% ROE target and detailed analyst themes, but its length and the overlap between the overview and the takeaways reduce scannability."
+   },
+   "g36f": {
+    "letter": "B",
+    "accuracy": 8,
+    "coverage": 5,
+    "insight": 5,
+    "concision": 9,
+    "discipline": 9,
+    "overall": 6,
+    "errors": [
+     "\"24 new wholesale broker appointments at Kinsale and 176 new retail broker appointments at Aspera so far this year\" — the transcript gives no time frame for the broker appointments; \"so far this year\" applies only to the nine product launches."
+    ],
+    "comment": "Accurate and tight, but it omits the expense ratio, submission growth, the pricing index, the loss-ratio outlook and several analyst topics."
+   },
+   "opus": {
+    "letter": "C",
+    "accuracy": 9,
+    "coverage": 10,
+    "insight": 9,
+    "concision": 7,
+    "discipline": 9,
+    "overall": 9,
+    "errors": [],
+    "comment": "This is a comprehensive, precise note that pairs each analyst topic with management's answer and covers submissions, pricing index, buyback capacity and loss-ratio drift, though it runs somewhat long."
+   },
+   "sonnet": {
+    "letter": "D",
+    "accuracy": 9,
+    "coverage": 9,
+    "insight": 9,
+    "concision": 8,
+    "discipline": 9,
+    "overall": 9,
+    "errors": [],
+    "comment": "It is well balanced and uniquely surfaces the reserving approach of slowing long-tail IBNR releases while releasing short-tail faster, with strong accuracy and good concision."
+   },
+   "haiku": {
+    "letter": "E",
+    "accuracy": 8,
+    "coverage": 8,
+    "insight": 7,
+    "concision": 7,
+    "discipline": 8,
+    "overall": 7,
+    "errors": [
+     "\"Management expects a slight uptick in the net commission ratio going forward\" — the CFO only said \"You could see a slight uptick,\" which is hedged rather than an expectation.",
+     "\"the company expects its share repurchase authorisation expansion ... to bring the total authorisation to $337 million\" — the expansion was already announced; it is not an expectation."
+    ],
+    "comment": "Coverage is solid, but key takeaways repeat financial highlights, and a couple of statements overstate certainty or mis-tense facts."
+   },
+   "g31p": {
+    "letter": "F",
+    "accuracy": 8,
+    "coverage": 6,
+    "insight": 5,
+    "concision": 8,
+    "discipline": 9,
+    "overall": 6,
+    "errors": [
+     "\"year-over-year growth comparison for the Commercial Property Division to become modestly easier\" — management said the overall year-over-year growth comparison becomes easier because 60% of Commercial Property premium was written in the first half of last year.",
+     "\"heavy competition from London markets depressing pricing across Construction and general casualty lines\" — the transcript ties London competition to long-tail and Construction lines; general casualty competition was mentioned separately, not attributed to London."
+    ],
+    "comment": "It is clean and readable but thin on guidance and loss-ratio outlook, and it slightly misstates the growth-comparison guidance."
+   },
+   "g35fl": {
+    "letter": "G",
+    "accuracy": 9,
+    "coverage": 4,
+    "insight": 4,
+    "concision": 7,
+    "discipline": 7,
+    "overall": 4,
+    "errors": [],
+    "comment": "Its figures are accurate, but it leaves Guidance empty despite clear outlook statements on expense ratio, growth comparisons and buybacks, and its takeaways merely restate financials."
+   },
+   "g38f": {
+    "letter": "H",
+    "accuracy": 8,
+    "coverage": 7,
+    "insight": 7,
+    "concision": 8,
+    "discipline": 9,
+    "overall": 7,
+    "errors": [
+     "\"MGAs and traditional markets in London expanding limits\" — the transcript says pressure comes from MGAs in London and that traditional markets are putting up larger limits; it does not place the traditional markets in London."
+    ],
+    "comment": "It is a reasonable narrative with useful SME and ROE-target context, but it lacks submission and pricing-index data and loosely blends some competitive attributions."
+   }
+  },
+  "ms": 44103.747041999995,
+  "inTok": 20465,
+  "outTok": 5259
+ },
+ "opus|sum|DE": {
+  "order": [
+   [
+    "A",
+    "opus"
+   ],
+   [
+    "B",
+    "fable"
+   ],
+   [
+    "C",
+    "g38f"
+   ],
+   [
+    "D",
+    "g35fl"
+   ],
+   [
+    "E",
+    "g36f"
+   ],
+   [
+    "F",
+    "sonnet"
+   ],
+   [
+    "G",
+    "g31p"
+   ],
+   [
+    "H",
+    "haiku"
+   ]
+  ],
+  "scores": {
+   "opus": {
+    "letter": "A",
+    "accuracy": 9,
+    "coverage": 10,
+    "insight": 9,
+    "concision": 6,
+    "discipline": 9,
+    "overall": 9,
+    "errors": [],
+    "comment": "The most complete note on the call, accurate throughout, including the Q3-to-Q4 bridge, the tariff net step-up and segment price/currency detail, though guidance and tariffs repeat across sections."
+   },
+   "fable": {
+    "letter": "B",
+    "accuracy": 9,
+    "coverage": 10,
+    "insight": 9,
+    "concision": 7,
+    "discipline": 10,
+    "overall": 9,
+    "errors": [],
+    "comment": "Accurate and comprehensive, with sharp key takeaways on the PPA cut to the bottom of its range, the raised construction industry guide, the new-used value spread and the 2027 tariff headwind; tighter than A."
+   },
+   "g38f": {
+    "letter": "C",
+    "accuracy": 7,
+    "coverage": 6,
+    "insight": 6,
+    "concision": 8,
+    "discipline": 9,
+    "overall": 6,
+    "errors": [
+     "\"direct tariffs projected near $1.0 billion\" — management gave roughly $1 billion as the expected net tariff run rate for FY2027; the $1.1 billion figure was the FY2026 direct tariff expense."
+    ],
+    "comment": "Clean and concise but thin: it omits segment price and currency guidance, most industry outlooks and the Q4 bridge, and it mislabels the 2027 tariff figure."
+   },
+   "g35fl": {
+    "letter": "D",
+    "accuracy": 7,
+    "coverage": 5,
+    "insight": 4,
+    "concision": 8,
+    "discipline": 9,
+    "overall": 5,
+    "errors": [
+     "\"trade flow uncertainties impacting South American and European equipment demand\" — trade-flow uncertainty was cited for North American producers, not South America or Europe."
+    ],
+    "comment": "Gets the core numbers right but misses the bottom-of-cycle view, tech take rates and the 2027 tariff outlook, so it reads like a press release."
+   },
+   "g36f": {
+    "letter": "E",
+    "accuracy": 6,
+    "coverage": 5,
+    "insight": 5,
+    "concision": 8,
+    "discipline": 8,
+    "overall": 5,
+    "errors": [
+     "\"Direct tariff expense is expected to total approximately $1.1 billion in fiscal 2026, representing a net cost headwind entering fiscal 2027\" — the 2027 headwind is the net step-up from about $750 million net in FY2026 to roughly $1 billion; the $1.1 billion itself is not the headwind.",
+     "\"high interest rates ... in regions like South America and Europe\" — higher interest rates were cited for South America only."
+    ],
+    "comment": "Scannable, but it muddles the tariff headwind logic and leaves out key detail."
+   },
+   "sonnet": {
+    "letter": "F",
+    "accuracy": 8,
+    "coverage": 9,
+    "insight": 8,
+    "concision": 8,
+    "discipline": 9,
+    "overall": 8,
+    "errors": [
+     "\"Management expects US and Canada large ag industry sales down 15%-20% and South America down 15%-20%, pressured by fertilizer costs and higher interest rates\" — the fertilizer and interest-rate pressures were tied to South America; U.S./Canada was attributed to muted profitability and input costs."
+    ],
+    "comment": "Well balanced and informative, covering the Q4 bridge, the net tariff step-up and the full range of analyst topics, with only minor conflation in the risks section."
+   },
+   "g31p": {
+    "letter": "G",
+    "accuracy": 9,
+    "coverage": 3,
+    "insight": 3,
+    "concision": 8,
+    "discipline": 10,
+    "overall": 4,
+    "errors": [],
+    "comment": "Accurate but sparse: it omits C&F guidance, Financial Services, tech take rates beyond SmartGrade and the 2027 tariff outlook."
+   },
+   "haiku": {
+    "letter": "H",
+    "accuracy": 8,
+    "coverage": 9,
+    "insight": 7,
+    "concision": 5,
+    "discipline": 10,
+    "overall": 7,
+    "errors": [
+     "\"inventory is on trend with historical averages\" — Deanna said sold-ahead positions and retail pace are on trend with historical averages, not inventory."
+    ],
+    "comment": "Detailed and well attributed, with useful analyst-answer pairings, but repetitive between key takeaways, financial highlights and guidance."
+   }
+  },
+  "ms": 46309.741375,
+  "inTok": 32372,
+  "outTok": 5351
+ },
+ "gpro|sum|LLY": {
+  "order": [
+   [
+    "A",
+    "g31p"
+   ],
+   [
+    "B",
+    "g38f"
+   ],
+   [
+    "C",
+    "g36f"
+   ],
+   [
+    "D",
+    "g35fl"
+   ],
+   [
+    "E",
+    "opus"
+   ],
+   [
+    "F",
+    "fable"
+   ],
+   [
+    "G",
+    "haiku"
+   ],
+   [
+    "H",
+    "sonnet"
+   ]
+  ],
+  "scores": {
+   "g31p": {
+    "letter": "A",
+    "accuracy": 9,
+    "coverage": 6,
+    "insight": 5,
+    "concision": 7,
+    "discipline": 9,
+    "overall": 6,
+    "errors": [],
+    "comment": "Accurate to the transcript, but reads like a disjointed list of facts without synthesizing the narrative. It misses the specific acquisitions and clinical data details, and blindly copies a speaker's misspeak ('U.S. markets' instead of 'OUS markets' when referring to 'new countries') without adding insight."
+   },
+   "g38f": {
+    "letter": "B",
+    "accuracy": 9,
+    "coverage": 8,
+    "insight": 7,
+    "concision": 8,
+    "discipline": 7,
+    "overall": 7,
+    "errors": [],
+    "comment": "Good coverage and concision, but fails to attribute a forward-looking statement about pricing pressure to management, violating the negative constraint."
+   },
+   "g36f": {
+    "letter": "C",
+    "accuracy": 9,
+    "coverage": 7,
+    "insight": 7,
+    "concision": 8,
+    "discipline": 7,
+    "overall": 7,
+    "errors": [],
+    "comment": "Solid summary, but misses some of the detailed clinical data and specific analyst questions. It also fails to attribute the forward-looking statement regarding the Q1 2027 submission to management."
+   },
+   "g35fl": {
+    "letter": "D",
+    "accuracy": 8,
+    "coverage": 8,
+    "insight": 7,
+    "concision": 8,
+    "discipline": 9,
+    "overall": 7,
+    "errors": [
+     "\"International markets face potential noise and supply constraints related to competing generic orally delivered therapies.\" (The transcript attributes \"noise\" to early launch data for Foundayo, not to generic therapies: \"this is very early data, and there is a lot of noise in the data set... very often sell-in data... pleased with the start of the launch of Foundayo\")."
+    ],
+    "comment": "Generally good, but conflates two separate issues from the transcript (noise in early Foundayo launch data vs. supply constraints for generic semaglutide) into a single inaccurate bullet point."
+   },
+   "opus": {
+    "letter": "E",
+    "accuracy": 10,
+    "coverage": 10,
+    "insight": 10,
+    "concision": 9,
+    "discipline": 10,
+    "overall": 10,
+    "errors": [],
+    "comment": "Exceptional summary. It captures the most important details, including specific market share numbers, the nuances of the analyst questions, and the exact dynamics of the U.S. pricing and CVS access. All forward-looking statements are properly attributed."
+   },
+   "fable": {
+    "letter": "F",
+    "accuracy": 10,
+    "coverage": 10,
+    "insight": 10,
+    "concision": 9,
+    "discipline": 10,
+    "overall": 10,
+    "errors": [],
+    "comment": "Exceptional summary. It perfectly captures the specific clinical trial data (BRUIN CLL-322, LIBRETTO-432) and the exact sales figures cited by the analyst. It follows all constraints perfectly and provides deep insight into the call's narrative."
+   },
+   "haiku": {
+    "letter": "G",
+    "accuracy": 9,
+    "coverage": 7,
+    "insight": 7,
+    "concision": 8,
+    "discipline": 9,
+    "overall": 7,
+    "errors": [],
+    "comment": "Accurate and follows the rules, but misses the specific clinical data numbers and incretin market share figures, making it slightly less useful than the top summaries."
+   },
+   "sonnet": {
+    "letter": "H",
+    "accuracy": 10,
+    "coverage": 9,
+    "insight": 9,
+    "concision": 9,
+    "discipline": 10,
+    "overall": 9,
+    "errors": [],
+    "comment": "Very strong summary with excellent coverage of the analyst questions and the pricing dynamics. It misses a few of the specific clinical trial numbers that F captured, but is otherwise top-tier."
+   }
+  },
+  "ms": 101804.54862500001,
+  "inTok": 22794,
+  "outTok": 16045
+ },
+ "opus|sum|CMG": {
+  "order": [
+   [
+    "A",
+    "opus"
+   ],
+   [
+    "B",
+    "g36f"
+   ],
+   [
+    "C",
+    "g35fl"
+   ],
+   [
+    "D",
+    "g31p"
+   ],
+   [
+    "E",
+    "sonnet"
+   ],
+   [
+    "F",
+    "haiku"
+   ],
+   [
+    "G",
+    "g38f"
+   ],
+   [
+    "H",
+    "fable"
+   ]
+  ],
+  "scores": {
+   "opus": {
+    "letter": "A",
+    "accuracy": 10,
+    "coverage": 10,
+    "insight": 9,
+    "concision": 5,
+    "discipline": 10,
+    "overall": 9,
+    "errors": [],
+    "comment": "Exhaustive and accurate. It includes the implied ~3% underlying Q3 trend, the full guidance stack and nearly every analyst thread, but its length, especially the 16-bullet analyst section, hurts scannability."
+   },
+   "g36f": {
+    "letter": "B",
+    "accuracy": 9,
+    "coverage": 5,
+    "insight": 4,
+    "concision": 7,
+    "discipline": 9,
+    "overall": 5,
+    "errors": [],
+    "comment": "Accurate but thin. It never says guidance was raised, and it omits the buyback authorization, HEAP figures, catering and international news, while its key takeaways largely repeat headline financials."
+   },
+   "g35fl": {
+    "letter": "C",
+    "accuracy": 10,
+    "coverage": 5,
+    "insight": 4,
+    "concision": 4,
+    "discipline": 9,
+    "overall": 5,
+    "errors": [],
+    "comment": "Figures are correct, but key takeaways nearly duplicate the financial highlights. It also omits the Q3 ~+1% comp guide, the guidance raise and the buyback activity."
+   },
+   "g31p": {
+    "letter": "D",
+    "accuracy": 9,
+    "coverage": 5,
+    "insight": 4,
+    "concision": 7,
+    "discipline": 8,
+    "overall": 5,
+    "errors": [],
+    "comment": "Clean and correct but shallow: the guidance section omits the Q3 comp and pricing outlook, the overview calls results 'strong' without attribution, and analyst topics are listed without management answers."
+   },
+   "sonnet": {
+    "letter": "E",
+    "accuracy": 10,
+    "coverage": 9,
+    "insight": 8,
+    "concision": 7,
+    "discipline": 10,
+    "overall": 9,
+    "errors": [],
+    "comment": "Accurate, well-organized and reasonably tight. It captures operational proof points such as Linebacker and Max 15, the Q3 setup, cohort trends and capital return, though it doesn't spell out the ~3% underlying trend."
+   },
+   "haiku": {
+    "letter": "F",
+    "accuracy": 10,
+    "coverage": 8,
+    "insight": 8,
+    "concision": 7,
+    "discipline": 10,
+    "overall": 8,
+    "errors": [],
+    "comment": "Solid and accurate, leading with the late-July softening and the Q3 guide. Some items repeat between takeaways and guidance, and it skips turnover and international detail."
+   },
+   "g38f": {
+    "letter": "G",
+    "accuracy": 7,
+    "coverage": 7,
+    "insight": 6,
+    "concision": 6,
+    "discipline": 8,
+    "overall": 6,
+    "errors": [
+     "\"plans for openings in Seoul and Qatar\" — the transcript says the second Qatar location already opened last week; only Seoul is a planned opening this year."
+    ],
+    "comment": "Decent breadth, but it mislabels the already-opened Qatar location as planned. Several guidance bullets are passive rather than attributed to management, and margin drivers are bundled as an inference."
+   },
+   "fable": {
+    "letter": "H",
+    "accuracy": 9,
+    "coverage": 10,
+    "insight": 9,
+    "concision": 5,
+    "discipline": 10,
+    "overall": 9,
+    "errors": [],
+    "comment": "Highly comprehensive, with the intra-quarter traffic cadence, ~3% underlying trend, wallet-share and partner detail. It is long, and it loosely credits the ~20% enrollment step-up to the relaunch rather than the new in-restaurant enrollment tools."
+   }
+  },
+  "ms": 56124.812625,
+  "inTok": 34647,
+  "outTok": 6523
+ },
+ "opus|comp|KNSL": {
+  "order": [
+   [
+    "A",
+    "g38f"
+   ],
+   [
+    "B",
+    "haiku"
+   ],
+   [
+    "C",
+    "g31p"
+   ],
+   [
+    "D",
+    "fable"
+   ],
+   [
+    "E",
+    "g36f"
+   ],
+   [
+    "F",
+    "g35fl"
+   ],
+   [
+    "G",
+    "prod"
+   ],
+   [
+    "H",
+    "opus"
+   ],
+   [
+    "I",
+    "sonnet"
+   ]
+  ],
+  "scores": {
+   "g38f": {
+    "letter": "A",
+    "relevance": 7,
+    "coverage": 5,
+    "scale": 7,
+    "noise": 4,
+    "overall": 5,
+    "misfits": [
+     "RE: dead ticker (now EG), dropped",
+     "PRA: acquired, dropped",
+     "ARGO: acquired by Brookfield, dropped"
+    ],
+    "comment": "The surviving six (WRB, MKL, RLI, AXS, SIGI, JRVR) are reasonable specialty peers, but three dead tickers thin the set and SKWD, PLMR and BOW are missing."
+   },
+   "haiku": {
+    "letter": "B",
+    "relevance": 5,
+    "coverage": 5,
+    "scale": 5,
+    "noise": 5,
+    "overall": 5,
+    "misfits": [
+     "ACIC: Florida homeowners insurer, not specialty commercial E&S",
+     "HIG: large diversified standard-lines and benefits carrier"
+    ],
+    "comment": "The set leans toward standard commercial and diversified carriers (CINF, HIG, THG) and omits the E&S pure plays SKWD, PLMR, BOW and JRVR."
+   },
+   "g31p": {
+    "letter": "C",
+    "relevance": 8,
+    "coverage": 7,
+    "scale": 7,
+    "noise": 8,
+    "overall": 7,
+    "misfits": [],
+    "comment": "A solid specialty-weighted set with RLI, WRB, MKL, AFG, JRVR, PLMR and ACGL; adding SKWD and BOW would improve it."
+   },
+   "fable": {
+    "letter": "D",
+    "relevance": 8,
+    "coverage": 9,
+    "scale": 7,
+    "noise": 7,
+    "overall": 8,
+    "misfits": [
+     "HCI: Florida homeowners insurer with different economics"
+    ],
+    "comment": "This is the best E&S-focused set, covering RLI, SKWD, PLMR, BOW, JRVR, WRB, MKL, AXS and ACGL, and needs only HCI removed."
+   },
+   "g36f": {
+    "letter": "E",
+    "relevance": 4,
+    "coverage": 4,
+    "scale": 5,
+    "noise": 4,
+    "overall": 4,
+    "misfits": [
+     "EIG: monoline workers' comp",
+     "MCY: personal auto/homeowners",
+     "HIG: large diversified standard-lines carrier"
+    ],
+    "comment": "This is mostly a standard-lines P&C set that misses most E&S competitors besides RLI and WRB."
+   },
+   "g35fl": {
+    "letter": "F",
+    "relevance": 2,
+    "coverage": 3,
+    "scale": 4,
+    "noise": 1,
+    "overall": 2,
+    "misfits": [
+     "ENOV: medical device company, not an insurer",
+     "AGO: financial guaranty insurer",
+     "HMN: educator-focused personal lines and life",
+     "ARGO: acquired, dropped"
+    ],
+    "comment": "The set includes a non-insurer and several unrelated insurers, making it unusable without major rework."
+   },
+   "prod": {
+    "letter": "G",
+    "relevance": 4,
+    "coverage": 4,
+    "scale": 5,
+    "noise": 4,
+    "overall": 4,
+    "misfits": [
+     "EIG: monoline workers' comp",
+     "MCY: personal auto/homeowners",
+     "HIG: large diversified standard-lines carrier"
+    ],
+    "comment": "Identical to E: a standard-lines tilt with few E&S peers."
+   },
+   "opus": {
+    "letter": "H",
+    "relevance": 8,
+    "coverage": 7,
+    "scale": 7,
+    "noise": 5,
+    "overall": 7,
+    "misfits": [
+     "HCI: Florida homeowners insurer",
+     "PRA: acquired, dropped",
+     "ARGO: acquired, dropped"
+    ],
+    "comment": "The surviving core (RLI, SKWD, WRB, MKL, AXS, BOW, AFG) is strong, but two dead tickers and HCI hurt it, and PLMR and JRVR are missing."
+   },
+   "sonnet": {
+    "letter": "I",
+    "relevance": 6,
+    "coverage": 7,
+    "scale": 6,
+    "noise": 5,
+    "overall": 6,
+    "misfits": [
+     "ERIE: fee-based attorney-in-fact manager, not a risk-bearing insurer",
+     "HGTY: collector-car insurance/MGA and lifestyle business",
+     "ESGR: taken private, dropped"
+    ],
+    "comment": "It has good E&S names (SKWD, PLMR, RLI, WRB, MKL, AXS), but ERIE and HGTY distort the multiples."
+   }
+  },
+  "missingEverywhere": [
+   "ASIC: Ategrity Specialty, a newly listed E&S small-business insurer that is a direct Kinsale competitor",
+   "GBLI: Global Indemnity, an E&S small commercial insurer",
+   "HG: Hamilton Insurance Group, a specialty E&S/reinsurance peer"
+  ],
+  "ms": 23052.482416999992,
+  "inTok": 2781,
+  "outTok": 2647
+ },
+ "opus|comp|CELH": {
+  "order": [
+   [
+    "A",
+    "sonnet"
+   ],
+   [
+    "B",
+    "g35fl"
+   ],
+   [
+    "C",
+    "g36f"
+   ],
+   [
+    "D",
+    "g31p"
+   ],
+   [
+    "E",
+    "fable"
+   ],
+   [
+    "F",
+    "g38f"
+   ],
+   [
+    "G",
+    "prod"
+   ],
+   [
+    "H",
+    "opus"
+   ],
+   [
+    "I",
+    "haiku"
+   ]
+  ],
+  "scores": {
+   "sonnet": {
+    "letter": "A",
+    "relevance": 8,
+    "coverage": 3,
+    "scale": 6,
+    "noise": 9,
+    "overall": 3,
+    "misfits": [],
+    "comment": "Both names are right but two peers is far too thin to form a usable comp table."
+   },
+   "g35fl": {
+    "letter": "B",
+    "relevance": 6,
+    "coverage": 7,
+    "scale": 5,
+    "noise": 5,
+    "overall": 6,
+    "misfits": [
+     "VITL: Vital Farms sells eggs and butter, not beverages",
+     "COKE: Coca-Cola Consolidated is a bottler/distributor with very different economics"
+    ],
+    "comment": "Covers MNST, the majors and small-cap better-for-you beverages, but the egg producer and bottler add noise."
+   },
+   "g36f": {
+    "letter": "C",
+    "relevance": 5,
+    "coverage": 6,
+    "scale": 5,
+    "noise": 4,
+    "overall": 4,
+    "misfits": [
+     "BF-B: Brown-Forman is a spirits company",
+     "COKE: bottler economics",
+     "PRMW: stale ticker for Primo Water, dropped"
+    ],
+    "comment": "Generic beverage list with a spirits maker and a bottler, and no functional or better-for-you peers beyond FIZZ."
+   },
+   "g31p": {
+    "letter": "D",
+    "relevance": 8,
+    "coverage": 9,
+    "scale": 7,
+    "noise": 8,
+    "overall": 8,
+    "misfits": [
+     "BRCC: Black Rifle Coffee is a coffee brand, only loosely comparable"
+    ],
+    "comment": "Best blend of MNST, the majors and growth/functional beverage and nutrition brands (COCO, ZVIA, BRBR) with minimal noise."
+   },
+   "fable": {
+    "letter": "E",
+    "relevance": 6,
+    "coverage": 8,
+    "scale": 6,
+    "noise": 5,
+    "overall": 6,
+    "misfits": [
+     "VITL: egg and dairy producer, not a beverage company",
+     "COKE: bottler economics",
+     "PRMB: bottled water, low-growth commodity-like profile"
+    ],
+    "comment": "Broad coverage including BRBR and ZVIA, but an egg producer, bottler and water company dilute relevance."
+   },
+   "g38f": {
+    "letter": "F",
+    "relevance": 7,
+    "coverage": 7,
+    "scale": 7,
+    "noise": 6,
+    "overall": 6,
+    "misfits": [
+     "VITA: wrong ticker for Vita Coco (COCO), dropped",
+     "PRMW: stale ticker, dropped"
+    ],
+    "comment": "Good remaining names, but two bad tickers leave seven peers and lose Vita Coco."
+   },
+   "prod": {
+    "letter": "G",
+    "relevance": 5,
+    "coverage": 6,
+    "scale": 5,
+    "noise": 4,
+    "overall": 4,
+    "misfits": [
+     "BF-B: spirits company",
+     "COKE: bottler economics",
+     "PRMW: unresolved ticker, dropped"
+    ],
+    "comment": "Same generic beverage list as C with a spirits maker and a dead ticker."
+   },
+   "opus": {
+    "letter": "H",
+    "relevance": 5,
+    "coverage": 7,
+    "scale": 6,
+    "noise": 4,
+    "overall": 5,
+    "misfits": [
+     "VITL: egg producer",
+     "SMPL: snack/nutrition bars, not beverages",
+     "COKE: bottler economics"
+    ],
+    "comment": "Drifts into packaged food and eggs; BRBR is defensible but VITL and SMPL are not."
+   },
+   "haiku": {
+    "letter": "I",
+    "relevance": 8,
+    "coverage": 8,
+    "scale": 7,
+    "noise": 7,
+    "overall": 7,
+    "misfits": [
+     "BRCC: coffee brand, loose fit",
+     "PRMB: bottled water with low-growth economics"
+    ],
+    "comment": "Strong beverage-focused set with MNST, majors and growth brands; small deductions for BRCC and PRMB."
+   }
+  },
+  "missingEverywhere": [],
+  "via": "subagent"
+ },
+ "opus|comp|HIMS": {
+  "order": [
+   [
+    "A",
+    "opus"
+   ],
+   [
+    "B",
+    "g31p"
+   ],
+   [
+    "C",
+    "prod"
+   ],
+   [
+    "D",
+    "g35fl"
+   ],
+   [
+    "E",
+    "haiku"
+   ],
+   [
+    "F",
+    "g36f"
+   ],
+   [
+    "G",
+    "sonnet"
+   ],
+   [
+    "H",
+    "fable"
+   ],
+   [
+    "I",
+    "g38f"
+   ]
+  ],
+  "scores": {
+   "opus": {
+    "letter": "A",
+    "relevance": 7,
+    "coverage": 8,
+    "scale": 6,
+    "noise": 6,
+    "overall": 7,
+    "misfits": [
+     "ELF: cosmetics brand, only a loose DTC consumer analog",
+     "HNGE: B2B employer-paid digital MSK care"
+    ],
+    "comment": "Best set: LFMD, WW, TDOC, GDRX and WRBY capture the DTC consumer health model, with a couple of loose analogs."
+   },
+   "g31p": {
+    "letter": "B",
+    "relevance": 5,
+    "coverage": 5,
+    "scale": 6,
+    "noise": 5,
+    "overall": 5,
+    "misfits": [
+     "PRVA: physician enablement/value-based care",
+     "PGNY: employer fertility benefits manager",
+     "PRGO: private-label OTC manufacturer"
+    ],
+    "comment": "Digital-health flavoured but tilted to B2B providers and benefits managers, and missing LFMD and WW."
+   },
+   "prod": {
+    "letter": "C",
+    "relevance": 3,
+    "coverage": 4,
+    "scale": 3,
+    "noise": 1,
+    "overall": 2,
+    "misfits": [
+     "RRX: industrial motors and power transmission",
+     "ONON: athletic footwear",
+     "AMZN: mega-cap conglomerate",
+     "CLOV: Medicare Advantage insurer",
+     "CVS: pharmacy/PBM/insurer giant"
+    ],
+    "comment": "RRX and ONON are plainly wrong and the mega-caps swamp the few genuine peers."
+   },
+   "g35fl": {
+    "letter": "D",
+    "relevance": 3,
+    "coverage": 3,
+    "scale": 4,
+    "noise": 2,
+    "overall": 2,
+    "misfits": [
+     "OMCL: hospital pharmacy automation",
+     "SDGR: computational drug discovery",
+     "RVPH: clinical-stage biotech",
+     "VTRS: generic drug manufacturer"
+    ],
+    "comment": "Only the telehealth trio is relevant; the rest look like industry-code matches."
+   },
+   "haiku": {
+    "letter": "E",
+    "relevance": 5,
+    "coverage": 5,
+    "scale": 6,
+    "noise": 4,
+    "overall": 4,
+    "misfits": [
+     "HALO: drug-delivery royalty biotech",
+     "PRGO: private-label OTC manufacturer",
+     "ELF: cosmetics brand, loose analog"
+    ],
+    "comment": "WW, TDOC and GDRX are reasonable, CHWY is a fair DTC subscription analog, but HALO is clearly wrong."
+   },
+   "g36f": {
+    "letter": "F",
+    "relevance": 3,
+    "coverage": 4,
+    "scale": 3,
+    "noise": 1,
+    "overall": 2,
+    "misfits": [
+     "RRX: industrial motors and power transmission",
+     "ONON: athletic footwear",
+     "AMZN: mega-cap conglomerate",
+     "CLOV: Medicare Advantage insurer",
+     "CVS: pharmacy/PBM/insurer giant"
+    ],
+    "comment": "Identical to C as displayed, with the same glaring misfits."
+   },
+   "sonnet": {
+    "letter": "G",
+    "relevance": 8,
+    "coverage": 4,
+    "scale": 5,
+    "noise": 9,
+    "overall": 4,
+    "misfits": [],
+    "comment": "All three names are right, but three peers is far too thin a table."
+   },
+   "fable": {
+    "letter": "H",
+    "relevance": 6,
+    "coverage": 7,
+    "scale": 6,
+    "noise": 5,
+    "overall": 6,
+    "misfits": [
+     "OMCL: hospital pharmacy automation",
+     "PRGO: private-label OTC manufacturer"
+    ],
+    "comment": "Decent DTC consumer-brand framing (LFMD, WRBY, HNST, PETS) with OMCL clearly out of place."
+   },
+   "g38f": {
+    "letter": "I",
+    "relevance": 6,
+    "coverage": 7,
+    "scale": 6,
+    "noise": 5,
+    "overall": 5,
+    "misfits": [
+     "RXRX: AI drug-discovery biotech"
+    ],
+    "comment": "Good telehealth/DTC core including LFMD and WW, with RXRX as a clear error and CHWY a stretch."
+   }
+  },
+  "missingEverywhere": [],
+  "via": "subagent"
+ },
+ "opus|comp|TOST": {
+  "order": [
+   [
+    "A",
+    "g36f"
+   ],
+   [
+    "B",
+    "fable"
+   ],
+   [
+    "C",
+    "opus"
+   ],
+   [
+    "D",
+    "g38f"
+   ],
+   [
+    "E",
+    "g31p"
+   ],
+   [
+    "F",
+    "g35fl"
+   ],
+   [
+    "G",
+    "sonnet"
+   ],
+   [
+    "H",
+    "haiku"
+   ],
+   [
+    "I",
+    "prod"
+   ]
+  ],
+  "scores": {
+   "g36f": {
+    "letter": "A",
+    "relevance": 5,
+    "coverage": 4,
+    "scale": 6,
+    "noise": 5,
+    "overall": 4,
+    "misfits": [
+     "ACIW: bank/enterprise payments software",
+     "PYPL: consumer wallet and checkout, weak restaurant overlap"
+    ],
+    "comment": "With SQ and LIGHT dropped it loses Block and Lightspeed, leaving PAR and FOUR as the only real restaurant-POS peers."
+   },
+   "fable": {
+    "letter": "B",
+    "relevance": 6,
+    "coverage": 6,
+    "scale": 6,
+    "noise": 6,
+    "overall": 6,
+    "misfits": [
+     "PAYO: cross-border B2B payments"
+    ],
+    "comment": "LSPD, PAR, FOUR and SHOP are on point, but Block and Fiserv are lost to stale tickers."
+   },
+   "opus": {
+    "letter": "C",
+    "relevance": 7,
+    "coverage": 7,
+    "scale": 7,
+    "noise": 6,
+    "overall": 7,
+    "misfits": [
+     "PAYC: HCM/payroll software, only adjacent to Toast's payroll add-on",
+     "PCTY: HCM/payroll software"
+    ],
+    "comment": "The only set with Block under its current XYZ ticker, plus LSPD, PAR and FOUR, padded with payroll SaaS."
+   },
+   "g38f": {
+    "letter": "D",
+    "relevance": 5,
+    "coverage": 6,
+    "scale": 5,
+    "noise": 3,
+    "overall": 4,
+    "misfits": [
+     "OTTR: electric utility, almost certainly a ticker error"
+    ],
+    "comment": "AGYS, PAR and LSPD are good hospitality-tech picks, but a utility in the table is a glaring error."
+   },
+   "g31p": {
+    "letter": "E",
+    "relevance": 8,
+    "coverage": 6,
+    "scale": 5,
+    "noise": 8,
+    "overall": 6,
+    "misfits": [],
+    "comment": "The purest hospitality-POS set (LSPD, PAR, AGYS, VYX, FOUR), but thin after three dead tickers and without Block."
+   },
+   "g35fl": {
+    "letter": "F",
+    "relevance": 2,
+    "coverage": 2,
+    "scale": 4,
+    "noise": 1,
+    "overall": 1,
+    "misfits": [
+     "DECK: footwear brand",
+     "RPD: cybersecurity software",
+     "ALRM: home-security software",
+     "PAYC: HCM/payroll software",
+     "PCTY: HCM/payroll software"
+    ],
+    "comment": "Mostly unrelated names; an analyst would discard it."
+   },
+   "sonnet": {
+    "letter": "G",
+    "relevance": 4,
+    "coverage": 3,
+    "scale": 6,
+    "noise": 4,
+    "overall": 3,
+    "misfits": [
+     "PAYC: HCM/payroll software",
+     "PCTY: HCM/payroll software"
+    ],
+    "comment": "Six names, only FOUR and GPN on the payments side and no restaurant-POS pure play."
+   },
+   "haiku": {
+    "letter": "H",
+    "relevance": 5,
+    "coverage": 5,
+    "scale": 6,
+    "noise": 4,
+    "overall": 4,
+    "misfits": [
+     "PAYC: HCM/payroll software",
+     "PCTY: HCM/payroll software",
+     "PAY: bill-pay platform for billers",
+     "PSFE: digital wallets and iGaming payments"
+    ],
+    "comment": "LSPD and FOUR are right, but most of the table is generic payments and payroll."
+   },
+   "prod": {
+    "letter": "I",
+    "relevance": 1,
+    "coverage": 1,
+    "scale": 5,
+    "noise": 1,
+    "overall": 1,
+    "misfits": [
+     "IOT: fleet IoT",
+     "GTLB: DevOps",
+     "MDB: databases",
+     "DOCN: cloud hosting",
+     "RBRK: data security",
+     "MNDY: work management"
+    ],
+    "comment": "A generic infrastructure-software list with no restaurant, POS or payments exposure."
+   }
+  },
+  "missingEverywhere": [
+   "FISV: Fiserv (Clover) is Toast's largest POS competitor; every set that tried used the stale FI ticker"
+  ],
+  "via": "subagent"
+ },
+ "opus|comp|FICO": {
+  "order": [
+   [
+    "A",
+    "prod"
+   ],
+   [
+    "B",
+    "opus"
+   ],
+   [
+    "C",
+    "sonnet"
+   ],
+   [
+    "D",
+    "g38f"
+   ],
+   [
+    "E",
+    "fable"
+   ],
+   [
+    "F",
+    "g35fl"
+   ],
+   [
+    "G",
+    "g31p"
+   ],
+   [
+    "H",
+    "haiku"
+   ],
+   [
+    "I",
+    "g36f"
+   ]
+  ],
+  "scores": {
+   "prod": {
+    "letter": "A",
+    "relevance": 6,
+    "coverage": 8,
+    "scale": 6,
+    "noise": 5,
+    "overall": 6,
+    "misfits": [
+     "ROP: diversified vertical-software conglomerate",
+     "PTC: CAD/PLM engineering software",
+     "ACIW: payments software, only loosely tied to fraud/decisioning"
+    ],
+    "comment": "Strong data/scores core but padded to 11 names with ROP, PTC and ACIW."
+   },
+   "opus": {
+    "letter": "B",
+    "relevance": 9,
+    "coverage": 9,
+    "scale": 7,
+    "noise": 8,
+    "overall": 9,
+    "misfits": [],
+    "comment": "The only set with Experian alongside EFX and TRU, plus ratings/data peers and PEGA for the decisioning software, which an analyst would take almost as-is."
+   },
+   "sonnet": {
+    "letter": "C",
+    "relevance": 5,
+    "coverage": 7,
+    "scale": 4,
+    "noise": 3,
+    "overall": 4,
+    "misfits": [
+     "ADBE: creative software, unrelated",
+     "ADP: payroll/HCM services",
+     "TYL: public-sector software",
+     "INTU: consumer tax and SMB software, only tangential via Credit Karma"
+    ],
+    "comment": "Good bureau and ratings core spoiled by four generic large-cap software names."
+   },
+   "g38f": {
+    "letter": "D",
+    "relevance": 9,
+    "coverage": 8,
+    "scale": 7,
+    "noise": 9,
+    "overall": 8,
+    "misfits": [],
+    "comment": "Tight, clean set of bureaus, ratings and data franchises plus PEGA, missing only Experian."
+   },
+   "fable": {
+    "letter": "E",
+    "relevance": 7,
+    "coverage": 8,
+    "scale": 6,
+    "noise": 6,
+    "overall": 7,
+    "misfits": [
+     "JKHY: bank core-processing software",
+     "ICE: exchange operator, mortgage-tech data only a partial link"
+    ],
+    "comment": "Right core but ICE and JKHY dilute it."
+   },
+   "g35fl": {
+    "letter": "F",
+    "relevance": 6,
+    "coverage": 8,
+    "scale": 6,
+    "noise": 3,
+    "overall": 5,
+    "misfits": [
+     "EXPD: freight forwarder, almost certainly a ticker confusion with Experian",
+     "JKHY: bank core-processing software"
+    ],
+    "comment": "EXPD is a glaring error that an analyst would immediately strike."
+   },
+   "g31p": {
+    "letter": "G",
+    "relevance": 7,
+    "coverage": 8,
+    "scale": 6,
+    "noise": 6,
+    "overall": 7,
+    "misfits": [
+     "SSNC: fund-administration software and services"
+    ],
+    "comment": "Solid data-franchise set; MORN is defensible, SSNC less so."
+   },
+   "haiku": {
+    "letter": "H",
+    "relevance": 7,
+    "coverage": 7,
+    "scale": 7,
+    "noise": 7,
+    "overall": 7,
+    "misfits": [
+     "TYL: public-sector software"
+    ],
+    "comment": "Clean data-franchise core but no decisioning-software peer and an odd TYL inclusion."
+   },
+   "g36f": {
+    "letter": "I",
+    "relevance": 8,
+    "coverage": 8,
+    "scale": 7,
+    "noise": 7,
+    "overall": 8,
+    "misfits": [
+     "ACIW: payments software, only loosely tied to fraud/decisioning"
+    ],
+    "comment": "Good core with PEGA for software; ACIW is a stretch but not a disaster."
+   }
+  },
+  "missingEverywhere": [],
+  "via": "subagent"
+ },
+ "opus|comp|CAVA": {
+  "order": [
+   [
+    "A",
+    "g38f"
+   ],
+   [
+    "B",
+    "haiku"
+   ],
+   [
+    "C",
+    "g31p"
+   ],
+   [
+    "D",
+    "opus"
+   ],
+   [
+    "E",
+    "prod"
+   ],
+   [
+    "F",
+    "g36f"
+   ],
+   [
+    "G",
+    "fable"
+   ],
+   [
+    "H",
+    "g35fl"
+   ],
+   [
+    "I",
+    "sonnet"
+   ]
+  ],
+  "scores": {
+   "g38f": {
+    "letter": "A",
+    "relevance": 6,
+    "coverage": 7,
+    "scale": 7,
+    "noise": 4,
+    "overall": 6,
+    "misfits": [
+     "FRPT: Freshpet is a pet-food manufacturer, not a restaurant"
+    ],
+    "comment": "Solid fast-casual core undermined by an obvious non-restaurant inclusion; PZZA is a weak pizza-delivery fit."
+   },
+   "haiku": {
+    "letter": "B",
+    "relevance": 6,
+    "coverage": 7,
+    "scale": 6,
+    "noise": 6,
+    "overall": 6,
+    "misfits": [
+     "CSSE: wrong ticker/name mismatch, dropped by the app",
+     "DRI: large full-service casual dining with different unit economics",
+     "DPZ: franchised pizza delivery model, not company-operated fast casual"
+    ],
+    "comment": "Usable core of CMG/SG/SHAK/WING/BROS but diluted by casual dining and franchise-heavy pizza names."
+   },
+   "g31p": {
+    "letter": "C",
+    "relevance": 9,
+    "coverage": 8,
+    "scale": 8,
+    "noise": 9,
+    "overall": 9,
+    "misfits": [],
+    "comment": "Tightest set of company-operated, high-growth fast-casual and newer-concept chains of comparable scale; TXRH could be added but nothing is out of place."
+   },
+   "opus": {
+    "letter": "D",
+    "relevance": 8,
+    "coverage": 9,
+    "scale": 8,
+    "noise": 8,
+    "overall": 8,
+    "misfits": [],
+    "comment": "Strong growth-restaurant set with CAKE and TXRH as reasonable company-operated benchmarks; slightly less pure than C."
+   },
+   "prod": {
+    "letter": "E",
+    "relevance": 3,
+    "coverage": 2,
+    "scale": 5,
+    "noise": 2,
+    "overall": 2,
+    "misfits": [
+     "ONON: On Holding is a Swiss athletic footwear brand, not a restaurant"
+    ],
+    "comment": "Only three real peers survive and it misses Chipotle, the most direct comparable."
+   },
+   "g36f": {
+    "letter": "F",
+    "relevance": 6,
+    "coverage": 7,
+    "scale": 6,
+    "noise": 6,
+    "overall": 6,
+    "misfits": [
+     "PORT: wrong ticker for Portillo's (PTLO), dropped",
+     "BLMN: struggling casual-dining operator with very different growth and margin profile",
+     "DRI: large casual dining, weak economic match"
+    ],
+    "comment": "Good fast-casual core but the bottom half drifts into mature casual dining and loses Portillo's to a bad ticker."
+   },
+   "fable": {
+    "letter": "G",
+    "relevance": 7,
+    "coverage": 8,
+    "scale": 7,
+    "noise": 6,
+    "overall": 7,
+    "misfits": [
+     "DUTCH: invalid duplicate of BROS, dropped",
+     "WEN: heavily franchised burger QSR",
+     "EAT: casual dining (Chili's)"
+    ],
+    "comment": "Reasonable core including PTLO, but a duplicate bad ticker plus WEN and EAT add noise."
+   },
+   "g35fl": {
+    "letter": "H",
+    "relevance": 5,
+    "coverage": 6,
+    "scale": 6,
+    "noise": 6,
+    "overall": 5,
+    "misfits": [
+     "PZZA: franchised pizza delivery, poor economic match",
+     "DRI: large full-service casual dining"
+    ],
+    "comment": "Has the key fast-casual names but half the set is pizza delivery and casual dining with no other high-growth concepts."
+   },
+   "sonnet": {
+    "letter": "I",
+    "relevance": 6,
+    "coverage": 8,
+    "scale": 7,
+    "noise": 6,
+    "overall": 6,
+    "misfits": [
+     "WEN: franchised burger QSR",
+     "DPZ: franchised pizza delivery",
+     "BLMN: low-growth casual dining"
+    ],
+    "comment": "Covers the direct fast-casual competitors but the last three names are mature franchised or casual-dining businesses."
+   }
+  },
+  "missingEverywhere": [],
+  "via": "subagent"
+ },
+ "opus|comp|RKLB": {
+  "order": [
+   [
+    "A",
+    "fable"
+   ],
+   [
+    "B",
+    "g35fl"
+   ],
+   [
+    "C",
+    "opus"
+   ],
+   [
+    "D",
+    "prod"
+   ],
+   [
+    "E",
+    "sonnet"
+   ],
+   [
+    "F",
+    "haiku"
+   ],
+   [
+    "G",
+    "g38f"
+   ],
+   [
+    "H",
+    "g36f"
+   ],
+   [
+    "I",
+    "g31p"
+   ]
+  ],
+  "scores": {
+   "fable": {
+    "letter": "A",
+    "relevance": 8,
+    "coverage": 9,
+    "scale": 6,
+    "noise": 8,
+    "overall": 8,
+    "misfits": [
+     "IRDM: mature satellite-communications operator rather than a launch/space-systems builder"
+    ],
+    "comment": "Includes Firefly, the clearest launch competitor, plus the new-space cohort and KTOS; the best overall table."
+   },
+   "g35fl": {
+    "letter": "B",
+    "relevance": 6,
+    "coverage": 5,
+    "scale": 4,
+    "noise": 6,
+    "overall": 5,
+    "misfits": [
+     "SPCE: suborbital space tourism",
+     "SIDU: micro-cap with negligible scale"
+    ],
+    "comment": "New-space names only, missing Firefly, with SPCE and SIDU weak."
+   },
+   "opus": {
+    "letter": "C",
+    "relevance": 7,
+    "coverage": 8,
+    "scale": 5,
+    "noise": 6,
+    "overall": 7,
+    "misfits": [
+     "MNTS: distressed micro-cap orbital transfer company",
+     "SPCE: suborbital space tourism"
+    ],
+    "comment": "Firefly and Karman add real relevance, but MNTS and SPCE are poor benchmarks."
+   },
+   "prod": {
+    "letter": "D",
+    "relevance": 7,
+    "coverage": 6,
+    "scale": 7,
+    "noise": 7,
+    "overall": 6,
+    "misfits": [
+     "AVAV: drones and loitering munitions, not space"
+    ],
+    "comment": "Balanced new-space plus defense primes, but no launch peer like Firefly."
+   },
+   "sonnet": {
+    "letter": "E",
+    "relevance": 7,
+    "coverage": 9,
+    "scale": 6,
+    "noise": 6,
+    "overall": 7,
+    "misfits": [
+     "HEI: aerospace aftermarket parts, different economics",
+     "SPCE: suborbital space tourism"
+    ],
+    "comment": "Strong coverage with FLY and KRMN, slightly diluted by HEI and SPCE."
+   },
+   "haiku": {
+    "letter": "F",
+    "relevance": 6,
+    "coverage": 5,
+    "scale": 6,
+    "noise": 6,
+    "overall": 5,
+    "misfits": [
+     "NOC: diversified defense prime"
+    ],
+    "comment": "VOYG is a good pick, but two dead tickers leave it without RDW or Firefly and leaning on primes."
+   },
+   "g38f": {
+    "letter": "G",
+    "relevance": 6,
+    "coverage": 6,
+    "scale": 6,
+    "noise": 5,
+    "overall": 5,
+    "misfits": [
+     "AVAV: drones and loitering munitions, not space",
+     "SPCE: suborbital space tourism",
+     "NOC: diversified defense prime"
+    ],
+    "comment": "Reasonable core but no launch peer and three weak fillers."
+   },
+   "g36f": {
+    "letter": "H",
+    "relevance": 7,
+    "coverage": 6,
+    "scale": 7,
+    "noise": 7,
+    "overall": 6,
+    "misfits": [
+     "AVAV: drones and loitering munitions, not space"
+    ],
+    "comment": "Identical to D: sound but missing Firefly."
+   },
+   "g31p": {
+    "letter": "I",
+    "relevance": 6,
+    "coverage": 5,
+    "scale": 5,
+    "noise": 5,
+    "overall": 5,
+    "misfits": [
+     "SPCE: suborbital space tourism",
+     "LMT: diversified defense prime",
+     "NOC: diversified defense prime"
+    ],
+    "comment": "New-space core with mega-cap primes bolted on and no launch competitor."
+   }
+  },
+  "missingEverywhere": [],
+  "via": "subagent"
+ },
+ "opus|comp|AXON": {
+  "order": [
+   [
+    "A",
+    "g36f"
+   ],
+   [
+    "B",
+    "fable"
+   ],
+   [
+    "C",
+    "g31p"
+   ],
+   [
+    "D",
+    "prod"
+   ],
+   [
+    "E",
+    "haiku"
+   ],
+   [
+    "F",
+    "sonnet"
+   ],
+   [
+    "G",
+    "g38f"
+   ],
+   [
+    "H",
+    "g35fl"
+   ],
+   [
+    "I",
+    "opus"
+   ]
+  ],
+  "scores": {
+   "g36f": {
+    "letter": "A",
+    "relevance": 4,
+    "coverage": 5,
+    "scale": 6,
+    "noise": 3,
+    "overall": 4,
+    "misfits": [
+     "BWXT: nuclear components, no public-safety or SaaS overlap",
+     "HON: diversified conglomerate with unrelated economics",
+     "MOG-A: aerospace motion-control components",
+     "SAIC: low-margin government IT services, not a product or SaaS model",
+     "BAH: government consulting services with different margin and growth profile"
+    ],
+    "comment": "MSI and TYL anchor the set, but it is padded with defense contractors and industrials whose low-margin or component economics do not resemble Axon's SaaS-plus-devices model."
+   },
+   "fable": {
+    "letter": "B",
+    "relevance": 5,
+    "coverage": 5,
+    "scale": 6,
+    "noise": 4,
+    "overall": 5,
+    "misfits": [
+     "TDG: aerospace aftermarket parts roll-up",
+     "CW: defense and nuclear components",
+     "KTOS: defense drones and satellite contractor with little public-safety overlap"
+    ],
+    "comment": "MSI, TYL, PLTR, MSA (first-responder safety) and NSSC are sensible, and CRWD is a defensible high-growth SaaS multiple proxy, but TDG and CW dilute the set."
+   },
+   "g31p": {
+    "letter": "C",
+    "relevance": 6,
+    "coverage": 7,
+    "scale": 6,
+    "noise": 5,
+    "overall": 6,
+    "misfits": [
+     "BAH: government consulting services, different economics",
+     "LDOS: low-margin government IT services contractor"
+    ],
+    "comment": "Strongest set: it includes MSI, TYL, PLTR and the direct competitor SoundThinking, and AVAV gives drone exposure, though the defense services names are weaker fits."
+   },
+   "prod": {
+    "letter": "D",
+    "relevance": 2,
+    "coverage": 1,
+    "scale": 4,
+    "noise": 2,
+    "overall": 1,
+    "misfits": [
+     "TDG: aerospace parts",
+     "HWM: aerospace forgings and fasteners",
+     "VRT: data-center power and cooling, unrelated",
+     "RCAT: micro-cap military drone maker with negligible public-safety overlap"
+    ],
+    "comment": "Has only six names, omits MSI and TYL entirely, and is built on the A&D industry label rather than Axon's actual business."
+   },
+   "haiku": {
+    "letter": "E",
+    "relevance": 3,
+    "coverage": 4,
+    "scale": 6,
+    "noise": 3,
+    "overall": 3,
+    "misfits": [
+     "HON: diversified conglomerate",
+     "BWXT: nuclear components",
+     "CACI: government IT services",
+     "BAH: government consulting",
+     "LDOS: government IT services"
+    ],
+    "comment": "Apart from MSI and PLTR, this is a generic defense-contractor table that would not benchmark Axon's software-driven multiples."
+   },
+   "sonnet": {
+    "letter": "F",
+    "relevance": 4,
+    "coverage": 4,
+    "scale": 6,
+    "noise": 4,
+    "overall": 4,
+    "misfits": [
+     "BWXT: nuclear components",
+     "CW: defense and industrial components"
+    ],
+    "comment": "A short set with MSI, PLTR and AVAV, but it lacks TYL and any small direct competitor and includes defense hardware names."
+   },
+   "g38f": {
+    "letter": "G",
+    "relevance": 5,
+    "coverage": 7,
+    "scale": 5,
+    "noise": 4,
+    "overall": 5,
+    "misfits": [
+     "HEI: aerospace aftermarket parts",
+     "SAIC: government IT services",
+     "BAH: government consulting"
+    ],
+    "comment": "MSI, TYL, PLTR and WRAP (a direct, if micro-cap, TASER alternative) give good coverage, but three government services contractors and HEI weaken relevance."
+   },
+   "g35fl": {
+    "letter": "H",
+    "relevance": 3,
+    "coverage": 2,
+    "scale": 6,
+    "noise": 3,
+    "overall": 2,
+    "misfits": [
+     "MSAT: wrong ticker for Motorola Solutions, dropped by the app, so the key competitor is lost",
+     "CW: defense components",
+     "CACI: government IT services",
+     "BAH: government consulting"
+    ],
+    "comment": "Once the bad Motorola ticker is dropped, the set has no MSI or TYL and is mostly defense services and hardware."
+   },
+   "opus": {
+    "letter": "I",
+    "relevance": 4,
+    "coverage": 5,
+    "scale": 6,
+    "noise": 3,
+    "overall": 4,
+    "misfits": [
+     "DGX: clinical diagnostics labs, entirely unrelated",
+     "GRMN: consumer GPS and wearables",
+     "SAIC: government IT services"
+    ],
+    "comment": "MSI, TYL, PLTR and ZBRA (rugged devices plus software) are reasonable, but DGX is a clear error and GRMN is a stretch."
+   }
+  },
+  "missingEverywhere": [
+   "CLBT: Cellebrite sells digital evidence and forensics software to law enforcement and is a direct adjacency to Axon Evidence",
+   "VRRM: Verra Mobility runs government public-safety camera and enforcement solutions on a recurring-revenue model",
+   "DGLY: Digital Ally is a body and in-car camera competitor to law enforcement, albeit micro-cap",
+   "IOT: Samsara is a connected-devices-plus-SaaS model that closely mirrors Axon's hardware-attach subscription economics"
+  ],
+  "ms": 26929.165708,
+  "inTok": 2591,
+  "outTok": 2943
+ },
+ "opus|comp|ELF": {
+  "order": [
+   [
+    "A",
+    "g38f"
+   ],
+   [
+    "B",
+    "prod"
+   ],
+   [
+    "C",
+    "g35fl"
+   ],
+   [
+    "D",
+    "fable"
+   ],
+   [
+    "E",
+    "g31p"
+   ],
+   [
+    "F",
+    "opus"
+   ],
+   [
+    "G",
+    "sonnet"
+   ],
+   [
+    "H",
+    "haiku"
+   ],
+   [
+    "I",
+    "g36f"
+   ]
+  ],
+  "scores": {
+   "g38f": {
+    "letter": "A",
+    "relevance": 7,
+    "coverage": 7,
+    "scale": 6,
+    "noise": 7,
+    "overall": 7,
+    "misfits": [
+     "CL: oral-care/home-care staple with very different growth and margin profile"
+    ],
+    "comment": "As displayed (COTY, EL, ULTA, IPAR, KVUE, EPC, CHD, CL) it is a sensible beauty-plus-personal-care table with light staples padding."
+   },
+   "prod": {
+    "letter": "B",
+    "relevance": 6,
+    "coverage": 7,
+    "scale": 5,
+    "noise": 5,
+    "overall": 6,
+    "misfits": [
+     "KMB: diapers and tissue, no beauty exposure",
+     "PG: mega-cap diversified staple far from ELF's economics"
+    ],
+    "comment": "Gets HNST, EL, COTY and ULTA but leans too heavily on mega-cap household staples."
+   },
+   "g35fl": {
+    "letter": "C",
+    "relevance": 4,
+    "coverage": 3,
+    "scale": 3,
+    "noise": 4,
+    "overall": 3,
+    "misfits": [
+     "KMB: diapers and tissue, no beauty exposure",
+     "PG: mega-cap diversified staple"
+    ],
+    "comment": "After the bad COT and REV tickers drop, only EL and ULTA are beauty names among six mostly mega-cap staples."
+   },
+   "fable": {
+    "letter": "D",
+    "relevance": 6,
+    "coverage": 6,
+    "scale": 6,
+    "noise": 5,
+    "overall": 5,
+    "misfits": [
+     "PRGO: private-label OTC/consumer health, not branded beauty",
+     "NUS: multi-level-marketing model with different economics"
+    ],
+    "comment": "Beauty core is right (EL, COTY, IPAR, ULTA) but three dead tickers leave PRGO and NUS carrying too much weight."
+   },
+   "g31p": {
+    "letter": "E",
+    "relevance": 7,
+    "coverage": 6,
+    "scale": 6,
+    "noise": 8,
+    "overall": 7,
+    "misfits": [],
+    "comment": "Clean, seven-name beauty and personal-care table with no clear misfits, though it lacks a small-cap disruptor like HNST."
+   },
+   "opus": {
+    "letter": "F",
+    "relevance": 5,
+    "coverage": 7,
+    "scale": 6,
+    "noise": 3,
+    "overall": 5,
+    "misfits": [
+     "HIMS: telehealth platform, not a cosmetics brand",
+     "SKIN: actually The Beauty Health Company (Hydrafacial devices), mislabelled and a device model",
+     "NUS: multi-level-marketing model"
+    ],
+    "comment": "Solid beauty core diluted by HIMS, a mislabelled SKIN and NUS."
+   },
+   "sonnet": {
+    "letter": "G",
+    "relevance": 4,
+    "coverage": 5,
+    "scale": 5,
+    "noise": 2,
+    "overall": 3,
+    "misfits": [
+     "HIMS: telehealth platform, not a cosmetics brand",
+     "SPB: pet, home and garden products",
+     "HELE: small appliances and housewares",
+     "CL: oral-care/home-care staple"
+    ],
+    "comment": "Only EL, COTY and ULTA are true beauty peers; the rest is a grab-bag of consumer products."
+   },
+   "haiku": {
+    "letter": "H",
+    "relevance": 8,
+    "coverage": 8,
+    "scale": 7,
+    "noise": 7,
+    "overall": 8,
+    "misfits": [
+     "NUS: multi-level-marketing model with different economics"
+    ],
+    "comment": "The most beauty-centric set, with EL, COTY, IPAR, ULTA, SBH and HNST, needing only light trimming."
+   },
+   "g36f": {
+    "letter": "I",
+    "relevance": 5,
+    "coverage": 5,
+    "scale": 4,
+    "noise": 5,
+    "overall": 5,
+    "misfits": [
+     "KMB: diapers and tissue, no beauty exposure",
+     "PG: mega-cap diversified staple"
+    ],
+    "comment": "Losing IPC (bad ticker) leaves EL, COTY and ULTA amid a mega-cap staples list."
+   }
+  },
+  "missingEverywhere": [
+   "ODD: Oddity Tech (Il Makiage, SpoiledChild) is a digitally native, high-growth beauty brand peer",
+   "WALD: Waldencast (Milk Makeup, Obagi) is a small-cap US-listed color cosmetics peer"
+  ],
+  "via": "subagent"
+ },
+ "opus|comp|CMG": {
+  "order": [
+   [
+    "A",
+    "opus"
+   ],
+   [
+    "B",
+    "g35fl"
+   ],
+   [
+    "C",
+    "g36f"
+   ],
+   [
+    "D",
+    "sonnet"
+   ],
+   [
+    "E",
+    "g38f"
+   ],
+   [
+    "F",
+    "fable"
+   ],
+   [
+    "G",
+    "prod"
+   ],
+   [
+    "H",
+    "haiku"
+   ],
+   [
+    "I",
+    "g31p"
+   ]
+  ],
+  "scores": {
+   "opus": {
+    "letter": "A",
+    "relevance": 8,
+    "coverage": 9,
+    "scale": 8,
+    "noise": 8,
+    "overall": 9,
+    "misfits": [],
+    "comment": "Best balance of scale anchors (MCD, SBUX, YUM, QSR) and direct fast-casual peers (CAVA, SG, WING, SHAK); DRI is a mild stretch."
+   },
+   "g35fl": {
+    "letter": "B",
+    "relevance": 6,
+    "coverage": 5,
+    "scale": 6,
+    "noise": 6,
+    "overall": 5,
+    "misfits": [
+     "JACK: small, heavily franchised and struggling burger QSR",
+     "WEN: franchised burger QSR with weak growth"
+    ],
+    "comment": "Misses MCD, SBUX, SG and WING while including weaker franchised burger chains."
+   },
+   "g36f": {
+    "letter": "C",
+    "relevance": 8,
+    "coverage": 9,
+    "scale": 8,
+    "noise": 8,
+    "overall": 8,
+    "misfits": [],
+    "comment": "Strong mix of large-cap restaurant anchors and fast-casual growth peers; lacks DPZ but no real misfits."
+   },
+   "sonnet": {
+    "letter": "D",
+    "relevance": 8,
+    "coverage": 8,
+    "scale": 8,
+    "noise": 8,
+    "overall": 8,
+    "misfits": [],
+    "comment": "Well-balanced set though it omits Sweetgreen, the closest fast-casual analogue alongside CAVA."
+   },
+   "g38f": {
+    "letter": "E",
+    "relevance": 7,
+    "coverage": 8,
+    "scale": 7,
+    "noise": 7,
+    "overall": 7,
+    "misfits": [
+     "WEN: low-growth franchised burger QSR"
+    ],
+    "comment": "Good fast-casual coverage but drops SBUX in favour of WEN."
+   },
+   "fable": {
+    "letter": "F",
+    "relevance": 8,
+    "coverage": 9,
+    "scale": 8,
+    "noise": 8,
+    "overall": 8,
+    "misfits": [],
+    "comment": "Essentially the same strong set as A, minus TXRH; balanced and accepted with light edits."
+   },
+   "prod": {
+    "letter": "G",
+    "relevance": 6,
+    "coverage": 4,
+    "scale": 7,
+    "noise": 9,
+    "overall": 4,
+    "misfits": [],
+    "comment": "Only six large franchised QSR names with no fast-casual peers (CAVA, SG, SHAK) at all."
+   },
+   "haiku": {
+    "letter": "H",
+    "relevance": 7,
+    "coverage": 7,
+    "scale": 8,
+    "noise": 7,
+    "overall": 7,
+    "misfits": [
+     "WEN: low-growth franchised burger QSR"
+    ],
+    "comment": "Good large-cap anchors but thin on fast casual, missing SG and WING."
+   },
+   "g31p": {
+    "letter": "I",
+    "relevance": 8,
+    "coverage": 8,
+    "scale": 8,
+    "noise": 9,
+    "overall": 8,
+    "misfits": [],
+    "comment": "Clean, focused nine-name set covering both anchors and fast-casual peers."
+   }
+  },
+  "missingEverywhere": [],
+  "via": "subagent"
+ },
+ "opus|comp|CRWD": {
+  "order": [
+   [
+    "A",
+    "haiku"
+   ],
+   [
+    "B",
+    "opus"
+   ],
+   [
+    "C",
+    "fable"
+   ],
+   [
+    "D",
+    "g36f"
+   ],
+   [
+    "E",
+    "g31p"
+   ],
+   [
+    "F",
+    "sonnet"
+   ],
+   [
+    "G",
+    "g38f"
+   ],
+   [
+    "H",
+    "g35fl"
+   ],
+   [
+    "I",
+    "prod"
+   ]
+  ],
+  "scores": {
+   "haiku": {
+    "letter": "A",
+    "relevance": 8,
+    "coverage": 8,
+    "scale": 6,
+    "noise": 8,
+    "overall": 8,
+    "misfits": [
+     "CYBR: no longer resolves, dropped"
+    ],
+    "comment": "Solid pure-security set with endpoint, network, identity and vulnerability vendors; tail names are small relative to CRWD."
+   },
+   "opus": {
+    "letter": "B",
+    "relevance": 9,
+    "coverage": 9,
+    "scale": 7,
+    "noise": 8,
+    "overall": 8,
+    "misfits": [
+     "CYBR: no longer resolves, dropped"
+    ],
+    "comment": "Strong cybersecurity set including CHKP as a scaled incumbent alongside the cloud-native platforms."
+   },
+   "fable": {
+    "letter": "C",
+    "relevance": 7,
+    "coverage": 8,
+    "scale": 7,
+    "noise": 6,
+    "overall": 7,
+    "misfits": [
+     "DDOG: observability, not security",
+     "CYBR: no longer resolves, dropped"
+    ],
+    "comment": "Good security core with RBRK as a defensible data-security add, but Datadog is an observability peer."
+   },
+   "g36f": {
+    "letter": "D",
+    "relevance": 8,
+    "coverage": 8,
+    "scale": 6,
+    "noise": 7,
+    "overall": 7,
+    "misfits": [
+     "GEN: consumer antivirus with low-growth, high-leverage economics"
+    ],
+    "comment": "All ten names resolve and are security vendors, but Gen Digital's consumer model is a weak benchmark."
+   },
+   "g31p": {
+    "letter": "E",
+    "relevance": 9,
+    "coverage": 8,
+    "scale": 7,
+    "noise": 9,
+    "overall": 8,
+    "misfits": [
+     "CYBR: no longer resolves, dropped"
+    ],
+    "comment": "Tight, clean security set of eight resolving names with sensible scale."
+   },
+   "sonnet": {
+    "letter": "F",
+    "relevance": 5,
+    "coverage": 6,
+    "scale": 8,
+    "noise": 4,
+    "overall": 5,
+    "misfits": [
+     "DDOG: observability software",
+     "SNOW: data cloud platform",
+     "NOW: IT workflow software",
+     "CYBR: no longer resolves, dropped"
+    ],
+    "comment": "Security core is fine but three non-security high-multiple SaaS names materially dilute relevance."
+   },
+   "g38f": {
+    "letter": "G",
+    "relevance": 9,
+    "coverage": 7,
+    "scale": 6,
+    "noise": 9,
+    "overall": 7,
+    "misfits": [
+     "CYBR: no longer resolves, dropped"
+    ],
+    "comment": "Pure security names but lacks Cloudflare and ends up with only eight peers skewing small."
+   },
+   "g35fl": {
+    "letter": "H",
+    "relevance": 9,
+    "coverage": 7,
+    "scale": 7,
+    "noise": 9,
+    "overall": 7,
+    "misfits": [
+     "CYBR: no longer resolves, dropped"
+    ],
+    "comment": "Clean and relevant but only seven resolving peers and no CHKP."
+   },
+   "prod": {
+    "letter": "I",
+    "relevance": 1,
+    "coverage": 1,
+    "scale": 3,
+    "noise": 1,
+    "overall": 1,
+    "misfits": [
+     "MSFT: diversified megacap",
+     "AMZN: e-commerce and cloud megacap",
+     "GOOGL: advertising megacap",
+     "NVDA: semiconductors",
+     "SNOW: data platform",
+     "MDB: database",
+     "DDOG: observability"
+    ],
+    "comment": "Not a cybersecurity comp set; contains none of PANW, FTNT, ZS or S."
+   }
+  },
+  "missingEverywhere": [],
+  "via": "subagent"
+ },
+ "opus|comp|DUOL": {
+  "order": [
+   [
+    "A",
+    "opus"
+   ],
+   [
+    "B",
+    "sonnet"
+   ],
+   [
+    "C",
+    "g38f"
+   ],
+   [
+    "D",
+    "g31p"
+   ],
+   [
+    "E",
+    "fable"
+   ],
+   [
+    "F",
+    "g36f"
+   ],
+   [
+    "G",
+    "prod"
+   ],
+   [
+    "H",
+    "haiku"
+   ],
+   [
+    "I",
+    "g35fl"
+   ]
+  ],
+  "scores": {
+   "opus": {
+    "letter": "A",
+    "relevance": 5,
+    "coverage": 7,
+    "scale": 5,
+    "noise": 5,
+    "overall": 5,
+    "misfits": [
+     "GOTU: Chinese K-12 tutoring with very different economics",
+     "LRN: government-funded K-12 virtual schooling",
+     "UDMY: no longer resolves, dropped"
+    ],
+    "comment": "Reasonable blend of ed-tech and freemium consumer subscription apps, though several ed-tech names are struggling small caps with different models."
+   },
+   "sonnet": {
+    "letter": "B",
+    "relevance": 4,
+    "coverage": 6,
+    "scale": 4,
+    "noise": 3,
+    "overall": 4,
+    "misfits": [
+     "DAVA: IT services outsourcer",
+     "APP: ad-tech megacap",
+     "PRDO: for-profit post-secondary schools",
+     "UDMY: no longer resolves, dropped"
+    ],
+    "comment": "Several names have nothing to do with consumer subscription learning."
+   },
+   "g38f": {
+    "letter": "C",
+    "relevance": 5,
+    "coverage": 6,
+    "scale": 5,
+    "noise": 5,
+    "overall": 5,
+    "misfits": [
+     "TAL: Chinese tutoring operator",
+     "NYT: news publisher, only a loose digital-subscription analogue",
+     "UDMY: no longer resolves, dropped"
+    ],
+    "comment": "Freemium subscription apps are sensible but the education side is a mixed bag."
+   },
+   "g31p": {
+    "letter": "D",
+    "relevance": 6,
+    "coverage": 7,
+    "scale": 5,
+    "noise": 6,
+    "overall": 6,
+    "misfits": [
+     "DCBO: enterprise LMS software",
+     "UDMY: no longer resolves, dropped"
+    ],
+    "comment": "Best of the group: online learning plus consumer freemium subscription peers, with only modest noise."
+   },
+   "fable": {
+    "letter": "E",
+    "relevance": 3,
+    "coverage": 4,
+    "scale": 5,
+    "noise": 2,
+    "overall": 2,
+    "misfits": [
+     "NRDS: personal-finance comparison site",
+     "DOCS: physician network",
+     "PTON: connected fitness hardware",
+     "RBLX: gaming platform, loose fit",
+     "PWSC: taken private, dropped",
+     "UDMY: no longer resolves, dropped"
+    ],
+    "comment": "Scattered list with multiple unrelated businesses and dead tickers."
+   },
+   "g36f": {
+    "letter": "F",
+    "relevance": 4,
+    "coverage": 6,
+    "scale": 5,
+    "noise": 4,
+    "overall": 4,
+    "misfits": [
+     "LOPE: for-profit university services",
+     "STRA: for-profit universities",
+     "ROVR: acquired, dropped",
+     "UDMY: no longer resolves, dropped"
+    ],
+    "comment": "For-profit degree providers are a poor benchmark for a consumer freemium app and two tickers are dead."
+   },
+   "prod": {
+    "letter": "G",
+    "relevance": 4,
+    "coverage": 6,
+    "scale": 5,
+    "noise": 4,
+    "overall": 4,
+    "misfits": [
+     "LOPE: for-profit university services",
+     "STRA: for-profit universities",
+     "ROVR: acquired, dropped",
+     "UDMY: no longer resolves, dropped"
+    ],
+    "comment": "Same as F: weak education picks and dead tickers leave only seven peers."
+   },
+   "haiku": {
+    "letter": "H",
+    "relevance": 5,
+    "coverage": 6,
+    "scale": 5,
+    "noise": 4,
+    "overall": 4,
+    "misfits": [
+     "APP: ad-tech megacap",
+     "SNAP: ad-supported social media",
+     "LRN: K-12 virtual schooling",
+     "UDMY: no longer resolves, dropped"
+    ],
+    "comment": "GRND and BMBL are good freemium analogues, but it drops MTCH and adds ad-driven names."
+   },
+   "g35fl": {
+    "letter": "I",
+    "relevance": 3,
+    "coverage": 4,
+    "scale": 5,
+    "noise": 3,
+    "overall": 3,
+    "misfits": [
+     "TWLO: communications API infrastructure",
+     "ROKU: streaming hardware and ads",
+     "BUMBLE: invalid ticker, dropped",
+     "UDMY: no longer resolves, dropped"
+    ],
+    "comment": "Only five usable peers survive and two of them are unrelated."
+   }
+  },
+  "missingEverywhere": [],
+  "via": "subagent"
+ },
+ "gpro|sum|AAPL": {
+  "order": [
+   [
+    "A",
+    "opus"
+   ],
+   [
+    "B",
+    "fable"
+   ],
+   [
+    "C",
+    "g35fl"
+   ],
+   [
+    "D",
+    "haiku"
+   ],
+   [
+    "E",
+    "g31p"
+   ],
+   [
+    "F",
+    "g36f"
+   ],
+   [
+    "G",
+    "g38f"
+   ],
+   [
+    "H",
+    "sonnet"
+   ]
+  ],
+  "scores": {
+   "opus": {
+    "letter": "A",
+    "accuracy": 10,
+    "coverage": 10,
+    "insight": 10,
+    "concision": 9,
+    "discipline": 10,
+    "overall": 9,
+    "errors": [],
+    "comment": "Excellent summary. Captures all key financial metrics, guidance, strategic news (Cook's departure, Broadcom, Apple Upgrade, Siri AI), and provides a detailed breakdown of the analyst Q&A. Very insightful and well-structured."
+   },
+   "fable": {
+    "letter": "B",
+    "accuracy": 10,
+    "coverage": 10,
+    "insight": 9,
+    "concision": 9,
+    "discipline": 10,
+    "overall": 9,
+    "errors": [],
+    "comment": "Very strong summary. Covers all the essential financial data, guidance, and strategic updates. The analyst section is comprehensive and groups topics well. Insightful regarding the memory cost '100-year flood' and supply constraints."
+   },
+   "g35fl": {
+    "letter": "C",
+    "accuracy": 10,
+    "coverage": 6,
+    "insight": 5,
+    "concision": 8,
+    "discipline": 10,
+    "overall": 6,
+    "errors": [],
+    "comment": "Accurate but lacks depth. Misses several key strategic announcements (Broadcom, Apple Upgrade, Siri AI details) and the analyst focus section is too brief and generic."
+   },
+   "haiku": {
+    "letter": "D",
+    "accuracy": 10,
+    "coverage": 7,
+    "insight": 6,
+    "concision": 8,
+    "discipline": 10,
+    "overall": 7,
+    "errors": [],
+    "comment": "Accurate and covers the financials well, but misses important strategic news like the Broadcom agreement and Apple Upgrade program. The analyst section is decent but could be more synthesized."
+   },
+   "g31p": {
+    "letter": "E",
+    "accuracy": 10,
+    "coverage": 4,
+    "insight": 4,
+    "concision": 8,
+    "discipline": 10,
+    "overall": 4,
+    "errors": [],
+    "comment": "Too brief. Misses a significant amount of financial data (margins, cash flow, segment revenues) and guidance details. The analyst section is very generic."
+   },
+   "g36f": {
+    "letter": "F",
+    "accuracy": 10,
+    "coverage": 5,
+    "insight": 4,
+    "concision": 8,
+    "discipline": 10,
+    "overall": 5,
+    "errors": [],
+    "comment": "Accurate but misses a lot of key financial metrics (segment revenues, cash flow, guidance details). The analyst section is too brief and lacks specific insights from the call."
+   },
+   "g38f": {
+    "letter": "G",
+    "accuracy": 10,
+    "coverage": 8,
+    "insight": 7,
+    "concision": 8,
+    "discipline": 10,
+    "overall": 8,
+    "errors": [],
+    "comment": "Good summary with solid coverage of financials and strategic news. The analyst section is well-synthesized. However, it misses some of the nuanced details captured in the top summaries (like the specific drivers of the Services deceleration)."
+   },
+   "sonnet": {
+    "letter": "H",
+    "accuracy": 10,
+    "coverage": 10,
+    "insight": 10,
+    "concision": 10,
+    "discipline": 10,
+    "overall": 10,
+    "errors": [],
+    "comment": "Outstanding summary. Perfectly balances comprehensive coverage with concision. Captures all critical financial metrics, guidance, and strategic news. The analyst section is excellently synthesized by topic, and it highlights the most important insights (memory costs, supply constraints, Siri AI rollout) clearly."
+   }
+  },
+  "ms": 138974.359,
+  "inTok": 20692,
+  "outTok": 24289
+ },
+ "gpro|sum|KNSL": {
+  "order": [
+   [
+    "A",
+    "sonnet"
+   ],
+   [
+    "B",
+    "g38f"
+   ],
+   [
+    "C",
+    "fable"
+   ],
+   [
+    "D",
+    "g35fl"
+   ],
+   [
+    "E",
+    "g31p"
+   ],
+   [
+    "F",
+    "opus"
+   ],
+   [
+    "G",
+    "haiku"
+   ],
+   [
+    "H",
+    "g36f"
+   ]
+  ],
+  "scores": {
+   "sonnet": {
+    "letter": "A",
+    "accuracy": 6,
+    "coverage": 9,
+    "insight": 8,
+    "concision": 8,
+    "discipline": 7,
+    "overall": 7,
+    "errors": [
+     "\"Net income rose 31.1% and net operating earnings rose 13.3% year over year.\" - The transcript states these increased \"quarter-over-quarter\"."
+    ],
+    "comment": "Strong coverage and insight, but incorrectly attributes the net income and operating earnings growth to 'year over year' when the transcript explicitly says 'quarter-over-quarter'."
+   },
+   "g38f": {
+    "letter": "B",
+    "accuracy": 10,
+    "coverage": 9,
+    "insight": 9,
+    "concision": 8,
+    "discipline": 9,
+    "overall": 9,
+    "errors": [],
+    "comment": "Excellent summary. Accurately captures the 'quarter-over-quarter' metric for net income, provides great insight into the strategic narrative, and maintains strong discipline."
+   },
+   "fable": {
+    "letter": "C",
+    "accuracy": 6,
+    "coverage": 9,
+    "insight": 8,
+    "concision": 7,
+    "discipline": 7,
+    "overall": 7,
+    "errors": [
+     "\"Net income and net operating earnings increased 31.1% and 13.3% respectively year over year.\" - The transcript states these increased \"quarter-over-quarter\"."
+    ],
+    "comment": "Good detail and coverage, but contains the same 'year over year' error for net income and operating earnings. The overview section is also a bit of a run-on."
+   },
+   "g35fl": {
+    "letter": "D",
+    "accuracy": 9,
+    "coverage": 4,
+    "insight": 5,
+    "concision": 9,
+    "discipline": 8,
+    "overall": 5,
+    "errors": [],
+    "comment": "No explicit factual errors, but severely lacks coverage. It completely missed the guidance section and omitted many key financial and strategic details."
+   },
+   "g31p": {
+    "letter": "E",
+    "accuracy": 10,
+    "coverage": 8,
+    "insight": 8,
+    "concision": 9,
+    "discipline": 9,
+    "overall": 8,
+    "errors": [],
+    "comment": "Very solid and accurate summary. It misses a few minor financial figures (like the net income growth percentage) but captures the core narrative and guidance well."
+   },
+   "opus": {
+    "letter": "F",
+    "accuracy": 6,
+    "coverage": 9,
+    "insight": 8,
+    "concision": 8,
+    "discipline": 7,
+    "overall": 7,
+    "errors": [
+     "\"Net income rose 31.1% and net operating earnings rose 13.3% year over year.\" - The transcript states these increased \"quarter-over-quarter\"."
+    ],
+    "comment": "Comprehensive and well-structured, but falls into the same trap of stating 'year over year' for the net income and operating earnings growth instead of 'quarter-over-quarter'."
+   },
+   "haiku": {
+    "letter": "G",
+    "accuracy": 10,
+    "coverage": 8,
+    "insight": 8,
+    "concision": 8,
+    "discipline": 9,
+    "overall": 8,
+    "errors": [],
+    "comment": "Accurate and well-rounded. Correctly notes the 'quarter over quarter' growth for net income and captures the essential guidance and analyst focus areas."
+   },
+   "g36f": {
+    "letter": "H",
+    "accuracy": 10,
+    "coverage": 8,
+    "insight": 8,
+    "concision": 9,
+    "discipline": 9,
+    "overall": 8,
+    "errors": [],
+    "comment": "Tight, accurate, and disciplined. Correctly captures the 'quarter-over-quarter' metric and provides a highly scannable overview of the call's key points."
+   }
+  },
+  "ms": 59492.871833,
+  "inTok": 13885,
+  "outTok": 9630
+ },
+ "gpro|comp|KNSL": {
+  "order": [
+   [
+    "A",
+    "g35fl"
+   ],
+   [
+    "B",
+    "fable"
+   ],
+   [
+    "C",
+    "sonnet"
+   ],
+   [
+    "D",
+    "g31p"
+   ],
+   [
+    "E",
+    "g38f"
+   ],
+   [
+    "F",
+    "opus"
+   ],
+   [
+    "G",
+    "prod"
+   ],
+   [
+    "H",
+    "g36f"
+   ],
+   [
+    "I",
+    "haiku"
+   ]
+  ],
+  "scores": {
+   "g35fl": {
+    "letter": "A",
+    "relevance": 4,
+    "coverage": 5,
+    "scale": 6,
+    "noise": 3,
+    "overall": 3,
+    "misfits": [
+     "ENOV: Medical technology company, completely unrelated to insurance.",
+     "AGO: Financial guaranty insurer, which has entirely different economics and risk profiles compared to P&C."
+    ],
+    "comment": "Includes a medical device company and a financial guaranty insurer, alongside a dropped ticker, making it a poor set."
+   },
+   "fable": {
+    "letter": "B",
+    "relevance": 10,
+    "coverage": 10,
+    "scale": 9,
+    "noise": 10,
+    "overall": 10,
+    "misfits": [],
+    "comment": "An outstanding set that perfectly captures Kinsale's specific niche in Excess & Surplus (E&S) and specialty P&C insurance, including recent E&S IPOs like SKWD and BOW."
+   },
+   "sonnet": {
+    "letter": "C",
+    "relevance": 8,
+    "coverage": 8,
+    "scale": 8,
+    "noise": 7,
+    "overall": 7,
+    "misfits": [
+     "ERIE: Erie Indemnity is a management company that earns fee income from an insurance exchange, not a traditional risk-bearing P&C carrier."
+    ],
+    "comment": "Contains good specialty P&C names, but loses points for including a management company (ERIE) and a dropped ticker."
+   },
+   "g31p": {
+    "letter": "D",
+    "relevance": 9,
+    "coverage": 9,
+    "scale": 9,
+    "noise": 10,
+    "overall": 9,
+    "misfits": [],
+    "comment": "A very strong set of specialty and standard P&C insurers that an analyst would readily use."
+   },
+   "g38f": {
+    "letter": "E",
+    "relevance": 8,
+    "coverage": 7,
+    "scale": 8,
+    "noise": 5,
+    "overall": 5,
+    "misfits": [],
+    "comment": "Contains highly relevant peers but is severely hampered by three dropped tickers, leaving the final set too small."
+   },
+   "opus": {
+    "letter": "F",
+    "relevance": 9,
+    "coverage": 8,
+    "scale": 8,
+    "noise": 6,
+    "overall": 7,
+    "misfits": [],
+    "comment": "Features highly relevant E&S peers like SKWD and BOW, but loses points for two dropped tickers."
+   },
+   "prod": {
+    "letter": "G",
+    "relevance": 6,
+    "coverage": 6,
+    "scale": 7,
+    "noise": 9,
+    "overall": 6,
+    "misfits": [],
+    "comment": "Focuses more on standard commercial and personal P&C carriers rather than Kinsale's pure-play E&S niche, but still acceptable."
+   },
+   "g36f": {
+    "letter": "H",
+    "relevance": 6,
+    "coverage": 6,
+    "scale": 7,
+    "noise": 9,
+    "overall": 6,
+    "misfits": [],
+    "comment": "Identical to Set G; focuses more on standard commercial and personal P&C carriers rather than Kinsale's pure-play E&S niche."
+   },
+   "haiku": {
+    "letter": "I",
+    "relevance": 7,
+    "coverage": 7,
+    "scale": 7,
+    "noise": 9,
+    "overall": 7,
+    "misfits": [],
+    "comment": "A decent mix of specialty and standard P&C insurers, though slightly less targeted towards pure E&S than the best sets."
+   }
+  },
+  "missingEverywhere": [],
+  "ms": 34101.084416,
+  "inTok": 1671,
+  "outTok": 4761
+ },
+ "gpro|comp|AXON": {
+  "order": [
+   [
+    "A",
+    "g31p"
+   ],
+   [
+    "B",
+    "fable"
+   ],
+   [
+    "C",
+    "g35fl"
+   ],
+   [
+    "D",
+    "g36f"
+   ],
+   [
+    "E",
+    "prod"
+   ],
+   [
+    "F",
+    "haiku"
+   ],
+   [
+    "G",
+    "g38f"
+   ],
+   [
+    "H",
+    "opus"
+   ],
+   [
+    "I",
+    "sonnet"
+   ]
+  ],
+  "scores": {
+   "g31p": {
+    "letter": "A",
+    "relevance": 9,
+    "coverage": 9,
+    "scale": 8,
+    "noise": 9,
+    "overall": 9,
+    "misfits": [],
+    "comment": "An excellent set that captures Axon's dual hardware/software nature with highly relevant direct competitors like Motorola Solutions, Tyler Technologies, and SoundThinking."
+   },
+   "fable": {
+    "letter": "B",
+    "relevance": 7,
+    "coverage": 8,
+    "scale": 7,
+    "noise": 6,
+    "overall": 7,
+    "misfits": [
+     "TDG: TransDigm makes aerospace components, not public safety tech.",
+     "CW: Curtiss-Wright makes industrial and defense components, lacking the software/public safety angle."
+    ],
+    "comment": "Good inclusion of Motorola and Tyler, but includes several aerospace component manufacturers that do not share Axon's business model."
+   },
+   "g35fl": {
+    "letter": "C",
+    "relevance": 5,
+    "coverage": 3,
+    "scale": 7,
+    "noise": 4,
+    "overall": 4,
+    "misfits": [
+     "MSAT: Wrong ticker for Motorola Solutions, causing the most important peer to be dropped.",
+     "CW: Curtiss-Wright makes industrial and defense components."
+    ],
+    "comment": "The incorrect ticker for Motorola Solutions causes the most important peer to be dropped, leaving a set heavily skewed towards government IT services."
+   },
+   "g36f": {
+    "letter": "D",
+    "relevance": 5,
+    "coverage": 7,
+    "scale": 7,
+    "noise": 4,
+    "overall": 5,
+    "misfits": [
+     "BWXT: BWX Technologies focuses on nuclear components, unrelated to Axon's business.",
+     "HON: Honeywell is a diversified conglomerate.",
+     "MOG-A: Moog makes precision control components for aerospace, unrelated to public safety."
+    ],
+    "comment": "Includes key peers like Motorola and Tyler, but is dragged down by unrelated industrial and aerospace component manufacturers."
+   },
+   "prod": {
+    "letter": "E",
+    "relevance": 2,
+    "coverage": 2,
+    "scale": 5,
+    "noise": 2,
+    "overall": 2,
+    "misfits": [
+     "TDG: TransDigm makes aerospace components.",
+     "HWM: Howmet makes aerospace fasteners and engine components.",
+     "VRT: Vertiv provides digital infrastructure and data center cooling, completely unrelated."
+    ],
+    "comment": "A poor set that misses the most obvious direct competitors and includes completely unrelated companies like Vertiv."
+   },
+   "haiku": {
+    "letter": "F",
+    "relevance": 5,
+    "coverage": 6,
+    "scale": 7,
+    "noise": 5,
+    "overall": 5,
+    "misfits": [
+     "HON: Honeywell is a diversified conglomerate.",
+     "BWXT: BWX Technologies focuses on nuclear components."
+    ],
+    "comment": "Captures Motorola but misses Tyler Technologies, and includes unrelated aerospace and nuclear component manufacturers."
+   },
+   "g38f": {
+    "letter": "G",
+    "relevance": 8,
+    "coverage": 9,
+    "scale": 8,
+    "noise": 7,
+    "overall": 8,
+    "misfits": [
+     "HEI: HEICO manufactures aerospace and electronic replacement parts, unrelated to public safety or software."
+    ],
+    "comment": "A strong set featuring direct competitors like Motorola, Tyler, and Wrap Technologies, though HEICO is an unnecessary misfit."
+   },
+   "opus": {
+    "letter": "H",
+    "relevance": 5,
+    "coverage": 7,
+    "scale": 7,
+    "noise": 3,
+    "overall": 4,
+    "misfits": [
+     "DGX: Quest Diagnostics is a healthcare testing company, completely unrelated to Axon.",
+     "GRMN: Garmin is primarily consumer and aviation GPS, lacking the law enforcement/defense focus."
+    ],
+    "comment": "Includes key peers but is ruined by the bizarre inclusion of Quest Diagnostics, a healthcare testing company."
+   },
+   "sonnet": {
+    "letter": "I",
+    "relevance": 5,
+    "coverage": 5,
+    "scale": 7,
+    "noise": 5,
+    "overall": 5,
+    "misfits": [
+     "BWXT: BWX Technologies focuses on nuclear components.",
+     "CW: Curtiss-Wright makes industrial and defense components."
+    ],
+    "comment": "Captures Motorola but misses Tyler Technologies, and includes unrelated defense and nuclear component manufacturers."
+   }
+  },
+  "missingEverywhere": [
+   "DGLY: Digital Ally is a direct competitor in law enforcement body cameras and video systems.",
+   "BYRN: Byrna Technologies is a direct competitor in non-lethal weapons."
+  ],
+  "ms": 39431.526541,
+  "inTok": 1508,
+  "outTok": 5868
+ },
+ "gpro|sum|DE": {
+  "order": [
+   [
+    "A",
+    "g35fl"
+   ],
+   [
+    "B",
+    "opus"
+   ],
+   [
+    "C",
+    "g31p"
+   ],
+   [
+    "D",
+    "g38f"
+   ],
+   [
+    "E",
+    "haiku"
+   ],
+   [
+    "F",
+    "sonnet"
+   ],
+   [
+    "G",
+    "g36f"
+   ],
+   [
+    "H",
+    "fable"
+   ]
+  ],
+  "scores": {
+   "g35fl": {
+    "letter": "A",
+    "accuracy": 10,
+    "coverage": 6,
+    "insight": 6,
+    "concision": 8,
+    "discipline": 10,
+    "overall": 6,
+    "errors": [],
+    "comment": "A solid, accurate summary, but it misses some of the more nuanced forward-looking insights discussed on the call, such as the Q4 margin bridge, the specific underproduction strategy, and the net tariff headwind expected in 2027."
+   },
+   "opus": {
+    "letter": "B",
+    "accuracy": 10,
+    "coverage": 10,
+    "insight": 10,
+    "concision": 8,
+    "discipline": 10,
+    "overall": 10,
+    "errors": [],
+    "comment": "An excellent summary that captures all the critical details, including the Q3-to-Q4 margin bridge, the 2027 net tariff headwind, the specific underproduction strategy, and the technology adoption metrics. Very dense but highly scannable and useful for an investor."
+   },
+   "g31p": {
+    "letter": "C",
+    "accuracy": 10,
+    "coverage": 3,
+    "insight": 3,
+    "concision": 9,
+    "discipline": 10,
+    "overall": 3,
+    "errors": [],
+    "comment": "Far too brief. It misses almost all of the segment-level details, the nuanced guidance changes, the tariff dynamics, and the specific analyst focus areas."
+   },
+   "g38f": {
+    "letter": "D",
+    "accuracy": 10,
+    "coverage": 6,
+    "insight": 6,
+    "concision": 8,
+    "discipline": 10,
+    "overall": 6,
+    "errors": [],
+    "comment": "Accurate and well-structured, but it leaves out key forward-looking insights like the Q4 margin bridge, the 2027 net tariff headwind, and the specific technology adoption rates."
+   },
+   "haiku": {
+    "letter": "E",
+    "accuracy": 10,
+    "coverage": 8,
+    "insight": 8,
+    "concision": 8,
+    "discipline": 10,
+    "overall": 8,
+    "errors": [],
+    "comment": "A strong summary that successfully captures the Q4 margin bridge and the 2027 net tariff headwind, though it misses some of the specific technology adoption and underproduction details."
+   },
+   "sonnet": {
+    "letter": "F",
+    "accuracy": 9,
+    "coverage": 8,
+    "insight": 8,
+    "concision": 8,
+    "discipline": 10,
+    "overall": 8,
+    "errors": [
+     "The summary mentions 'incremental IEEPA tariff refunds', but the transcript refers to 'IEPA refund approvals' and 'IEPA refunds'."
+    ],
+    "comment": "Very good coverage and insight, capturing the Q4 bridge and the 2027 tariff headwind. It contains one minor typo regarding the acronym for the tariff refunds."
+   },
+   "g36f": {
+    "letter": "G",
+    "accuracy": 10,
+    "coverage": 6,
+    "insight": 6,
+    "concision": 8,
+    "discipline": 10,
+    "overall": 6,
+    "errors": [],
+    "comment": "Accurate and covers the basics well, but it misses the deeper insights from the Q&A, such as the Q4 margin bridge and the 2027 net tariff headwind."
+   },
+   "fable": {
+    "letter": "H",
+    "accuracy": 10,
+    "coverage": 10,
+    "insight": 10,
+    "concision": 7,
+    "discipline": 10,
+    "overall": 9,
+    "errors": [],
+    "comment": "An outstanding, highly detailed summary that captures all the crucial nuances (Q4 bridge, 2027 tariff headwind, underproduction, tech adoption). The bullet points are slightly wordier than Summary B, but the content is top-tier."
+   }
+  },
+  "ms": 89229.656208,
+  "inTok": 22216,
+  "outTok": 15023
+ },
+ "gpro|comp|DUOL": {
+  "order": [
+   [
+    "A",
+    "g36f"
+   ],
+   [
+    "B",
+    "haiku"
+   ],
+   [
+    "C",
+    "prod"
+   ],
+   [
+    "D",
+    "sonnet"
+   ],
+   [
+    "E",
+    "g35fl"
+   ],
+   [
+    "F",
+    "g31p"
+   ],
+   [
+    "G",
+    "opus"
+   ],
+   [
+    "H",
+    "fable"
+   ],
+   [
+    "I",
+    "g38f"
+   ]
+  ],
+  "scores": {
+   "g36f": {
+    "letter": "A",
+    "relevance": 5,
+    "coverage": 7,
+    "scale": 6,
+    "noise": 5,
+    "overall": 5,
+    "misfits": [
+     "LOPE: traditional for-profit university, not a consumer software app",
+     "STRA: traditional for-profit university, not a consumer software app"
+    ],
+    "comment": "Includes good consumer app and edtech comps, but is dragged down by traditional for-profit universities and dropped tickers."
+   },
+   "haiku": {
+    "letter": "B",
+    "relevance": 7,
+    "coverage": 8,
+    "scale": 7,
+    "noise": 6,
+    "overall": 7,
+    "misfits": [
+     "APP: B2B ad-tech and gaming monetization, not a consumer subscription app"
+    ],
+    "comment": "A decent blend of edtech and consumer apps, though APP is out of place and SNAP/PINS are ad-driven rather than subscription-based."
+   },
+   "prod": {
+    "letter": "C",
+    "relevance": 5,
+    "coverage": 7,
+    "scale": 6,
+    "noise": 5,
+    "overall": 5,
+    "misfits": [
+     "LOPE: traditional for-profit university, not a consumer software app",
+     "STRA: traditional for-profit university, not a consumer software app"
+    ],
+    "comment": "Identical to Set A; includes good consumer app and edtech comps, but is dragged down by traditional for-profit universities."
+   },
+   "sonnet": {
+    "letter": "D",
+    "relevance": 4,
+    "coverage": 7,
+    "scale": 5,
+    "noise": 3,
+    "overall": 4,
+    "misfits": [
+     "PRDO: traditional for-profit university",
+     "DAVA: IT services consulting firm, completely unrelated",
+     "APP: B2B ad-tech"
+    ],
+    "comment": "Contains several completely unrelated companies like DAVA and APP, making it too noisy for use without heavy edits."
+   },
+   "g35fl": {
+    "letter": "E",
+    "relevance": 3,
+    "coverage": 5,
+    "scale": 5,
+    "noise": 2,
+    "overall": 3,
+    "misfits": [
+     "TWLO: B2B communications API, unrelated",
+     "ROKU: streaming hardware and platform, unrelated"
+    ],
+    "comment": "A very noisy set with completely unrelated tech companies and multiple dropped tickers, leaving a thin and poor comp group."
+   },
+   "g31p": {
+    "letter": "F",
+    "relevance": 9,
+    "coverage": 9,
+    "scale": 8,
+    "noise": 9,
+    "overall": 9,
+    "misfits": [],
+    "comment": "An excellent set that perfectly blends edtech software peers with consumer freemium subscription apps."
+   },
+   "opus": {
+    "letter": "G",
+    "relevance": 8,
+    "coverage": 9,
+    "scale": 8,
+    "noise": 7,
+    "overall": 8,
+    "misfits": [
+     "GOTU: Chinese education company subject to vastly different regulatory and market dynamics"
+    ],
+    "comment": "Strong core of edtech and consumer apps, but the inclusion of a Chinese ADR introduces unnecessary geographic and regulatory noise."
+   },
+   "fable": {
+    "letter": "H",
+    "relevance": 4,
+    "coverage": 6,
+    "scale": 5,
+    "noise": 3,
+    "overall": 4,
+    "misfits": [
+     "NRDS: consumer finance affiliate site, likely confused with Nerdy (NRDY)",
+     "DOCS: professional medical network, unrelated",
+     "PTON: connected fitness hardware, different economics"
+    ],
+    "comment": "Poor relevance due to the inclusion of unrelated companies like NRDS (likely a name confusion) and DOCS."
+   },
+   "g38f": {
+    "letter": "I",
+    "relevance": 7,
+    "coverage": 8,
+    "scale": 7,
+    "noise": 6,
+    "overall": 6,
+    "misfits": [
+     "NYT: traditional media and news publisher",
+     "TAL: Chinese education company subject to different regulatory risks"
+    ],
+    "comment": "Good core peers, but dragged down by a Chinese ADR and a traditional media company."
+   }
+  },
+  "missingEverywhere": [],
+  "ms": 33637.790582999995,
+  "inTok": 1593,
+  "outTok": 4995
+ },
+ "gpro|comp|HIMS": {
+  "order": [
+   [
+    "A",
+    "opus"
+   ],
+   [
+    "B",
+    "haiku"
+   ],
+   [
+    "C",
+    "sonnet"
+   ],
+   [
+    "D",
+    "g36f"
+   ],
+   [
+    "E",
+    "prod"
+   ],
+   [
+    "F",
+    "g31p"
+   ],
+   [
+    "G",
+    "fable"
+   ],
+   [
+    "H",
+    "g35fl"
+   ],
+   [
+    "I",
+    "g38f"
+   ]
+  ],
+  "scores": {
+   "opus": {
+    "letter": "A",
+    "relevance": 8,
+    "coverage": 9,
+    "scale": 8,
+    "noise": 6,
+    "overall": 7,
+    "misfits": [
+     "HNGE: private company with hallucinated ticker",
+     "ELF: cosmetics company, lacks telehealth/pharmacy component"
+    ],
+    "comment": "A strong core of direct telehealth and digital health peers, though it includes a hallucinated ticker and leans a bit far into pure consumer retail with ELF."
+   },
+   "haiku": {
+    "letter": "B",
+    "relevance": 5,
+    "coverage": 6,
+    "scale": 6,
+    "noise": 5,
+    "overall": 5,
+    "misfits": [
+     "HALO: biotech company, not a DTC telehealth provider",
+     "CHWY: pet e-commerce, different end market"
+    ],
+    "comment": "Contains some good peers but is dragged down by the inclusion of a biotech firm and a pet retailer."
+   },
+   "sonnet": {
+    "letter": "C",
+    "relevance": 8,
+    "coverage": 2,
+    "scale": 5,
+    "noise": 9,
+    "overall": 3,
+    "misfits": [],
+    "comment": "The peers provided are highly relevant, but the set is far too small to be useful."
+   },
+   "g36f": {
+    "letter": "D",
+    "relevance": 2,
+    "coverage": 5,
+    "scale": 2,
+    "noise": 1,
+    "overall": 1,
+    "misfits": [
+     "RRX: industrial machinery manufacturer",
+     "ONON: athletic footwear brand",
+     "CLOV: Medicare Advantage insurance",
+     "AMZN: mega-cap tech and retail conglomerate"
+    ],
+    "comment": "Filled with bizarre misfits from completely unrelated sectors like industrial machinery and footwear."
+   },
+   "prod": {
+    "letter": "E",
+    "relevance": 2,
+    "coverage": 5,
+    "scale": 2,
+    "noise": 1,
+    "overall": 1,
+    "misfits": [
+     "RRX: industrial machinery manufacturer",
+     "ONON: athletic footwear brand",
+     "CLOV: Medicare Advantage insurance",
+     "AMZN: mega-cap tech and retail conglomerate"
+    ],
+    "comment": "Identical to Set D, suffering from the same completely irrelevant inclusions."
+   },
+   "g31p": {
+    "letter": "F",
+    "relevance": 9,
+    "coverage": 7,
+    "scale": 8,
+    "noise": 8,
+    "overall": 8,
+    "misfits": [],
+    "comment": "A very professional set of digital health, telehealth, and healthcare services peers, though it misses the most direct competitor, LFMD."
+   },
+   "fable": {
+    "letter": "G",
+    "relevance": 6,
+    "coverage": 8,
+    "scale": 7,
+    "noise": 6,
+    "overall": 6,
+    "misfits": [
+     "OMCL: B2B pharmacy automation equipment",
+     "PETS: pet medications"
+    ],
+    "comment": "Captures the DTC and telehealth angles well, but includes a B2B hardware company and a pet pharmacy."
+   },
+   "g35fl": {
+    "letter": "H",
+    "relevance": 2,
+    "coverage": 4,
+    "scale": 4,
+    "noise": 1,
+    "overall": 1,
+    "misfits": [
+     "SDGR: drug discovery software",
+     "RVPH: clinical-stage biopharma",
+     "VTRS: generic drug manufacturer",
+     "OMCL: pharmacy automation"
+    ],
+    "comment": "Fundamentally misunderstands the business model, including biopharma, generic manufacturing, and B2B software."
+   },
+   "g38f": {
+    "letter": "I",
+    "relevance": 5,
+    "coverage": 8,
+    "scale": 6,
+    "noise": 5,
+    "overall": 5,
+    "misfits": [
+     "RXRX: AI drug discovery",
+     "CHWY: pet e-commerce"
+    ],
+    "comment": "Has a solid core of direct competitors but is polluted by a clinical-stage biotech and a pet retailer."
+   }
+  },
+  "missingEverywhere": [],
+  "ms": 27639.60733300002,
+  "inTok": 1567,
+  "outTok": 3446
+ },
+ "gpro|comp|CELH": {
+  "order": [
+   [
+    "A",
+    "g36f"
+   ],
+   [
+    "B",
+    "haiku"
+   ],
+   [
+    "C",
+    "g35fl"
+   ],
+   [
+    "D",
+    "sonnet"
+   ],
+   [
+    "E",
+    "g38f"
+   ],
+   [
+    "F",
+    "opus"
+   ],
+   [
+    "G",
+    "prod"
+   ],
+   [
+    "H",
+    "fable"
+   ],
+   [
+    "I",
+    "g31p"
+   ]
+  ],
+  "scores": {
+   "g36f": {
+    "letter": "A",
+    "relevance": 4,
+    "coverage": 6,
+    "scale": 5,
+    "noise": 3,
+    "overall": 3,
+    "misfits": [
+     "BF-B: produces alcoholic beverages, unlike Celsius's non-alcoholic functional drinks",
+     "COKE: operates as a bottler and distributor rather than a brand owner",
+     "PRMW: ticker did not resolve (recently changed to PRMB)"
+    ],
+    "comment": "Includes an alcoholic beverage company and a bottler, plus a dropped ticker."
+   },
+   "haiku": {
+    "letter": "B",
+    "relevance": 9,
+    "coverage": 9,
+    "scale": 8,
+    "noise": 9,
+    "overall": 9,
+    "misfits": [],
+    "comment": "An excellent set with a strong mix of direct functional beverage competitors and major beverage players."
+   },
+   "g35fl": {
+    "letter": "C",
+    "relevance": 4,
+    "coverage": 7,
+    "scale": 6,
+    "noise": 4,
+    "overall": 4,
+    "misfits": [
+     "VITL: produces pasture-raised eggs and butter, completely unrelated to beverages",
+     "COKE: operates as a bottler and distributor rather than a brand owner"
+    ],
+    "comment": "The inclusion of an egg producer and a bottler significantly reduces the relevance of this set."
+   },
+   "sonnet": {
+    "letter": "D",
+    "relevance": 8,
+    "coverage": 2,
+    "scale": 3,
+    "noise": 2,
+    "overall": 2,
+    "misfits": [],
+    "comment": "Far too few peers provided to form a valid and useful comp set."
+   },
+   "g38f": {
+    "letter": "E",
+    "relevance": 8,
+    "coverage": 8,
+    "scale": 7,
+    "noise": 4,
+    "overall": 5,
+    "misfits": [
+     "VITA: wrong ticker for Vita Coco (should be COCO)",
+     "PRMW: ticker did not resolve (recently changed to PRMB)"
+    ],
+    "comment": "Contains good underlying selections but is heavily penalized for two tickers that failed to resolve."
+   },
+   "opus": {
+    "letter": "F",
+    "relevance": 4,
+    "coverage": 7,
+    "scale": 6,
+    "noise": 3,
+    "overall": 3,
+    "misfits": [
+     "VITL: produces pasture-raised eggs and butter, completely unrelated to beverages",
+     "SMPL: manufactures nutritional snacks and bars, not beverages",
+     "COKE: operates as a bottler and distributor rather than a brand owner"
+    ],
+    "comment": "Contains multiple companies outside the beverage industry and a bottler, making it too noisy."
+   },
+   "prod": {
+    "letter": "G",
+    "relevance": 4,
+    "coverage": 6,
+    "scale": 5,
+    "noise": 3,
+    "overall": 3,
+    "misfits": [
+     "BF-B: produces alcoholic beverages, unlike Celsius's non-alcoholic functional drinks",
+     "COKE: operates as a bottler and distributor rather than a brand owner",
+     "PRMW: ticker did not resolve (recently changed to PRMB)"
+    ],
+    "comment": "Identical to Set A, suffering from the same misfits and dropped ticker."
+   },
+   "fable": {
+    "letter": "H",
+    "relevance": 5,
+    "coverage": 8,
+    "scale": 6,
+    "noise": 4,
+    "overall": 4,
+    "misfits": [
+     "VITL: produces pasture-raised eggs and butter, completely unrelated to beverages",
+     "COKE: operates as a bottler and distributor rather than a brand owner"
+    ],
+    "comment": "Includes an egg producer and a bottler, detracting from an otherwise decent beverage list."
+   },
+   "g31p": {
+    "letter": "I",
+    "relevance": 10,
+    "coverage": 10,
+    "scale": 9,
+    "noise": 10,
+    "overall": 10,
+    "misfits": [],
+    "comment": "An outstanding set that perfectly captures Celsius's functional beverage niche and broader industry peers without any noise."
+   }
+  },
+  "missingEverywhere": [],
+  "ms": 32212.135165999993,
+  "inTok": 1449,
+  "outTok": 4429
+ },
+ "gpro|comp|TOST": {
+  "order": [
+   [
+    "A",
+    "haiku"
+   ],
+   [
+    "B",
+    "g31p"
+   ],
+   [
+    "C",
+    "prod"
+   ],
+   [
+    "D",
+    "sonnet"
+   ],
+   [
+    "E",
+    "g36f"
+   ],
+   [
+    "F",
+    "g35fl"
+   ],
+   [
+    "G",
+    "g38f"
+   ],
+   [
+    "H",
+    "opus"
+   ],
+   [
+    "I",
+    "fable"
+   ]
+  ],
+  "scores": {
+   "haiku": {
+    "letter": "A",
+    "relevance": 5,
+    "coverage": 6,
+    "scale": 6,
+    "noise": 4,
+    "overall": 4,
+    "misfits": [
+     "PAYC: HR and payroll software, not restaurant POS/payments",
+     "PCTY: HR and payroll software, not restaurant POS/payments",
+     "PAY: bill payment software, not restaurant POS",
+     "PSFE: digital wallets and iGaming payments, not restaurant POS"
+    ],
+    "comment": "Includes some good direct competitors but dilutes the set with HR software and unrelated payment processors."
+   },
+   "g31p": {
+    "letter": "B",
+    "relevance": 10,
+    "coverage": 10,
+    "scale": 8,
+    "noise": 8,
+    "overall": 9,
+    "misfits": [],
+    "comment": "Despite losing three tickers to resolution errors, the remaining six form an outstanding, highly relevant comp set of direct restaurant/retail POS and payment competitors."
+   },
+   "prod": {
+    "letter": "C",
+    "relevance": 1,
+    "coverage": 1,
+    "scale": 5,
+    "noise": 1,
+    "overall": 1,
+    "misfits": [
+     "IOT: IoT infrastructure, not POS/payments",
+     "GTLB: DevOps software, not POS/payments",
+     "MDB: database software, not POS/payments",
+     "DOCN: cloud infrastructure, not POS/payments",
+     "RBRK: data security, not POS/payments",
+     "MNDY: work management software, not POS/payments"
+    ],
+    "comment": "Completely misses the subject's industry, offering generic cloud and infrastructure SaaS instead of POS and payments."
+   },
+   "sonnet": {
+    "letter": "D",
+    "relevance": 4,
+    "coverage": 4,
+    "scale": 6,
+    "noise": 4,
+    "overall": 3,
+    "misfits": [
+     "PAYC: HR and payroll software, not restaurant POS/payments",
+     "PCTY: HR and payroll software, not restaurant POS/payments"
+    ],
+    "comment": "A weak set that misses several pure-play POS competitors and includes unrelated HR software."
+   },
+   "g36f": {
+    "letter": "E",
+    "relevance": 6,
+    "coverage": 5,
+    "scale": 6,
+    "noise": 4,
+    "overall": 5,
+    "misfits": [
+     "PYPL: consumer digital wallet and online checkout, not restaurant POS",
+     "ACIW: bank payment software, not restaurant POS",
+     "LIGHT: wrong ticker for Lightspeed (LSPD)"
+    ],
+    "comment": "Captures a few good peers but includes a wrong ticker and strays too far into generic consumer and bank payments."
+   },
+   "g35fl": {
+    "letter": "F",
+    "relevance": 1,
+    "coverage": 1,
+    "scale": 4,
+    "noise": 1,
+    "overall": 1,
+    "misfits": [
+     "DECK: footwear and apparel company, completely unrelated",
+     "RPD: cybersecurity, completely unrelated",
+     "ALRM: home security, completely unrelated",
+     "PAYC: HR and payroll software, not restaurant POS/payments",
+     "PCTY: HR and payroll software, not restaurant POS/payments"
+    ],
+    "comment": "A bizarre list featuring a shoe company (Deckers) and cybersecurity firms, completely failing the prompt."
+   },
+   "g38f": {
+    "letter": "G",
+    "relevance": 7,
+    "coverage": 8,
+    "scale": 7,
+    "noise": 4,
+    "overall": 5,
+    "misfits": [
+     "OTTR: electric utility and manufacturing, completely unrelated",
+     "FLYV: wrong ticker for Flywire (FLYW)"
+    ],
+    "comment": "Has a strong core of POS competitors but is severely penalized for hallucinating an electric utility (OTTR) into the mix."
+   },
+   "opus": {
+    "letter": "H",
+    "relevance": 5,
+    "coverage": 7,
+    "scale": 6,
+    "noise": 3,
+    "overall": 4,
+    "misfits": [
+     "XYZ: wrong ticker for Block (SQ)",
+     "PAYC: HR and payroll software, not restaurant POS/payments",
+     "PCTY: HR and payroll software, not restaurant POS/payments"
+    ],
+    "comment": "Includes a completely fake ticker (XYZ) and dilutes the relevant POS peers with unrelated HR software."
+   },
+   "fable": {
+    "letter": "I",
+    "relevance": 8,
+    "coverage": 7,
+    "scale": 7,
+    "noise": 6,
+    "overall": 7,
+    "misfits": [
+     "PAYO: cross-border B2B payments, not restaurant POS"
+    ],
+    "comment": "A reasonably strong set of POS and payment peers, though it includes one cross-border payment misfit."
+   }
+  },
+  "missingEverywhere": [],
+  "ms": 36320.942583,
+  "inTok": 1678,
+  "outTok": 5145
+ },
+ "gpro|comp|CAVA": {
+  "order": [
+   [
+    "A",
+    "fable"
+   ],
+   [
+    "B",
+    "haiku"
+   ],
+   [
+    "C",
+    "g35fl"
+   ],
+   [
+    "D",
+    "prod"
+   ],
+   [
+    "E",
+    "opus"
+   ],
+   [
+    "F",
+    "g36f"
+   ],
+   [
+    "G",
+    "g38f"
+   ],
+   [
+    "H",
+    "g31p"
+   ],
+   [
+    "I",
+    "sonnet"
+   ]
+  ],
+  "scores": {
+   "fable": {
+    "letter": "A",
+    "relevance": 8,
+    "coverage": 10,
+    "scale": 9,
+    "noise": 7,
+    "overall": 7,
+    "misfits": [
+     "DUTCH: incorrect ticker for Dutch Bros, which is also included as BROS"
+    ],
+    "comment": "A strong list of fast-casual and restaurant peers, but marred slightly by a hallucinated duplicate ticker."
+   },
+   "haiku": {
+    "letter": "B",
+    "relevance": 7,
+    "coverage": 9,
+    "scale": 8,
+    "noise": 4,
+    "overall": 5,
+    "misfits": [
+     "CSSE: Shoals Technologies is a solar energy company, not a restaurant"
+    ],
+    "comment": "Contains a bizarre hallucination (a solar company) that ruins an otherwise decent, if slightly mature, restaurant comp set."
+   },
+   "g35fl": {
+    "letter": "C",
+    "relevance": 7,
+    "coverage": 8,
+    "scale": 8,
+    "noise": 10,
+    "overall": 7,
+    "misfits": [],
+    "comment": "A clean set with no errors, though it leans a bit heavily on mature casual dining and pizza rather than high-growth fast casual."
+   },
+   "prod": {
+    "letter": "D",
+    "relevance": 3,
+    "coverage": 3,
+    "scale": 4,
+    "noise": 2,
+    "overall": 2,
+    "misfits": [
+     "ONON: On Holding is an athletic shoe company, not a restaurant"
+    ],
+    "comment": "Far too short to be useful and includes a completely unrelated shoe company."
+   },
+   "opus": {
+    "letter": "E",
+    "relevance": 9,
+    "coverage": 10,
+    "scale": 9,
+    "noise": 10,
+    "overall": 9,
+    "misfits": [],
+    "comment": "An excellent set that captures CAVA's direct fast-casual competitors as well as other high-growth restaurant concepts."
+   },
+   "g36f": {
+    "letter": "F",
+    "relevance": 7,
+    "coverage": 8,
+    "scale": 8,
+    "noise": 7,
+    "overall": 6,
+    "misfits": [
+     "PORT: incorrect ticker for Portillo's (PTLO)"
+    ],
+    "comment": "A reasonable selection of peers, but penalized for hallucinating the ticker for Portillo's."
+   },
+   "g38f": {
+    "letter": "G",
+    "relevance": 6,
+    "coverage": 9,
+    "scale": 8,
+    "noise": 4,
+    "overall": 5,
+    "misfits": [
+     "FRPT: Freshpet manufactures pet food, it is not a restaurant chain"
+    ],
+    "comment": "Includes a pet food manufacturer, which is a significant categorization error for a restaurant comp set."
+   },
+   "g31p": {
+    "letter": "H",
+    "relevance": 10,
+    "coverage": 10,
+    "scale": 9,
+    "noise": 10,
+    "overall": 10,
+    "misfits": [],
+    "comment": "An outstanding comp set perfectly tailored to CAVA, focusing entirely on fast-casual and high-growth emerging restaurant brands."
+   },
+   "sonnet": {
+    "letter": "I",
+    "relevance": 8,
+    "coverage": 10,
+    "scale": 9,
+    "noise": 10,
+    "overall": 8,
+    "misfits": [],
+    "comment": "A very solid, error-free set, though the inclusion of mature brands like Wendy's and Domino's makes it slightly less targeted than the best sets."
+   }
+  },
+  "missingEverywhere": [
+   "LOCO: El Pollo Loco is a highly relevant fast-casual restaurant chain with a similar operating model"
+  ],
+  "ms": 25542.712,
+  "inTok": 1412,
+  "outTok": 3631
+ },
+ "gpro|comp|FICO": {
+  "order": [
+   [
+    "A",
+    "g38f"
+   ],
+   [
+    "B",
+    "sonnet"
+   ],
+   [
+    "C",
+    "haiku"
+   ],
+   [
+    "D",
+    "g36f"
+   ],
+   [
+    "E",
+    "g31p"
+   ],
+   [
+    "F",
+    "g35fl"
+   ],
+   [
+    "G",
+    "fable"
+   ],
+   [
+    "H",
+    "opus"
+   ],
+   [
+    "I",
+    "prod"
+   ]
+  ],
+  "scores": {
+   "g38f": {
+    "letter": "A",
+    "relevance": 9,
+    "coverage": 9,
+    "scale": 9,
+    "noise": 8,
+    "overall": 8,
+    "misfits": [
+     "DNB: Dropped by the app as the ticker did not resolve."
+    ],
+    "comment": "A solid set of financial data and analytics peers, though one ticker was dropped."
+   },
+   "sonnet": {
+    "letter": "B",
+    "relevance": 4,
+    "coverage": 9,
+    "scale": 4,
+    "noise": 3,
+    "overall": 4,
+    "misfits": [
+     "ADBE: Adobe is a creative and marketing software company, not a financial analytics or credit scoring provider.",
+     "INTU: Intuit focuses on consumer and SMB tax/accounting software, not enterprise credit scoring.",
+     "ADP: ADP is a payroll and HR services provider, unrelated to FICO's core business."
+    ],
+    "comment": "Includes several mega-cap software and services companies that do not share FICO's specific financial analytics business model."
+   },
+   "haiku": {
+    "letter": "C",
+    "relevance": 8,
+    "coverage": 9,
+    "scale": 8,
+    "noise": 9,
+    "overall": 8,
+    "misfits": [],
+    "comment": "A good, clean set of data and analytics peers, though Tyler Technologies is focused on the public sector rather than financial services."
+   },
+   "g36f": {
+    "letter": "D",
+    "relevance": 8,
+    "coverage": 9,
+    "scale": 8,
+    "noise": 6,
+    "overall": 7,
+    "misfits": [
+     "INFO: INFO is an ETF, violating the prompt's instructions to exclude ETFs."
+    ],
+    "comment": "Captures the core financial data peers well, but included an ETF which violates the prompt constraints."
+   },
+   "g31p": {
+    "letter": "E",
+    "relevance": 9,
+    "coverage": 9,
+    "scale": 9,
+    "noise": 8,
+    "overall": 9,
+    "misfits": [
+     "DNB: Dropped by the app as the ticker did not resolve."
+    ],
+    "comment": "An excellent set that accurately identifies financial data, analytics, and software peers, despite one dropped ticker."
+   },
+   "g35fl": {
+    "letter": "F",
+    "relevance": 5,
+    "coverage": 9,
+    "scale": 7,
+    "noise": 3,
+    "overall": 4,
+    "misfits": [
+     "EXPD: Expeditors is a logistics and freight forwarding company, completely unrelated to software or analytics."
+    ],
+    "comment": "Inexplicably includes a freight forwarding company, ruining an otherwise decent set of financial data peers."
+   },
+   "fable": {
+    "letter": "G",
+    "relevance": 8,
+    "coverage": 9,
+    "scale": 7,
+    "noise": 7,
+    "overall": 7,
+    "misfits": [
+     "ICE: Intercontinental Exchange is a financial exchange operator, not a direct software or analytics peer.",
+     "DNB: Dropped by the app as the ticker did not resolve."
+    ],
+    "comment": "Mostly relevant financial data peers, but includes an exchange operator and had one dropped ticker."
+   },
+   "opus": {
+    "letter": "H",
+    "relevance": 9,
+    "coverage": 10,
+    "scale": 9,
+    "noise": 6,
+    "overall": 8,
+    "misfits": [
+     "EXPGY: Experian is a direct competitor but trades as an OTC ADR, violating the US-listed common stocks only constraint.",
+     "DNB: Dropped by the app as the ticker did not resolve."
+    ],
+    "comment": "Includes Experian which is a direct competitor, but it trades as an ADR which violates the strict US-listed common stock constraint."
+   },
+   "prod": {
+    "letter": "I",
+    "relevance": 5,
+    "coverage": 9,
+    "scale": 6,
+    "noise": 3,
+    "overall": 4,
+    "misfits": [
+     "ROP: Roper Technologies is a diversified industrial and software conglomerate, not a direct peer in financial analytics.",
+     "PTC: PTC provides industrial CAD and PLM software, unrelated to financial decision management.",
+     "INFO: INFO is an ETF, violating the prompt's instructions to exclude ETFs."
+    ],
+    "comment": "Contains industrial software companies and an ETF, demonstrating a poor understanding of FICO's specific end markets."
+   }
+  },
+  "missingEverywhere": [
+   "UPST: Upstart operates an AI-driven lending platform and credit decisioning model, making it a highly relevant modern competitor to FICO's scoring business.",
+   "NCNO: nCino provides cloud banking and loan origination software, directly competing with FICO's software segment."
+  ],
+  "ms": 35539.501541000005,
+  "inTok": 1607,
+  "outTok": 5034
+ },
+ "gpro|comp|CMG": {
+  "order": [
+   [
+    "A",
+    "haiku"
+   ],
+   [
+    "B",
+    "sonnet"
+   ],
+   [
+    "C",
+    "prod"
+   ],
+   [
+    "D",
+    "g31p"
+   ],
+   [
+    "E",
+    "fable"
+   ],
+   [
+    "F",
+    "g36f"
+   ],
+   [
+    "G",
+    "g38f"
+   ],
+   [
+    "H",
+    "opus"
+   ],
+   [
+    "I",
+    "g35fl"
+   ]
+  ],
+  "scores": {
+   "haiku": {
+    "letter": "A",
+    "relevance": 7,
+    "coverage": 7,
+    "scale": 8,
+    "noise": 7,
+    "overall": 6,
+    "misfits": [
+     "DRI: Full-service casual dining has different labor and margin economics than limited-service fast-casual.",
+     "TXRH: Full-service casual dining rather than fast-casual."
+    ],
+    "comment": "Includes full-service restaurants and misses key fast-casual peers like Sweetgreen and Wingstop."
+   },
+   "sonnet": {
+    "letter": "B",
+    "relevance": 7,
+    "coverage": 8,
+    "scale": 8,
+    "noise": 7,
+    "overall": 7,
+    "misfits": [
+     "DRI: Full-service casual dining.",
+     "TXRH: Full-service casual dining."
+    ],
+    "comment": "Captures CAVA and Wingstop but still dilutes the set with full-service casual dining chains."
+   },
+   "prod": {
+    "letter": "C",
+    "relevance": 4,
+    "coverage": 3,
+    "scale": 6,
+    "noise": 4,
+    "overall": 3,
+    "misfits": [],
+    "comment": "Fails the 8-10 peers constraint and completely misses the most direct fast-casual competitors like CAVA and Shake Shack."
+   },
+   "g31p": {
+    "letter": "D",
+    "relevance": 10,
+    "coverage": 10,
+    "scale": 9,
+    "noise": 10,
+    "overall": 10,
+    "misfits": [],
+    "comment": "An excellent set that perfectly balances direct fast-casual competitors with large-cap QSR peers."
+   },
+   "fable": {
+    "letter": "E",
+    "relevance": 9,
+    "coverage": 9,
+    "scale": 9,
+    "noise": 8,
+    "overall": 9,
+    "misfits": [
+     "DRI: Full-service casual dining has different economics than limited-service fast-casual."
+    ],
+    "comment": "A very strong set of fast-casual and QSR peers, marred only by the inclusion of one full-service chain."
+   },
+   "g36f": {
+    "letter": "F",
+    "relevance": 8,
+    "coverage": 9,
+    "scale": 8,
+    "noise": 7,
+    "overall": 8,
+    "misfits": [
+     "DRI: Full-service casual dining.",
+     "TXRH: Full-service casual dining."
+    ],
+    "comment": "Good coverage of fast-casual peers but includes multiple full-service casual dining operators."
+   },
+   "g38f": {
+    "letter": "G",
+    "relevance": 8,
+    "coverage": 9,
+    "scale": 8,
+    "noise": 8,
+    "overall": 8,
+    "misfits": [
+     "TXRH: Full-service casual dining."
+    ],
+    "comment": "Strong fast-casual representation, though it includes a full-service chain and misses Starbucks."
+   },
+   "opus": {
+    "letter": "H",
+    "relevance": 9,
+    "coverage": 9,
+    "scale": 9,
+    "noise": 8,
+    "overall": 9,
+    "misfits": [
+     "DRI: Full-service casual dining."
+    ],
+    "comment": "Identical to Set E; a very strong list with only one full-service outlier."
+   },
+   "g35fl": {
+    "letter": "I",
+    "relevance": 6,
+    "coverage": 5,
+    "scale": 7,
+    "noise": 6,
+    "overall": 5,
+    "misfits": [
+     "DRI: Full-service casual dining.",
+     "TXRH: Full-service casual dining."
+    ],
+    "comment": "Misses major QSR peers like McDonald's and Starbucks, and includes full-service restaurants."
+   }
+  },
+  "missingEverywhere": [
+   "LOCO: El Pollo Loco is a direct competitor in the Mexican fast-casual space, and while much smaller in scale, is a highly relevant operational peer."
+  ],
+  "ms": 30696.222833999986,
+  "inTok": 1478,
+  "outTok": 4306
+ },
+ "gpro|comp|RKLB": {
+  "order": [
+   [
+    "A",
+    "opus"
+   ],
+   [
+    "B",
+    "g38f"
+   ],
+   [
+    "C",
+    "g36f"
+   ],
+   [
+    "D",
+    "haiku"
+   ],
+   [
+    "E",
+    "sonnet"
+   ],
+   [
+    "F",
+    "fable"
+   ],
+   [
+    "G",
+    "prod"
+   ],
+   [
+    "H",
+    "g31p"
+   ],
+   [
+    "I",
+    "g35fl"
+   ]
+  ],
+  "scores": {
+   "opus": {
+    "letter": "A",
+    "relevance": 6,
+    "coverage": 7,
+    "scale": 5,
+    "noise": 3,
+    "overall": 4,
+    "misfits": [
+     "FLY: Firefly Aerospace is a private company",
+     "KRMN: Karman Holdings is a private company"
+    ],
+    "comment": "Includes multiple private companies and dropped tickers, making it too noisy."
+   },
+   "g38f": {
+    "letter": "B",
+    "relevance": 8,
+    "coverage": 8,
+    "scale": 8,
+    "noise": 10,
+    "overall": 8,
+    "misfits": [],
+    "comment": "Good selection of space pure-plays balanced with defense contractors for scale."
+   },
+   "g36f": {
+    "letter": "C",
+    "relevance": 8,
+    "coverage": 8,
+    "scale": 8,
+    "noise": 10,
+    "overall": 8,
+    "misfits": [],
+    "comment": "A solid mix of pure-play space companies and mid-to-large cap defense/aerospace peers."
+   },
+   "haiku": {
+    "letter": "D",
+    "relevance": 5,
+    "coverage": 5,
+    "scale": 7,
+    "noise": 2,
+    "overall": 3,
+    "misfits": [
+     "VOYG: Voyager Space is a private company"
+    ],
+    "comment": "Suffers from multiple dropped tickers and includes a private company."
+   },
+   "sonnet": {
+    "letter": "E",
+    "relevance": 6,
+    "coverage": 7,
+    "scale": 6,
+    "noise": 4,
+    "overall": 4,
+    "misfits": [
+     "FLY: Firefly Aerospace is a private company",
+     "KRMN: Karman Holdings is a private company"
+    ],
+    "comment": "Contains multiple private companies, rendering the set unusable without edits."
+   },
+   "fable": {
+    "letter": "F",
+    "relevance": 7,
+    "coverage": 7,
+    "scale": 6,
+    "noise": 5,
+    "overall": 5,
+    "misfits": [
+     "FLY: Firefly Aerospace is a private company"
+    ],
+    "comment": "Includes a private company and a dropped ticker, though the remaining public peers are relevant."
+   },
+   "prod": {
+    "letter": "G",
+    "relevance": 8,
+    "coverage": 8,
+    "scale": 8,
+    "noise": 10,
+    "overall": 8,
+    "misfits": [],
+    "comment": "Identical to Set C; a solid mix of pure-play space companies and defense peers."
+   },
+   "g31p": {
+    "letter": "H",
+    "relevance": 9,
+    "coverage": 9,
+    "scale": 9,
+    "noise": 10,
+    "overall": 9,
+    "misfits": [],
+    "comment": "Excellent set that captures the core pure-play space peers while including major defense primes to match the prompt's scale."
+   },
+   "g35fl": {
+    "letter": "I",
+    "relevance": 9,
+    "coverage": 8,
+    "scale": 5,
+    "noise": 9,
+    "overall": 8,
+    "misfits": [],
+    "comment": "Highly relevant pure-play space focus, though it lacks larger cap peers to anchor the scale."
+   }
+  },
+  "missingEverywhere": [
+   "BA: Boeing is a major defense prime with significant space and launch operations (ULA) that matches the prompt's large market cap"
+  ],
+  "ms": 47190.24920800002,
+  "inTok": 1569,
+  "outTok": 6750
+ },
+ "gpro|comp|ELF": {
+  "order": [
+   [
+    "A",
+    "g31p"
+   ],
+   [
+    "B",
+    "haiku"
+   ],
+   [
+    "C",
+    "g36f"
+   ],
+   [
+    "D",
+    "fable"
+   ],
+   [
+    "E",
+    "g35fl"
+   ],
+   [
+    "F",
+    "g38f"
+   ],
+   [
+    "G",
+    "sonnet"
+   ],
+   [
+    "H",
+    "opus"
+   ],
+   [
+    "I",
+    "prod"
+   ]
+  ],
+  "scores": {
+   "g31p": {
+    "letter": "A",
+    "relevance": 7,
+    "coverage": 8,
+    "scale": 7,
+    "noise": 6,
+    "overall": 7,
+    "misfits": [
+     "NUVA: wrong ticker for Nu Skin",
+     "ULTA: beauty retailer, not a manufacturer",
+     "KVUE: consumer health, not pure-play beauty",
+     "CHD: diversified household products"
+    ],
+    "comment": "A decent set of personal care peers, though it includes a retailer and some broader consumer staples while dropping a wrong ticker."
+   },
+   "haiku": {
+    "letter": "B",
+    "relevance": 9,
+    "coverage": 9,
+    "scale": 8,
+    "noise": 7,
+    "overall": 8,
+    "misfits": [
+     "OLPX: dropped ticker",
+     "ULTA: beauty retailer, not a manufacturer",
+     "SBH: beauty retailer"
+    ],
+    "comment": "The best set overall, successfully identifying several pure-play beauty and personal care manufacturers of comparable scale, despite including two retailers."
+   },
+   "g36f": {
+    "letter": "C",
+    "relevance": 4,
+    "coverage": 7,
+    "scale": 3,
+    "noise": 3,
+    "overall": 4,
+    "misfits": [
+     "IPC: wrong ticker for Inter Parfums",
+     "ULTA: beauty retailer",
+     "PG: mega-cap diversified staples",
+     "CL: mega-cap diversified staples",
+     "KMB: mega-cap diversified staples",
+     "CHD: diversified staples",
+     "KVUE: consumer health"
+    ],
+    "comment": "Overly reliant on mega-cap diversified consumer staples that lack the high-growth, pure-play beauty profile of the subject."
+   },
+   "fable": {
+    "letter": "D",
+    "relevance": 5,
+    "coverage": 7,
+    "scale": 6,
+    "noise": 3,
+    "overall": 4,
+    "misfits": [
+     "REV: dropped ticker",
+     "OLPX: dropped ticker",
+     "EWCZ: dropped ticker",
+     "PRGO: OTC pharmaceuticals, not beauty",
+     "ULTA: beauty retailer",
+     "KVUE: consumer health"
+    ],
+    "comment": "Suffers from three dropped tickers and includes an OTC pharmaceutical company, making the final list too short and noisy."
+   },
+   "g35fl": {
+    "letter": "E",
+    "relevance": 3,
+    "coverage": 3,
+    "scale": 2,
+    "noise": 2,
+    "overall": 2,
+    "misfits": [
+     "COT: wrong ticker for Coty",
+     "REV: dropped ticker",
+     "ULTA: beauty retailer",
+     "PG: mega-cap diversified staples",
+     "CL: mega-cap diversified staples",
+     "KMB: mega-cap diversified staples",
+     "CHD: diversified staples"
+    ],
+    "comment": "Fails to include the most obvious direct competitor (Coty) due to a ticker error, leaving a set dominated by mega-cap household staples."
+   },
+   "g38f": {
+    "letter": "F",
+    "relevance": 6,
+    "coverage": 8,
+    "scale": 5,
+    "noise": 5,
+    "overall": 6,
+    "misfits": [
+     "OLPX: dropped ticker",
+     "ULTA: beauty retailer",
+     "KVUE: consumer health",
+     "CHD: diversified staples",
+     "CL: mega-cap diversified staples"
+    ],
+    "comment": "A passable mix of direct beauty competitors and broader personal care companies, though slightly skewed toward larger, slower-growth staples."
+   },
+   "sonnet": {
+    "letter": "G",
+    "relevance": 3,
+    "coverage": 7,
+    "scale": 4,
+    "noise": 2,
+    "overall": 3,
+    "misfits": [
+     "OLPX: dropped ticker",
+     "HIMS: telehealth platform, different business model",
+     "SPB: diversified hardware and pet supplies",
+     "HELE: household appliances",
+     "ULTA: beauty retailer",
+     "CL: mega-cap diversified staples",
+     "KVUE: consumer health",
+     "CHD: diversified staples"
+    ],
+    "comment": "Contains several baffling inclusions like Spectrum Brands and Helen of Troy, which have entirely different business models and end markets."
+   },
+   "opus": {
+    "letter": "H",
+    "relevance": 6,
+    "coverage": 8,
+    "scale": 6,
+    "noise": 4,
+    "overall": 5,
+    "misfits": [
+     "OLPX: dropped ticker",
+     "HIMS: telehealth platform",
+     "SKIN: medical aesthetics equipment, different economics",
+     "ULTA: beauty retailer",
+     "KVUE: consumer health"
+    ],
+    "comment": "Includes some good direct peers but is dragged down by adjacent companies with fundamentally different business models like Hims and SkinHealth."
+   },
+   "prod": {
+    "letter": "I",
+    "relevance": 4,
+    "coverage": 8,
+    "scale": 3,
+    "noise": 3,
+    "overall": 4,
+    "misfits": [
+     "IPC: wrong ticker for Inter Parfums",
+     "ULTA: beauty retailer",
+     "PG: mega-cap diversified staples",
+     "CL: mega-cap diversified staples",
+     "KMB: mega-cap diversified staples",
+     "CHD: diversified staples",
+     "KVUE: consumer health"
+    ],
+    "comment": "Similar to Set C, this set leans far too heavily on mega-cap diversified household product giants rather than pure-play beauty peers."
+   }
+  },
+  "missingEverywhere": [
+   "ODD: Oddity Tech is a direct, US-listed, high-growth beauty competitor of comparable scale."
+  ],
+  "ms": 46084.718291999976,
+  "inTok": 1726,
+  "outTok": 6780
+ },
+ "gpro|comp|CRWD": {
+  "order": [
+   [
+    "A",
+    "prod"
+   ],
+   [
+    "B",
+    "g31p"
+   ],
+   [
+    "C",
+    "g35fl"
+   ],
+   [
+    "D",
+    "g38f"
+   ],
+   [
+    "E",
+    "g36f"
+   ],
+   [
+    "F",
+    "opus"
+   ],
+   [
+    "G",
+    "haiku"
+   ],
+   [
+    "H",
+    "sonnet"
+   ],
+   [
+    "I",
+    "fable"
+   ]
+  ],
+  "scores": {
+   "prod": {
+    "letter": "A",
+    "relevance": 2,
+    "coverage": 1,
+    "scale": 2,
+    "noise": 1,
+    "overall": 1,
+    "misfits": [
+     "MSFT: mega-cap diversified tech, not a pure-play cybersecurity peer",
+     "AMZN: mega-cap diversified tech/e-commerce",
+     "GOOGL: mega-cap diversified tech",
+     "NVDA: semiconductor company",
+     "SNOW: data warehousing, not cybersecurity",
+     "MDB: database software, not cybersecurity",
+     "DDOG: primarily observability and infrastructure monitoring, not pure cybersecurity"
+    ],
+    "comment": "Completely misses the core cybersecurity competitors, instead grouping the subject with mega-cap tech and unrelated high-growth SaaS."
+   },
+   "g31p": {
+    "letter": "B",
+    "relevance": 9,
+    "coverage": 9,
+    "scale": 9,
+    "noise": 8,
+    "overall": 9,
+    "misfits": [],
+    "comment": "A strong set of direct cybersecurity peers, though it loses a point for the dropped ticker."
+   },
+   "g35fl": {
+    "letter": "C",
+    "relevance": 9,
+    "coverage": 8,
+    "scale": 9,
+    "noise": 7,
+    "overall": 7,
+    "misfits": [],
+    "comment": "Good relevance, but falls below the requested minimum number of peers after the invalid ticker is dropped."
+   },
+   "g38f": {
+    "letter": "D",
+    "relevance": 9,
+    "coverage": 9,
+    "scale": 9,
+    "noise": 8,
+    "overall": 9,
+    "misfits": [],
+    "comment": "Excellent selection of pure-play enterprise cybersecurity companies, slightly marred by one dropped ticker."
+   },
+   "g36f": {
+    "letter": "E",
+    "relevance": 9,
+    "coverage": 10,
+    "scale": 9,
+    "noise": 10,
+    "overall": 10,
+    "misfits": [],
+    "comment": "The best set overall, providing a full list of 10 valid, highly relevant cybersecurity peers with no dropped tickers."
+   },
+   "opus": {
+    "letter": "F",
+    "relevance": 9,
+    "coverage": 9,
+    "scale": 9,
+    "noise": 8,
+    "overall": 9,
+    "misfits": [],
+    "comment": "Very similar to other strong sets, offering a robust list of direct competitors despite one dropped ticker."
+   },
+   "haiku": {
+    "letter": "G",
+    "relevance": 9,
+    "coverage": 9,
+    "scale": 9,
+    "noise": 8,
+    "overall": 9,
+    "misfits": [],
+    "comment": "A highly relevant and comprehensive list of cybersecurity peers, penalized only for the dropped ticker."
+   },
+   "sonnet": {
+    "letter": "H",
+    "relevance": 6,
+    "coverage": 8,
+    "scale": 7,
+    "noise": 5,
+    "overall": 5,
+    "misfits": [
+     "DDOG: primarily observability, not pure cybersecurity",
+     "SNOW: data warehousing software",
+     "NOW: IT service management software"
+    ],
+    "comment": "Dilutes a good core of cybersecurity peers with unrelated enterprise SaaS companies and includes a dropped ticker."
+   },
+   "fable": {
+    "letter": "I",
+    "relevance": 7,
+    "coverage": 8,
+    "scale": 8,
+    "noise": 6,
+    "overall": 6,
+    "misfits": [
+     "DDOG: primarily observability, not pure cybersecurity"
+    ],
+    "comment": "Mostly strong cybersecurity peers, but includes an observability company and a dropped ticker."
+   }
+  },
+  "missingEverywhere": [],
+  "ms": 21828.898875000014,
+  "inTok": 1585,
+  "outTok": 2977
+ }
+}

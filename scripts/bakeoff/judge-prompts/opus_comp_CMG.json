@@ -1,0 +1,12 @@
+{"sets": [
+{"letter": "A", "relevance": 8, "coverage": 9, "scale": 8, "noise": 8, "overall": 9, "misfits": [], "comment": "Best balance of scale anchors (MCD, SBUX, YUM, QSR) and direct fast-casual peers (CAVA, SG, WING, SHAK); DRI is a mild stretch."},
+{"letter": "B", "relevance": 6, "coverage": 5, "scale": 6, "noise": 6, "overall": 5, "misfits": ["JACK: small, heavily franchised and struggling burger QSR", "WEN: franchised burger QSR with weak growth"], "comment": "Misses MCD, SBUX, SG and WING while including weaker franchised burger chains."},
+{"letter": "C", "relevance": 8, "coverage": 9, "scale": 8, "noise": 8, "overall": 8, "misfits": [], "comment": "Strong mix of large-cap restaurant anchors and fast-casual growth peers; lacks DPZ but no real misfits."},
+{"letter": "D", "relevance": 8, "coverage": 8, "scale": 8, "noise": 8, "overall": 8, "misfits": [], "comment": "Well-balanced set though it omits Sweetgreen, the closest fast-casual analogue alongside CAVA."},
+{"letter": "E", "relevance": 7, "coverage": 8, "scale": 7, "noise": 7, "overall": 7, "misfits": ["WEN: low-growth franchised burger QSR"], "comment": "Good fast-casual coverage but drops SBUX in favour of WEN."},
+{"letter": "F", "relevance": 8, "coverage": 9, "scale": 8, "noise": 8, "overall": 8, "misfits": [], "comment": "Essentially the same strong set as A, minus TXRH; balanced and accepted with light edits."},
+{"letter": "G", "relevance": 6, "coverage": 4, "scale": 7, "noise": 9, "overall": 4, "misfits": [], "comment": "Only six large franchised QSR names with no fast-casual peers (CAVA, SG, SHAK) at all."},
+{"letter": "H", "relevance": 7, "coverage": 7, "scale": 8, "noise": 7, "overall": 7, "misfits": ["WEN: low-growth franchised burger QSR"], "comment": "Good large-cap anchors but thin on fast casual, missing SG and WING."},
+{"letter": "I", "relevance": 8, "coverage": 8, "scale": 8, "noise": 9, "overall": 8, "misfits": [], "comment": "Clean, focused nine-name set covering both anchors and fast-casual peers."}
+],
+"missingEverywhere": []}

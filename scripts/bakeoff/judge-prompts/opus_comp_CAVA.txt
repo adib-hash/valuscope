@@ -1,0 +1,116 @@
+You are judging comparable-company sets ("comp sets") built by different AI systems for an equity valuation tool. The systems are anonymous and in random order. Each set will be shown as a table of trading multiples next to the subject company.
+
+Subject: CAVA Group, Inc. (CAVA)
+Sector: Consumer Cyclical. Industry: Restaurants. Market cap: $6.3B.
+Business: CAVA Group, Inc. owns and operates a chain of restaurants under the CAVA brand in the United States. It also offers dips, spreads, and dressings through grocery stores. In addition, the company provides walk-the-line, online, and mobile ordering platforms. CAVA Group, Inc. was founded in 2006 and is headquartered in Washington, District Of Columbia.
+
+The systems were told: 8 to 10 peers that share the subject's business model and industry economics, the companies an analyst would actually put in the same table; US-listed common stocks only; no ETFs, private companies or subsidiaries; prefer comparable scale but include a clear direct competitor regardless of size.
+
+### Set A
+- CMG (Chipotle Mexican Grill, Inc.)
+- SG (Sweetgreen, Inc.)
+- SHAK (Shake Shack Inc.)
+- WING (Wingstop Inc.)
+- BROS (Dutch Bros Inc.)
+- FRPT (Freshpet, Inc.)
+- TXRH (Texas Roadhouse, Inc.)
+- NDLS (Noodles & Company)
+- PZZA (Papa John's International, Inc.)
+
+### Set B
+- CMG (Chipotle Mexican Grill, Inc.)
+- SG (Sweetgreen, Inc.)
+- SHAK (Shake Shack Inc.)
+- TXRH (Texas Roadhouse, Inc.)
+- WING (Wingstop Inc.)
+- DPZ (Domino's Pizza, Inc.)
+- CAKE (The Cheesecake Factory Incorporated)
+- DRI (Darden Restaurants, Inc.)
+- BROS (Dutch Bros Inc.)
+- CSSE (Shoals Technologies Group, Inc.)  [ticker did not resolve to a live US equity quote; the app drops it]
+
+### Set C
+- CMG (Chipotle Mexican Grill, Inc.)
+- SG (Sweetgreen, Inc.)
+- SHAK (Shake Shack Inc.)
+- PTLO (Portillo's Inc.)
+- WING (Wingstop Inc.)
+- BROS (Dutch Bros Inc.)
+- FWRG (First Watch Restaurant Group, Inc.)
+- KRUS (Kura Sushi USA, Inc.)
+- NDLS (Noodles & Company)
+
+### Set D
+- CMG (Chipotle Mexican Grill, Inc.)
+- SG (Sweetgreen, Inc.)
+- WING (Wingstop Inc.)
+- SHAK (Shake Shack Inc.)
+- BROS (Dutch Bros Inc.)
+- FWRG (First Watch Restaurant Group, Inc.)
+- PTLO (Portillo's Inc.)
+- CAKE (The Cheesecake Factory Incorporated)
+- TXRH (Texas Roadhouse, Inc.)
+- KRUS (Kura Sushi USA, Inc.)
+
+### Set E
+- SG (Sweetgreen, Inc.)
+- BROS (Dutch Bros Inc.)
+- WING (Wingstop Inc.)
+- ONON (On Holding AG)
+
+### Set F
+- CMG (Chipotle Mexican Grill, Inc.)
+- SG (Sweetgreen, Inc.)
+- SHAK (Shake Shack Inc.)
+- WING (Wingstop Inc.)
+- BROS (Dutch Bros Inc.)
+- PORT (Portillo's Inc.)  [ticker did not resolve to a live US equity quote; the app drops it]
+- BLMN (Bloomin' Brands, Inc.)
+- TXRH (Texas Roadhouse, Inc.)
+- DRI (Darden Restaurants, Inc.)
+
+### Set G
+- CMG (Chipotle Mexican Grill, Inc.)
+- SG (Sweetgreen, Inc.)
+- SHAK (Shake Shack Inc.)
+- WING (Wingstop Inc.)
+- DUTCH (Dutch Bros Inc.)  [ticker did not resolve to a live US equity quote; the app drops it]
+- BROS (Dutch Bros Inc.)
+- PTLO (Portillo's Inc.)
+- TXRH (Texas Roadhouse, Inc.)
+- WEN (The Wendy's Company)
+- EAT (Brinker International, Inc.)
+
+### Set H
+- CMG (Chipotle Mexican Grill, Inc.)
+- SHAK (Shake Shack Inc.)
+- WING (Wingstop Inc.)
+- SG (Sweetgreen, Inc.)
+- PZZA (Papa John's International, Inc.)
+- TXRH (Texas Roadhouse, Inc.)
+- DRI (Darden Restaurants, Inc.)
+- CAKE (The Cheesecake Factory Incorporated)
+
+### Set I
+- CMG (Chipotle Mexican Grill, Inc.)
+- SG (Sweetgreen, Inc.)
+- WING (Wingstop Inc.)
+- SHAK (Shake Shack Inc.)
+- PTLO (Portillo's Inc.)
+- BROS (Dutch Bros Inc.)
+- TXRH (Texas Roadhouse, Inc.)
+- WEN (The Wendy's Company)
+- DPZ (Domino's Pizza, Inc.)
+- BLMN (Bloomin' Brands, Inc.)
+
+Score every set from 1 to 10 on each criterion, using the full range and comparing sets against each other. Judge the set as the app would show it: tickers marked as not resolving are dropped.
+- relevance: do the peers share the subject's business model and economics, so their multiples are a meaningful benchmark?
+- coverage: are the obvious direct competitors that an analyst would expect present?
+- scale: are the peers of sensible scale, with outliers justified by direct competition?
+- noise: are there peers that clearly do not belong (penalise each one), wrong tickers, or companies that are not what the system thought they were?
+- overall: would an equity analyst accept this comp set with only light edits?
+
+Name any peers that clearly do not belong, and any obvious peers missing from every set.
+
+Return only JSON, no other text, in this shape:
+{"sets": [{"letter": "A", "relevance": 0, "coverage": 0, "scale": 0, "noise": 0, "overall": 0, "misfits": ["TICKER: why"], "comment": "one sentence"}], "missingEverywhere": ["TICKER: why"]}

@@ -1,0 +1,94 @@
+{
+ "KNSL": {
+  "rung": "ai",
+  "similar": []
+ },
+ "AXON": {
+  "rung": "similar",
+  "similar": [
+   "KTOS",
+   "RCAT",
+   "LHX",
+   "TDG",
+   "HWM",
+   "VRT"
+  ]
+ },
+ "DUOL": {
+  "rung": "ai",
+  "similar": []
+ },
+ "CELH": {
+  "rung": "ai",
+  "similar": []
+ },
+ "HIMS": {
+  "rung": "ai",
+  "similar": []
+ },
+ "TOST": {
+  "rung": "similar",
+  "similar": [
+   "IOT",
+   "GTLB",
+   "MDB",
+   "DOCN",
+   "RBRK",
+   "MNDY"
+  ]
+ },
+ "FICO": {
+  "rung": "ai",
+  "similar": [
+   "ROP",
+   "PTC"
+  ]
+ },
+ "CAVA": {
+  "rung": "similar",
+  "similar": [
+   "SG",
+   "BROS",
+   "WING",
+   "ONON"
+  ]
+ },
+ "RKLB": {
+  "rung": "ai",
+  "similar": [
+   "LUNR",
+   "RDW"
+  ]
+ },
+ "ELF": {
+  "rung": "ai",
+  "similar": [
+   "HNST",
+   "EL"
+  ]
+ },
+ "CMG": {
+  "rung": "curated",
+  "list": [
+   "MCD",
+   "SBUX",
+   "YUM",
+   "DPZ",
+   "QSR",
+   "WING"
+  ]
+ },
+ "CRWD": {
+  "rung": "curated",
+  "list": [
+   "MSFT",
+   "AMZN",
+   "GOOGL",
+   "SNOW",
+   "MDB",
+   "DDOG",
+   "NET",
+   "NVDA"
+  ]
+ }
+}

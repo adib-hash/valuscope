@@ -1,0 +1,12 @@
+{"sets": [
+{"letter": "A", "relevance": 8, "coverage": 8, "scale": 6, "noise": 8, "overall": 8, "misfits": ["CYBR: no longer resolves, dropped"], "comment": "Solid pure-security set with endpoint, network, identity and vulnerability vendors; tail names are small relative to CRWD."},
+{"letter": "B", "relevance": 9, "coverage": 9, "scale": 7, "noise": 8, "overall": 8, "misfits": ["CYBR: no longer resolves, dropped"], "comment": "Strong cybersecurity set including CHKP as a scaled incumbent alongside the cloud-native platforms."},
+{"letter": "C", "relevance": 7, "coverage": 8, "scale": 7, "noise": 6, "overall": 7, "misfits": ["DDOG: observability, not security", "CYBR: no longer resolves, dropped"], "comment": "Good security core with RBRK as a defensible data-security add, but Datadog is an observability peer."},
+{"letter": "D", "relevance": 8, "coverage": 8, "scale": 6, "noise": 7, "overall": 7, "misfits": ["GEN: consumer antivirus with low-growth, high-leverage economics"], "comment": "All ten names resolve and are security vendors, but Gen Digital's consumer model is a weak benchmark."},
+{"letter": "E", "relevance": 9, "coverage": 8, "scale": 7, "noise": 9, "overall": 8, "misfits": ["CYBR: no longer resolves, dropped"], "comment": "Tight, clean security set of eight resolving names with sensible scale."},
+{"letter": "F", "relevance": 5, "coverage": 6, "scale": 8, "noise": 4, "overall": 5, "misfits": ["DDOG: observability software", "SNOW: data cloud platform", "NOW: IT workflow software", "CYBR: no longer resolves, dropped"], "comment": "Security core is fine but three non-security high-multiple SaaS names materially dilute relevance."},
+{"letter": "G", "relevance": 9, "coverage": 7, "scale": 6, "noise": 9, "overall": 7, "misfits": ["CYBR: no longer resolves, dropped"], "comment": "Pure security names but lacks Cloudflare and ends up with only eight peers skewing small."},
+{"letter": "H", "relevance": 9, "coverage": 7, "scale": 7, "noise": 9, "overall": 7, "misfits": ["CYBR: no longer resolves, dropped"], "comment": "Clean and relevant but only seven resolving peers and no CHKP."},
+{"letter": "I", "relevance": 1, "coverage": 1, "scale": 3, "noise": 1, "overall": 1, "misfits": ["MSFT: diversified megacap", "AMZN: e-commerce and cloud megacap", "GOOGL: advertising megacap", "NVDA: semiconductors", "SNOW: data platform", "MDB: database", "DDOG: observability"], "comment": "Not a cybersecurity comp set; contains none of PANW, FTNT, ZS or S."}
+],
+"missingEverywhere": []}

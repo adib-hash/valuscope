@@ -1,0 +1,121 @@
+You are judging comparable-company sets ("comp sets") built by different AI systems for an equity valuation tool. The systems are anonymous and in random order. Each set will be shown as a table of trading multiples next to the subject company.
+
+Subject: Chipotle Mexican Grill, Inc. (CMG)
+Sector: Consumer Cyclical. Industry: Restaurants. Market cap: $40.0B.
+Business: Chipotle Mexican Grill, Inc., together with its subsidiaries, owns and operates Chipotle Mexican Grill restaurants. The company sells food and beverages, such as burritos, burrito bowls, quesadillas, tacos, and salads, as well as kids' meals, chips, and sides. It also offers Mexican-inspired meals using responsibly sourced meats, such as chicken, beef, and pork under the Responsibly Raised brand. In addition, the company provides digital ordering through its website, mobile app, and third-party delivery platforms. It operates in the United States, Canada, France, Germany, South Korea, and the United Kingdom. Chipotle Mexican Grill, Inc. was founded in 1993 and is headquartered in Newport Beach, California.
+
+The systems were told: 8 to 10 peers that share the subject's business model and industry economics, the companies an analyst would actually put in the same table; US-listed common stocks only; no ETFs, private companies or subsidiaries; prefer comparable scale but include a clear direct competitor regardless of size.
+
+### Set A
+- MCD (McDonald's Corporation)
+- SBUX (Starbucks Corporation)
+- YUM (Yum! Brands, Inc.)
+- CAVA (CAVA Group, Inc.)
+- SG (Sweetgreen, Inc.)
+- WING (Wingstop Inc.)
+- QSR (Restaurant Brands International Inc.)
+- DRI (Darden Restaurants, Inc.)
+- SHAK (Shake Shack Inc.)
+- DPZ (Domino's Pizza, Inc.)
+
+### Set B
+- YUM (Yum! Brands, Inc.)
+- QSR (Restaurant Brands International Inc.)
+- DPZ (Domino's Pizza, Inc.)
+- WEN (The Wendy's Company)
+- JACK (Jack in the Box Inc.)
+- SHAK (Shake Shack Inc.)
+- CAVA (CAVA Group, Inc.)
+- TXRH (Texas Roadhouse, Inc.)
+- DRI (Darden Restaurants, Inc.)
+
+### Set C
+- SBUX (Starbucks Corporation)
+- MCD (McDonald's Corporation)
+- YUM (Yum! Brands, Inc.)
+- QSR (Restaurant Brands International Inc.)
+- DRI (Darden Restaurants, Inc.)
+- WING (Wingstop Inc.)
+- SG (Sweetgreen, Inc.)
+- SHAK (Shake Shack Inc.)
+- CAVA (CAVA Group, Inc.)
+- TXRH (Texas Roadhouse, Inc.)
+
+### Set D
+- MCD (McDonald's Corporation)
+- SBUX (Starbucks Corporation)
+- YUM (Yum! Brands, Inc.)
+- DRI (Darden Restaurants, Inc.)
+- DPZ (Domino's Pizza, Inc.)
+- WING (Wingstop Inc.)
+- CAVA (CAVA Group, Inc.)
+- QSR (Restaurant Brands International Inc.)
+- TXRH (Texas Roadhouse, Inc.)
+- SHAK (Shake Shack Inc.)
+
+### Set E
+- SHAK (Shake Shack Inc.)
+- SG (Sweetgreen, Inc.)
+- CAVA (CAVA Group, Inc.)
+- WING (Wingstop Inc.)
+- DPZ (Domino's Pizza, Inc.)
+- MCD (McDonald's Corporation)
+- YUM (Yum! Brands, Inc.)
+- QSR (Restaurant Brands International Inc.)
+- TXRH (Texas Roadhouse, Inc.)
+- WEN (The Wendy's Company)
+
+### Set F
+- MCD (McDonald's Corporation)
+- SBUX (Starbucks Corporation)
+- YUM (Yum! Brands, Inc.)
+- QSR (Restaurant Brands International Inc.)
+- DPZ (Domino's Pizza, Inc.)
+- CAVA (CAVA Group, Inc.)
+- SG (Sweetgreen, Inc.)
+- WING (Wingstop Inc.)
+- SHAK (Shake Shack Inc.)
+- DRI (Darden Restaurants, Inc.)
+
+### Set G
+- MCD (McDonald's Corporation)
+- SBUX (Starbucks Corporation)
+- YUM (Yum! Brands, Inc.)
+- DPZ (Domino's Pizza, Inc.)
+- QSR (Restaurant Brands International Inc.)
+- WING (Wingstop Inc.)
+
+### Set H
+- SBUX (Starbucks Corporation)
+- MCD (McDonald's Corporation)
+- YUM (Yum! Brands, Inc.)
+- DPZ (Domino's Pizza, Inc.)
+- QSR (Restaurant Brands International Inc.)
+- WEN (The Wendy's Company)
+- DRI (Darden Restaurants, Inc.)
+- TXRH (Texas Roadhouse, Inc.)
+- CAVA (CAVA Group, Inc.)
+- SHAK (Shake Shack Inc.)
+
+### Set I
+- CAVA (CAVA Group, Inc.)
+- YUM (Yum! Brands, Inc.)
+- MCD (McDonald's Corporation)
+- SBUX (Starbucks Corporation)
+- SHAK (Shake Shack Inc.)
+- SG (Sweetgreen, Inc.)
+- QSR (Restaurant Brands International Inc.)
+- DPZ (Domino's Pizza, Inc.)
+- WING (Wingstop Inc.)
+
+Score every set from 1 to 10 on each criterion, using the full range and comparing sets against each other. Judge the set as the app would show it: tickers marked as not resolving are dropped.
+- relevance: do the peers share the subject's business model and economics, so their multiples are a meaningful benchmark?
+- coverage: are the obvious direct competitors that an analyst would expect present?
+- scale: are the peers of sensible scale, with outliers justified by direct competition?
+- noise: are there peers that clearly do not belong (penalise each one), wrong tickers, or companies that are not what the system thought they were?
+- overall: would an equity analyst accept this comp set with only light edits?
+
+Name any peers that clearly do not belong, and any obvious peers missing from every set.
+
+Return only JSON, no other text, in this shape:
+{"sets": [{"letter": "A", "relevance": 0, "coverage": 0, "scale": 0, "noise": 0, "overall": 0, "misfits": ["TICKER: why"], "comment": "one sentence"}], "missingEverywhere": ["TICKER: why"]}

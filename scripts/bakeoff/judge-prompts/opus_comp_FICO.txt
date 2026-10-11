@@ -1,0 +1,125 @@
+You are judging comparable-company sets ("comp sets") built by different AI systems for an equity valuation tool. The systems are anonymous and in random order. Each set will be shown as a table of trading multiples next to the subject company.
+
+Subject: Fair Isaac Corporation (FICO)
+Sector: Technology. Industry: Software - Application. Market cap: $14.4B.
+Business: Fair Isaac Corporation provides analytics software in the Americas, Europe, the Middle East, Africa, and the Asia Pacific. It operates through two segments, Scores and Software. The Scores segment offers business-to-business scoring solutions and services that give clients access to predictive credit and other scores that can be integrated into their transaction streams and decision-making processes, as well as business-to-consumer scoring solutions comprising myFICO.com subscription offerings. Its Software segment provides pre-configured analytic and decision management solution designed for various business needs or processes, such as account origination, customer management, customer engagement, fraud detection, and marketing, as well as associated professional services. This segment also offers FICO Platform, a modular software offering designed to support advanced analytic and decis
+
+The systems were told: 8 to 10 peers that share the subject's business model and industry economics, the companies an analyst would actually put in the same table; US-listed common stocks only; no ETFs, private companies or subsidiaries; prefer comparable scale but include a clear direct competitor regardless of size.
+
+### Set A
+- ROP (Roper Technologies, Inc.)
+- PTC (PTC Inc.)
+- SPGI (S&P Global Inc.)
+- MCO (Moody's Corporation)
+- EFX (Equifax Inc.)
+- TRU (TransUnion)
+- INFO (Harbor PanAgora Dynamic Large Cap Core ETF)  [ticker did not resolve to a live US equity quote; the app drops it]
+- MSCI (MSCI Inc.)
+- FDS (FactSet Research Systems Inc.)
+- VRSK (Verisk Analytics, Inc.)
+- PEGA (Pegasystems Inc.)
+- ACIW (ACI Worldwide, Inc.)
+
+### Set B
+- EFX (Equifax Inc.)
+- TRU (TransUnion)
+- EXPGY (Experian plc)
+- VRSK (Verisk Analytics, Inc.)
+- MCO (Moody's Corporation)
+- SPGI (S&P Global Inc.)
+- MSCI (MSCI Inc.)
+- FDS (FactSet Research Systems Inc.)
+- DNB (Dun & Bradstreet Holdings, Inc.)  [ticker did not resolve to a live US equity quote; the app drops it]
+- PEGA (Pegasystems Inc.)
+
+### Set C
+- EFX (Equifax Inc.)
+- TRU (TransUnion)
+- MCO (Moody's Corporation)
+- SPGI (S&P Global Inc.)
+- VRSK (Verisk Analytics, Inc.)
+- MSCI (MSCI Inc.)
+- TYL (Tyler Technologies, Inc.)
+- ADBE (Adobe Inc.)
+- INTU (Intuit Inc.)
+- ADP (Automatic Data Processing, Inc.)
+
+### Set D
+- EFX (Equifax Inc.)
+- TRU (TransUnion)
+- MCO (Moody's Corporation)
+- SPGI (S&P Global Inc.)
+- MSCI (MSCI Inc.)
+- VRSK (Verisk Analytics, Inc.)
+- FDS (FactSet Research Systems Inc.)
+- PEGA (Pegasystems Inc.)
+- DNB (Dun & Bradstreet Holdings, Inc.)  [ticker did not resolve to a live US equity quote; the app drops it]
+
+### Set E
+- EFX (Equifax Inc.)
+- TRU (TransUnion)
+- VRSK (Verisk Analytics, Inc.)
+- MCO (Moody's Corporation)
+- SPGI (S&P Global Inc.)
+- MSCI (MSCI Inc.)
+- FDS (FactSet Research Systems Inc.)
+- ICE (Intercontinental Exchange, Inc.)
+- JKHY (Jack Henry & Associates, Inc.)
+- DNB (Dun & Bradstreet Holdings, Inc.)  [ticker did not resolve to a live US equity quote; the app drops it]
+
+### Set F
+- EFX (Equifax Inc.)
+- TRU (TransUnion)
+- SPGI (S&P Global Inc.)
+- MCO (Moody's Corporation)
+- MSCI (MSCI Inc.)
+- VRSK (Verisk Analytics, Inc.)
+- EXPD (Expeditors International of Washington, Inc.)
+- FDS (FactSet Research Systems Inc.)
+- JKHY (Jack Henry & Associates, Inc.)
+
+### Set G
+- EFX (Equifax Inc.)
+- TRU (TransUnion)
+- VRSK (Verisk Analytics, Inc.)
+- SPGI (S&P Global Inc.)
+- MCO (Moody's Corporation)
+- FDS (FactSet Research Systems Inc.)
+- MSCI (MSCI Inc.)
+- DNB (Dun & Bradstreet Holdings, Inc.)  [ticker did not resolve to a live US equity quote; the app drops it]
+- MORN (Morningstar, Inc.)
+- SSNC (SS&C Technologies Holdings, Inc.)
+
+### Set H
+- EFX (Equifax Inc.)
+- TRU (TransUnion)
+- VRSK (Verisk Analytics, Inc.)
+- MCO (Moody's Corporation)
+- SPGI (S&P Global Inc.)
+- MSCI (MSCI Inc.)
+- FDS (FactSet Research Systems Inc.)
+- TYL (Tyler Technologies, Inc.)
+
+### Set I
+- SPGI (S&P Global Inc.)
+- MCO (Moody's Corporation)
+- EFX (Equifax Inc.)
+- TRU (TransUnion)
+- INFO (Harbor PanAgora Dynamic Large Cap Core ETF)  [ticker did not resolve to a live US equity quote; the app drops it]
+- MSCI (MSCI Inc.)
+- FDS (FactSet Research Systems Inc.)
+- VRSK (Verisk Analytics, Inc.)
+- PEGA (Pegasystems Inc.)
+- ACIW (ACI Worldwide, Inc.)
+
+Score every set from 1 to 10 on each criterion, using the full range and comparing sets against each other. Judge the set as the app would show it: tickers marked as not resolving are dropped.
+- relevance: do the peers share the subject's business model and economics, so their multiples are a meaningful benchmark?
+- coverage: are the obvious direct competitors that an analyst would expect present?
+- scale: are the peers of sensible scale, with outliers justified by direct competition?
+- noise: are there peers that clearly do not belong (penalise each one), wrong tickers, or companies that are not what the system thought they were?
+- overall: would an equity analyst accept this comp set with only light edits?
+
+Name any peers that clearly do not belong, and any obvious peers missing from every set.
+
+Return only JSON, no other text, in this shape:
+{"sets": [{"letter": "A", "relevance": 0, "coverage": 0, "scale": 0, "noise": 0, "overall": 0, "misfits": ["TICKER: why"], "comment": "one sentence"}], "missingEverywhere": ["TICKER: why"]}
