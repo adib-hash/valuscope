@@ -2,8 +2,8 @@
 // them. Lives outside the component so the work survives a re-render and so
 // the pacing rules are in one place.
 //
-// The pacing is the point. Gemini's free tier allows a handful of requests a
-// minute, and a busy day has thirty S&P 500 calls. Two at a time, with a
+// The pacing is the point. The model's rate limit allows only so many
+// requests a minute, and a busy day has thirty S&P 500 calls. Two at a time, with a
 // pause and retry on a rate-limit answer, reads a heavy day in a few minutes
 // without ever tripping into a wall of failures. Every finished summary is
 // stored server-side, so a second run of the same day — after a failure, or

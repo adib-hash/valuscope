@@ -4,12 +4,13 @@
 // browser has one it never needs to ask again. The server-side store does the
 // same job across browsers when a Blob store is configured; this is what
 // makes a re-open instant regardless, and what saves a deployment without a
-// store from paying three Gemini calls every time the same call is opened.
+// store from paying three model calls every time the same call is opened.
 
 const PREFIX = 'vs-call-';
 // Summaries older than this are re-read; matches SUMMARY_VERSION in
-// api/summarize.js. v3 fixed Q&A segmentation and "what changed".
-const MIN_VERSION = 3;
+// api/summarize.js. v3 fixed Q&A segmentation and "what changed"; v4 moved
+// summaries to Claude Sonnet 5.5.
+const MIN_VERSION = 4;
 const MAX_ENTRIES = 40;
 
 const key = (symbol, year, quarter) => `${PREFIX}${String(symbol).toUpperCase()}-${year}-Q${quarter}`;

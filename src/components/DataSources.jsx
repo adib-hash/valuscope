@@ -33,8 +33,12 @@ export const DATA_SOURCES = [
     use: 'Transcript fallback when the primary dataset is unavailable',
   },
   {
+    name: 'Anthropic Claude',
+    use: 'Earnings call summaries and the daily earnings digest, only when you ask (Claude Sonnet 5.5)',
+  },
+  {
     name: 'Google Gemini',
-    use: 'Earnings call summaries and the daily earnings digest (only when you ask), and comp selection for tickers no other source covers',
+    use: 'Comp sets for tickers without a curated set, plus filing summaries, filing Q&A and operating KPIs when you ask',
   },
 ];
 

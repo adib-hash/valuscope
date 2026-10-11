@@ -336,7 +336,7 @@ export default function EarningsCalendarPage({ date, onSelectDate, onSelectTicke
             )}
             {withTranscript.length > 0 && summaryAvailable === false && (
               <p className="text-vs-dim text-micro font-mono">
-                The digest needs a Gemini key on this deployment; transcripts are still readable below.
+                The digest needs an AI key on this deployment; transcripts are still readable below.
               </p>
             )}
             {withTranscript.length === 0 && (
