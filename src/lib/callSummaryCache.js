@@ -7,6 +7,9 @@
 // store from paying three Gemini calls every time the same call is opened.
 
 const PREFIX = 'vs-call-';
+// Summaries older than this are re-read; matches SUMMARY_VERSION in
+// api/summarize.js. v3 fixed Q&A segmentation and "what changed".
+const MIN_VERSION = 3;
 const MAX_ENTRIES = 40;
 
 const key = (symbol, year, quarter) => `${PREFIX}${String(symbol).toUpperCase()}-${year}-Q${quarter}`;
@@ -17,6 +20,7 @@ export function getCallSummary(symbol, year, quarter) {
     const raw = localStorage.getItem(key(symbol, year, quarter));
     if (!raw) return null;
     const entry = JSON.parse(raw);
+    if ((entry.body?.version ?? 0) < MIN_VERSION) return null;
     // Bump recency so the eviction below keeps what is actually read.
     localStorage.setItem(key(symbol, year, quarter), JSON.stringify({ ...entry, readAt: Date.now() }));
     return entry.body;

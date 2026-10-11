@@ -17,9 +17,9 @@
 // The summary itself is a two-pass pipeline (api/_lib/callSummary.js): a
 // structured extraction of the segmented transcript, then prose written from
 // that extraction — and from the prior quarter's extraction, when there is
-// one, for the "what changed" section. Each pass is a Gemini call of twenty
-// to forty seconds and a function has sixty, so the passes are separate
-// requests, dispatched on `stage`, with the client carrying results between
+// one, for the "what changed" section. Each pass is a model call of twenty
+// to forty seconds on Gemini (longer on a large transcript), so the passes are
+// separate requests, each with up to 300 seconds (vercel.json), dispatched on `stage`, with the client carrying results between
 // them (which also means a deployment without a Blob store works):
 //
 //   stage=extract  GET  ?ticker&year?&quarter?  → this call's extraction (or the
@@ -37,9 +37,10 @@ import { getJson, putJson } from './_lib/store.js';
 import { GEMINI_MODEL, callGemini, geminiFor } from './_lib/gemini.js';
 import { extractCall, composeSummary, wordCount } from './_lib/callSummary.js';
 
-// Bumped when the summary's shape changes, so stored summaries of the old
-// shape are regenerated rather than served with sections missing.
-const SUMMARY_VERSION = 2;
+// Bumped when the summary's shape or quality changes, so stored summaries are
+// regenerated rather than served stale. v3: the Q&A segmentation and "what
+// changed" fixes (src/lib/callSummaryCache.js holds the same number).
+const SUMMARY_VERSION = 3;
 
 // The one network dependency the tests need to replace.
 export const deps = { getTranscript: loadTranscript };
@@ -65,9 +66,9 @@ function geminiFailure(res, err, what) {
 const summaryKey = (symbol, year, quarter) => `summary/v${SUMMARY_VERSION}/${symbol}/${year}-Q${quarter}.json`;
 const extractKey = (symbol, year, quarter) => `extract/v${SUMMARY_VERSION}/${symbol}/${year}-Q${quarter}.json`;
 
-// The prior quarter's extraction is wanted, not required: the function has
-// sixty seconds, and reading a second transcript from scratch is the one step
-// that could push past them. Past this budget the summary goes out without a
+// The prior quarter's extraction is wanted, not required: in the single-
+// request path, reading a second transcript from scratch is the step most
+// likely to push past the function's limit. Past this budget the summary goes out without a
 // "what changed" section rather than not at all.
 const PRIOR_BUDGET_MS = 30_000;
 
@@ -244,10 +245,16 @@ async function stageCompose(req, res, apiKey) {
   const stored = await getJson(key).catch(() => null);
   if (stored?.summary) { res.setHeader('Cache-Control', 'no-store'); return res.status(200).json({ ...stored, cached: true }); }
 
-  const transcript = await getTranscript(symbol, year, quarter);
+  // The prior call's text is what "what changed" is checked against; without
+  // it, its new-mention claims are dropped rather than trusted.
+  const [transcript, priorTranscript] = await Promise.all([
+    getTranscript(symbol, year, quarter),
+    prior ? getTranscript(symbol, prior.transcript.year, prior.transcript.quarter).catch(() => null) : null,
+  ]);
   if (!transcript?.paragraphs?.length) {
     return res.status(404).json({ error: `No transcript available for ${symbol}.` });
   }
+  if (priorTranscript?.paragraphs?.length) prior.transcript = priorTranscript;
 
   const started = Date.now();
   let summary;
@@ -319,6 +326,12 @@ async function opSummary(req, res, apiKey) {
         PRIOR_BUDGET_MS,
       ),
     ]);
+    // A stored prior extraction comes without its transcript, which the
+    // "what changed" check needs.
+    if (prior && !prior.transcript.paragraphs) {
+      const t = await getTranscript(symbol, prior.transcript.year, prior.transcript.quarter).catch(() => null);
+      if (t?.paragraphs?.length) prior.transcript = t;
+    }
     summary = await composeSummary(gemini, transcript, extraction, prior);
   } catch (err) {
     return geminiFailure(res, err, `Summary for ${symbol}`);

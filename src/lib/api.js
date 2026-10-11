@@ -58,8 +58,9 @@ export async function fetchTranscript(ticker, year, quarter) {
 // page load.
 //
 // Three requests, not one: the summary is a two-pass pipeline (extract this
-// call, extract the prior call, compose), each pass a Gemini call of twenty
-// to forty seconds, and a Vercel function has sixty. Each stage is its own
+// call, extract the prior call, compose), each pass a model call of twenty
+// to forty seconds or more, and a slow pass should fail alone rather than
+// take the others with it. Each stage is its own
 // request and this function carries the results between them, so no request
 // ever holds more than one model call — and a deployment without a Blob
 // store still works, because nothing has to persist server-side between
