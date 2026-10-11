@@ -54,7 +54,7 @@ export default async function handler(req, res) {
       ...result,
       // Lets the client hide the summarise button entirely on deployments with
       // no Gemini key, rather than offering an action that can only fail.
-      summaryAvailable: !!process.env.GEMINI_API_KEY,
+      summaryAvailable: !!(process.env.ANTHROPIC_API_KEY || process.env.GEMINI_API_KEY),
     });
 
   } catch (err) {

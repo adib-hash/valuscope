@@ -171,7 +171,7 @@ async function opCalendar(req, res) {
     transcriptIndex: index ? { builtAt: index.builtAt, rows: index.rows } : null,
     // The digest needs Gemini; the client hides the button on deployments
     // without a key rather than offering an action that can only fail.
-    summaryAvailable: !!process.env.GEMINI_API_KEY,
+    summaryAvailable: !!(process.env.ANTHROPIC_API_KEY || process.env.GEMINI_API_KEY),
     warnings,
     asOf: new Date().toISOString(),
     source: 'yahoo+defeatbeta',
