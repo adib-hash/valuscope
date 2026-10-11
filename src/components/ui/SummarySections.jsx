@@ -4,6 +4,16 @@
 
 const who = (name, detail) => (detail ? `${name}, ${detail}` : name);
 
+// The question as the model wrote it, set after the asker's name the way the
+// answer follows the responder's. Gluing it into a sentence ("asked about …")
+// broke whenever it was written as a question: "asked about Is Airtable's
+// faster growth a shift?". A leading "asked (about)" is dropped and the first
+// letter raised, so a topic phrase reads as cleanly as a question.
+function questionText(text) {
+  const t = String(text || '').trim().replace(/^(asked|on)\s+(about\s+)?/i, '').replace(/^about\s+/i, '');
+  return t.charAt(0).toUpperCase() + t.slice(1);
+}
+
 export function Label({ children }) {
   return (
     <p className="text-vs-dim text-micro font-mono uppercase tracking-widest mb-1.5">{children}</p>
@@ -34,8 +44,8 @@ export function QaPairs({ items }) {
       {list.map((q, i) => (
         <li key={i} className="max-w-[68ch] border-l-2 border-vs-violet/30 pl-3">
           <p className="text-vs-soft text-body leading-[1.6]">
-            <span className="text-vs-text font-semibold">{who(q.analyst || 'Analyst', q.firm)}</span>
-            {' '}asked about {q.question.replace(/^(asked about|about)\s+/i, '')}
+            <span className="text-vs-text font-semibold">{who(q.analyst || 'Analyst', q.firm)}:</span>
+            {' '}{questionText(q.question)}
           </p>
           <p className="text-vs-soft text-body leading-[1.6] mt-1">
             <span className="text-vs-text font-semibold">{who(q.responder || 'Management', q.responderTitle)}:</span>
@@ -59,8 +69,8 @@ export function Unanswered({ items }) {
         <li key={i} className="flex gap-2 text-vs-soft text-body leading-[1.6] max-w-[68ch]">
           <span className="text-vs-amber flex-shrink-0 mt-[1px]">&bull;</span>
           <span>
-            <span className="text-vs-text font-semibold">{who(u.analyst || 'Analyst', u.firm)}</span>
-            {' '}on {u.question.replace(/^(asked about|about|on)\s+/i, '')}
+            <span className="text-vs-text font-semibold">{who(u.analyst || 'Analyst', u.firm)}:</span>
+            {' '}{questionText(u.question)}
             {u.how && <span className="text-vs-dim"> &mdash; {u.how}</span>}
           </span>
         </li>
