@@ -36,13 +36,41 @@ const QA_HANDOVER = [
 ];
 const PREAMBLE = 2;
 
+// The operator's queue instructions open the Q&A on calls whose operator
+// never says "question-and-answer" ("If you would like to ask a question,
+// please press star one").
+const QUEUE_INSTRUCTIONS = [
+  /press (star|\*) ?(one|1)\b/i,
+  /(would like|wish) to (ask a question|join the queue)/i,
+  /\[operator instructions\]/i,
+];
+
+// An executive's mention of the Q&A that is not the handover: the legal
+// notice ("Participants in the call, including the Q&A session, agree…") and
+// the agenda ("…after which we will take your questions. Our team is
+// available during the Q&A session"). Read as the boundary, these filed the
+// whole call as Q&A on Deere and Chipotle.
+const NOT_A_HANDOVER = /\b(agree|forward[- ]looking|safe harbor|likeness|being recorded|after which|available (during|for) the|following (the|our|management'?s)|later (in|on) (the|this|today'?s) call)\b/i;
+
 // Within the Q&A, the operator hands the line to each questioner.
 const NEXT_QUESTION = [
-  /(next|first|following|final|last) question (comes |is |today (comes|is) |will come )?from/i,
+  /(next|first|following|final|last) question,? (today )?(comes|is|will be|will come|is coming)? ?(from|coming from)/i,
   /question (comes|is) from (the line of )?/i,
   /we'?ll (now )?(take|go to|move to|hear from) (our|the) (next|first|final|last) question/i,
   /your line is (now )?open/i,
   /please (go ahead|proceed)( with your question)?/i,
+  /from the line of/i,
+  /(is|are) on the line with (a|your) question/i,
+  /your question,? please\b/i,
+  /please state your question/i,
+  /we'?ll go (next )?to\b/i,
+];
+
+// Some calls are run by the IR host rather than an operator, so a cue from a
+// speaker who isn't the operator counts too — but only these unambiguous
+// introductions, never "please go ahead" from an executive mid-answer.
+const HOST_CUE = [
+  /(next|first|following|final|last) question,? (today )?(comes|is|will be|will come|is coming)? ?(from|coming from)/i,
   /from the line of/i,
 ];
 
@@ -58,16 +86,16 @@ const isOperator = (p) => /operator|moderator/i.test(p.speaker || '');
 
 export function segmentTranscript(paragraphs) {
   const items = (paragraphs || []).filter((p) => p && p.content);
-  let boundary = -1;
-  for (let i = PREAMBLE; i < items.length; i++) {
-    if (QA_HANDOVER.some((re) => re.test(items[i].content))) { boundary = i; break; }
-  }
-  // No announcement, but the operator is handing out questions: the first
-  // hand-off is the boundary.
+  const matches = (list, p) => list.some((re) => re.test(p.content));
+  // The operator opening the line is the most reliable cue: announcing the
+  // Q&A, reading the queue instructions, or introducing the first questioner.
+  let boundary = items.findIndex((p, i) => i >= PREAMBLE && isOperator(p)
+    && (matches(QA_HANDOVER, p) || matches(QUEUE_INSTRUCTIONS, p) || matches(NEXT_QUESTION, p)));
+  // Transcripts without an operator line: an executive or IR host handing
+  // over, but never the legal notice or the agenda.
   if (boundary < 0) {
-    for (let i = PREAMBLE; i < items.length; i++) {
-      if (isOperator(items[i]) && NEXT_QUESTION.some((re) => re.test(items[i].content))) { boundary = i; break; }
-    }
+    boundary = items.findIndex((p, i) => i >= PREAMBLE
+      && matches(QA_HANDOVER, p) && !NOT_A_HANDOVER.test(p.content));
   }
   if (boundary < 0) {
     return { prepared: items, qa: [], exchanges: [], boundaryFound: false };
@@ -83,7 +111,7 @@ export function segmentTranscript(paragraphs) {
   let current = null;
   for (const p of qa) {
     if (isOperator(p) && QA_CLOSE.some((re) => re.test(p.content))) break;
-    const cue = isOperator(p) && NEXT_QUESTION.some((re) => re.test(p.content));
+    const cue = isOperator(p) ? NEXT_QUESTION.some((re) => re.test(p.content)) : HOST_CUE.some((re) => re.test(p.content));
     if (cue || !current) {
       if (current?.paragraphs.some((x) => !isOperator(x))) exchanges.push(current);
       current = { paragraphs: [] };
@@ -287,6 +315,51 @@ export function verifyQuotes(quotes, paragraphs) {
   return out;
 }
 
+// ── "What changed" verification ─────────────────────────────────────────────
+//
+// The composer compares two extractions' label lists and never sees either
+// transcript, so it reports a product as new when last quarter's call
+// discussed it under a different label, and a topic as dropped when this
+// quarter's call covered it at length. In the Oct 2026 bake-off that was the
+// most common error for every model. Each claim is now checked against the
+// call it is about: a "new" mention that the prior call already contains is
+// removed, and so is a "dropped" topic that this call still discusses. A
+// missing item is better than a false one, so the test leans toward "present".
+
+const STOP = new Set(('and the for with from into over under about its their our new more less '
+  + 'update updates outlook strategy strategic performance business businesses segment segments '
+  + 'growth trends trend dynamics commentary discussion plans plan progress impact impacts '
+  + 'expansion initiative initiatives momentum results management').split(' '));
+
+const words = (s) => fold(s).replace(/[^a-z0-9 ]+/g, ' ').split(' ').filter(Boolean);
+// Crude stemming: "investments" and "investing" both reach "invest".
+const stem = (w) => (w.length > 5 ? w.slice(0, Math.max(5, w.length - 3)) : w);
+
+function discussedIn(label, paragraphs) {
+  const terms = [...new Set(words(label).filter((w) => !STOP.has(w) && (w.length > 2 || /\d/.test(w))).map(stem))];
+  if (!terms.length) return true; // nothing distinctive to check: treat as present
+  const need = Math.max(1, Math.ceil(terms.length * 0.6));
+  const whole = fold(label);
+  return paragraphs.some((p) => {
+    const text = fold(p.content);
+    if (whole.length > 3 && text.includes(whole)) return true;
+    const have = new Set(words(text).map(stem));
+    const hits = terms.filter((t) => have.has(t) || [...have].some((h) => h.startsWith(t))).length;
+    return hits >= need;
+  });
+}
+
+export function verifyWhatChanged(whatChanged, currentParagraphs, priorParagraphs) {
+  if (!whatChanged) return whatChanged;
+  const out = { ...whatChanged };
+  // Without the prior transcript, a "new" claim cannot be checked, so it goes.
+  out.newMentions = priorParagraphs?.length
+    ? (out.newMentions || []).filter((m) => !discussedIn(m, priorParagraphs))
+    : [];
+  out.droppedTopics = (out.droppedTopics || []).filter((t) => !discussedIn(t, currentParagraphs || []));
+  return out;
+}
+
 // ── Pass 2: composition ─────────────────────────────────────────────────────
 
 export const SUMMARY_SYSTEM = `You write earnings call summaries for an investor's own research notes, from a structured extraction of the call and, when one is supplied, the extraction of the prior quarter's call. You never see the transcript, so use only what the extractions contain.
@@ -451,7 +524,9 @@ export async function extractCall(gemini, transcript) {
 const forPrompt = ({ segmentation, ...rest }) => rest;
 
 /**
- * Pass 2. `prior` is the previous quarter's extraction, or null.
+ * Pass 2. `prior` is the previous quarter's extraction and transcript, or
+ * null. Without the prior transcript's paragraphs, "new mentions" are left
+ * out because they cannot be checked.
  */
 export async function composeSummary(gemini, transcript, extraction, prior) {
   const priorBlock = prior
@@ -472,7 +547,7 @@ export async function composeSummary(gemini, transcript, extraction, prior) {
   if (!prior) {
     summary.whatChanged = null;
   } else {
-    const w = summary.whatChanged || {};
+    const w = verifyWhatChanged(summary.whatChanged || {}, transcript.paragraphs, prior.transcript.paragraphs);
     const empty = !(w.guidanceRevisions?.length || w.newMentions?.length || w.droppedTopics?.length || w.toneShift);
     summary.whatChanged = empty ? null : { ...w, comparedWith: { year: prior.transcript.year, quarter: prior.transcript.quarter } };
   }
