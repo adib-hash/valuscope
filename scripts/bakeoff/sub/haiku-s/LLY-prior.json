@@ -1,0 +1,341 @@
+{
+  "speakers": [
+    {
+      "name": "Dave Ricks",
+      "title": "Chair and CEO",
+      "firm": "Eli Lilly and Company",
+      "role": "executive"
+    },
+    {
+      "name": "Lucas Montarce",
+      "title": "Chief Financial Officer",
+      "firm": "Eli Lilly and Company",
+      "role": "executive"
+    },
+    {
+      "name": "Dan Skovronsky",
+      "title": "Chief Scientific and Product Officer",
+      "firm": "Eli Lilly and Company",
+      "role": "executive"
+    },
+    {
+      "name": "Daniel Skovronsky",
+      "title": "Chief Scientific and Product Officer",
+      "firm": "Eli Lilly and Company",
+      "role": "executive"
+    },
+    {
+      "name": "Adrian Brown",
+      "title": "President of Lilly Immunology",
+      "firm": "Eli Lilly and Company",
+      "role": "executive"
+    },
+    {
+      "name": "Carole Ho",
+      "title": "President of Lilly Neuroscience",
+      "firm": "Eli Lilly and Company",
+      "role": "executive"
+    },
+    {
+      "name": "Ilya Yuffa",
+      "title": "President of Lilly USA and Global Customer Capabilities",
+      "firm": "Eli Lilly and Company",
+      "role": "executive"
+    },
+    {
+      "name": "Jake Van Naarden",
+      "title": "President of Lilly Oncology and Head of Business Development",
+      "firm": "Eli Lilly and Company",
+      "role": "executive"
+    },
+    {
+      "name": "Patrik Jonsson",
+      "title": "President of Lilly International",
+      "firm": "Eli Lilly and Company",
+      "role": "executive"
+    },
+    {
+      "name": "Ken Custer",
+      "title": "President of Lilly Cardiometabolic Health",
+      "firm": "Eli Lilly and Company",
+      "role": "executive"
+    },
+    {
+      "name": "Mike Czapar",
+      "title": "Senior Vice President of Investor Relations",
+      "firm": "Eli Lilly and Company",
+      "role": "executive"
+    },
+    {
+      "name": "Operator",
+      "title": "",
+      "firm": "",
+      "role": "operator"
+    }
+  ],
+  "exchanges": [
+    {
+      "n": 1,
+      "analyst": "Geoff Meacham",
+      "firm": "",
+      "question": "Great. Hey, guys. Congrats on the quarter. Thanks for the question. Maybe this one is for Dave. You know, investors seem to be acutely focused on pricing in incretins with not a lot of emphasis on volume. I know you don't want to get too specific, can you talk about, you know, at a high level, the m",
+      "responder": "Mike Czapar",
+      "responderTitle": "Senior Vice President of Investor Relations",
+      "alsoAnswered": [
+        "Dave Ricks"
+      ],
+      "answer": "Great. Thanks, Geoff. Dave, do you want to maybe just talk about pricing in incretins? Sure. Thanks for the question, Geoff. Maybe a couple things to point out now that we're five or six quarters deep into this sort of post-shortage world, and we can really pursue expansion on volume in an aggressive way. I think you can see something just a little different about the obesity and weight loss category from what we think about in other pharmaceuticals, where, you know, the barrier is typically mor",
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "n": 2,
+      "analyst": "Chris Schott",
+      "firm": "",
+      "question": "Great. Thanks so much for the question, and congrats on the progress. I just wanted to dig a little bit more into international Mounjaro. Can you just share some of the learnings from? I think it's been a much better expected launch than we all had anticipated here as we think about the ramp going f",
+      "responder": "Mike Czapar",
+      "responderTitle": "Senior Vice President of Investor Relations",
+      "alsoAnswered": [
+        "Patrik Jonsson"
+      ],
+      "answer": "Great. Thanks, Chris, for the question about international Mounjaro and the potential impact of generic semaglutide. We'll go to Patrik. Thank you very much, Chris. You know, when we look at the first quarter, it's truly a strong growth of all our prioritized products across international, but of course, particularly Mounjaro. Now we have fully launched in more than 55 countries, and we have seen a very strong speed of uptake and also a rapid market share gain. Also in the mark, we launched the ",
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "n": 3,
+      "analyst": "Seamus Fernandez",
+      "firm": "",
+      "question": "Great. Thanks for the question. Really, we just wanted to get a better understanding of how the market as you see it, is starting to segment and could segment going forward, more, you know, as you look forward to the potential introduction of retatrutide, amidst the Foundayo launch, as well as then ",
+      "responder": "Mike Czapar",
+      "responderTitle": "Senior Vice President of Investor Relations",
+      "alsoAnswered": [],
+      "answer": "Great. Thanks, Seamus. For that question, we'll go to Ken to talk a bit about the broader Lilly portfolio and how we see the market segmenting.",
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "n": 4,
+      "analyst": "Kenneth Custer",
+      "firm": "",
+      "question": "Sure. Thanks for the question, Seamus. I think it's reasonable to expect in this large and growing market and opportunity in obesity that with, you know, the number of patients around the world living with overweight or obesity numbering perhaps in the billions, that many of them are going to want d",
+      "responder": "Mike Czapar",
+      "responderTitle": "Senior Vice President of Investor Relations",
+      "alsoAnswered": [],
+      "answer": "Great. Thank you, Ken. We'll go to the next question, please, Paul.",
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "n": 5,
+      "analyst": "Alex Hammond",
+      "firm": "",
+      "question": "Good morning, guys. Thanks for taking the question. On Medicare access, can you walk us through your strategy to activate these patients? When do you kind of see this playing out in terms of either maybe a Q4 dynamic or more of a 2027 as these patients pull through? I guess as well, with the attract",
+      "responder": "Mike Czapar",
+      "responderTitle": "Senior Vice President of Investor Relations",
+      "alsoAnswered": [
+        "Ilya Yuffa"
+      ],
+      "answer": "Okay. Thanks, Alex. For the question about Medicare access and sort of staging over time, we'll go to Ilya. Yeah. Great. Thank you for the question. Obviously, we're excited about having Part D access starting to activate for obesity medicines starting in July. The way that we think about it, there are millions of Part D beneficiaries that are obese already. So the path to that with having a long trajectory, with a big bridge program of not only starting in July all through 2027 is an important ",
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "n": 6,
+      "analyst": "Evan Seigerman",
+      "firm": "",
+      "question": "Hi, guys. Thank you so much for taking my question. Bigger picture, strategically, you know, as you think about the next, you know, levers of growth of the business, what do you need to see from either the I&I, Neuroscience or Oncology franchises to kind of match the scale of the obesity metabolic b",
+      "responder": "Mike Czapar",
+      "responderTitle": "Senior Vice President of Investor Relations",
+      "alsoAnswered": [
+        "Daniel Skovronsky"
+      ],
+      "answer": "Great. Thanks, Evan. We'll go to Dan to talk about some of the important programs that he's focused on to drive growth in the future. Yeah. Thanks, Evan, for that question. It's an important one to us. To start, you're asking about scale. I point out in growth rate, those businesses are growing extremely fast. Even without the obesity and metabolic business, Lilly would be the fastest or surely one of the fastest-growing pharmaceutical companies in the industry. We're proud of what we're doing i",
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "n": 7,
+      "analyst": "Asad Haider",
+      "firm": "",
+      "question": "Great. Thanks for taking the question and congrats on the continued strong execution. Maybe just going back to Foundayo. Appreciate all the color on early launch dynamics, which is sort of playing out along the lines of your messaging that the initial launch trajectory is gonna live below that of or",
+      "responder": "Mike Czapar",
+      "responderTitle": "Senior Vice President of Investor Relations",
+      "alsoAnswered": [
+        "Lucas Montarce",
+        "Ilya Yuffa"
+      ],
+      "answer": "Great. Thanks for the question, Asad. Ilya, do you wanna talk about some of the early launch metrics that you're tracking and the feedback you're hearing? Then maybe just a short comment from Lucas about the guide. Sure. First it is early days. We're pretty pleased with the trajectory and encouraging first start to launch. Obviously, we just started active salesforce promotion just over a week ago, having broad availability in the supply channel just two weeks ago. Really, we're encouraged by th",
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "n": 8,
+      "analyst": "James Shin",
+      "firm": "",
+      "question": "Hey, good morning, guys. Thank you for the question. This one's for Dave. With Bridge extending into 2027, Dave, what's next for Balance? Is Lilly working with stakeholders on a revision to secure longer-term Medicare access? Thank you.",
+      "responder": "Mike Czapar",
+      "responderTitle": "Senior Vice President of Investor Relations",
+      "alsoAnswered": [
+        "Dave Ricks"
+      ],
+      "answer": "Thanks, James. Dave, do you wanna share a few comments about the Bridge Balance dynamics? Sure, yeah. When we signed the agreement with the administration, we all knew Bridge was gonna be put in place 'cause it was a mid-year launch. We had understood at the time that there was a commitment to 2027, if as a contingency, the Part D plans did not choose to opt in at a certain rate. Of course, we now know they didn't, and maybe that's not so surprising. You know, they operate on their margins. Ther",
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "n": 9,
+      "analyst": "Mohit Bansal",
+      "firm": "",
+      "question": "Great. Thank you very much for taking my question, and congrats on the progress. I just want to touch upon the Employer Connect program that you are embarking upon. It seems like the insurance, or commercial insurance has been relatively stable-ish year-over-year. This seems to be the way to grow it",
+      "responder": "Mike Czapar",
+      "responderTitle": "Senior Vice President of Investor Relations",
+      "alsoAnswered": [
+        "Ilya Yuffa"
+      ],
+      "answer": "Thanks, Mohit. Ilya, do you want to make a few comments about Employer Connect and the progress and focus? Sure. thanks, Mohit. Yeah, listen, as you mentioned, the overall commercial access has been pretty steady around 50%. One of the key aspects that we're excited about is having a Employer Connect platform where we work with a number of third parties to actually go out and talk to different employers about the value of covering obesity care. There are several things that are a little bit diff",
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "n": 10,
+      "analyst": "Terence Flynn",
+      "firm": "",
+      "question": "Great. congrats on all the progress. Had a question broadly. You talked to the portfolio that you currently have, but you're also rolling out across the incretin area. as you think about the evolution, I guess, of the DTC channel, what are some of the things you're considering to kind of leverage Li",
+      "responder": "Mike Czapar",
+      "responderTitle": "Senior Vice President of Investor Relations",
+      "alsoAnswered": [
+        "Dave Ricks",
+        "Ilya Yuffa",
+        "Patrik Jonsson"
+      ],
+      "answer": "Thanks for the question, Terence. We'll go to Dave to talk a bit about the portfolio strategy and leveraging DTC. Sure. Ilya and Patrik can jump in here. I think you're pointing out something that, you know, has evolved and been developing part of the story here for our growth, which is, you know, consumers wanting to take charge of their own health and activate the digital platforms to control weight and obesity. I think this is here to stay, and it's a big part of our business now and probably",
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "n": 11,
+      "analyst": "Umer Raffat",
+      "firm": "",
+      "question": "Hi, guys. Thanks for taking my question. I thought I'll spend a quick second on Zepbound's commercial dynamics in U.S. Really what I'm trying to understand is, for example, 1Q, 7 million TRx and $4.1 billion sales for Zepbound in U.S., meaning it's about $580 per prescription. Even if you adjust for",
+      "responder": "Mike Czapar",
+      "responderTitle": "Senior Vice President of Investor Relations",
+      "alsoAnswered": [
+        "Dave Ricks",
+        "Lucas Montarce"
+      ],
+      "answer": "Great. thanks, Umer. Well, Lucas gets to talk a bit about pricing dynamics in the U.S. Umer, thank you for your question, quick math. Your math is pretty spot on, by the way. Just to highlight, yes, even normalizing by these period to period adjustments. First of all, again, going back to the initial question on pricing, if you carve out what we agreed on MFN side as well back in November, then the NRDL access prices has been relatively stable quarter-on-quarter. I think it's going back to what ",
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "n": 12,
+      "analyst": "Courtney Breen",
+      "firm": "",
+      "question": "Hi, guys. Thanks so much for taking the question today. I know there's been a huge amount of focus on kind of the first few weeks of Foundayo, and specifically kind of the launch strategy and activation of the different channels. Perhaps, Ken, it would be helpful if you could talk through how does t",
+      "responder": "Mike Czapar",
+      "responderTitle": "Senior Vice President of Investor Relations",
+      "alsoAnswered": [
+        "Dave Ricks",
+        "Ilya Yuffa"
+      ],
+      "answer": "Okay. Thanks, Courtney. Ilya, do you want to make a few more comments about the Foundayo launch vis-\u00e0-vis primary care? Sure. Yeah, maybe just probably the three elements I discussed earlier are probably the same for all of our primary care launches, where you need to grow the prescriber base and understanding of the profile of the medicine, and that's what we're doing here with Foundayo. Building out access, and quite frankly, this is actually gaining access very early in launch, both on the co",
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "n": 13,
+      "analyst": "David Risinger",
+      "firm": "",
+      "question": "Yes. Yes, sorry. Can you hear me okay now?",
+      "responder": "Mike Czapar",
+      "responderTitle": "Senior Vice President of Investor Relations",
+      "alsoAnswered": [
+        "Dave Ricks"
+      ],
+      "answer": "Yes. Okay. Thanks, Dave, for the question. Obviously an important factor, we do think just as a policy matter that obesity and overweight medications should be broadly covered. I think a big step in this journey is actually the July one Medicare. There's often spillover benefits into commercial from there, I think setting a standard that people in America should expect if they've paid into their insurance program or their employer has, that it will cover their health needs. That said, I think th",
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    }
+  ],
+  "guidance": [
+    {
+      "item": "2026 Revenue Guidance",
+      "current": "82-85 billion",
+      "prior": "",
+      "period": "FY2026",
+      "speaker": "Lucas Montarce",
+      "source": "prepared"
+    }
+  ],
+  "metrics": [
+    {
+      "metric": "Q1 Revenue Growth",
+      "value": "56",
+      "comparison": ""
+    },
+    {
+      "metric": "Non-GAAP EPS",
+      "value": "8.55",
+      "comparison": ""
+    }
+  ],
+  "quotes": [
+    {
+      "speaker": "Dave Ricks",
+      "quote": "2026 is off to a strong start.",
+      "title": "",
+      "context": ""
+    },
+    {
+      "speaker": "Dave Ricks",
+      "quote": "delivered robust revenue growth, advanced our pipeline across all four therapeutic areas",
+      "title": "",
+      "context": ""
+    },
+    {
+      "speaker": "Dave Ricks",
+      "quote": "Foundayo has been proven highly effective for weight management",
+      "title": "",
+      "context": ""
+    },
+    {
+      "speaker": "Lucas Montarce",
+      "quote": "We are pleased with our Q1 results and confident in our ability to deliver another year",
+      "title": "",
+      "context": ""
+    }
+  ],
+  "topics": [
+    "Foundayo launch",
+    "Mounjaro expansion",
+    "Revenue growth",
+    "Type 2 diabetes pipeline",
+    "Obesity treatment market",
+    "R&D advancement",
+    "Business development acquisitions",
+    "International market growth"
+  ],
+  "newMentions": [
+    "Foundayo",
+    "Orforglipron",
+    "ACHIEVE-4 trial",
+    "Retatrutide",
+    "Orna Therapeutics",
+    "Centessa Pharmaceuticals",
+    "Kelonia Therapeutics"
+  ]
+}

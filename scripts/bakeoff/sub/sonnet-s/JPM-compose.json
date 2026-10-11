@@ -1,0 +1,75 @@
+{
+"overview": "JPMorgan reported fiscal Q2 2026 net income of $16.9B, EPS of $6.14 and ROTCE of 23%, with revenue ex significant items up 15% y/y and expenses up 15% to $27.3B. Corporate and Investment Bank revenue rose 27% to $24.9B on equities up 86% and investment banking fees up 30%. Jeremy Barnum, CFO, raised full-year NII ex-Markets guidance to about $96.5B and expense guidance to about $107.5B.",
+"keyTakeaways": [
+"Equities markets revenue rose 86% y/y and IB fees rose 30%, though Jeremy Barnum, CFO, said there was pull forward and that this quarter's equities set of events is hard to imagine repeating.",
+"Jamie Dimon, Chairman and CEO, said 'It's getting close to as good as it gets' but that nobody knows how long it lasts.",
+"Dimon said the board named two co-presidents to prepare them to do far more, the CEO timetable is essentially unchanged at several years, plus or minus, and the date is up to the board.",
+"Dimon said AI has almost 1,000 use cases, about 50 really important, with some discrete areas cutting jobs 30% or 40%, and that the benefits will accrue to customers rather than margins.",
+"Dimon said he made a mistake mentioning $20B of buybacks last time, and that the goal is deploying capital at a 17% return, organic growth first."
+],
+"financialHighlights": [
+"Net income was $16.9B and EPS was $6.14, with ROTCE of 23% and revenue ex significant items up 15% y/y.",
+"Expenses were $27.3B, up 15% y/y, and credit costs were $2.5B, with net charge-offs of $2.4B and a net reserve build of $149M.",
+"Standardized CET1 was 14.1%, down 20bp q/q, with standardized RWA up about $103B.",
+"CIB net income was $9.7B on revenue of $24.9B, up 27%, with fixed income markets revenue up 6%.",
+"AWM revenue was $6.9B, up 19%, with a 38% pre-tax margin and $50B of long-term net inflows; CCB revenue was $20.3B, up 8%."
+],
+"keyMetrics": [
+{"metric": "Net income", "value": "$16.9B"},
+{"metric": "EPS", "value": "$6.14"},
+{"metric": "ROTCE", "value": "23%"},
+{"metric": "Revenue ex significant items", "value": "up 15% y/y"},
+{"metric": "Expenses", "value": "$27.3B", "comparison": "up 15% y/y"},
+{"metric": "Standardized CET1 ratio", "value": "14.1%", "comparison": "down 20bp q/q"},
+{"metric": "CIB revenue", "value": "$24.9B", "comparison": "up 27% y/y"},
+{"metric": "Equities markets revenue", "value": "up 86% y/y", "comparison": "fixed income markets up 6%"}
+],
+"guidance": [
+"Barnum guided full-year 2026 NII ex-Markets to about $96.5B, up from $95B, with total NII of about $105.5B and Markets NII of about $9B.",
+"Barnum guided adjusted expense to about $107.5B, raised by $2.5B, with $1.5B booked in the first half and about $1B implied for the second half.",
+"Barnum guided the full-year card net charge-off rate to approximately 3.2%, versus approximately 3.4% last quarter.",
+"Barnum said consumer deposits are still expected to grow low single digits this year, and the board intends to raise the quarterly dividend to $1.65 per share effective Q3.",
+"Barnum said AI token expense was trivial in the first half and is forecast to accelerate meaningfully in the second half, though still trivial for the full year."
+],
+"qa": [
+{"analyst": "Ken Usdin", "firm": "Autonomous Research", "question": "What should investors take from the co-president appointments, and how sustainable are investment banking and markets activity?", "responder": "Jamie Dimon", "responderTitle": "Chairman and CEO", "answer": "Dimon said the board made two co-presidents to prepare them to do far more and the timetable has not changed. Jeremy Barnum, CFO, said IB fees were not super-peak, with some pull forward and large IPOs contributing, the pipeline is quite robust, and he declined to guide. Barnum said the equities events this quarter are hard to imagine repeating.", "read": "Answered directly on succession; declined to guide on investment banking."},
+{"analyst": "John McDonald", "firm": "Truist Securities", "question": "What drove the upward revision to NII ex-Markets, and why is Markets NII guided higher?", "responder": "Jeremy Barnum", "responderTitle": "CFO", "answer": "Barnum said NII ex-Markets moved from $95B to $96.5B, driven mainly by deposit balances across wholesale and consumer plus a mix shift toward slightly higher margin, with consumer betas outperforming the model. He said Markets NII rises on lower non-interest-bearing financing assets in the second half, and raising CIB equity allocation shifts about $150M of NII into Markets NII.", "read": "Answered directly."},
+{"analyst": "Erika Najarian", "firm": "UBS", "question": "What is the board looking for in the next CEO, and is Dimon's remaining tenure fixed or rolling?", "responder": "Jamie Dimon", "responderTitle": "Chairman and CEO", "answer": "Dimon said timing is essentially the same and up to the board, repeating 'several years, plus or minus'. He listed attributes including analytics, culture, grit and work ethic, said no one has all of them, and named COO Jen Piepszak and Mary Erdoes as exceptional alongside the co-presidents.", "read": "Answered partially: did not say whether the date is fixed or rolling."},
+{"analyst": "Mike Mayo", "firm": "Wells Fargo", "question": "Is negative operating leverage the right framing with revenue up 15%, and what gives confidence in Troy running consumer?", "responder": "Jeremy Barnum", "responderTitle": "CFO", "answer": "Barnum said the capital markets complex outperformed first-half expectations by $6.5B, with $1.5B of additional expense booked. Dimon agreed operating leverage in dollars was positive and cited analytics, EQ and culture as reasons for confidence in Troy; Barnum corrected that Troy was an options trader.", "read": "Answered directly with figures."},
+{"analyst": "Saul Martinez", "firm": "HSBC", "question": "Are we underestimating AI efficiency potential, such as Block cutting 40% of its workforce, and what was exceptional in equities?", "responder": "Jamie Dimon", "responderTitle": "Chairman and CEO", "answer": "Dimon said some discrete areas cut jobs 30% or 40% with most offered jobs elsewhere, and the benefits will accrue to customers, not ROE rising to 50%. Barnum cited major IPOs, index rebalancing and the Korean equity market as equities drivers, calling a repeat statistically improbable.", "read": "Answered directly and pushed back on the leaner-bank premise."},
+{"analyst": "Ebrahim Poonawala", "firm": "Bank of America", "question": "Why buy back stock at three times tangible book rather than hold more excess capital, and what about M&A?", "responder": "Jamie Dimon", "responderTitle": "Chairman and CEO", "answer": "Dimon said he made a mistake mentioning $20B last time, buybacks could be far more or nothing, and the goal is deploying capital at a 17% return, organic growth first. He said JPM is open to inorganic opportunities such as adjacencies and data, with no specifics.", "read": "Answered partially: no buyback size or M&A targets."}
+],
+"unanswered": [
+{"analyst": "Erika Najarian", "firm": "UBS", "question": "Is Dimon's remaining tenure fixed or rolling, given Marianne's departure?", "how": "Dimon repeated 'several years, plus or minus, up to the board' without saying whether the date is fixed."},
+{"analyst": "Chris McGratty", "firm": "KBW", "question": "Where are we in the investment cycle and what does it mean for medium-term operating leverage?", "how": "Jeremy Barnum, CFO, said the firm will always invest and returns speak for themselves, with no end point or operating leverage figure."},
+{"analyst": "Manan Gosalia", "firm": "Morgan Stanley", "question": "Are tech or marketing expenses being pulled forward, and are there internal limits on CIB capital allocation?", "how": "Barnum said he would not disclose marketing details and would not discuss how internal limits are managed."},
+{"analyst": "Ebrahim Poonawala", "firm": "Bank of America", "question": "How large will buybacks be, and what M&A is under consideration?", "how": "Jamie Dimon, Chairman and CEO, said buybacks could be far more or nothing and named no M&A specifics."}
+],
+"notableQuotes": [
+{"speaker": "Jamie Dimon", "title": "Chairman and CEO", "quote": "The notion that somehow you can forever increase your operating leverage is a crazy notion."},
+{"speaker": "Jamie Dimon", "title": "Chairman and CEO", "quote": "It's getting close to as good as it gets. We just don't know how long it's going to last."},
+{"speaker": "Jeremy Barnum", "title": "CFO", "quote": "I think clearly there was some pull forward, and clearly the large deals contributed meaningfully to this quarter of results."},
+{"speaker": "Jamie Dimon", "title": "Chairman and CEO", "quote": "I made a mistake last time mentioning $20 billion."},
+{"speaker": "Jeremy Barnum", "title": "CFO", "quote": "crazy is a strong word"}
+],
+"whatChanged": {
+"guidanceRevisions": [
+"NII ex-Markets moved from about $95B to about $96.5B.",
+"Total NII moved from approximately $103B to approximately $105.5B.",
+"Markets NII moved from about $8B to about $9B.",
+"Adjusted expense moved from about $105B to about $107.5B.",
+"Card net charge-off rate moved from approximately 3.4% to approximately 3.2%.",
+"Consumer deposit growth moved from low to mid single digits to low single digits."
+],
+"newMentions": ["Co-presidents Doug and Troy", "Marianne retirement", "Sapphire Preferred refresh", "Smart cash tool", "Chase UK", "Chase Germany (Berlin)", "Token expense", "Jen Piepszak (COO)", "Mary Erdoes (AWM)", "CCAR dividend increase", "Korean equity market"],
+"droppedTopics": ["Private credit and NBFI exposure", "Stablecoins and payments", "AI cyber risk", "Middle East developments"],
+"toneShift": "Last quarter's call centered on private credit risk, Basel III and a held $105B expense guide; this quarter centers on management succession, record markets activity and raised guidance, with Jamie Dimon, Chairman and CEO, saying 'It's getting close to as good as it gets'."
+},
+"risksMentioned": [
+"Jeremy Barnum, CFO, said consumer yield-seeking deposit flows are a possible risk to the low-single-digit consumer deposit growth outlook.",
+"Barnum said deposit rate-paid convexity has not shown up yet but must kick in at some point, and a 7% rate environment would not be great.",
+"Dimon said competitors show mild deterioration in credit underwriting, including more PIK, weaker covenants and rollover risk, and that a credit cycle will come with outliers.",
+"Dimon said market risk capital of $80B or more versus a largest quarterly loss of $1.4B reflects double counts in capital rules, and that G-SIB calibration should be fixed back to 2015.",
+"Barnum said the short-term wholesale funding change disproportionately burdens banks like JPM and Bank of America versus former investment bank competitors."
+]
+}

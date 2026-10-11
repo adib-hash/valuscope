@@ -1,0 +1,170 @@
+{
+  "overview": "Chipotle grew Q2 2026 revenue 9.3% to $3.3B on a 2.2% comp, including a 1% transaction gain, while restaurant-level margin fell 220bp to 25.2% and adjusted EPS was flat at $0.33. Adam Rymer, CFO, raised the full-year comp guide to low single digits but guided Q3 to about +1%, assuming a ~200bp Cyclospora-related softening that began in late July continues.",
+  "keyTakeaways": [
+    "Rymer said comps softened about 200bp in the second half of July amid the industry Cyclospora issue, which Scott Boatwright, CEO, said hits sales though Chipotle is not involved.",
+    "Rymer expects pricing and inflation to match from Q4 after a first half with pricing near 1% against low-to-mid 3% inflation.",
+    "Boatwright said younger and lower-income cohorts improved most and Q2 delivered the highest YoY wallet share gains since 2024.",
+    "Digital sales reached $1.3B, or 38.3% of sales, up from 35.5%, which Boatwright tied to the rewards relaunch and Summer of Extras."
+  ],
+  "financialHighlights": [
+    "Revenue rose 9.3% to $3.3B, with comps of +2.2% on about 1.6% menu price and +1% transactions.",
+    "Restaurant-level margin fell 220bp to 25.2%, with cost of sales up about 80bp to 29.7% on beef, freight and higher usage.",
+    "Adjusted diluted EPS was $0.33, flat YoY, and non-GAAP G&A was $176M.",
+    "Chipotle repurchased $631M of stock at an average $32.55, added $1.3B of authorization and ended with $800M of cash and no debt."
+  ],
+  "keyMetrics": [
+    {
+      "metric": "Revenue",
+      "value": "$3.3B",
+      "comparison": "+9.3% YoY"
+    },
+    {
+      "metric": "Comparable restaurant sales",
+      "value": "+2.2%",
+      "comparison": "Transaction comp +1%"
+    },
+    {
+      "metric": "Restaurant-level margin",
+      "value": "25.2%",
+      "comparison": "-220bp YoY"
+    },
+    {
+      "metric": "Adjusted diluted EPS",
+      "value": "$0.33",
+      "comparison": "Flat YoY"
+    },
+    {
+      "metric": "Digital sales",
+      "value": "$1.3B, 38.3% of sales",
+      "comparison": "35.5% prior year"
+    },
+    {
+      "metric": "New restaurants",
+      "value": "101",
+      "comparison": "Including 80 Chipotlanes"
+    },
+    {
+      "metric": "Share repurchases",
+      "value": "$631M",
+      "comparison": "Average $32.55"
+    }
+  ],
+  "guidance": [
+    "Adam Rymer, CFO, raised FY2026 comp guidance to low single digits and guided Q3 to about +1%, or roughly 3% underlying before the Cyclospora headwind.",
+    "Rymer expects Q3 menu price in the mid 2% range, with the full year near the high end of 1%-2%.",
+    "Rymer guided Q3 cost of sales just under 30%, labor in the mid 25% range, other operating costs mid 15% and non-GAAP G&A around $180M.",
+    "Scott Boatwright, CEO, expects about 350 openings in 2026, HEAP in about 2,000 restaurants by year-end and a national catering launch in 2027."
+  ],
+  "qa": [
+    {
+      "analyst": "Dennis Geiger",
+      "firm": "UBS",
+      "question": "What underlies the low-single-digit comp guide, including Q3 to date?",
+      "responder": "Adam Rymer",
+      "responderTitle": "Chief Financial Officer",
+      "answer": "Rymer said traffic improved into early July before a ~200bp softening in late July tied to the Cyclospora issue, and Q3, the toughest lap, is expected at about +1% if that impact continues.",
+      "read": "Answered directly."
+    },
+    {
+      "analyst": "Brian Vaccaro",
+      "firm": "Raymond James",
+      "question": "Does the ~1% Q3 guide imply ~3% underlying, and where is Max 15 throughput?",
+      "responder": "Adam Rymer",
+      "responderTitle": "Chief Financial Officer",
+      "answer": "Rymer confirmed it, said the duration is very difficult to predict, and put Max 15 at low 20s in-store, mid-teens digital and low-to-mid 30s combined, with HEAP stores two or three entrees higher.",
+      "read": "Answered directly."
+    },
+    {
+      "analyst": "Chris Carril",
+      "firm": "KeyBanc",
+      "question": "What is the margin outlook beyond Q3 as the price-inflation gap narrows?",
+      "responder": "Adam Rymer",
+      "responderTitle": "Chief Financial Officer",
+      "answer": "Rymer said Q3 inflation should be about 3% against mid-2% pricing, and from Q4 the two should match.",
+      "read": "Answered directly."
+    },
+    {
+      "analyst": "Zach Ogden",
+      "firm": "TD Cowen",
+      "question": "Why is 350 company openings a year right versus the prior 400 ceiling?",
+      "responder": "Scott Boatwright",
+      "responderTitle": "Chief Executive Officer",
+      "answer": "Boatwright said going beyond 350 risks diminishing returns, and extra growth will come from Western Europe and partners, noting Alshaya has 15 restaurants with acceleration in 2027.",
+      "read": "Answered directly."
+    }
+  ],
+  "unanswered": [
+    {
+      "analyst": "Danilo Gargiulo",
+      "firm": "Bernstein",
+      "question": "The capex, sales uplift and timeline of refreshing 1,000-1,500 stores.",
+      "how": "Scott Boatwright, CEO, gave a $100,000-$300,000 test cost but said he has \"nothing to report today.\""
+    },
+    {
+      "analyst": "Jim Salera",
+      "firm": "Stephens",
+      "question": "How much LTOs contribute to frequency and traffic.",
+      "how": "Adam Rymer, CFO, said specific LTO lifts are not disclosed, citing only \"hundreds of basis points\" of typical lift."
+    },
+    {
+      "analyst": "David Palmer",
+      "firm": "Evercore ISI",
+      "question": "What gives confidence that momentum builds into 2027 despite tough comparisons.",
+      "how": "Scott Boatwright, CEO, cited \"green shoots\" across initiatives without figures."
+    }
+  ],
+  "notableQuotes": [
+    {
+      "speaker": "Scott Boatwright",
+      "title": "Chief Executive Officer",
+      "quote": "We're not impacted, or we are impacted from a sales perspective, but we're not involved in the Cyclospora conversation today."
+    },
+    {
+      "speaker": "Adam Rymer",
+      "title": "Chief Financial Officer",
+      "quote": "Very difficult to predict how long this could last."
+    },
+    {
+      "speaker": "Scott Boatwright",
+      "title": "Chief Executive Officer",
+      "quote": "I have nothing to report today, unfortunately, but I'll tell you that work is in flight."
+    },
+    {
+      "speaker": "Scott Boatwright",
+      "title": "Chief Executive Officer",
+      "quote": "It's really a clunky experience."
+    }
+  ],
+  "whatChanged": {
+    "guidanceRevisions": [
+      "FY2026 comps: about flat to low single digits.",
+      "Menu price: about 1.5% in Q2 to mid 2% in Q3, full year near the high end of 1%-2%.",
+      "Quarterly cost guide: labor low 25% to mid 25%; other operating high 14% to mid 15%; marketing below 3% to low 3%.",
+      "HEAP full portfolio: late 2027 or early 2028 to sometime in 2027.",
+      "Catering: broader rollout before year-end if results hold to national launch in 2027."
+    ],
+    "newMentions": [
+      "Cook to Needs AI tool pilot",
+      "Frictionless in-restaurant rewards pilot",
+      "Summer of Extras",
+      "Matchday BOGO",
+      "Mexico with Alsea (Monterrey)",
+      "Middle East with Alshaya",
+      "Remodel/refresh test"
+    ],
+    "droppedTopics": [
+      "Zipline drone delivery pilot",
+      "Ava Cado AI assistant",
+      "Happier Hour test",
+      "Delivery pricing and competition",
+      "Iran conflict and gas prices"
+    ],
+    "toneShift": "Last quarter Rymer held an about-flat comp guide and said Chipotle would \"remain cautious\"; this quarter he raised it but built Q3 around a Cyclospora headwind whose duration he called \"Very difficult to predict.\""
+  },
+  "risksMentioned": [
+    "Adam Rymer, CFO, said the ~200bp Cyclospora-related softening may continue through Q3 and its duration is hard to predict.",
+    "Rymer said Q3 is the toughest comparison of the year.",
+    "Rymer said Q3 inflation of about 3% still exceeds mid-2% pricing, after beef and freight drove cost of sales up about 80bp in Q2.",
+    "Scott Boatwright, CEO, said repeat LTOs likely hit diminishing returns around the fifth or sixth run."
+  ]
+}

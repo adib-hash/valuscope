@@ -1,0 +1,343 @@
+{
+  "speakers": [
+    {
+      "name": "Michael Johnston",
+      "title": "Vice President of Finance",
+      "firm": "Chipotle",
+      "role": "executive"
+    },
+    {
+      "name": "Scott Boatwright",
+      "title": "Chief Executive Officer",
+      "firm": "Chipotle",
+      "role": "executive"
+    },
+    {
+      "name": "Adam Rymer",
+      "title": "Chief Financial Officer",
+      "firm": "Chipotle",
+      "role": "executive"
+    },
+    {
+      "name": "Greg Francfort",
+      "title": "",
+      "firm": "",
+      "role": "analyst"
+    },
+    {
+      "name": "Brian Mullan",
+      "title": "",
+      "firm": "",
+      "role": "analyst"
+    },
+    {
+      "name": "Jon Tower",
+      "title": "",
+      "firm": "",
+      "role": "analyst"
+    },
+    {
+      "name": "Peter Saleh",
+      "title": "",
+      "firm": "",
+      "role": "analyst"
+    },
+    {
+      "name": "Chris Carril",
+      "title": "",
+      "firm": "",
+      "role": "analyst"
+    },
+    {
+      "name": "Dennis Geiger",
+      "title": "",
+      "firm": "",
+      "role": "analyst"
+    },
+    {
+      "name": "Danilo Gargiulo",
+      "title": "",
+      "firm": "",
+      "role": "analyst"
+    },
+    {
+      "name": "David Palmer",
+      "title": "",
+      "firm": "",
+      "role": "analyst"
+    },
+    {
+      "name": "Sara Senatore",
+      "title": "",
+      "firm": "",
+      "role": "analyst"
+    },
+    {
+      "name": "Kelly Merrill",
+      "title": "",
+      "firm": "",
+      "role": "analyst"
+    },
+    {
+      "name": "Drew North",
+      "title": "",
+      "firm": "",
+      "role": "analyst"
+    },
+    {
+      "name": "Brian Vaccaro",
+      "title": "",
+      "firm": "",
+      "role": "analyst"
+    },
+    {
+      "name": "Jim Salera",
+      "title": "",
+      "firm": "",
+      "role": "analyst"
+    },
+    {
+      "name": "Zach Ogden",
+      "title": "",
+      "firm": "",
+      "role": "analyst"
+    },
+    {
+      "name": "Operator",
+      "title": "",
+      "firm": "",
+      "role": "operator"
+    }
+  ],
+  "exchanges": [
+    {
+      "n": 1,
+      "analyst": "Sara Senatore",
+      "firm": "",
+      "question": "Oh, thank you very much. I wanted to ask maybe about, you mentioned the kind of core underpinnings of what is driving your comp, delicious food, generous portions, quality. I guess, maybe two questions about those different components. One is, can you talk about bringing back LTOs from the pantry? I",
+      "responder": "Scott Boatwright",
+      "responderTitle": "Chief Executive Officer",
+      "alsoAnswered": [],
+      "answer": "Hi, Sarah. Scott here. Thanks for the question. I'll tell you, Chipotle Honey Chicken did perform better the second time around, as do many of our LTOs. We're excited about the pantry items that we have. I do think there's a point of diminishing returns. I don't know if that's the fifth or sixth time around. That said, we have ramped up innovation and menu 4x what it was just a couple of years ago, and you're going to see new items come onto the calendar in the coming months ahead, and us revisi",
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "n": 2,
+      "analyst": "David Palmer",
+      "firm": "",
+      "question": "Thanks. Good evening. Just want to talk about sort of a pushback that I hear, and that is that it feels like Chipotle is doing a lot and spending a lot to get the 1%-2% same-store sales growth lately. How do I know that they're really going to be picking up momentum into 2027? I know you have a diff",
+      "responder": "Scott Boatwright",
+      "responderTitle": "Chief Executive Officer",
+      "alsoAnswered": [],
+      "answer": "Hi, David. Thank you. I'll tell you, the transaction growth we saw in Q2 was really the early days of the Recipe for Growth strategy hard at work for us, specifically around menu innovation. If you think about what we're doing is we're investing in our restaurant execution, and that investment is in the form of High-Efficiency Equipment Package, and really investing in better throughput and hospitality. The early proof points in guest satisfaction, food quality, and operational consistency tell ",
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "n": 3,
+      "analyst": "Dennis Geiger",
+      "firm": "",
+      "question": "Great. Thanks, guys. I was wondering if you could provide a little bit more color on the guide for the positive low single in 2026 on the comps, including perhaps any insights into the third quarter or early days. I know you talked about the softening in recent weeks. Just anything on that trajector",
+      "responder": "Adam Rymer",
+      "responderTitle": "Chief Financial Officer",
+      "alsoAnswered": [
+        "Scott Boatwright"
+      ],
+      "answer": "Yeah. Thanks, Dennis Geiger. It's Adam Rymer. I'll jump in. Traffic in the second quarter really improved throughout the quarter, and we're really encouraged by the momentum that is building as we continue to execute on our Recipe for Growth initiatives. That momentum continued into the first half of July. Then in the second half of July, we did see a softening, call it about 200 basis points or so, right around the issue that's affecting the industry around Cyclospora. We took that into account",
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "n": 4,
+      "analyst": "Danilo Gargiulo",
+      "firm": "",
+      "question": "Thank you. My question is about capital allocation and the link to that one to your stores. I think, Scott, last time we met you were mentioning that you are seeing an opportunity to refresh the store base, to allow for the elevated marketing to actually reflect also in your operating system and in ",
+      "responder": "Scott Boatwright",
+      "responderTitle": "Chief Executive Officer",
+      "alsoAnswered": [],
+      "answer": "Yeah. Thanks for the question. We're always reinvesting in our restaurants. I think that's a really important note, even our oldest assets. We haven't done an aesthetic remodel in the brand's history. What I wanted to accomplish this year is stage gate, if you will, the idea of a remodel refresh program, and is there a return on that investment? We are in early days. We have selected several locations across several geographies to make different levels of investment in today. I want you to think",
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "n": 5,
+      "analyst": "Greg Francfort",
+      "firm": "",
+      "question": "Hey. Thanks, Scott. Thanks for the question. My question is, I guess, just on digital sales. I think digital sales grew 18%, including the unit growth in the quarter year-over-year. You kind of four quarters ago, really turned that on. Was there something like a big catalyst that's just kind of unlo",
+      "responder": "Scott Boatwright",
+      "responderTitle": "Chief Executive Officer",
+      "alsoAnswered": [],
+      "answer": "It is all linked. I'll tell you. The launch of Summer of Extras last year really helped us understand where we have the right to win with the consumer in digital. We learned things that would work and things that don't work, quite frankly, for our brand. That informed really the refresh that we did and relaunch just a couple of months ago around rewards on repeat, where we removed some friction from the app. We gave you greater flexibility on how you earn rewards. We gave you greater flexibility",
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "n": 6,
+      "analyst": "Zach Ogden",
+      "firm": "",
+      "question": "Thank you. This is Zach Fadem on for Andrew. Scott, at a conference back in May, you talked about how 350 company-operated openings per year is the right level for Chipotle. Can you talk about why you view that as the right level, versus maybe the prior ceiling of 400 stores, and maybe what the gain",
+      "responder": "Scott Boatwright",
+      "responderTitle": "Chief Executive Officer",
+      "alsoAnswered": [],
+      "answer": "As I look across the landscape of what we do compared to our competitors, the white space that exists in the U.S. today, and quite frankly, our ability to develop ready now capable leaders, I feel like one restaurant per day, is meaningful growth and something we can continue to handle and support as an organization. We've demonstrated historically our ability to open restaurants successfully. I don't ever want to lose that edge. I think there could be a point of diminishing returns, either in h",
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "n": 7,
+      "analyst": "Jon Tower",
+      "firm": "",
+      "question": "Give a question. Maybe, Scott, you have a new CMO on board, and obviously, he's relatively new to the brand, but I'm just curious in terms of how you see the brand being positioned in the market. I know the For Real campaign has been out there for a very long time, in front of guests, and my own opi",
+      "responder": "Scott Boatwright",
+      "responderTitle": "Chief Executive Officer",
+      "alsoAnswered": [],
+      "answer": "If you keep talking, I think Fernando is going to hire you on the team. Here's what I'll tell you. The For Real campaign was extraordinary. The creativity around that launch of that campaign was just exceptional, and it served us well for many, many years. If you think about what Fernando is going to do, it's not a 180 pivot. It's really the next evolution of what For Real looks like for us. You've already tied to it already, but I'll tell you're going to see more of how we prepare our food fres",
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "n": 8,
+      "analyst": "Brian Vaccaro",
+      "firm": "",
+      "question": "Hi. Thanks, and good evening. I just had two quick clarifications. The first one was just your comments around the third quarter comp guide. Adam, I think you said about 1%, and I think you also said that the Cyclospora impact is about 200 basis points. Is it right to think, ballpark, that you think",
+      "responder": "Adam Rymer",
+      "responderTitle": "Chief Financial Officer",
+      "alsoAnswered": [],
+      "answer": "Yeah. That's correct. That's what our expense line guidance was based off of, was that 1% guide. It assumes the continuation of that impact through the rest of the quarter. Very difficult to predict how long this could last. Absolutely. We mentioned that the restaurants that have HEAP in place, they're doing about two or three entrees more in their Max 15. When you think about it, overall, we're kind of in that low 20 range in-store. That doesn't count digital, of course. Digital being almost 40",
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "n": 9,
+      "analyst": "Brian Mullan",
+      "firm": "",
+      "question": "Thanks. Just a question on loyalty and the efforts to promote the program in-restaurant. Can you just elaborate a little bit more on those efforts? Maybe what's working well and what can you potentially do better on that front? Related to it, just for clarification, those in-store transactions where",
+      "responder": "Scott Boatwright",
+      "responderTitle": "Chief Executive Officer",
+      "alsoAnswered": [],
+      "answer": "Yeah. I'll start with the last part of your question. No, they don't, in fact. I think it's more broad-based. The 20% we know could have a meaningful lift if we can get them into our rewards program. I think there are some components of our business that prohibit that from happening in a really frictionless way. Curt and team are working on how do we make this a more seamless experience for that consumer. Fidgeting with your phone, trying to get your loyalty app up, pay with your credit card. It",
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "n": 10,
+      "analyst": "Peter Saleh",
+      "firm": "",
+      "question": "Hey, great. Thanks for taking the question. Scott, a few minutes ago, you mentioned some new items maybe coming to the menu in the months ahead. I was hoping you could elaborate a little bit more on this. Are these center of the plate items that you're talking about, or is this side items? Any more ",
+      "responder": "Scott Boatwright",
+      "responderTitle": "Chief Executive Officer",
+      "alsoAnswered": [],
+      "answer": "Yeah. Here's what I would tell you. The team is hard at work. We have expanded the team in culinary to really address this challenge of really driving thoughtful menu innovation, not just pantry items, but new news to the business. I want you to think about it as we're running down really center of the plate items. We also have teams working on beverage, we have teams working on sides, we have teams working on desserts, and I think there's meaningful work that's happening today. We've stage-gate",
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "n": 11,
+      "analyst": "Kelly Merrill",
+      "firm": "",
+      "question": "Hi, this is Kelly on for Brian. Thanks for taking my question. I know you've said in the past that younger and lower to middle income guests had been under more pressure. Just curious if you can give us an update on the trends you saw in the second quarter by age and income, or if there's anything t",
+      "responder": "Adam Rymer",
+      "responderTitle": "Chief Financial Officer",
+      "alsoAnswered": [
+        "Scott Boatwright"
+      ],
+      "answer": "Thank you for the question. What I would say is, those two cohorts that were under the most pressure, right? The younger cohort, the lower income cohort, they really have improved the most compared to everyone else. If you're looking at our results from Q1 even into Q2, it's been pretty broad-based, but we've definitely had an outsized impact with those two groups. It really centers around menu innovation. Think of the Chipotle Honey Chicken launch, as well as Cilantro Lime Sauce. Also, the prom",
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "n": 12,
+      "analyst": "Chris Carril",
+      "firm": "",
+      "question": "Hi. Thanks for taking the question. Thanks for the 3Q margin detail, Adam. Can you provide maybe an update on how you're thinking about the margin outlook beyond the current quarter? I think last quarter you spoke to the gap between pricing and inflation narrowing near the end of the year. Any updat",
+      "responder": "Adam Rymer",
+      "responderTitle": "Chief Financial Officer",
+      "alsoAnswered": [],
+      "answer": "Yeah, absolutely. That gap between price and inflation, as you know, is at its widest point really in the first half of the year. That is definitely easing in the second half as we continue this measured approach to taking price increases with this rolling strategy that we have. In Q3, I would expect inflation to be closer to about 3%, while pricing, like we said in the prepared comments, will be closer to that mid 2% range. This location has narrowed meaningfully from the first half, where pric",
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "n": 13,
+      "analyst": "Drew North",
+      "firm": "",
+      "question": "Great. Thanks for taking the question. I have one on more recent trends. I was wondering if you saw any regional or market divergences around the World Cup that would tell you there was a benefit for Chipotle in recent months, and then I have a follow-up.",
+      "responder": "Adam Rymer",
+      "responderTitle": "Chief Financial Officer",
+      "alsoAnswered": [],
+      "answer": "Yeah. On the World Cup, very small impact to the quarter. We do have about 300 restaurants or so that were within, call it, 10 miles of World Cup stadiums. During the tournament, they saw a small benefit anywhere from maybe 50 to 100 basis points in comps specific in those locations. But if you look at the overall quarter, the impact was less than five basis points. Nice impact for those close restaurants, but on the overall quarter, it was a very small impact. You had a follow-up? Yeah, absolut",
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "n": 14,
+      "analyst": "Jim Salera",
+      "firm": "",
+      "question": "Yes, thanks for taking our question. I was hoping you can give us some incremental color on the LTO contribution to the frequency uplift that you're seeing. I don't know if you have any historical benchmarks that you can use for kind of overall LTO contribution to the whole amount of traffic in the ",
+      "responder": "Adam Rymer",
+      "responderTitle": "Chief Financial Officer",
+      "alsoAnswered": [
+        "Scott Boatwright"
+      ],
+      "answer": "I mean, I'll start. We haven't given any specifics on specific LTOs and kind of what the lift has seen. What we have seen, especially with Chipotle Honey Chicken this year and even Chicken al Pastor earlier in the year, is that we're seeing an increase in transactions. As we dig into those transactions, it's coming from our most frequent guests coming in more often because they're excited about the menu innovation. We're also driving in more new guests. We typically see hundreds of basis points ",
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    }
+  ],
+  "guidance": [],
+  "metrics": [],
+  "quotes": [
+    {
+      "speaker": "Scott Boatwright",
+      "quote": "We're pleased with the strength of our second quarter results",
+      "title": "",
+      "context": ""
+    },
+    {
+      "speaker": "Scott Boatwright",
+      "quote": "These proof points reinforce our confidence as we strengthen restaurant execution",
+      "title": "",
+      "context": ""
+    },
+    {
+      "speaker": "Scott Boatwright",
+      "quote": "Throughput is the cornerstone of great hospitality",
+      "title": "",
+      "context": ""
+    }
+  ],
+  "topics": [
+    "Recipe for Growth strategy",
+    "Comparable sales and transactions",
+    "Restaurant throughput",
+    "HEAP equipment rollout",
+    "Digital technology and AI",
+    "Chipotle Rewards program",
+    "Menu innovation",
+    "Operational execution"
+  ],
+  "newMentions": [
+    "Chipotle Honey Chicken",
+    "Cilantro Lime sauce",
+    "Chipotle Rewards",
+    "Linebacker deployment",
+    "HEAP equipment",
+    "Cook to Needs tool",
+    "Arlie Sisson"
+  ]
+}

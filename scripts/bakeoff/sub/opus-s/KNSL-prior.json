@@ -1,0 +1,143 @@
+{
+ "speakers": [
+  {"name": "Michael Kehoe", "title": "Chairman, President and CEO", "firm": "Kinsale Capital Group", "role": "executive"},
+  {"name": "Bryan Petrucelli", "title": "Chief Financial Officer", "firm": "Kinsale Capital Group", "role": "executive"},
+  {"name": "Stuart Winston", "title": "Chief Underwriting Officer", "firm": "Kinsale Capital Group", "role": "executive"},
+  {"name": "Salmaan Allibhai", "title": "Chief Actuary and head of data and analytics team", "firm": "Kinsale Capital Group", "role": "executive"},
+  {"name": "Daniel Cohen", "firm": "BMO Capital Markets", "role": "analyst"},
+  {"name": "Hristian Getsov", "firm": "Wells Fargo", "role": "analyst"},
+  {"name": "Andrew Andersen", "firm": "Jefferies", "role": "analyst"},
+  {"name": "Pablo Singzon", "firm": "JPMorgan", "role": "analyst"},
+  {"name": "Mark Hughes", "firm": "Truist", "role": "analyst"},
+  {"name": "Rowland Mayor", "firm": "RBC Capital Markets", "role": "analyst"},
+  {"name": "Operator", "role": "operator"}
+ ],
+ "exchanges": [
+  {
+   "n": 1, "analyst": "Daniel Cohen", "firm": "BMO Capital Markets",
+   "question": "Quantify YoY and QoQ trends in the newly disclosed new business quotes and bind orders and how to think of them relative to submission growth. Follow-up: given the expense advantage, is Kinsale willing to let the accident year loss ratio deteriorate for more near-term growth?",
+   "responder": "Michael Kehoe", "responderTitle": "Chairman, President and CEO",
+   "answer": "Disclosure added at investor request; more granular numbers are more volatile, so don't overthink a 90-day move; across 25 divisions some have plenty of opportunity and others more competition and slower growth. All product lines are managed to a low 20s ROE or greater, with pricing adjusted in both directions; ROE was 24% for the quarter and he would not expect a meaningful deterioration.",
+   "directness": "partial", "newInformation": true, "pushback": true
+  },
+  {
+   "n": 2, "analyst": "Hristian Getsov", "firm": "Wells Fargo",
+   "question": "Anything one-off (e.g. favorable non-cat weather) in the better-than-expected accident year loss ratio, and how should it move with mix shift toward casualty? Also why E&S Homeowners declined 22%, and how the 6/1 reinsurance renewal/retentions will be approached given a below-average hurricane forecast and lower reinsurance cost.",
+   "responder": "Salmaan Allibhai", "responderTitle": "Chief Actuary and head of data and analytics team", "alsoAnswered": ["Stuart Winston", "Michael Kehoe"],
+   "answer": "Allibhai: nothing out of the ordinary, no one-time adjustments; seasonality means Q1 current accident year loss ratio is typically a little higher than other quarters. Winston: high-value homeowners market seeing increased competition and Kinsale offering lower limits, so average premium is dropping; Personal Insurance division (also a homeowners book) still growing well. Kehoe: retentions and limits reviewed every year and raised many times over 17 years; cannot commit now to how treaties will be placed; 6/1 renewal date.",
+   "directness": "partial", "newInformation": true, "pushback": false
+  },
+  {
+   "n": 3, "analyst": "Andrew Andersen", "firm": "Jefferies",
+   "question": "How has casualty competitive behavior (MGAs, admitted carriers) changed over six months and where is it more stable? Follow-up: how much of the submission slowdown is demand vs pullback from irrational pricing, and update on broker expansion initiatives.",
+   "responder": "Michael Kehoe", "responderTitle": "Chairman, President and CEO", "alsoAnswered": ["Stuart Winston"],
+   "answer": "Market is competitive; growth rate by division is a proxy for competitiveness. Winston: a lot of competition from fronts, MGAs and new companies in long-tail lines, specifically construction, over the last four-five months; premises liability strong and meaningful opportunity in anything auto-related. Kehoe: larger accounts more competitive, small to medium accounts are a safe harbor; ex commercial property submissions up 9%, market competitive but reasonably steady; large-account stress depresses growth until those accounts roll off, then normalization; principally wholesale, supportive of experienced broker teams starting new shops.",
+   "directness": "partial", "newInformation": true, "pushback": false
+  },
+  {
+   "n": 4, "analyst": "Pablo Singzon", "firm": "JPMorgan",
+   "question": "Any change in retention, or is the gap between GWP and submissions mostly pricing, exposure and large commercial property mix? Follow-up: are larger competitors using technology to compete more effectively for small business accounts?",
+   "responder": "Stuart Winston", "responderTitle": "Chief Underwriting Officer", "alsoAnswered": ["Michael Kehoe"],
+   "answer": "Winston: new business and renewal hit ratios have been consistent quarter to quarter for a long time, no big change. Kehoe: no; technology has been a core competency for 17 years, the expense ratio is a proxy for Kinsale's tech lead, and lack of legacy software lets it adopt AI and new tech faster; competitors must speak for themselves.",
+   "directness": "direct", "newInformation": true, "pushback": true
+  },
+  {
+   "n": 5, "analyst": "Mark Hughes", "firm": "Truist",
+   "question": "Has property pricing reset at a lower level or is it still drifting down? Follow-ups: is the expense advantage already fully deployed rather than used to push growth; and how is the equity portfolio performing?",
+   "responder": "Michael Kehoe", "responderTitle": "Chairman, President and CEO",
+   "answer": "No good news on property; easier comps will be in the second half of the year since commercial property volume is disproportionately in the first six months. Expense advantage is one of several (underwriting control, analytics, conservative reserving with a 17-year record of favorable GAAP development); growth is subordinated to profitability; GWP down 0.5% reflects a shift to smaller average premium, and Kinsale expects to keep growing and taking share but never at the expense of profitability. Equity portfolio about 2/3 actively managed, 1/3 passive (principally S&P 500); since late 2022 lagged the S&P but roughly matched its benchmark Vanguard VYM, due to lower tech weighting and value orientation.",
+   "directness": "partial", "newInformation": true, "pushback": false
+  },
+  {
+   "n": 6, "analyst": "Rowland Mayor", "firm": "RBC Capital Markets",
+   "question": "Of commercial property's $65 million Q1 premium ($375 million last year), what portion is the large property business facing competition? Follow-up: with capital chasing lower returns, will Kinsale's low 20s ROE target need to fall to the high teens long-term?",
+   "responder": "Michael Kehoe", "responderTitle": "Chairman, President and CEO", "alsoAnswered": ["Stuart Winston"],
+   "answer": "No specific breakout, but average premium in that division is somewhere between $30,000-$40,000 per policy, versus probably north of $50,000 a year or two ago, reflecting lost larger accounts or participating higher in the schedule. Winston: the commercial property division is the standalone large shared and layered division; small property is broken out separately. Kehoe: confident in a low 20s ROE given the underwriting model and cost advantage; views it as about 15 percentage points above the risk-free rate (10-year treasury a little below 5%).",
+   "directness": "partial", "newInformation": true, "pushback": true
+  },
+  {
+   "n": 7, "analyst": "Pablo Singzon", "firm": "JPMorgan",
+   "question": "How does Kinsale's submission growth compare with the overall market or its E&S sub-segment?",
+   "responder": "Michael Kehoe", "responderTitle": "Chairman, President and CEO",
+   "answer": "No specific information on the overall market; brokers canvass the market for clients, so he assumes some commonality between Kinsale's stats and competitors' but does not really know.",
+   "directness": "partial", "newInformation": false, "pushback": false
+  },
+  {
+   "n": 8, "analyst": "Mark Hughes", "firm": "Truist",
+   "question": "Any slowdown or delay in construction activity affecting opportunities? Follow-ups: sequential trend in general casualty growth (about 11-12% vs low 20s last year); and should cash from operations (up 8%) track net written premium?",
+   "responder": "Stuart Winston", "responderTitle": "Chief Underwriting Officer", "alsoAnswered": ["Michael Kehoe", "Bryan Petrucelli"],
+   "answer": "Winston: no delay seen; Kinsale mostly does not write large project-specific policies; some wrap projects out west and in the northeast are being delayed a little. Kehoe: no sequential general casualty stats to provide today; the 10-K has annual GWP by underwriting division with a three-year look back. Petrucelli: trending cash flow with net written premium is a good way to look at it.",
+   "directness": "partial", "newInformation": true, "pushback": false
+  }
+ ],
+ "guidance": [
+  {"item": "Return on equity target", "current": "Low 20s ROE or greater across product lines; about 15 percentage points above risk-free rate; no meaningful deterioration expected from 24%", "period": "Ongoing / long-term", "speaker": "Michael Kehoe", "source": "qa"},
+  {"item": "Commercial property comparisons", "current": "Easier comps in the second half of the year", "period": "H2 2026", "speaker": "Michael Kehoe", "source": "qa"},
+  {"item": "Operating cash flow", "current": "Should trend with net written premium", "period": "2026", "speaker": "Bryan Petrucelli", "source": "qa"},
+  {"item": "Reinsurance renewal", "current": "Retentions and limits under review; no commitment on treaty placement", "period": "6/1 renewal", "speaker": "Michael Kehoe", "source": "qa"},
+  {"item": "Current accident year loss ratio seasonality", "current": "Q1 typically a little higher than other quarters", "period": "Remainder of 2026", "speaker": "Salmaan Allibhai", "source": "qa"},
+  {"item": "New money yield / duration", "current": "New money yields around 5%; average duration slightly above four years", "period": "Current", "speaker": "Bryan Petrucelli", "source": "prepared"}
+ ],
+ "metrics": [
+  {"metric": "Diluted operating EPS", "value": "$5.11", "comparison": "vs $3.71 in Q1 2025, +37.7%"},
+  {"metric": "Annualized operating ROE", "value": "24%"},
+  {"metric": "Gross written premium", "value": "-0.5% YoY"},
+  {"metric": "GWP excluding commercial property division", "value": "+6%"},
+  {"metric": "Net written premium", "value": "+5.6% YoY", "comparison": "higher than gross as lesser-reinsured lines grow"},
+  {"metric": "Combined ratio", "value": "77.4%"},
+  {"metric": "Favorable prior year reserve development", "value": "4.5 points", "comparison": "vs 3.9 points last year"},
+  {"metric": "Cat losses", "value": "Less than 1 point", "comparison": "vs 6 points in Q1 last year"},
+  {"metric": "Expense ratio", "value": "21.1%", "comparison": "vs 20% last year; increase from higher net commission ratio due to higher reinsurance retentions"},
+  {"metric": "Other underwriting expense ratio", "value": "10.3%", "comparison": "vs 10.5% in Q1 2024 (as stated)"},
+  {"metric": "Net income", "value": "+26.1% YoY"},
+  {"metric": "Net operating earnings", "value": "+36.3% YoY"},
+  {"metric": "Net investment income", "value": "+26.5% YoY"},
+  {"metric": "Float", "value": "$3.3 billion at March 31", "comparison": "vs $3.1 billion at end of 2025"},
+  {"metric": "Annual gross investment return", "value": "4.5%", "comparison": "vs 4.3% last year"},
+  {"metric": "New business submissions / quotes / binds", "value": "+6% / +8% / +9%", "comparison": "submissions similar rate to Q4 2025; submissions ex commercial property +9%"},
+  {"metric": "Average policy premium", "value": "$12,200", "comparison": "vs $14,200 in Q1 2025"},
+  {"metric": "Kinsale pricing trend", "value": "In line with Amwins Pricing Index, -3.3%", "comparison": "vs -2.7% in Q4 2025"},
+  {"metric": "Commercial property division GWP", "value": "$65 million in Q1 (analyst figure)", "comparison": "$375 million last year; average premium $30,000-$40,000 vs north of $50,000 a year or two ago"},
+  {"metric": "E&S Homeowners GWP", "value": "-22% (analyst figure)"},
+  {"metric": "Cash from operations", "value": "+8% (analyst figure)"}
+ ],
+ "quotes": [
+  {"speaker": "Michael Kehoe", "title": "Chairman, President and CEO", "quote": "I wouldn't overthink how important it is that in a 90-day period, something's up or down.", "context": "New granular KPI disclosure"},
+  {"speaker": "Michael Kehoe", "title": "Chairman, President and CEO", "quote": "Our ROE for the quarter was 24%, so I wouldn't expect a meaningful deterioration from that, no.", "context": "Trading loss ratio for growth"},
+  {"speaker": "Michael Kehoe", "title": "Chairman, President and CEO", "quote": "Can't really commit at this moment to how the treaties will be placed.", "context": "6/1 reinsurance renewal"},
+  {"speaker": "Michael Kehoe", "title": "Chairman, President and CEO", "quote": "In a more competitive market, we always feel like that's a great safe harbor for Kinsale.", "context": "Small to medium accounts"},
+  {"speaker": "Stuart Winston", "title": "Chief Underwriting Officer", "quote": "It's revving up pretty aggressively there, but there's still premises liabilities is strong for us.", "context": "Long-tail construction competition"},
+  {"speaker": "Michael Kehoe", "title": "Chairman, President and CEO", "quote": "Yeah. We don't really have any good news to report there.", "context": "Property pricing trend"},
+  {"speaker": "Michael Kehoe", "title": "Chairman, President and CEO", "quote": "We are ambitious. We do want to grow, but we subordinate the growth, if we have to profitability.", "context": "Use of expense advantage"},
+  {"speaker": "Michael Kehoe", "title": "Chairman, President and CEO", "quote": "I think with a better underwriting model and a cost advantage that's so significant, it's hard to believe that it exists.", "context": "Sustainability of low 20s ROE"},
+  {"speaker": "Stuart Winston", "title": "Chief Underwriting Officer", "quote": "We do not need a specific market environment to perform well.", "context": "Model adaptability across the cycle"}
+ ],
+ "topics": [
+  "Commercial property division headwinds and large-account competition",
+  "New granular disclosure (GWP by division, quotes, binds)",
+  "Submission growth and small/medium account focus",
+  "Accident year loss ratio and conservative reserving",
+  "ROE target (low 20s) vs growth",
+  "Long-tail casualty/construction competition from MGAs and fronts",
+  "Expense advantage and technology/AI",
+  "Reinsurance retentions and expense ratio",
+  "Investment income, float and equity portfolio"
+ ],
+ "newMentions": [
+  "Commercial property division (large shared and layered)",
+  "GWP by underwriting division quarterly disclosure in 10-Q",
+  "Small Business Property",
+  "Ocean Marine",
+  "Agribusiness Property",
+  "Personal Insurance division",
+  "E&S Homeowners (high-value)",
+  "Agribusiness Casualty",
+  "Allied Health",
+  "General Casualty",
+  "Health Care",
+  "Entertainment",
+  "Products Liability",
+  "Construction",
+  "Amwins Pricing Index"
+ ]
+}

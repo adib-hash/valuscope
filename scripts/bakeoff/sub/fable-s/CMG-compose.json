@@ -1,0 +1,167 @@
+{
+  "overview": "Chipotle's Q2 revenue rose 9.3% to $3.3B on comparable sales of +2.2% (transactions +1%, pricing about 1.6%), with restaurant-level margin down 220 bps to 25.2% and adjusted EPS flat at $0.33. Adam Rymer, CFO, raised the full-year comp outlook to low single digits from about flat but guided Q3 to around +1% after comps softened about 200 bps in late July around an industry Cyclospora issue. Scott Boatwright, CEO, said Chipotle is not involved in that issue.",
+  "keyTakeaways": [
+    "Adam Rymer, CFO, said traffic improved through Q2 and the first half of July before softening about 200 bps; the Q3 guide of around +1% assumes that headwind persists, implying roughly +3% underlying.",
+    "Scott Boatwright, CEO, said HEAP is in more than 1,000 restaurants, adding 2 to 3 entrees in the peak 15 minutes and 2 to 4 hours of daily labor efficiency, with 2,000 restaurants targeted by year-end.",
+    "Boatwright said 350 company-operated openings a year is the right pace, with incremental growth from Western Europe and partners; Alshaya already runs 15 restaurants.",
+    "Rymer said the pricing-inflation gap (about 1% versus low-to-mid 3% in the first half) narrows in Q3 and closes from Q4; Boatwright cited the highest wallet share gains since 2024."
+  ],
+  "financialHighlights": [
+    "Revenue $3.3B, up 9.3%; comps +2.2% with transactions +1% and pricing about 1.6%; digital sales $1.3B, or 38.3% of sales versus 35.5%.",
+    "Restaurant-level margin 25.2%, down 220 bps: cost of sales 29.7% (+80 bps on beef and freight), labor 25% (+30 bps), other operating costs 14.9% (+90 bps), marketing 3%.",
+    "Adjusted diluted EPS $0.33, flat; non-GAAP G&A $176M; 101 openings including 80 Chipotlanes.",
+    "$631M repurchased at an average $32.55 (over $1.3B year to date), with $1.7B of authorization remaining; $800M of cash and no debt."
+  ],
+  "keyMetrics": [
+    {
+      "metric": "Revenue",
+      "value": "$3.3B",
+      "comparison": "+9.3% YoY"
+    },
+    {
+      "metric": "Comparable sales",
+      "value": "+2.2%",
+      "comparison": "Transactions +1%, price ~1.6%"
+    },
+    {
+      "metric": "Restaurant-level margin",
+      "value": "25.2%",
+      "comparison": "Down 220 bps YoY"
+    },
+    {
+      "metric": "Adjusted diluted EPS",
+      "value": "$0.33",
+      "comparison": "Flat YoY"
+    },
+    {
+      "metric": "Digital sales",
+      "value": "38.3% of sales",
+      "comparison": "vs 35.5% a year ago"
+    },
+    {
+      "metric": "New restaurants",
+      "value": "101",
+      "comparison": "80 Chipotlanes"
+    },
+    {
+      "metric": "HEAP installations",
+      "value": "1,000+",
+      "comparison": "2,000 targeted by year-end"
+    }
+  ],
+  "guidance": [
+    "Adam Rymer, CFO, raised full-year comps to low single digits from about flat and guided Q3 comps to around +1%, assuming the roughly 200 bps Cyclospora-related softening continues against the toughest lap of the year.",
+    "Rymer expects Q3 pricing in the mid 2% range (full year near the high end of 1%-2%), cost of sales just under 30%, labor in the mid 25% range, other operating costs in the mid 15% range and marketing in the low 3% range.",
+    "Rymer guided Q3 non-GAAP G&A to around $180M, depreciation around 3% of sales and a 24%-26% tax rate, with pricing and inflation expected to match from Q4.",
+    "Scott Boatwright, CEO, expects approximately 350 openings in 2026 (about 80% Chipotlanes), HEAP in about 2,000 restaurants by year-end, a frictionless rewards pilot in August and a national catering launch in 2027."
+  ],
+  "risksMentioned": [
+    "The industry Cyclospora issue cut comps about 200 bps in late July; Rymer called its duration \"very difficult to predict\".",
+    "Q3 is the toughest comparison of the year, per Rymer.",
+    "Beef and freight inflation and sequentially higher avocado prices, with first-half pricing of about 1% against inflation in the low-to-mid 3% range.",
+    "Investor pushback, raised by David Palmer of Evercore ISI, that heavy spending is yielding only 1%-2% comps."
+  ],
+  "qa": [
+    {
+      "analyst": "Dennis Geiger",
+      "firm": "UBS",
+      "question": "What is behind the low single-digit comp guide, the recent softening and the cadence from here?",
+      "responder": "Adam Rymer",
+      "responderTitle": "Chief Financial Officer",
+      "answer": "Traffic improved through Q2 and the first half of July, then comps softened about 200 bps around the industry Cyclospora issue; Q3 is guided to around +1% assuming that continues. Scott Boatwright, CEO, said the implicated products are not on Chipotle's menu and its lettuce is sourced in California.",
+      "read": "Answered directly."
+    },
+    {
+      "analyst": "Brian Vaccaro",
+      "firm": "Raymond James",
+      "question": "Does the +1% Q3 guide with a 200 bps headwind imply about +3% underlying, and where is Max 15 throughput without HEAP?",
+      "responder": "Adam Rymer",
+      "responderTitle": "Chief Financial Officer",
+      "answer": "Correct; the guide assumes the impact persists through the quarter. HEAP restaurants do two or three more entrees in Max 15; system in-store Max 15 is in the low 20s, digital adds mid-teens, for a combined low-to-mid 30s per restaurant per day.",
+      "read": "Answered directly."
+    },
+    {
+      "analyst": "Chris Carril (on for Chris O'Cull)",
+      "firm": "KeyBanc",
+      "question": "How does the margin outlook beyond Q3 look as the pricing-inflation gap narrows?",
+      "responder": "Adam Rymer",
+      "responderTitle": "Chief Financial Officer",
+      "answer": "The gap was widest in the first half, with pricing around 1% and inflation in the low-to-mid 3% range; in Q3 inflation should be about 3% versus pricing in the mid 2% range, and from Q4 pricing and inflation are expected to match.",
+      "read": "Answered directly."
+    },
+    {
+      "analyst": "Danilo Gargiulo",
+      "firm": "Bernstein",
+      "question": "Has Chipotle sized remodel capex and any sales uplift, and will it use partners in other international markets?",
+      "responder": "Scott Boatwright",
+      "responderTitle": "Chief Executive Officer",
+      "answer": "Chipotle has never done an aesthetic remodel; it is stage-gating a test at $100,000-$300,000 per restaurant across several geographies with nothing to report yet. Alshaya, Alsea and SPC operate as partners or JVs, while Chipotle owns Western Europe.",
+      "read": "Answered partially; no uplift or timeline."
+    }
+  ],
+  "unanswered": [
+    {
+      "analyst": "Jim Salera",
+      "firm": "Stephens",
+      "question": "What is the LTO contribution to traffic uplift versus historical benchmarks?",
+      "how": "Adam Rymer, CFO, said no specific LTO lifts are disclosed, offering only that LTOs typically deliver hundreds of basis points."
+    },
+    {
+      "analyst": "Danilo Gargiulo",
+      "firm": "Bernstein",
+      "question": "Is there an early read on remodel sales uplift and timeline?",
+      "how": "Scott Boatwright, CEO: \"I have nothing to report today, unfortunately, but I'll tell you that work is in flight.\""
+    },
+    {
+      "analyst": "David Palmer",
+      "firm": "Evercore ISI",
+      "question": "What gives confidence that momentum picks up into 2027 given heavy spending for 1%-2% comps?",
+      "how": "Boatwright cited green shoots; the digital and brand plans were called industry changing but not shared."
+    }
+  ],
+  "notableQuotes": [
+    {
+      "speaker": "Adam Rymer",
+      "title": "Chief Financial Officer",
+      "quote": "Very difficult to predict how long this could last."
+    },
+    {
+      "speaker": "Scott Boatwright",
+      "title": "Chief Executive Officer",
+      "quote": "I say we're early days, the momentum is already building, and we have more levers that we will continue to pull as 2026 unfolds."
+    },
+    {
+      "speaker": "Scott Boatwright",
+      "title": "Chief Executive Officer",
+      "quote": "I just want to make sure we put that to rest."
+    },
+    {
+      "speaker": "Scott Boatwright",
+      "title": "Chief Executive Officer",
+      "quote": "I like the 350 number. The team likes it. We feel comfortable with it."
+    }
+  ],
+  "whatChanged": {
+    "guidanceRevisions": [
+      "Full-year comps: about flat to low single digits.",
+      "Pricing: about 1.5% in Q2 to mid 2% in Q3; full year from 1%-2% to near the high end.",
+      "Cost of sales: about 30% to just under 30%; labor: low 25% to mid 25%; other operating: high 14% to mid 15%; marketing: below 3% to low 3%.",
+      "HEAP full portfolio: late 2027 or early 2028 to 2027; catering national launch: before end of 2026 to 2027.",
+      "Buyback authorization: $1B remaining to $1.7B after $1.3B added."
+    ],
+    "newMentions": [
+      "Cyclospora industry issue",
+      "Linebacker deployment (over 70% of restaurants)",
+      "Summer of Extras and frictionless rewards pilot",
+      "Matchday BOGO and World Cup impact",
+      "Remodel/refresh test; Alshaya, Alsea and SPC Group named as partners"
+    ],
+    "droppedTopics": [
+      "Zipline drone delivery pilot",
+      "Happier Hour pricing test",
+      "Delivery premium and third-party aggregators",
+      "Check mix and group-size normalization"
+    ],
+    "toneShift": "Q1 was cautious (\"remain cautious on that outlook\"); Q2 was more assertive about momentum and wallet share gains, while Adam Rymer introduced an external headwind whose duration he called very difficult to predict."
+  }
+}

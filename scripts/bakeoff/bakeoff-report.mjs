@@ -2,7 +2,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { CONFIGS, PROD, CALLS, COMP_TICKERS, JUDGES, RUNS, JUDGE, INPUTS, LADDER, readJSON } from './llm-bakeoff.mjs'
+import { CONFIGS, SUB_CONFIGS, PROD, CALLS, COMP_TICKERS, JUDGES, RUNS, JUDGE, INPUTS, LADDER, STAGE_CAP_S, readJSON } from './llm-bakeoff.mjs'
 
 const here = path.dirname(fileURLToPath(import.meta.url))
 const OUT = path.join(here, '..', '..', 'LLM-BAKEOFF-REPORT.html')
@@ -18,8 +18,8 @@ const med = (a) => { if (!a.length) return NaN; const s = [...a].sort((x, y) => 
 const f1 = (v) => (Number.isFinite(v) ? v.toFixed(1) : '–')
 const pct = (v) => (Number.isFinite(v) ? Math.round(v * 100) + '%' : '–')
 const money = (v) => (!Number.isFinite(v) ? '–' : v < 0.01 ? '$' + v.toFixed(4) : v < 1 ? '$' + v.toFixed(3) : '$' + v.toFixed(2))
-const cfgById = Object.fromEntries([...CONFIGS, PROD].map((c) => [c.id, c]))
-const vendor = (id) => cfgById[id]?.provider
+const cfgById = Object.fromEntries([...CONFIGS, ...SUB_CONFIGS, PROD].map((c) => [c.id, c]))
+const vendor = (id) => (cfgById[id]?.provider === 'subagent' ? 'anthropic' : cfgById[id]?.provider)
 const crossJudge = (cfgId) => (vendor(cfgId) === 'gemini' ? 'opus' : vendor(cfgId) === 'anthropic' ? 'gpro' : null)
 const costOf = (r) => { const c = cfgById[r.cfg]; return c?.price ? (r.inTok * c.price[0] + r.outTok * c.price[1]) / 1e6 : 0 }
 
@@ -56,6 +56,31 @@ const sumStats = CONFIGS.map((cfg) => {
   }
 }).sort((a, b) => b.overall.mean - a.overall.mean)
 
+// ---------- summaries, current two-pass pipeline ----------
+const SUM2_CRIT = ['accuracy', 'qa', 'coverage', 'insight', 'concision', 'discipline']
+const passCost = (cfg, p) => (cfg.price && p ? (p.inTok * cfg.price[0] + p.outTok * cfg.price[1]) / 1e6 : 0)
+const sum2Stats = [...CONFIGS.filter((c) => c.provider === 'gemini'), ...SUB_CONFIGS].map((cfg) => {
+  const rs = sumItems.map((s) => runs[`${cfg.id}|sum2|${s}`]).filter((r) => r?.summary)
+  const errors = JUDGES.flatMap((j) => sumItems.flatMap((s) => (judged[`${j.id}|sum2|${s}`]?.scores?.[cfg.id]?.errors || []).filter((e) => e && !/^none/i.test(e))))
+  const overall = scoresFor('sum2', sumItems, cfg.id, 'overall')
+  const cj = crossJudge(cfg.id)
+  const stages = rs.flatMap((r) => Object.values(r.passes || {}).filter(Boolean))
+  const api = cfg.provider !== 'subagent'
+  return {
+    cfg, ok: rs.length, api,
+    overall, cross: cj ? overall[cj] : NaN,
+    crit: Object.fromEntries(SUM2_CRIT.map((k) => [k, scoresFor('sum2', sumItems, cfg.id, k).mean])),
+    errPer: errors.length / (JUDGES.length * Math.max(rs.length, 1)),
+    words: avg(rs.map((r) => r.words)),
+    over900: rs.filter((r) => r.words > 900).length,
+    quotes: avg(rs.map((r) => r.summary.notableQuotes?.length || 0)),
+    stageMed: api ? med(stages.map((p) => p.ms / 1000)) : NaN,
+    stageMax: api ? Math.max(...stages.map((p) => p.ms / 1000)) : NaN,
+    overCap: api ? stages.filter((p) => p.ms / 1000 > STAGE_CAP_S - 5).length : NaN,
+    cost: api ? avg(rs.map((r) => Object.values(r.passes || {}).reduce((a, p) => a + passCost(cfg, p), 0))) : NaN,
+  }
+}).sort((a, b) => b.overall.mean - a.overall.mean)
+
 // ---------- comps ----------
 const compItems = COMP_TICKERS.map((c) => c.symbol)
 const tailItems = COMP_TICKERS.filter((c) => ladder[c.symbol]?.rung === 'ai').map((c) => c.symbol)
@@ -89,7 +114,7 @@ const bestOf = (arr, key) => Math.max(...arr.map(key).filter(Number.isFinite))
 const bar = (v, max = 10) => `<span class="bar"><span style="width:${Number.isFinite(v) ? Math.max(0, Math.min(100, (v / max) * 100)) : 0}%"></span></span>`
 
 function modelCell(cfg) {
-  const tag = cfg.current ? ' <span class="chip accent">Production</span>' : cfg.id === 'prod' ? ' <span class="chip">Baseline</span>' : ''
+  const tag = cfg.current ? ' <span class="chip accent">Production</span>' : cfg.id === 'prod' ? ' <span class="chip">Baseline</span>' : cfg.provider === 'subagent' ? ' <span class="tag">Subscription</span>' : ''
   return `<td><div class="model">${esc(cfg.label)}${tag}</div><div class="sub">${esc(cfg.note)}</div></td>`
 }
 
@@ -115,6 +140,29 @@ function sumCritTable() {
   return `<div class="tablewrap"><table><thead><tr><th>Model</th>${SUM_CRIT.map((k) => `<th class="num">${k}</th>`).join('')}<th class="num">Other-vendor judge</th></tr></thead><tbody>${rows}</tbody></table></div>`
 }
 
+function sum2Table() {
+  const b = (k) => bestOf(sum2Stats, k)
+  const rows = sum2Stats.map((s, i) => `<tr class="${s.cfg.current ? 'is-current' : ''}">
+    <td class="rank num">${i + 1}</td>${modelCell(s.cfg)}
+    <td class="num strong${Math.abs(s.overall.mean - b((x) => x.overall.mean)) < 0.05 ? ' best' : ''}">${f1(s.overall.mean)} ${bar(s.overall.mean)}</td>
+    ${scoreCell(s.overall.opus, b((x) => x.overall.opus))}${scoreCell(s.overall.gpro, b((x) => x.overall.gpro))}
+    ${scoreCell(s.crit.accuracy, b((x) => x.crit.accuracy))}${scoreCell(s.crit.qa, b((x) => x.crit.qa))}
+    <td class="num${s.errPer > 1 ? ' bad' : ''}">${s.errPer.toFixed(1)}</td>
+    <td class="num${s.words > 900 ? ' warnc' : ''}">${Math.round(s.words)}</td>
+    <td class="num">${s.api ? f1(s.stageMed) + 's' : '<span class="muted">n/a</span>'}</td>
+    <td class="num${s.overCap ? ' bad' : ''}">${s.api ? f1(s.stageMax) + 's' : '<span class="muted">n/a</span>'}</td>
+    <td class="num">${s.api ? money(s.cost) : '<span class="muted">n/a</span>'}</td>
+  </tr>`).join('')
+  return `<div class="tablewrap"><table>
+    <thead><tr><th></th><th>Model</th><th class="num">Overall</th><th class="num">Claude judge</th><th class="num">Gemini judge</th><th class="num">Accuracy</th><th class="num">Q&amp;A</th><th class="num">Errors / summary</th><th class="num">Words</th><th class="num">Median stage</th><th class="num">Slowest stage</th><th class="num">Cost / summary</th></tr></thead>
+    <tbody>${rows}</tbody></table></div>`
+}
+
+function sum2CritTable() {
+  const rows = sum2Stats.map((s) => `<tr class="${s.cfg.current ? 'is-current' : ''}"><td class="model">${esc(s.cfg.label)}</td>${SUM2_CRIT.map((k) => scoreCell(s.crit[k], bestOf(sum2Stats, (x) => x.crit[k]))).join('')}<td class="num">${f1(s.cross)}</td></tr>`).join('')
+  return `<div class="tablewrap"><table><thead><tr><th>Model</th>${SUM2_CRIT.map((k) => `<th class="num">${k === 'qa' ? 'Q&amp;A' : k}</th>`).join('')}<th class="num">Other-vendor judge</th></tr></thead><tbody>${rows}</tbody></table></div>`
+}
+
 function compTable() {
   const b = (k) => bestOf(compStats, k)
   const rows = compStats.map((s, i) => `<tr class="${s.cfg.current ? 'is-current' : ''}${s.cfg.id === 'prod' ? ' is-prod' : ''}">
@@ -133,10 +181,11 @@ function compTable() {
     <tbody>${rows}</tbody></table></div>`
 }
 
-function latencyChart() {
-  const rows = [...sumStats].sort((a, b) => a.lat - b.lat)
-  const max = Math.max(...rows.map((r) => r.lat))
-  return `<div class="lchart">${rows.map((s) => `<div class="lrow"><span class="model">${esc(s.cfg.label)}</span><span class="ltrack"><span class="lfill" style="width:${(s.lat / max) * 100}%"></span></span><span class="lval num">${f1(s.lat)}s</span></div>`).join('')}</div>`
+function latencyChart(rows, key, { cap } = {}) {
+  rows = rows.filter((r) => Number.isFinite(key(r))).sort((a, b) => key(a) - key(b))
+  const max = Math.max(...rows.map(key), cap || 0)
+  const capMark = cap ? `<span class="capline" style="left:${(cap / max) * 100}%"></span>` : ''
+  return `<div class="lchart">${rows.map((s) => `<div class="lrow"><span class="model">${esc(s.cfg.label)}</span><span class="ltrack"><span class="lfill${cap && key(s) > cap - 5 ? ' over' : ''}" style="width:${(key(s) / max) * 100}%"></span>${capMark}</span><span class="lval num">${f1(key(s))}s</span></div>`).join('')}${cap ? `<p class="note">The line marks Vercel's ${cap}-second limit per stage.</p>` : ''}</div>`
 }
 
 // ---------- read the outputs ----------
@@ -144,7 +193,7 @@ function judgeNotes(task, item, cfgId) {
   return JUDGES.map((j) => {
     const s = judged[`${j.id}|${task}|${item}`]?.scores?.[cfgId]
     if (!s) return ''
-    const issues = (task === 'sum' ? s.errors : s.misfits || []).filter((e) => e && !/^none/i.test(e))
+    const issues = (task === 'comp' ? s.misfits || [] : s.errors || []).filter((e) => e && !/^none/i.test(e))
     return `<div class="jnote"><span class="eyebrow">${esc(j.label)} · ${f1(s.overall)}</span><p class="jc">${esc(s.comment)}</p>${issues.length ? `<ul class="issues">${issues.map((e) => `<li>${esc(e)}</li>`).join('')}</ul>` : ''}</div>`
   }).join('')
 }
@@ -154,13 +203,24 @@ function summaryBody(p) {
   return `<p class="ov">${esc(p.overview)}</p>${sec('Key takeaways', p.keyTakeaways)}${sec('Financial highlights', p.financialHighlights)}${sec('Guidance', p.guidance)}${sec('Analyst focus', p.analystFocus)}${sec('Risks mentioned', p.risksMentioned)}`
 }
 
+function summary2Body(p) {
+  const sec = (title, arr) => (arr?.length ? `<h4>${title}</h4><ul>${arr.map((b) => `<li>${esc(b)}</li>`).join('')}</ul>` : '')
+  const metrics = p.keyMetrics?.length ? `<h4>Key metrics</h4><ul class="kv">${p.keyMetrics.map((m) => `<li><b>${esc(m.metric)}</b> ${esc(m.value)}${m.comparison ? ` <span class="muted">${esc(m.comparison)}</span>` : ''}</li>`).join('')}</ul>` : ''
+  const qa = p.qa?.length ? `<h4>Q&amp;A</h4><ul class="qa">${p.qa.map((q) => `<li><b>${esc(q.analyst)}${q.firm ? `, ${esc(q.firm)}` : ''}:</b> ${esc(q.question)}<br><b>${esc(q.responder)}${q.responderTitle ? `, ${esc(q.responderTitle)}` : ''}:</b> ${esc(q.answer)}<br><span class="read">${esc(q.read)}</span></li>`).join('')}</ul>` : ''
+  const un = p.unanswered?.length ? `<h4>Unanswered</h4><ul>${p.unanswered.map((u) => `<li><b>${esc(u.analyst)}${u.firm ? `, ${esc(u.firm)}` : ''}:</b> ${esc(u.question)} <span class="read">${esc(u.how)}</span></li>`).join('')}</ul>` : ''
+  const quotes = p.notableQuotes?.length ? `<h4>Notable quotes</h4><ul class="quotes">${p.notableQuotes.map((q) => `<li>“${esc(q.quote)}” <span class="muted">${esc(q.speaker)}${q.title ? `, ${esc(q.title)}` : ''}</span></li>`).join('')}</ul>` : ''
+  const w = p.whatChanged
+  const changed = w ? `<h4>What changed</h4><ul>${[...(w.guidanceRevisions || []).map((x) => `Guidance: ${x}`), ...(w.newMentions?.length ? [`New mentions: ${w.newMentions.join(', ')}`] : []), ...(w.droppedTopics?.length ? [`Dropped: ${w.droppedTopics.join(', ')}`] : []), ...(w.toneShift ? [`Tone: ${w.toneShift}`] : [])].map((x) => `<li>${esc(x)}</li>`).join('')}</ul>` : ''
+  return `<p class="ov">${esc(p.overview)}</p>${sec('Key takeaways', p.keyTakeaways)}${metrics}${sec('Financial highlights', p.financialHighlights)}${sec('Guidance', p.guidance)}${qa}${un}${quotes}${changed}${sec('Risks mentioned', p.risksMentioned)}`
+}
+
 function peerChips(r) {
   return `<div class="peers">${r.peers.map((p) => `<span class="peer${p.live ? '' : ' dead'}${p.sameIndustry ? ' ind' : ''}" title="${esc(p.live ? (p.yahooName || '') + (p.industry ? ' · ' + p.industry : '') : 'Did not resolve to a live US equity; the app drops it')}"><b>${esc(p.ticker)}</b>${p.live ? `<span>${esc((p.yahooName || p.company || '').replace(/,? (Inc|Corp|Corporation|Holdings|Ltd|plc|Co|Company|Group)\.?$/i, ''))}</span>` : '<span>dropped</span>'}</span>`).join('')}</div>`
 }
 
 function panels(task) {
-  const items = task === 'sum' ? CALLS : COMP_TICKERS
-  const cfgs = task === 'sum' ? CONFIGS : [PROD, ...CONFIGS]
+  const items = task === 'comp' ? COMP_TICKERS : CALLS
+  const cfgs = task === 'sum2' ? [...CONFIGS.filter((c) => c.provider === 'gemini'), ...SUB_CONFIGS] : task === 'sum' ? CONFIGS : [PROD, ...CONFIGS]
   const tabs = items.map((it, i) => `<button class="ptab" role="tab" aria-selected="${i === 0}" data-group="${task}" data-target="${task}-${it.symbol}">${it.symbol}</button>`).join('')
   const body = items.map((it, i) => {
     const ranked = cfgs.map((cfg) => {
@@ -169,7 +229,7 @@ function panels(task) {
       return { cfg, r, score: avg(sc) }
     }).sort((a, b) => (b.score || 0) - (a.score || 0))
     let head
-    if (task === 'sum') {
+    if (task !== 'comp') {
       const t = inp.calls[it.symbol]
       head = `<p class="ask"><span class="eyebrow">${esc(it.why)}</span><br>${esc(inp.comps?.[it.symbol]?.name || it.symbol)} · fiscal Q${t.quarter} ${t.year} call, reported ${esc(t.reportDate)} · ${t.paragraphs.length} transcript paragraphs</p>`
     } else {
@@ -180,12 +240,15 @@ function panels(task) {
       head = `<p class="ask"><span class="eyebrow">${esc(it.why)} · ${esc(s.industry)} · $${(s.mktCap / 1e9).toFixed(1)}B</span><br>${esc(s.name)}</p><p class="note">${rung}.</p>${missing.length ? `<p class="note"><b>Judges said every set missed:</b> ${missing.map(esc).join('; ')}</p>` : ''}`
     }
     const cards = ranked.map(({ cfg, r, score }) => {
-      if (!r) return ''
+      if (!r || (task === 'sum2' && !r.summary && !r.error)) return ''
       let content
       if (r.error) content = `<p class="bad">Error: ${esc(r.error)}</p>`
+      else if (task === 'sum2') content = summary2Body(r.summary)
       else if (task === 'sum') content = r.parsed ? summaryBody(r.parsed) : '<p class="bad">Unparseable output</p>'
       else content = r.peers ? peerChips(r) : '<p class="bad">Unparseable output</p>'
-      const meta = cfg.id === 'prod' ? `Rung: ${r.rung}` : `${f1(r.ms / 1000)}s · ${r.inTok.toLocaleString()} in / ${r.outTok.toLocaleString()} out · ${money(costOf(r))}${task === 'sum' && r.words ? ` · ${r.words} words · ${r.figures} figures` : ''}${r.ungrounded?.length ? ` · not found in transcript: ${r.ungrounded.join(', ')}` : ''}`
+      const meta = task === 'sum2'
+        ? (cfg.provider === 'subagent' ? `Subscription subagent · ${r.words} words · ${r.summary.notableQuotes?.length || 0} verified quotes` : `${Object.entries(r.passes).map(([k, v]) => `${k} ${f1(v.ms / 1000)}s`).join(' · ')} · ${money(Object.values(r.passes).reduce((a, p) => a + passCost(cfg, p), 0))} · ${r.words} words · ${r.summary.notableQuotes?.length || 0} verified quotes`)
+        : cfg.id === 'prod' ? `Rung: ${r.rung}` : `${f1(r.ms / 1000)}s · ${r.inTok.toLocaleString()} in / ${r.outTok.toLocaleString()} out · ${money(costOf(r))}${task === 'sum' && r.words ? ` · ${r.words} words · ${r.figures} figures` : ''}${r.ungrounded?.length ? ` · not found in transcript: ${r.ungrounded.join(', ')}` : ''}`
       return `<details class="lcard${cfg.current ? ' cur' : ''}"><summary><span class="model">${esc(cfg.label)}</span>${cfg.current ? '<span class="chip accent">Production</span>' : ''}<span class="lscore num">${f1(score)}</span></summary>
         <div class="lbody"><div class="lout">${content}</div><div class="ljudge">${judgeNotes(task, it.symbol, cfg.id)}<p class="lmeta">${meta}</p></div></div></details>`
     }).join('')
@@ -194,10 +257,10 @@ function panels(task) {
   return `<div class="ptabs" role="tablist">${tabs}</div>${body}`
 }
 
-const totalCost = Object.values(runs).reduce((a, r) => a + (r.inTok ? costOf(r) : 0), 0)
+const totalCost = Object.values(runs).reduce((a, r) => a + (r.inTok ? costOf(r) : 0) + (r.passes ? Object.values(r.passes).reduce((x, p) => x + passCost(cfgById[r.cfg], p), 0) : 0), 0)
 const judgeCost = Object.entries(judged).reduce((a, [k, v]) => {
   const j = JUDGES.find((x) => x.id === k.split('|')[0])
-  const price = j.provider === 'anthropic' ? [4, 20] : [2, 12]
+  const price = j?.provider === 'anthropic' ? [4, 20] : [2, 12]
   return a + ((v.inTok || 0) * price[0] + (v.outTok || 0) * price[1]) / 1e6
 }, 0)
 
@@ -295,6 +358,9 @@ const html = `<!doctype html>
   .lrow { display: grid; grid-template-columns: minmax(150px, 200px) 1fr auto; gap: 14px; align-items: center; font-size: 15px; }
   .ltrack { height: 10px; border-radius: 5px; background: var(--surface-2); overflow: hidden; }
   .lfill { display: block; height: 100%; background: var(--accent); border-radius: 5px; }
+  .lfill.over { background: var(--bad); }
+  .ltrack { position: relative; overflow: visible !important; }
+  .capline { position: absolute; top: -4px; bottom: -4px; width: 2px; background: var(--bad); }
   .lval { min-width: 56px; text-align: right; color: var(--ink-2); }
   @media (max-width: 560px) { .lrow { grid-template-columns: 1fr auto; } .ltrack { grid-column: 1 / -1; order: 3; } }
   .findings { display: grid; gap: 12px; padding: 0; list-style: none; margin: 0; }
@@ -336,6 +402,14 @@ const html = `<!doctype html>
   .legend { display: flex; flex-wrap: wrap; gap: 16px; font-size: 13px; color: var(--ink-3); }
   .legend i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; border: 1px solid var(--line-strong); vertical-align: -1px; margin-right: 6px; }
   .legend i.ind { border-color: var(--accent); } .legend i.dead { border-color: var(--bad); background: var(--bad-wash); }
+  td.warnc { color: var(--amber); }
+  .kv, .qa, .quotes { list-style: none; padding-left: 0 !important; }
+  .qa li { padding: 8px 0; border-bottom: 1px solid var(--line); }
+  .qa li:last-child { border-bottom: 0; }
+  .read { color: var(--accent); font-size: 14px; }
+  .quotes li { font-family: var(--serif); font-style: italic; }
+  .quotes .muted { font-family: var(--sans); font-style: normal; font-size: 13px; }
+  .tag { font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--amber); border: 1px solid currentColor; border-radius: 4px; padding: 1px 5px; margin-left: 6px; vertical-align: 2px; }
   footer { font-size: 14px; color: var(--ink-3); border-top: 1px solid var(--line); padding-top: 20px; display: grid; gap: 8px; }
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
@@ -347,7 +421,7 @@ const html = `<!doctype html>
   <button class="toggle" id="theme" type="button" aria-label="Toggle light and dark theme"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><span>Theme</span></button></div>
   <h1>Which model should write <em>ValuScope's</em> AI?</h1>
   <p class="thesis">${notes.thesis}</p>
-  <div class="meta"><span><b>${CONFIGS.length}</b> models, Gemini and Claude</span><span><b>${CALLS.length}</b> real earnings calls</span><span><b>${COMP_TICKERS.length}</b> comp-set tickers</span><span><b>2</b> blinded judges</span><span><b>${money(totalCost + judgeCost)}</b> total spend</span></div>
+  <div class="meta"><span><b>${CONFIGS.length}</b> models, Gemini and Claude</span><span><b>${CALLS.length}</b> real earnings calls, plus the prior quarter for each</span><span><b>${COMP_TICKERS.length}</b> comp-set tickers</span><span><b>2</b> blinded judges</span><span><b>${money(totalCost + judgeCost)}</b> API spend, plus subscription runs</span></div>
 </header>
 
 <section class="block">
@@ -357,12 +431,12 @@ const html = `<!doctype html>
 
 <section class="block">
   <h2>Key Takeaways: scoreboard</h2>
-  <p class="lede">Each model summarised the same six transcripts with the production prompt and JSON schema from <code>api/summarize.js</code>. Two judges, one from each vendor, read the full transcript and every summary blind, checked each figure and scored 1 to 10. "Errors / summary" counts the factual errors the judges named, averaged across both judges.</p>
-  ${sumTable()}
-  <p class="note">Cost is per summary at list price. Summaries are generated once per ticker and quarter and then served from the blob store, so cost barely matters at ValuScope's scale; a hundred summaries costs between ${money(Math.min(...sumStats.map((s) => s.cost)) * 100)} and ${money(Math.max(...sumStats.map((s) => s.cost)) * 100)}.</p>
+  <p class="lede">This runs production's current two-pass pipeline from <code>api/_lib/callSummary.js</code> with only the model swapped. For each of six real calls, each model extracts this quarter's transcript and the prior quarter's, then writes the summary from those extractions alone, with quotes checked word for word against the transcript. Two judges, one from each vendor, read both transcripts and every summary blind and scored them 1 to 10.</p>
+  ${sum2Table()}
+  <p class="note"><b>How the Claude models ran:</b> the Anthropic API key ran out of credit, so the four Claude models ran each pass as Claude Code subagents on your subscription, with the same system prompt, input and schema, and their answers went back through the real pipeline code. That means no timing or cost for them, Claude Code's default effort instead of low, and a schema the model followed rather than one the API enforced. The Gemini rows are real API calls. "Slowest stage" is the worst single pass across the six calls; production runs each pass as its own request under a ${STAGE_CAP_S}-second cap, and red means a pass came within five seconds of it. Words over 900 (amber) break the prompt's own limit for phone reading.</p>
   <h3>Criterion by criterion</h3>
-  ${sumCritTable()}
-  <p class="note">"Other-vendor judge" is the score from the judge that isn't the model's own vendor (Gemini Pro for Claude models, Claude Opus for Gemini models), the cleanest read if you worry about a judge favouring its own family.</p>
+  ${sum2CritTable()}
+  <p class="note">"Q&amp;A" scores the new section that matters most: whether the exchanges chosen are the high-signal ones, correctly attributed, with fair reads of how direct each answer was. "Other-vendor judge" is the score from the judge outside the model's own family.</p>
 </section>
 
 <section class="block">
@@ -373,33 +447,42 @@ const html = `<!doctype html>
 </section>
 
 <section class="block">
+  <h2>Earlier round: the retired single-pass prompt</h2>
+  <p class="lede">Before the two-pass pipeline shipped, summaries came from one prompt over the raw transcript. This round ran first, by mistake against that older prompt, but every model ran through the API there, so it holds the only like-for-like Claude timings and costs. It is a useful cross-check: the ranking held when the pipeline changed.</p>
+  ${sumTable()}
+</section>
+
+<section class="block">
   <h2>Findings</h2>
   <ul class="findings">${notes.findings.map((f) => `<li>${f}</li>`).join('')}</ul>
 </section>
 
 <section class="block">
   <h2>Speed</h2>
-  <p class="lede">Median time to write one Key Takeaways summary. The user is waiting on this after pressing the button, so it matters more than cost. Comp picks are short and every model returned in 1 to 12 seconds.</p>
-  ${latencyChart()}
+  <p class="lede">The slowest single pass for each Gemini model in the current pipeline. Production runs every pass as its own Vercel request with a ${STAGE_CAP_S}-second limit, so one slow pass means a failed summary, not just a slow one.</p>
+  ${latencyChart(sum2Stats.filter((s) => s.api), (s) => s.stageMax, { cap: STAGE_CAP_S })}
+  <p class="lede">For Claude, the only real timings come from the earlier single-pass round: one API call over the whole transcript, at low effort. An extraction pass writes about two to three times as much as that, so expect the extraction stage to take longer than these figures.</p>
+  ${latencyChart(sumStats, (s) => s.lat)}
 </section>
 
 <section class="block">
   <h2>How each output was scored</h2>
   <div class="criteria">
-    <div class="crit"><b>Accuracy</b><span>Every figure and claim checked against the transcript. Wrong numbers, wrong periods and invented content pull it down hard.</span></div>
+    <div class="crit"><b>Accuracy</b><span>Every figure, attribution and claim checked against the transcript. Wrong numbers, wrong people, wrong periods and invented content pull it down hard.</span></div>
+    <div class="crit"><b>Q&amp;A</b><span>The exchanges chosen carry signal, are attributed to the right people, and the "read" on how directly each was answered is fair.</span></div>
     <div class="crit"><b>Coverage</b><span>Results versus prior periods, guidance changes, strategic news, what analysts pressed on.</span></div>
-    <div class="crit"><b>Insight</b><span>Surfaces the surprise or the number that moved, rather than restating the press release.</span></div>
-    <div class="crit"><b>Concision</b><span>Tight and scannable, no padding or repetition across sections.</span></div>
-    <div class="crit"><b>Discipline</b><span>Forward-looking statements attributed to management, no advice, no outside knowledge.</span></div>
+    <div class="crit"><b>Insight</b><span>Surfaces the surprise, the number that moved or the question management avoided, and a "what changed" that is real.</span></div>
+    <div class="crit"><b>Concision</b><span>Tight and scannable on a phone, within about 900 words, no filler or repetition.</span></div>
+    <div class="crit"><b>Discipline</b><span>Statements attributed by name and title, numbers with every claim, no advice, no outside knowledge.</span></div>
     <div class="crit"><b>Comp relevance, coverage, scale, noise</b><span>Same business model and economics; obvious competitors present; sensible size; no misfits or wrong tickers.</span></div>
   </div>
-  <p class="note">Judges: ${JUDGES.map((j) => j.label).join(' and ')}, both at high reasoning effort, temperature 0.2, list order shuffled differently for each judge. Gemini 3.1 Pro and Claude Opus 5.5 are also contestants, so each judge marked its own output among the others without knowing which it was. A separate figure check pulled every number out of each summary and looked for it in the transcript, including spoken forms like "two and a half"; across all ${sumStats.reduce((a, s) => a + s.ok, 0)} summaries only ${sumStats.reduce((a, s) => a + s.ungrounded, 0)} figure${sumStats.reduce((a, s) => a + s.ungrounded, 0) === 1 ? '' : 's'} had no source within rounding.</p>
+  <p class="note">Judges: ${JUDGES.map((j) => j.label).join(' and ')}, list order shuffled differently for each judge. Gemini 3.1 Pro judged through the API at high reasoning effort throughout. Claude Opus 5.5 judged through the API until the credit ran out, then as a subagent given the identical blinded prompt and nothing else. On the current pipeline the judges also saw the prior quarter's transcript, to check "what changed". Gemini 3.1 Pro and Claude Opus 5.5 are also contestants, so each judge marked its own output among the others without knowing which it was. In the earlier round, a separate figure check pulled every number out of each summary and looked for it in the transcript, including spoken forms like "two and a half"; across all ${sumStats.reduce((a, s) => a + s.ok, 0)} summaries only ${sumStats.reduce((a, s) => a + s.ungrounded, 0)} figure${sumStats.reduce((a, s) => a + s.ungrounded, 0) === 1 ? '' : 's'} had no source within rounding.</p>
 </section>
 
 <section class="block">
   <h2>Read the summaries yourself</h2>
-  <p class="lede">Ranked by the judges' average for that call. Open a card to see the summary next to each judge's comment and the errors it named.</p>
-  ${panels('sum')}
+  <p class="lede">Current pipeline. Ranked by the judges' average for that call. Open a card to see the summary next to each judge's comment and the errors it named.</p>
+  ${panels('sum2')}
 </section>
 
 <section class="block">
@@ -409,8 +492,8 @@ const html = `<!doctype html>
 </section>
 
 <footer>
-  <p>Inputs are the latest transcript for each ticker from the defeatbeta dataset and live Yahoo profiles, pulled ${esc(Object.values(runs)[0]?.at?.slice(0, 10) || '')}. Each model was called once per input, so a model's score on a single ticker has noise; the averages across six calls and twelve tickers are the signal. Prices are list prices checked on October 11, 2026; Gemini Flash prices double on January 1, 2027.</p>
-  <p>Reproduce: <code>node scripts/bakeoff/llm-bakeoff.mjs inputs|gen|check|judge</code>, <code>node scripts/bakeoff/ladder.mjs</code>, then <code>node scripts/bakeoff/bakeoff-report.mjs</code>.</p>
+  <p>Inputs are the latest transcript for each ticker (and the one before it) from the defeatbeta dataset, and live Yahoo profiles, pulled ${esc(Object.values(runs)[0]?.at?.slice(0, 10) || '')}. Each model was called once per input, so a model's score on a single ticker has noise; the averages across six calls and twelve tickers are the signal. Prices are list prices checked on October 11, 2026; Gemini Flash prices double on January 1, 2027.</p>
+  <p>Reproduce: <code>node scripts/bakeoff/llm-bakeoff.mjs inputs|gen|gen2|check|judge</code> (<code>gen2 haiku-s,sonnet-s,opus-s,fable-s</code> writes prompt files for subagents under <code>scripts/bakeoff/sub/</code>), <code>node scripts/bakeoff/ladder.mjs</code>, then <code>node scripts/bakeoff/bakeoff-report.mjs</code>.</p>
 </footer>
 </div>
 <script>

@@ -1,0 +1,357 @@
+{
+  "speakers": [
+    {"name": "Josh Beal", "title": "Director of Investor Relations", "firm": "Deere & Company", "role": "executive"},
+    {"name": "Brent Norwood", "title": "Chief Financial Officer", "firm": "Deere & Company", "role": "executive"},
+    {"name": "Chris Seibert", "title": "Manager Investor Communications", "firm": "Deere & Company", "role": "executive"},
+    {"name": "Operator", "role": "operator"},
+    {"name": "Paddy Bogart", "firm": "Melius Research", "role": "analyst"},
+    {"name": "Chirag Patel", "firm": "Jefferies", "role": "analyst"},
+    {"name": "Randy Marker", "firm": "Citigroup", "role": "analyst"},
+    {"name": "Esther Osinaiya", "firm": "Morgan Stanley", "role": "analyst"},
+    {"name": "Mason Manware", "firm": "Oppenheimer", "role": "analyst"},
+    {"name": "Jerry Revich", "firm": "Wells Fargo", "role": "analyst"},
+    {"name": "Raquel Betesh", "firm": "JPMorgan", "role": "analyst"},
+    {"name": "Federico", "firm": "Bernstein", "role": "analyst"},
+    {"name": "Mig Dobre", "firm": "Baird", "role": "analyst"},
+    {"name": "Tim Thein", "firm": "Raymond James", "role": "analyst"},
+    {"name": "Avi Jaroslawicz", "firm": "UBS", "role": "analyst"}
+  ],
+  "exchanges": [
+    {
+      "n": 2,
+      "analyst": "Paddy Bogart",
+      "firm": "Melius Research",
+      "question": "Construction starting strong, Deere growth significantly above industry up 5% forecast. Are you seeing healthy industry growth and gaining significant share?",
+      "responder": "Josh Beal",
+      "responderTitle": "Director of Investor Relations",
+      "answer": "Underproduction last year in earthmoving particularly front part of year; building alignment with retail demand driving natural lift this year. Industry guide up 5% in earthmoving; road building also strong. Picked up share over past 12 months, particularly last six months with pricing adjustments end of last year.",
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "n": 3,
+      "analyst": "Chirag Patel",
+      "firm": "Jefferies",
+      "question": "Better sense of baseline margin in each business. Could you break down $272 million tariff refund between segments?",
+      "responder": "Josh Beal",
+      "responderTitle": "Director of Investor Relations",
+      "answer": "Tariff run rate unchanged at $1.2 billion full year despite IEEPA/Section 122/Section 232 changes. Tariff splits unchanged: ~45% Construction & Forestry, ~33% Small Ag & Turf, ~20% large ag. Full year impact ~3 points. Refund $272 million: ~50% C&F, ~30% SAT, ~20% large ag.",
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "n": 4,
+      "analyst": "Randy Marker",
+      "firm": "Citigroup",
+      "question": "Not taking pricing to offset tariffs—what mitigation strategies? What progress over 12 months and what more could come?",
+      "responder": "Brent Norwood",
+      "responderTitle": "Chief Financial Officer",
+      "alsoAnswered": ["Josh Beal"],
+      "answer": "Price forecast 1.5%-2% for equipment operations, in line with inflation rates excluding tariffs of 1.5%-2%. Not surcharging customers on tariffs given dynamic/inconsistent rates. Focusing on reducing tariff exposure through cost actions: resourcing, reshoring, exemptions, USMCA compliance. Full confidence will counter tariff impacts through cost measures. Back half more favorable on comps from tariffs and material costs.",
+      "directness": "direct",
+      "newInformation": true,
+      "pushback": false
+    },
+    {
+      "n": 5,
+      "analyst": "Esther Osinaiya",
+      "firm": "Morgan Stanley",
+      "question": "How to frame downside risk on global ag cycle broadly bouncing on bottom given abnormal geopolitical environment? Any historical periods for farmer behavior reference?",
+      "responder": "Josh Beal",
+      "responderTitle": "Director of Investor Relations",
+      "alsoAnswered": ["Chris Seibert"],
+      "answer": "Couple years into downturn; less replacement; fleet age elevated. North America high-horsepower tractors and combines at very elevated fleet age. Used inventory healthier, particularly late-model equipment down 45% from peak. Customers experiencing margin pressure heightened by fertilizer increases, particularly Brazil with currency headwinds. Baseline expectation still recovery in 2027 depending on factors including policy improvements, geopolitical, fundamentals.",
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "n": 6,
+      "analyst": "Mason Manware",
+      "firm": "Oppenheimer",
+      "question": "Order trends in large ag, specifically seasonal products and trends by regions standing out?",
+      "responder": "Josh Beal",
+      "responderTitle": "Director of Investor Relations",
+      "answer": "Manage seasonal products through Early Order Programs. EOPs closed for 2026; production plan set. Opening EOPs for next year: sprayers opened weeks ago, running through end of August; planters June-end September. Very early indications on trends. Everything seen thus far supports view that 2026 marks bottom of ag cycle.",
+      "directness": "partial",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "n": 7,
+      "analyst": "Jerry Revich",
+      "firm": "Wells Fargo",
+      "question": "Precision Ag expectations: See & Spray acreage coverage this year, retrofit orders tracking, Precision Essentials renewal rates 2025 cohort, list price increases comments?",
+      "responder": "Josh Beal",
+      "responderTitle": "Director of Investor Relations",
+      "alsoAnswered": ["Chris Seibert"],
+      "answer": "See & Spray: year one 1M acres, last year 5M acres globally; year-to-date customers spraying more acres than last year. 50-60% herbicide savings demonstrated two years; driving utilization. Introduced See & Spray Green on Green Brazil. Now covering wheat, barley, canola. EOP take rates for 2027 exceed this year. Precision Essentials orders trending well; getting 4,000-5,000 new customer orgs in Operations Center. Renewal rate ~70% overall; second-year cohort over 90%. Harvest automation utilization >60% Northern Hemisphere, >80% Brazil.",
+      "directness": "direct",
+      "newInformation": true,
+      "pushback": false
+    },
+    {
+      "n": 8,
+      "analyst": "Raquel Betesh",
+      "firm": "JPMorgan",
+      "question": "Cadence for Q3 and Q4 on sales and margins? Any items by region or segment causing deviation from normal seasonality?",
+      "responder": "Josh Beal",
+      "responderTitle": "Director of Investor Relations",
+      "answer": "Back half higher than front half; Q4 slightly higher than Q3. Large Ag: Q4 stronger than Q3; more Waterloo tractor shipments to North America in back half than front, abnormal seasonality. Small Ag normal seasonality with step downs Q3 and Q4. Construction & Forestry fairly balanced, Q4 slightly stronger. Nothing abnormal called out.",
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "n": 9,
+      "analyst": "Federico",
+      "firm": "Bernstein",
+      "question": "Pricing expectations look more conservative than peers. Is that reflection of higher discounting?",
+      "responder": "Josh Beal",
+      "responderTitle": "Director of Investor Relations",
+      "alsoAnswered": ["Chris Seibert"],
+      "answer": "Pricing adjustment this quarter driven by Brazil; took price down quarter-over-quarter. All regions expected price positive in large ag. 1% price guide full year. North America a bit better; other two lower, averages to 1%. Similar across businesses. Second half price looks better than first half given incentive lapping. Used inventory progress and incentive management position well.",
+      "directness": "direct",
+      "newInformation": true,
+      "pushback": false
+    },
+    {
+      "n": 10,
+      "analyst": "Mig Dobre",
+      "firm": "Baird",
+      "question": "IEEPA $270 million clawed back—incremental headwinds from other tariffs bring back to $1.2 or true benefit versus initial guide? How to square improving price-cost when cost inflation ahead vs easier comps?",
+      "responder": "Josh Beal",
+      "responderTitle": "Director of Investor Relations",
+      "alsoAnswered": ["Brent Norwood"],
+      "answer": "$1.2 billion run rate unchanged; $272 million refund new in quarter; nets to ~$900 million this year. Material inflation seen over quarter; back half benefits from lapping tariffs from prior year and indirect inflation from tariffs. Pricing much more favorable back half. Back half sees better absorption in large ag factories from significantly higher production rates for U.S. large tractors.",
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "n": 11,
+      "analyst": "Tim Thein",
+      "firm": "Raymond James",
+      "question": "Dealer base sentiment and feedback in North America on large ag? Dealer expectations on spring EOP? How CapEx looking into 2027?",
+      "responder": "Josh Beal",
+      "responderTitle": "Director of Investor Relations",
+      "alsoAnswered": ["Brent Norwood"],
+      "answer": "Baseline expectation some level of recovery next year driven by fleet age, inventory work. JDF wholesale (used equipment financing) down over 15% year-over-year, freeing balance sheet for new sales. Old crop supplies about third remaining; commodity price increases support that. Dealer feedback varied: those aggressive on used most optimistic, some adding used fleet in select cases; others more moderate depending on inventory management. Dealers positive see good setup.",
+      "directness": "direct",
+      "newInformation": true,
+      "pushback": false
+    },
+    {
+      "n": 12,
+      "analyst": "Avi Jaroslawicz",
+      "firm": "UBS",
+      "question": "Continuing market share improvements in South America—is that within existing product portfolio or driven by new product introductions?",
+      "responder": "Josh Beal",
+      "responderTitle": "Director of Investor Relations",
+      "answer": "Over last 15 years, steady linear increase in tractors and combines share supported by multiple fronts: new products, new technologies, outstanding dealer channel, product localization. Record product introductions last year topped this year with more: new combines, sprayers, planters, technologies like See & Spray, Starlink connectivity. Harvest settings automation highest utilization globally in Brazil. Extremely bullish on region; see opportunity for more growth.",
+      "directness": "direct",
+      "newInformation": true,
+      "pushback": false
+    }
+  ],
+  "guidance": [
+    {
+      "item": "Net income (FY 2026)",
+      "current": "$4.5 billion-$5 billion",
+      "period": "fiscal year 2026",
+      "speaker": "Chris Seibert",
+      "source": "prepared"
+    },
+    {
+      "item": "Effective tax rate (FY 2026)",
+      "current": "24%-26%",
+      "period": "fiscal year 2026",
+      "speaker": "Chris Seibert",
+      "source": "prepared"
+    },
+    {
+      "item": "Equipment operations cash flow (FY 2026)",
+      "current": "$4.5 billion-$5.5 billion",
+      "period": "fiscal year 2026",
+      "speaker": "Chris Seibert",
+      "source": "prepared"
+    },
+    {
+      "item": "Production & Precision Ag net sales (FY 2026)",
+      "current": "down 5%-10%",
+      "period": "fiscal year 2026",
+      "speaker": "Chris Seibert",
+      "source": "prepared"
+    },
+    {
+      "item": "Production & Precision Ag operating margin (FY 2026)",
+      "current": "11%-13%",
+      "period": "fiscal year 2026",
+      "speaker": "Chris Seibert",
+      "source": "prepared"
+    },
+    {
+      "item": "Small Ag & Turf net sales (FY 2026)",
+      "current": "up approximately 15%",
+      "period": "fiscal year 2026",
+      "speaker": "Chris Seibert",
+      "source": "prepared"
+    },
+    {
+      "item": "Small Ag & Turf operating margin (FY 2026)",
+      "current": "13.5%-15%",
+      "period": "fiscal year 2026",
+      "speaker": "Chris Seibert",
+      "source": "prepared"
+    },
+    {
+      "item": "Construction & Forestry net sales (FY 2026)",
+      "current": "up approximately 20%",
+      "period": "fiscal year 2026",
+      "speaker": "Chris Seibert",
+      "source": "prepared"
+    },
+    {
+      "item": "Construction & Forestry operating margin (FY 2026)",
+      "current": "10%-12%",
+      "period": "fiscal year 2026",
+      "speaker": "Chris Seibert",
+      "source": "prepared"
+    },
+    {
+      "item": "Financial Services net income (FY 2026)",
+      "current": "$860 million",
+      "period": "fiscal year 2026",
+      "speaker": "Chris Seibert",
+      "source": "prepared"
+    },
+    {
+      "item": "Direct tariff expense (FY 2026)",
+      "current": "approximately $1.2 billion",
+      "period": "fiscal year 2026",
+      "speaker": "Josh Beal",
+      "source": "prepared"
+    },
+    {
+      "item": "Net tariff costs after refunds (FY 2026)",
+      "current": "approximately $900 million",
+      "period": "fiscal year 2026",
+      "speaker": "Josh Beal",
+      "source": "prepared"
+    }
+  ],
+  "metrics": [
+    {"metric": "Equipment operations net sales (Q2 2026)", "value": "+5% to $11.778 billion"},
+    {"metric": "Total net sales and revenues (Q2 2026)", "value": "+5% to $13.369 billion"},
+    {"metric": "Net income (Q2 2026)", "value": "$1.773 billion or $6.55 per diluted share"},
+    {"metric": "Equipment operations margin (Q2 2026)", "value": "16.9%"},
+    {"metric": "Production & Precision Ag net sales (Q2 2026)", "value": "$4.503 billion, down 14%"},
+    {"metric": "Production & Precision Ag operating margin (Q2 2026)", "value": "15.7%"},
+    {"metric": "Production & Precision Ag price realization", "value": "+1 point"},
+    {"metric": "Production & Precision Ag currency translation", "value": "+3 points"},
+    {"metric": "Small Ag & Turf net sales (Q2 2026)", "value": "$3.485 billion, up 16%"},
+    {"metric": "Small Ag & Turf operating margin (Q2 2026)", "value": "20.6%"},
+    {"metric": "Small Ag & Turf price realization", "value": "+1.5 points"},
+    {"metric": "Small Ag & Turf currency translation", "value": "+2.5 points"},
+    {"metric": "Construction & Forestry net sales (Q2 2026)", "value": "$3.79 billion, up 29%"},
+    {"metric": "Construction & Forestry operating margin (Q2 2026)", "value": "14.8%"},
+    {"metric": "Construction & Forestry price realization", "value": "+2.5 points"},
+    {"metric": "Construction & Forestry currency translation", "value": "+3 points"},
+    {"metric": "Financial Services net income (Q2 2026)", "value": "$190 million"},
+    {"metric": "IEEPA tariff refunds (Q2 2026)", "value": "$272 million"},
+    {"metric": "Shareholder returns (Q2 2026)", "value": "$635 million (buybacks and dividends)"},
+    {"metric": "See & Spray acreage (year-to-date)", "value": "exceeding last year pace"},
+    {"metric": "See & Spray herbicide savings", "value": "50-60% documented"},
+    {"metric": "Precision Essentials renewal rate", "value": "70% overall, 90%+ for 2nd year cohort"},
+    {"metric": "Harvest automation utilization (Northern Hemisphere)", "value": ">60%"},
+    {"metric": "Harvest automation utilization (Brazil)", "value": ">80%"},
+    {"metric": "John Deere Operations Center new customer orgs", "value": "4,000-5,000"}
+  ],
+  "quotes": [
+    {
+      "speaker": "Brent Norwood",
+      "title": "Chief Financial Officer",
+      "quote": "we are delivering double-digit margins across all segments",
+      "context": "on segment profitability"
+    },
+    {
+      "speaker": "Brent Norwood",
+      "title": "Chief Financial Officer",
+      "quote": "2026 will represent the bottom of the ag cycle",
+      "context": "on market outlook"
+    },
+    {
+      "speaker": "Brent Norwood",
+      "title": "Chief Financial Officer",
+      "quote": "structurally improved the performance of our business from cycle to cycle",
+      "context": "on long-term improvement"
+    },
+    {
+      "speaker": "Brent Norwood",
+      "title": "Chief Financial Officer",
+      "quote": "helping them to do more with less",
+      "context": "on customer value proposition"
+    },
+    {
+      "speaker": "Chris Seibert",
+      "title": "Manager Investor Communications",
+      "quote": "solid execution and a strong, diversified portfolio of businesses",
+      "context": "on quarter performance"
+    },
+    {
+      "speaker": "Chris Seibert",
+      "title": "Manager Investor Communications",
+      "quote": "strengthening its position in advance of the large ag cycle recovery",
+      "context": "on market positioning"
+    },
+    {
+      "speaker": "Chris Seibert",
+      "title": "Manager Investor Communications",
+      "quote": "all three operating at different points in the cycle",
+      "context": "on business segment diversification"
+    },
+    {
+      "speaker": "Josh Beal",
+      "title": "Director of Investor Relations",
+      "quote": "we expect to see some level of recovery in the next year",
+      "context": "on 2027 outlook"
+    },
+    {
+      "speaker": "Josh Beal",
+      "title": "Director of Investor Relations",
+      "quote": "everything seen thus far supports that 2026 marks the bottom of the ag cycle",
+      "context": "on EOP trends"
+    },
+    {
+      "speaker": "Brent Norwood",
+      "title": "Chief Financial Officer",
+      "quote": "What gets me really excited is the way we've structurally improved the performance",
+      "context": "on profitability improvement"
+    }
+  ],
+  "topics": [
+    "Tariff impacts and refund dynamics",
+    "Production & Precision Ag market weakness and regional differences",
+    "Small Ag & Turf strength and growth momentum",
+    "Construction & Forestry strong demand and market share gains",
+    "Precision agriculture technology adoption and See & Spray",
+    "Inventory management and fleet age dynamics",
+    "Pricing strategy and cost mitigation",
+    "Early order programs and market expectations",
+    "Regional market conditions and farmer sentiment",
+    "Capital allocation and shareholder returns"
+  ],
+  "newMentions": [
+    "See & Spray (5M acres globally, Green on Green Brazil)",
+    "Precision Essentials (70% renewal rate, 4,000-5,000 new customer orgs)",
+    "Harvest settings automation (>60% N. Hemisphere, >80% Brazil)",
+    "John Deere Operations Center PRO Service",
+    "Starlink connectivity for equipment",
+    "Biofuels policy (RVO approval, E15)",
+    "2030 Leap Ambitions",
+    "IEEPA tariff refunds",
+    "Section 122 and 232 tariff changes"
+  ]
+}

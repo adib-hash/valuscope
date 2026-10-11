@@ -21,6 +21,7 @@ import path from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import YahooFinance from 'yahoo-finance2'
 import { listQuarters, getTranscript } from '../../api/_lib/transcripts.js'
+import { extractCall, composeSummary, wordCount, SUMMARY_SYSTEM as V2_SYSTEM } from '../../api/_lib/callSummary.js'
 
 const here = path.dirname(fileURLToPath(import.meta.url))
 const kitabEnv = path.join(here, '..', '..', '..', 'kitab', '.env.local')
@@ -37,7 +38,7 @@ export const LADDER = path.join(here, 'ladder.json') // from ladder.mjs
 // USD per 1M tokens, standard tier, prompts under 200k. Checked 2026-10-11.
 // Gemini Flash prices double on Jan 1, 2027. Haiku 5.5 is $0.50/$2.50 above 100k-token prompts.
 export const CONFIGS = [
-  { id: 'g36f', label: 'Gemini 3.6 Flash', note: 'Production today, low thinking', provider: 'gemini', model: 'gemini-3.6-flash', thinking: 'low', price: [0.75, 3.75], current: true },
+  { id: 'g36f', label: 'Gemini 3.6 Flash', note: 'Production today, default thinking', provider: 'gemini', model: 'gemini-3.6-flash', price: [0.75, 3.75], current: true },
   { id: 'g38f', label: 'Gemini 3.8 Flash', note: 'Newest Flash, low thinking', provider: 'gemini', model: 'gemini-3.8-flash', thinking: 'low', price: [0.75, 3.75] },
   { id: 'g35fl', label: 'Gemini 3.5 Flash-Lite', note: 'Cheap Gemini, minimal thinking', provider: 'gemini', model: 'gemini-3.5-flash-lite', thinking: 'minimal', price: [0.3, 2.5] },
   { id: 'g31p', label: 'Gemini 3.1 Pro', note: 'Preview, low thinking, no free tier', provider: 'gemini', model: 'gemini-3.1-pro-preview', thinking: 'low', price: [2.0, 12.0] },
@@ -45,6 +46,18 @@ export const CONFIGS = [
   { id: 'sonnet', label: 'Claude Sonnet 5.5', note: 'Low effort', provider: 'anthropic', model: 'claude-sonnet-5-5', effort: 'low', price: [2.0, 10.0] },
   { id: 'opus', label: 'Claude Opus 5.5', note: 'Low effort', provider: 'anthropic', model: 'claude-opus-5-5', effort: 'low', price: [4.0, 20.0] },
   { id: 'fable', label: 'Claude Fable 5.1', note: 'Low effort', provider: 'anthropic', model: 'claude-fable-5-1', effort: 'low', price: [10.0, 50.0] },
+]
+
+// Claude via the Claude Code subscription instead of the API (the API key ran
+// out of credit on Oct 11, 2026). Each pass is answered by a subagent on that
+// model, through prompt/response files: the harness writes the exact system
+// prompt, input and schema, and reads the JSON back into the real pipeline.
+// No latency or cost is measurable this way, and effort is Claude Code's default.
+export const SUB_CONFIGS = [
+  { id: 'haiku-s', label: 'Claude Haiku 4.5', note: 'Subscription subagent (Haiku 5.5 isn\'t offered there)', provider: 'subagent', agentModel: 'haiku' },
+  { id: 'sonnet-s', label: 'Claude Sonnet 5.5', note: 'Subscription subagent', provider: 'subagent', agentModel: 'sonnet' },
+  { id: 'opus-s', label: 'Claude Opus 5.5', note: 'Subscription subagent', provider: 'subagent', agentModel: 'opus' },
+  { id: 'fable-s', label: 'Claude Fable 5.1', note: 'Subscription subagent', provider: 'subagent', agentModel: 'fable' },
 ]
 
 export const PROD = { id: 'prod', label: 'Production today', note: 'Curated set, Yahoo similar-stocks, or similar + Gemini 3.6 Flash', provider: 'none' }
@@ -158,7 +171,7 @@ function closeSchema(s) {
 
 // ---------------- model calls ----------------
 async function callGemini(cfg, system, user, schema, { temperature }) {
-  const generationConfig = { temperature, thinkingConfig: { thinkingLevel: cfg.thinking } }
+  const generationConfig = { temperature, ...(cfg.thinking ? { thinkingConfig: { thinkingLevel: cfg.thinking } } : {}) }
   if (schema) Object.assign(generationConfig, { responseMimeType: 'application/json', responseSchema: schema })
   const t0 = performance.now()
   const resp = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${cfg.model}:generateContent`, {
@@ -262,6 +275,19 @@ async function inputs() {
     console.log(`${c.symbol} FY${t.year} Q${t.quarter}  ${t.paragraphs.length} paragraphs`)
     writeJSON(INPUTS, out)
   }
+  // The quarter before, picked the way summarize.js picks it, for "what changed".
+  out.priors ||= {}
+  for (const c of CALLS) {
+    if (out.priors[c.symbol]) continue
+    const cur = out.calls[c.symbol]
+    const quarters = await listQuarters(c.symbol)
+    const i = quarters.findIndex((q) => q.year === cur.year && q.quarter === cur.quarter)
+    const prev = quarters[i + 1]
+    const t = await getTranscript(c.symbol, prev.year, prev.quarter)
+    out.priors[c.symbol] = { year: t.year, quarter: t.quarter, reportDate: t.reportDate, paragraphs: t.paragraphs }
+    console.log(`${c.symbol} prior FY${t.year} Q${t.quarter}`)
+    writeJSON(INPUTS, out)
+  }
   for (const c of COMP_TICKERS) {
     if (out.comps[c.symbol]) continue
     out.comps[c.symbol] = await profile(c.symbol)
@@ -300,6 +326,88 @@ async function gen() {
         console.log(`${key}  ${(r.ms / 1000).toFixed(1)}s  in ${r.inTok} out ${r.outTok}`)
       } catch (e) {
         runs[key] = { cfg: cfg.id, task: j.task, item: j.item, error: e.message, attempts: e.attempts, at: new Date().toISOString() }
+        console.log(`${key}  ERROR ${e.message}`)
+      }
+      writeJSON(RUNS, runs)
+    }
+  }))
+}
+
+
+// ---------------- phase: gen2 (the current two-pass summary pipeline) ----------------
+// Runs api/_lib/callSummary.js itself: segment, extract this quarter, extract
+// the prior quarter, compose with "what changed". Only the model call is
+// swapped. Each pass is timed separately because production runs each stage
+// as its own Vercel request under a 60-second cap.
+export const STAGE_CAP_S = 60
+
+function modelAdapter(cfg, log) {
+  return async (system, user, schema, temperature) => {
+    const r = await callModel(cfg, system, user, schema, { temperature })
+    const parsed = parseJSON(r.text)
+    log.push({ ms: r.ms, inTok: r.inTok, outTok: r.outTok, thinkTok: r.thinkTok, finish: r.finish, ok: !!parsed })
+    if (!parsed) throw Object.assign(new Error(`unparseable JSON (finish ${r.finish})`), { status: 502 })
+    return parsed
+  }
+}
+
+export const SUB_DIR = path.join(here, 'sub')
+class Pending extends Error {}
+
+// Answers a pipeline call from a subagent's response file, or writes the
+// prompt file for one and stops this ticker until it exists.
+function fileAdapter(cfg, symbol, stage) {
+  return async (system, user, schema) => {
+    const base = path.join(SUB_DIR, cfg.id, `${symbol}-${stage}`)
+    if (fs.existsSync(base + '.json')) {
+      const parsed = parseJSON(fs.readFileSync(base + '.json', 'utf8'))
+      if (!parsed) throw Object.assign(new Error(`unparseable JSON in ${base}.json`), { status: 502 })
+      return parsed
+    }
+    fs.mkdirSync(path.dirname(base), { recursive: true })
+    fs.writeFileSync(base + '.txt', [
+      '=== SYSTEM PROMPT ===', system, '',
+      '=== USER MESSAGE ===', user, '',
+      '=== RESPONSE JSON SCHEMA ===', JSON.stringify(schema, null, 1), '',
+    ].join('\n'))
+    throw new Pending(base + '.txt')
+  }
+}
+
+async function gen2() {
+  const inp = readJSON(INPUTS, null)
+  const runs = readJSON(RUNS, {})
+  const only = process.argv[3]?.split(',')
+  const cfgs = [...CONFIGS, ...SUB_CONFIGS].filter((c) => (only ? only.includes(c.id) : c.provider !== 'subagent'))
+  await Promise.all(cfgs.map(async (cfg) => {
+    for (const c of CALLS) {
+      const key = `${cfg.id}|sum2|${c.symbol}`
+      if (runs[key]?.summary) continue
+      const cur = { symbol: c.symbol, ...inp.calls[c.symbol] }
+      const prev = { symbol: c.symbol, ...inp.priors[c.symbol] }
+      const passes = {}
+      try {
+        // Production runs the two extractions in parallel, then composes.
+        const logCur = [], logPrior = [], logCompose = []
+        const sub = cfg.provider === 'subagent'
+        const adapter = (log, stage) => (sub ? fileAdapter(cfg, c.symbol, stage) : modelAdapter(cfg, log))
+        const settled = await Promise.allSettled([
+          extractCall(adapter(logCur, 'extract'), cur),
+          extractCall(adapter(logPrior, 'prior'), prev),
+        ])
+        const failed = settled.find((x) => x.status === 'rejected')
+        if (failed) throw failed.reason
+        const [extraction, priorExtraction] = settled.map((x) => x.value)
+        passes.extract = logCur.at(-1); passes.prior = logPrior.at(-1)
+        const summary = await composeSummary(adapter(logCompose, 'compose'), cur, extraction, { transcript: prev, extraction: priorExtraction })
+        passes.compose = logCompose.at(-1)
+        runs[key] = { cfg: cfg.id, task: 'sum2', item: c.symbol, summary, extraction, passes, words: wordCount(summary), at: new Date().toISOString() }
+        for (const k of Object.keys(passes)) if (!passes[k]) delete passes[k]
+        const t = Object.entries(passes).map(([k, v]) => `${k} ${(v.ms / 1000).toFixed(0)}s`).join(' · ') || 'subagent'
+        console.log(`${key}  ${t}  ${runs[key].words} words`)
+      } catch (e) {
+        if (e instanceof Pending) { console.log(`${key}  waiting on ${path.relative(here, e.message)}`); continue }
+        runs[key] = { cfg: cfg.id, task: 'sum2', item: c.symbol, error: e.message, passes, at: new Date().toISOString() }
         console.log(`${key}  ERROR ${e.message}`)
       }
       writeJSON(RUNS, runs)
@@ -511,6 +619,54 @@ Return only JSON, no other text, in this shape:
 {"sets": [{"letter": "A", "relevance": 0, "coverage": 0, "scale": 0, "noise": 0, "overall": 0, "misfits": ["TICKER: why"], "comment": "one sentence"}], "missingEverywhere": ["TICKER: why"]}`
 }
 
+
+export function renderSummary2(s) {
+  const list = (title, arr) => (arr?.length ? `${title}:\n${arr.map((b) => `- ${b}`).join('\n')}` : `${title}: (empty)`)
+  const out = [`Overview: ${s.overview}`, list('Key takeaways', s.keyTakeaways), list('Financial highlights', s.financialHighlights)]
+  out.push(list('Key metrics', (s.keyMetrics || []).map((m) => `${m.metric}: ${m.value}${m.comparison ? ` (${m.comparison})` : ''}`)))
+  out.push(list('Guidance', s.guidance))
+  out.push(list('Q&A', (s.qa || []).map((q) => `${q.analyst}${q.firm ? ` (${q.firm})` : ''} asked: ${q.question} | ${q.responder}${q.responderTitle ? `, ${q.responderTitle}` : ''}: ${q.answer} | Read: ${q.read}`)))
+  out.push(list('Unanswered', (s.unanswered || []).map((u) => `${u.analyst}${u.firm ? ` (${u.firm})` : ''}: ${u.question} | How avoided: ${u.how}`)))
+  out.push(list('Notable quotes (already verified verbatim against the transcript)', (s.notableQuotes || []).map((q) => `"${q.quote}" — ${q.speaker}${q.title ? `, ${q.title}` : ''}`)))
+  const w = s.whatChanged
+  out.push(w ? [list('What changed: guidance revisions', w.guidanceRevisions), list('What changed: new mentions', w.newMentions), list('What changed: dropped topics', w.droppedTopics), `What changed: tone shift: ${w.toneShift || '(none)'}`].join('\n') : 'What changed: (section omitted)')
+  out.push(list('Risks mentioned', s.risksMentioned))
+  return out.join('\n')
+}
+
+function sum2JudgePrompt(sym, t, prior, lists) {
+  const text = (x) => x.paragraphs.map((p) => `${p.speaker}: ${p.content}`).join('\n\n')
+  return `You are judging AI-written summaries of one earnings call. The summaries come from different AI systems; they are anonymous and in random order. They appear in a valuation tool that an investor reads on their phone for their own research.
+
+Each system ran the same two-pass pipeline: it first extracted structured facts from the transcript (and from the prior quarter's transcript), then wrote the summary from those extractions alone. The writing instructions were: ground every statement in the extraction, no outside knowledge, no advice or price view; attribute statements to the named person and title, never "management said"; every quantitative claim carries its number; no filler adjectives; one tight sentence per bullet; under roughly 900 words. Sections: overview; key takeaways, financial highlights, guidance, risks (three to five bullets each); key metrics; four to six Q&A exchanges chosen for signal, each with a one-line read on how direct the answer was; two to four questions that were deflected, partially answered or declined; three to five verbatim quotes; and "what changed" versus the prior quarter.
+
+Here is the full transcript of the ${sym} call (fiscal Q${t.quarter} ${t.year}):
+<transcript>
+${text(t)}
+</transcript>
+
+And the prior quarter's call (fiscal Q${prior.quarter} ${prior.year}), which the "what changed" section compares against:
+<prior_transcript>
+${text(prior)}
+</prior_transcript>
+
+${lists.map((l) => `### Summary ${l.letter}\n${renderSummary2(l.summary)}`).join('\n\n')}
+
+Check every figure, attribution and claim against the transcripts. Score every summary from 1 to 10 on each criterion, using the full range and comparing summaries against each other.
+- accuracy: are all figures, periods, attributions (who said it, their title) and claims correct? Any wrong number, wrong person, wrong period or invented content must pull this down hard.
+- qa: are the Q&A exchanges the high-signal ones, correctly attributed, with the substance right; are the "read" lines and the unanswered list fair (a question that was answered directly listed as dodged is an error)?
+- coverage: does it capture what an investor most needs: results vs. prior periods, guidance and how it moved, the main strategic news, the risks?
+- insight: does it surface what actually matters (the surprise, the change in tone, the number that moved, the question management avoided) rather than restating the press release? Includes whether "what changed" is real and useful.
+- concision: tight and scannable on a phone, within about 900 words, no padding, filler adjectives or repetition across sections.
+- discipline: follows the rules: named attribution, numbers with every quantitative claim, no advice or price view, no outside knowledge.
+- overall: how useful is this as a research note on this call?
+
+List every factual error you are confident about, quoting the summary's wording and stating what the transcript actually says. Do not list omissions as errors.
+
+Return only JSON, no other text, in this shape:
+{"summaries": [{"letter": "A", "accuracy": 0, "qa": 0, "coverage": 0, "insight": 0, "concision": 0, "discipline": 0, "overall": 0, "errors": ["..."], "comment": "one sentence"}]}`
+}
+
 function judgeWork(only) {
   const inp = readJSON(INPUTS, null)
   const runs = readJSON(RUNS, {})
@@ -520,6 +676,12 @@ function judgeWork(only) {
       const lists = CONFIGS.map((cfg) => runs[`${cfg.id}|sum|${c.symbol}`]).filter((r) => r?.parsed).map((r) => ({ cfg: r.cfg, summary: r.parsed }))
       const ord = shuffle(lists, `${j.id}|sum|${c.symbol}`)
       work.push({ j, key: `${j.id}|sum|${c.symbol}`, ord, prompt: sumJudgePrompt(c.symbol, inp.calls[c.symbol], ord), field: 'summaries' })
+    }
+    for (const c of CALLS) {
+      const lists = [...CONFIGS, ...SUB_CONFIGS].map((cfg) => runs[`${cfg.id}|sum2|${c.symbol}`]).filter((r) => r?.summary).map((r) => ({ cfg: r.cfg, summary: r.summary }))
+      if (!lists.length) continue
+      const ord = shuffle(lists, `${j.id}|sum2|${c.symbol}`)
+      work.push({ j, key: `${j.id}|sum2|${c.symbol}`, ord, prompt: sum2JudgePrompt(c.symbol, inp.calls[c.symbol], inp.priors[c.symbol], ord), field: 'summaries' })
     }
     for (const c of COMP_TICKERS) {
       const lists = [...CONFIGS, PROD].map((cfg) => runs[`${cfg.id}|comp|${c.symbol}`]).filter((r) => r?.peers).map((r) => ({ cfg: r.cfg, peers: r.peers }))
@@ -592,8 +754,8 @@ async function judge() {
 }
 
 const phase = process.argv[2]
-if (import.meta.url === pathToFileURL(process.argv[1]).href) {
-  const fns = { inputs, gen, check, judge, 'judge-dump': judgeDump, 'judge-load': judgeLoad }
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  const fns = { inputs, gen, gen2, check, judge, 'judge-dump': judgeDump, 'judge-load': judgeLoad }
   if (!fns[phase]) { console.log('usage: llm-bakeoff.mjs inputs|gen|check|judge [ids]'); process.exit(1) }
   await fns[phase]()
 }

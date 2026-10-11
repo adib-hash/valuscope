@@ -1,0 +1,537 @@
+{
+  "speakers": [
+    {
+      "name": "Jamie Dimon",
+      "title": "Chairman and CEO",
+      "firm": "JPMorgan Chase",
+      "role": "executive"
+    },
+    {
+      "name": "Jeremy Barnum",
+      "title": "CFO",
+      "firm": "JPMorgan Chase",
+      "role": "executive"
+    },
+    {
+      "name": "Ken Usdin",
+      "firm": "Autonomous Research",
+      "role": "analyst"
+    },
+    {
+      "name": "Chris McGratty",
+      "firm": "KBW",
+      "role": "analyst"
+    },
+    {
+      "name": "John McDonald",
+      "firm": "Truist Securities",
+      "role": "analyst"
+    },
+    {
+      "name": "Erika Najarian",
+      "firm": "UBS",
+      "role": "analyst"
+    },
+    {
+      "name": "Mike Mayo",
+      "role": "analyst"
+    },
+    {
+      "name": "Saul Martinez",
+      "firm": "HSBC",
+      "role": "analyst"
+    },
+    {
+      "name": "Ebrahim Poonawala",
+      "firm": "Bank of America",
+      "role": "analyst"
+    },
+    {
+      "name": "Glenn Schorr",
+      "firm": "Evercore",
+      "role": "analyst"
+    },
+    {
+      "name": "Gerard Cassidy",
+      "firm": "RBC",
+      "role": "analyst"
+    },
+    {
+      "name": "Operator",
+      "role": "operator"
+    }
+  ],
+  "exchanges": [
+    {
+      "n": 1,
+      "analyst": "Ken Usdin",
+      "firm": "Autonomous Research",
+      "question": "Can you evaluate recent management changes and elevation of Doug and Troy to co-presidents, and what this means for leadership development and your tenure as CEO?",
+      "responder": "Jamie Dimon",
+      "responderTitle": "Chairman and CEO",
+      "alsoAnswered": [],
+      "answer": "Marianne is exceptional individual. Board made decision to create two co-presidents to prepare them for more at company. Hasn't changed timetable. Marianne decided she'd rather retire than stay, result of knowing about succession plans. No mystery.",
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "n": 1,
+      "analyst": "Ken Usdin",
+      "firm": "Autonomous Research",
+      "question": "How do you judge sustainability of investment banking and markets strength, and how risk-on are the various businesses?",
+      "responder": "Jeremy Barnum",
+      "responderTitle": "CFO",
+      "alsoAnswered": [],
+      "answer": "Investment banking fees historically fine but not super peak, had room to come up. Some pull forward happened, large deals contributed meaningfully. Pipeline quite robust; high-profile activity seems encouraging more activity. Markets elevated for time; equities exceptionally strong this quarter with highly dynamic conditions. Separation between fixed income up 6% and equities up 86% year-over-year.",
+      "directness": "direct",
+      "newInformation": true,
+      "pushback": false
+    },
+    {
+      "n": 2,
+      "analyst": "Chris McGratty",
+      "firm": "KBW",
+      "question": "Can you discuss progression toward 15% retail market share target and how higher-for-longer rates impact pace of market share gains?",
+      "responder": "Jeremy Barnum",
+      "responderTitle": "CFO",
+      "alsoAnswered": [],
+      "answer": "Wholesale deposit growth strong this quarter and first half, outperforming expectations due to franchise strength, winning deals, and lending environment particularly BFI space and data center stuff. Consumer expecting low single-digit growth, unchanged expectation, balance between robust net new checking accounts and yield-seeking flows. View that 15% will be outcome of executing strategy across components from primary bank relationships, branch expansion, deepening product-value proposition.",
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "n": 2,
+      "analyst": "Chris McGratty",
+      "firm": "KBW",
+      "question": "Where are we in the investment cycle for branch build-out, AI investments, and banker hires, and how does this play into operating leverage outlook?",
+      "responder": "Jamie Dimon",
+      "responderTitle": "Chairman and CEO",
+      "alsoAnswered": ["Jeremy Barnum"],
+      "answer": "Complete continuation of what we've been doing for years. Shouldn't expect any change. Power of franchise is such that able to aggressively invest for future generating returns and solidifying competitive position while delivering exceptional current returns. Would be true delivering 15%, 16%, 17% returns. When delivering these types, firing on all cylinders.",
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "n": 3,
+      "analyst": "John McDonald",
+      "firm": "Truist Securities",
+      "question": "Can you talk about drivers of upward revision to NII ex-Markets from $95 billion to $96.5 billion and cadence in Q3, Q4, and exit rate?",
+      "responder": "Jeremy Barnum",
+      "responderTitle": "CFO",
+      "alsoAnswered": [],
+      "answer": "Biggest single factor is deposit balances across wholesale and consumer, overall quantum and mix shift in favor of slightly higher margin. Rates higher than previously guided in short and back end. Sensitivity a little more than EAR suggests due to consumer betas outperformance, disproportionately in front end. Increase as function of higher rates but most is balances overall.",
+      "directness": "direct",
+      "newInformation": true,
+      "pushback": false
+    },
+    {
+      "n": 3,
+      "analyst": "John McDonald",
+      "firm": "Truist Securities",
+      "question": "Markets NII guided higher even though rate outlook higher. What are drivers, balance sheet mix?",
+      "responder": "Jeremy Barnum",
+      "responderTitle": "CFO",
+      "alsoAnswered": [],
+      "answer": "Markets NII actually liability sensitive. Higher rates would expect it down; instead forecast up. Difference is changes in balance sheet composition, expecting lower finance non-interest-bearing assets in second half. One balance sheet unit drives number quite a bit, can overwhelm rate effect. Also increased equity allocation to CIB this quarter moves some equity out of corporate into CIB; markets NII moving out of NII ex-Markets into markets NII, about $150 million not expected to offset on bottom line.",
+      "directness": "direct",
+      "newInformation": true,
+      "pushback": false
+    },
+    {
+      "n": 4,
+      "analyst": "Erika Najarian",
+      "firm": "UBS",
+      "question": "What characteristics are you and board looking for in new CEO, and what makes an exceptional CEO? Should investors think tenure more fixed or rolling retirement date?",
+      "responder": "Jamie Dimon",
+      "responderTitle": "Chairman and CEO",
+      "alsoAnswered": [],
+      "answer": "Timing essentially same, not changed. Want good at management, people, analytical, detailed, culture carrier, curious, heart, grit, soul, work ethic, travel, walk in operating centers with CEOs and prime ministers. Blessed with many great culture carriers. No one has all perfect, some learned, some improve. See it when see it. Two exceptional co-presidents. Flexible mind deal with growing complex world. Fully confident would be fine if hit by truck.",
+      "directness": "direct",
+      "newInformation": true,
+      "pushback": false
+    },
+    {
+      "n": 5,
+      "analyst": "Mike Mayo",
+      "role": "analyst",
+      "question": "Your marginal margin based on 77% given. Why is that as good as it gets? Revenue environment as good as it gets?",
+      "responder": "Jamie Dimon",
+      "responderTitle": "Chairman and CEO",
+      "alsoAnswered": [],
+      "answer": "Very healthy, active, exuberant market with very high prices and high volumes; benefit from that. Just don't know how long continues. Could get lot better. How much better? Don't know.",
+      "directness": "partial",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "n": 5,
+      "analyst": "Mike Mayo",
+      "role": "analyst",
+      "question": "Troy taking over consumer bank. What gives confidence Troy is right person when doesn't have that experience? (FX trader selling mortgage, credit cards)?",
+      "responder": "Jamie Dimon",
+      "responderTitle": "Chairman and CEO",
+      "alsoAnswered": ["Jeremy Barnum"],
+      "answer": "Evaluate people on analytics, brain power, EQ, heart, soul, culture carrier, can they walk into operating centers. Exhibited in markets, investment banking. IB extensive operations, back office, technology function where great expertise. Very important people have experience across company. Investment bank only leadership can cause rest of franchise suffer. Need respect for rest of franchise. Great for him, great for company, already excited. Troy actually options trader, not FX.",
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": true
+    },
+    {
+      "n": 6,
+      "analyst": "Saul Martinez",
+      "firm": "HSBC",
+      "question": "Argument we're vastly underestimating AI benefits to efficiency? Could banks operate leaner with different structure while not sacrificing product velocity?",
+      "responder": "Jamie Dimon",
+      "responderTitle": "Chairman and CEO",
+      "alsoAnswered": [],
+      "answer": "Use AI to do better job for clients. Fully expect huge efficiency in certain parts. Analyze all time. Spend quite a bit on it. Lots of MVPs. Whole company working this, almost 1,000 use cases, really important ones 50 across risk, fraud, marketing, hedging, prospecting, note-taking, idea generation, document reading. Just starting. May accelerate what want to get done anyway. Preparing to retrain people. Discrete areas reduced jobs 30% or 40%, most offered jobs elsewhere. Benefit accrues to customer not JPMorgan because others doing same.",
+      "directness": "direct",
+      "newInformation": true,
+      "pushback": false
+    },
+    {
+      "n": 6,
+      "analyst": "Saul Martinez",
+      "firm": "HSBC",
+      "question": "Can you elaborate on what was most exceptional in equities this quarter that may be difficult to sustain?",
+      "responder": "Jeremy Barnum",
+      "responderTitle": "CFO",
+      "alsoAnswered": [],
+      "answer": "Major IPOs, major index rebalancing, very complicated Korean equity market dynamics, lots of activity in Asia, overall environment dynamic and interesting. Clients extremely active. All the headlines basically driven market. Statistically improbable that particular combination effects repeat itself though could. Volumes NYSE, CME, hedge fund volumes show most taking place daily, not secret.",
+      "directness": "direct",
+      "newInformation": true,
+      "pushback": false
+    },
+    {
+      "n": 7,
+      "analyst": "Ebrahim Poonawala",
+      "firm": "Bank of America",
+      "question": "Talk about Main Street. Fragility in housing, real estate, rates up. Consumer resilience if rates go up? AI CapEx beyond AI? Commercial lending AI-centric?",
+      "responder": "Jeremy Barnum",
+      "responderTitle": "CFO",
+      "alsoAnswered": ["Jamie Dimon"],
+      "answer": "Decent CapEx and loan growth across franchise; not all appears AI related but reluctant to conclude strongly. AI theme proliferated in so many parts of economy. CapEx about $4 trillion year, AI went $400 billion last year to $700 billion this year, projected little over trillion next year with maybe reduction non-AI CapEx. Hard figure out. Consumer spend fine, robust across income segments, tailwind from tax refunds. Delinquencies lower expected, better across FICO. Economic heterogeneity data doesn't support K-shape narrative. Long expansion, economy surprised upside.",
+      "directness": "direct",
+      "newInformation": true,
+      "pushback": false
+    },
+    {
+      "n": 7,
+      "analyst": "Ebrahim Poonawala",
+      "firm": "Bank of America",
+      "question": "Why buy back stock at three times tangible book when things good, bad things could happen? Why not more excess capital for rainy day?",
+      "responder": "Jeremy Barnum",
+      "responderTitle": "CFO",
+      "alsoAnswered": ["Jamie Dimon"],
+      "answer": "Buy back less as price goes up, more as price goes down. Had lots excess capital couple years ago, still think use approximately $40 billion, now think deployed over time. World gotten bigger, more complex. Security resiliency initiative, hyperscalers needs huge. Not just AI. Global infrastructure, remilitarization, trade restructuring, government needs enormous. Global deficits almost 4.5% or 5%, very big number competing for same capital. Goal deploy capital at 17% return. Always looking at inorganic. Huge opportunities organic growth every business. Been doing deals this year, most good, couple not particularly good. Open-minded.",
+      "directness": "direct",
+      "newInformation": true,
+      "pushback": false
+    },
+    {
+      "n": 8,
+      "analyst": "Glenn Schorr",
+      "firm": "Evercore",
+      "question": "Status of smart cash tool you're working on? When might roll out? Comments on paying more for money over time?",
+      "responder": "Jamie Dimon",
+      "responderTitle": "Chairman and CEO",
+      "alsoAnswered": [],
+      "answer": "Still test case. Banks in different position. Relates to narrow segment accounts where competing for investment and deposit business. Tests coming out; find what can and can't do, learn by doing. Think could be good for customers and us. Not finding ways waste money. You'll see something this year.",
+      "directness": "partial",
+      "newInformation": true,
+      "pushback": false
+    },
+    {
+      "n": 8,
+      "analyst": "Glenn Schorr",
+      "firm": "Evercore",
+      "question": "European consumer banking aspirations? What trying to be as consumer bank across major European markets?",
+      "responder": "Jamie Dimon",
+      "responderTitle": "Chairman and CEO",
+      "alsoAnswered": [],
+      "answer": "Weren't going to compete with local banks when talking bricks mortar, brands, capabilities. Digital may changed that. Started Chase UK 4-5 years ago, complete startup, almost 3 million or 2.5 million customers in UK now. Opened Berlin, done much better in Germany than thought, not quite profitable yet. Platform costs money, distribute across more clients, countries, reach break even then profitable. Added investment products in UK, assume add elsewhere, probably credit card. Dream pan-European successful digital bank off JPMorgan strengths. Private bank, huge upscale business. Lots clients cross border. Training, underwriting, research capability.",
+      "directness": "direct",
+      "newInformation": true,
+      "pushback": false
+    },
+    {
+      "n": 9,
+      "analyst": "Gerard Cassidy",
+      "firm": "RBC",
+      "question": "You've talked about excesses in underwriting and credit, risk on in capital markets. What seeing in credit underwriting from competitors? Getting crazier?",
+      "responder": "Jeremy Barnum",
+      "responderTitle": "CFO",
+      "alsoAnswered": ["Jamie Dimon"],
+      "answer": "Crazy strong word. Data center underwriting bellwether. Passed on some deals. Key question what happens power supply, tenants, well-discussed. Precise framework govern willing to do. Saw deals where not doing that. Normal, competitive, people eager. Some element relationship lending through data center with startup entity. Mild deterioration credit underwriting standards across spectrum. Assumptions revenue growth, add back expenses, more PIK, more across some players. Weaker covenants, more rollover risk if rates up, interest rate exposure. Credit cycle will be, when there is cycle, how will everybody perform? Not bell curve, some outliers.",
+      "directness": "direct",
+      "newInformation": true,
+      "pushback": false
+    },
+    {
+      "n": 9,
+      "analyst": "Gerard Cassidy",
+      "firm": "RBC",
+      "question": "Basel III endgame hopefully codified by year end. Next year tailoring. Could envision regulatory stability period enhancing bank stock valuations?",
+      "responder": "Jeremy Barnum",
+      "responderTitle": "CFO",
+      "alsoAnswered": ["Jamie Dimon"],
+      "answer": "Regulatory stability desirable, relatively nonpartisan. Big reaction to crisis, reaction to reaction, amplitude oscillations decreasing, getting to point have it about right. Banks focused not on complying regulatory constraints but own standards, own risk appetite, be true north. Getting closer to state. Whether that supportive bank stock valuations, leave to you. For banks like us, not convinced major drag or been past. Recent Supreme decision makes flip-flopping less likely. When write legislation, be more clear intent, could have said independent or only replace some. Mickey Bowman and Kevin Warsh taking step back broad range changes, extensive 20 years. Makes safer. No MRAs none related safety soundness, related other issues.",
+      "directness": "direct",
+      "newInformation": true,
+      "pushback": false
+    }
+  ],
+  "guidance": [
+    {
+      "item": "NII ex-Markets (full year 2026)",
+      "current": "$96.5 billion",
+      "prior": "$95 billion",
+      "period": "full year 2026",
+      "source": "prepared",
+      "speaker": "Jeremy Barnum"
+    },
+    {
+      "item": "Total NII (full year 2026)",
+      "current": "approximately $105.5 billion",
+      "period": "full year 2026",
+      "source": "prepared",
+      "speaker": "Jeremy Barnum"
+    },
+    {
+      "item": "Markets NII (full year 2026)",
+      "current": "about $9 billion",
+      "period": "full year 2026",
+      "source": "prepared",
+      "speaker": "Jeremy Barnum"
+    },
+    {
+      "item": "Adjusted expense outlook (full year 2026)",
+      "current": "about $107.5 billion",
+      "period": "full year 2026",
+      "source": "prepared",
+      "speaker": "Jeremy Barnum"
+    },
+    {
+      "item": "Card net charge-off rate (full year 2026)",
+      "current": "approximately 3.2%",
+      "period": "full year 2026",
+      "source": "prepared",
+      "speaker": "Jeremy Barnum"
+    }
+  ],
+  "metrics": [
+    {
+      "metric": "Net income",
+      "value": "$16.9 billion",
+      "comparison": ""
+    },
+    {
+      "metric": "Earnings per share",
+      "value": "$6.14",
+      "comparison": ""
+    },
+    {
+      "metric": "ROTCE",
+      "value": "23%",
+      "comparison": ""
+    },
+    {
+      "metric": "Revenue (excluding significant items)",
+      "value": "up 15% year-on-year",
+      "comparison": "predominantly markets revenue, higher asset management fees, higher investment banking, higher deposit and loan balances"
+    },
+    {
+      "metric": "Expenses",
+      "value": "$27.3 billion",
+      "comparison": "up 15% year-on-year, volume and revenue-related expense, growth in front office hiring"
+    },
+    {
+      "metric": "Credit costs",
+      "value": "$2.5 billion",
+      "comparison": "net charge-offs $2.4 billion, net reserve build $149 million"
+    },
+    {
+      "metric": "CET1 ratio (standardized)",
+      "value": "14.1%",
+      "comparison": "down 20 basis points versus prior quarter"
+    },
+    {
+      "metric": "RWA increase",
+      "value": "approximately $103 billion",
+      "comparison": "driven by increases in financing markets business and growth in traditional lending"
+    },
+    {
+      "metric": "Quarterly dividend",
+      "value": "$1.65 per share",
+      "comparison": "effective Q3"
+    },
+    {
+      "metric": "CCB net income",
+      "value": "$5.3 billion",
+      "comparison": ""
+    },
+    {
+      "metric": "CCB revenue",
+      "value": "$20.3 billion",
+      "comparison": "up 8% year-on-year"
+    },
+    {
+      "metric": "Average deposits (CCB)",
+      "value": "up 3% year-on-year, up 2% quarter-on-quarter",
+      "comparison": ""
+    },
+    {
+      "metric": "Net new checking accounts (CCB)",
+      "value": "over 500,000",
+      "comparison": "this quarter"
+    },
+    {
+      "metric": "Client investment assets (CCB)",
+      "value": "up 21% year-on-year",
+      "comparison": "driven by market performance and strong flows"
+    },
+    {
+      "metric": "CIB net income",
+      "value": "$9.7 billion",
+      "comparison": ""
+    },
+    {
+      "metric": "CIB revenue",
+      "value": "$24.9 billion",
+      "comparison": "up 27% year-on-year"
+    },
+    {
+      "metric": "IB fees",
+      "value": "up 30% year-on-year",
+      "comparison": "double-digit growth across all products, particularly strong equity underwriting"
+    },
+    {
+      "metric": "Fixed income revenue",
+      "value": "up 6% year-on-year",
+      "comparison": "solid credit, currencies, emerging markets, rates, offset by lower commodities"
+    },
+    {
+      "metric": "Equities revenue",
+      "value": "up 86% year-on-year",
+      "comparison": "exceptionally strong quarter, highly dynamic market conditions"
+    },
+    {
+      "metric": "AWM net income",
+      "value": "$2 billion",
+      "comparison": ""
+    },
+    {
+      "metric": "AWM pre-tax margin",
+      "value": "38%",
+      "comparison": ""
+    },
+    {
+      "metric": "AWM revenue",
+      "value": "$6.9 billion",
+      "comparison": "up 19% year-on-year"
+    },
+    {
+      "metric": "Long-term net inflows (AWM)",
+      "value": "$50 billion",
+      "comparison": "continued strength across fixed income and equity"
+    },
+    {
+      "metric": "AUM",
+      "value": "$5.1 trillion",
+      "comparison": "up 18% year-on-year"
+    },
+    {
+      "metric": "Client assets",
+      "value": "$7.7 trillion",
+      "comparison": "up 19% year-on-year"
+    },
+    {
+      "metric": "Corporate net income",
+      "value": "$4.2 billion",
+      "comparison": ""
+    },
+    {
+      "metric": "Corporate revenue",
+      "value": "$6 billion",
+      "comparison": ""
+    }
+  ],
+  "quotes": [
+    {
+      "speaker": "Jamie Dimon",
+      "title": "Chairman and CEO",
+      "quote": "We're just trying to serve the clients and manage the risk and get our fair share of the business.",
+      "context": "Markets business approach"
+    },
+    {
+      "speaker": "Jamie Dimon",
+      "title": "Chairman and CEO",
+      "quote": "You know it when you see it.",
+      "context": "CEO succession criteria"
+    },
+    {
+      "speaker": "Jamie Dimon",
+      "title": "Chairman and CEO",
+      "quote": "I think that's true if we were delivering 15%, 16%, 17% returns. Obviously, when we're delivering these types, firing on all cylinders.",
+      "context": "Investment returns and franchise power"
+    },
+    {
+      "speaker": "Jamie Dimon",
+      "title": "Chairman and CEO",
+      "quote": "The benefit accrues to the customer, not to JPMorgan in this case.",
+      "context": "AI efficiency gains"
+    },
+    {
+      "speaker": "Jeremy Barnum",
+      "title": "CFO",
+      "quote": "We're just guessing here obviously.",
+      "context": "Investment banking pipeline sustainability"
+    },
+    {
+      "speaker": "Jamie Dimon",
+      "title": "Chairman and CEO",
+      "quote": "The whole company's involved in it.",
+      "context": "AI adoption across JPMorgan"
+    },
+    {
+      "speaker": "Jamie Dimon",
+      "title": "Chairman and CEO",
+      "quote": "We have huge opportunities for organic growth in every single business we're in.",
+      "context": "Capital deployment strategy"
+    },
+    {
+      "speaker": "Jeremy Barnum",
+      "title": "CFO",
+      "quote": "We're appropriately cautious in an environment that has some complicated dynamics in it.",
+      "context": "Risk management in strong market"
+    }
+  ],
+  "topics": [
+    "Succession planning and leadership transition",
+    "Investment banking and markets strength",
+    "Deposit growth and consumer banking strategy",
+    "Net interest income guidance",
+    "AI implementation and efficiency gains",
+    "Credit underwriting standards",
+    "European expansion strategy",
+    "Capital allocation and buyback strategy",
+    "Regulatory environment and Basel III",
+    "Market conditions and risk-on sentiment"
+  ],
+  "newMentions": [
+    "Co-presidents elevation",
+    "Smart cash tool",
+    "Chase UK",
+    "Chase Germany",
+    "Data center lending",
+    "AI use cases (1,000 cases)",
+    "Prime brokerage",
+    "Asian equities",
+    "CHIPS Act",
+    "Basel III endgame",
+    "Sapphire Preferred card refresh"
+  ]
+}

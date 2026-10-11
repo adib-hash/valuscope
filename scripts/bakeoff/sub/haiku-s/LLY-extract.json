@@ -1,0 +1,352 @@
+{
+  "speakers": [
+    {
+      "name": "Dave Ricks",
+      "title": "Chair and CEO",
+      "firm": "Eli Lilly and Company",
+      "role": "executive"
+    },
+    {
+      "name": "Lucas Montarce",
+      "title": "Chief Financial Officer",
+      "firm": "Eli Lilly and Company",
+      "role": "executive"
+    },
+    {
+      "name": "Dan Skovronsky",
+      "title": "Chief Scientific and Product Officer",
+      "firm": "Eli Lilly and Company",
+      "role": "executive"
+    },
+    {
+      "name": "Adrienne Brown",
+      "title": "President of Lilly Immunology",
+      "firm": "Eli Lilly and Company",
+      "role": "executive"
+    },
+    {
+      "name": "Carole Ho",
+      "title": "President of Lilly Neuroscience",
+      "firm": "Eli Lilly and Company",
+      "role": "executive"
+    },
+    {
+      "name": "Ilya Yuffa",
+      "title": "President of Lilly USA and Global Customer Capabilities",
+      "firm": "Eli Lilly and Company",
+      "role": "executive"
+    },
+    {
+      "name": "Jake Van Naarden",
+      "title": "President of Lilly Oncology and Head of Business Development",
+      "firm": "Eli Lilly and Company",
+      "role": "executive"
+    },
+    {
+      "name": "Patrik Jonsson",
+      "title": "President of Lilly International",
+      "firm": "Eli Lilly and Company",
+      "role": "executive"
+    },
+    {
+      "name": "Ken Custer",
+      "title": "President of Lilly Cardiometabolic Health",
+      "firm": "Eli Lilly and Company",
+      "role": "executive"
+    },
+    {
+      "name": "Mike Czapar",
+      "title": "Senior Vice President of Investor Relations",
+      "firm": "Eli Lilly and Company",
+      "role": "executive"
+    },
+    {
+      "name": "Asad Haider",
+      "title": "",
+      "firm": "Goldman Sachs",
+      "role": "analyst"
+    },
+    {
+      "name": "Courtney Breen",
+      "title": "",
+      "firm": "Bernstein",
+      "role": "analyst"
+    },
+    {
+      "name": "Chris Schott",
+      "title": "",
+      "firm": "JPMorgan",
+      "role": "analyst"
+    },
+    {
+      "name": "Geoff Meacham",
+      "title": "",
+      "firm": "Citibank",
+      "role": "analyst"
+    },
+    {
+      "name": "Mohit Bansal",
+      "title": "",
+      "firm": "Wells Fargo",
+      "role": "analyst"
+    },
+    {
+      "name": "Akash Tewari",
+      "title": "",
+      "firm": "Jefferies",
+      "role": "analyst"
+    },
+    {
+      "name": "Michael Yee",
+      "title": "",
+      "firm": "UBS",
+      "role": "analyst"
+    },
+    {
+      "name": "Terence Flynn",
+      "title": "",
+      "firm": "Morgan Stanley",
+      "role": "analyst"
+    },
+    {
+      "name": "Umer Raffat",
+      "title": "",
+      "firm": "Evercore",
+      "role": "analyst"
+    },
+    {
+      "name": "Jason Gerberry",
+      "title": "",
+      "firm": "Bank of America",
+      "role": "analyst"
+    },
+    {
+      "name": "Louise Chen",
+      "title": "",
+      "firm": "Scotiabank",
+      "role": "analyst"
+    },
+    {
+      "name": "Operator",
+      "title": "",
+      "firm": "",
+      "role": "operator"
+    }
+  ],
+  "exchanges": [
+    {
+      "number": 1,
+      "question": "Great. Thanks for taking the question and congrats on the continued strong performance and execution. Maybe just on the Foundayo launch. In the U.S., the launch curve has been somewhat slower than anticipated. Just curious as to what you think the contributing factors are there, and when you think w",
+      "answer": "Great. Thanks, Asad. We'll stick with the same duo here. Ilya you want to start with talking about progress in the U.S. Foundayo launch, then Patrik, you can add some color on ex-U.S. Sure. Thanks, Asad. So, listen, for Foundayo, we're making pretty meaningful progress on the Foundayo performance and building out the brand. As we said from the start, we're focusing on three key areas. One is making sure we educate physicians on the Foundayo profile and building out that experience. The second is",
+      "responder": "Ilya Yuffa",
+      "alsoAnswered": [
+        "Patrik Jonsson",
+        "Mike Czapar"
+      ],
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "number": 2,
+      "question": "Lilly team, thanks so much for taking the question today. I did just want to probe on the retatrutide regulatory pathway. Dan, I noticed you mentioned kind of the BLA pathway, and I know that you've been negotiating, perhaps challenging the FDA over the last couple of years in terms of that determin",
+      "answer": "Thanks, Courtney. We'll go to Dave to talk about the retatrutide filing pathway. Yeah. Thanks, Courtney. As you mentioned, we've been pursuing this for a little while because we believe retatrutide is a biologic application, both in terms of amino acid count rule as well as analogous to a protein. That's our position. There was a mixed decision in the first decision in the courts. Obviously, it's active litigation. We would hope to come to a conclusion with the FDA to support a BLA application. ",
+      "responder": "Dave Ricks",
+      "alsoAnswered": [
+        "Mike Czapar"
+      ],
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "number": 3,
+      "question": "Great. Thanks so much, and congrats on all the progress. I know it's early, but can you just elaborate a bit more on the Medicare Obesity rollout and any learnings and surprises there thus far? As part of that, can you just touch on the ramp curve we've seen initially, what you're seeing in orals ve",
+      "answer": "Great. Thanks, Chris. We'll go to Ilya to talk about the Medicare GLP-1 Bridge rollout and any context on orals versus injectables. Great. Thanks, Chris. We're really excited about, one, expanding access for seniors in the U.S., as David mentioned in the early part of the call, that it's increasing access to about 35% more Americans being able to access obesity therapy. If you think about the start, it's still early days. At the same time, we're seeing a pretty significant inflection point. We'r",
+      "responder": "Ilya Yuffa",
+      "alsoAnswered": [
+        "Mike Czapar"
+      ],
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "number": 4,
+      "question": "Morning, everyone. Thanks for the question. Also want to say congrats on the quarter. Had two related ones on retatrutide. The first one is, do you need a commercial strategy to protect against whatever it is that's apparently available today, or will that solve itself with formal approval? Then rel",
+      "answer": "Great. Thanks, Geoff. We'll go to Ken to talk about the development strategy on retatrutide and then any comments about commercial strategy as well. Yeah. Thanks for the question, Geoff. First of all, I think people are eagerly awaiting authentic retatrutide to be available in the market, and we fully expect that when we get this medicine to market, people will vote with their feet and embrace the really guaranteed product. In terms of development strategy, while we do have a broad base with tir",
+      "responder": "Mike Czapar",
+      "alsoAnswered": [
+        "Ken Custer"
+      ],
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "number": 5,
+      "question": "Great. Thank you very much for taking my question, and congrats on the progress. I'll ask a non-encroaching question for extra credit. For breast cancer, would love to understand how you are thinking about the post-Verzenio strategy in breast cancer at this point. You have SERD. You also have oral P",
+      "answer": "Great. Well, thanks, Mohit, and extra credit duly noted. Jake, we'll go to you to talk about the breast cancer strategy after Verzenio. Yeah, thanks, Mohit, for the question. We're really excited about the presence that we have in breast cancer historically and going forward. I think the three most important targets in breast cancer are the estrogen receptor, CDK4/6, and PI3 kinase alpha. We think we have the best medicines for every single one of those targets, and we have plans to combine them",
+      "responder": "Mike Czapar",
+      "alsoAnswered": [
+        "Jake Van Naarden"
+      ],
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "number": 6,
+      "question": "Hey, thanks so much. It seems like your guidance is almost implying a deceleration in revs versus Q2 for the back half of the year, and that seems unlikely given the Medicare Bridge programs ramping-up along with Foundayo commercial access getting online. Is there anything we're missing here maybe o",
+      "answer": "All right. Thanks, Akash. We'll go to Lucas to talk about the moving parts and guidance. Thank you, Akash, for the question. Maybe a few parts. Very pleased, by the way, to continue to see the strong performance that we see not only in the first half of the year, but also upgrading the guide by $2.5 billion for the full-year. To your point about what are the ins and outs on the guide, I think it's worth to highlight in the last couple of quarters that there were a few one-offs that we called out",
+      "responder": "Lucas Montarce",
+      "alsoAnswered": [
+        "Mike Czapar"
+      ],
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "number": 7,
+      "question": "Thanks. Talking about the strong OUS launch, can you talk a little bit about which specific regions are seeing the most growth? Make a comment about India, where I know there's a lot of noise about generic launching. I know there's some capacity constraints, as Reddy has made some comments. Maybe ju",
+      "answer": "Okay, great. I assume we're talking about MOUNJARO. Patrik, to talk about the OUS launch of MOUNJARO, kind of pocket the strength, any early observations of generic semaglutide in India or other markets. Happy to do that. When you look at the performance of MOUNJARO OUS, we actually continue to perform very strongly, more or less everywhere. We have taken a market leadership position across many different markets. Among the key drivers, I would highlight the China NRDL, where we obtained the cat",
+      "responder": "Patrik Jonsson",
+      "alsoAnswered": [
+        "Mike Czapar"
+      ],
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "number": 8,
+      "question": "Great. Thanks for taking the question. Just on Foundayo, I was wondering if you could provide any insight on how extensive your sampling program is, and if that's having any dampening effect on the IQVIA prescription data that we're all watching every Friday. What are you seeing on the U.S. prescrib",
+      "answer": "Okay, great. We'll go to Ilya to talk about Foundayo sampling and U.S. prescribers and Terence's Fridays. Yeah. On sampling and in general, like our full promotion, we've got pretty much every lever going on in terms of promotion. Sampling, we're incorporating the sample the first 30 days of the first dose, pretty much similar to what you would see for a typical oral small molecule in the retail market. We have extensive sampling across the prescriber base, and we continue to have full supply to",
+      "responder": "Ilya Yuffa",
+      "alsoAnswered": [
+        "Mike Czapar"
+      ],
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "number": 9,
+      "question": "Thanks, guys. I have a question on net pricing and obesity, if I may. So as you know [inaudible] the price is about $580 per prescription which is meaningfully higher than cash fair price but also higher than [inaudible] $380 per prescription. Dave, last quarter you mentioned there's a lot of medica",
+      "answer": "Thanks, Umer. We'll go to Lucas to talk a bit about net pricing on MOUNJARO or ZEPBOUND and any of the net exception dynamics. Yeah. Umer, thank you for the question. Maybe just to anchor this back on the prices on ZEPBOUND, different to many other molecules, by the way, there is a lot of transparency on all the different channels, you have all the access to see that data starting with LillyDirect on direct-to-patient prices. Again, you know that is starting point at $299 all the way to $449. No",
+      "responder": "Lucas Montarce",
+      "alsoAnswered": [
+        "Mike Czapar"
+      ],
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "number": 10,
+      "question": "Hey, guys. Thanks for taking my question. Mine's just on M&A. You guys surprised investors, I think, getting back into psychiatry, and with some vaccine deals. I'm wondering if you think these two areas, psych and vaccines, are areas that Lilly can scale, and is this high priority, or do you see som",
+      "answer": "Great. Thanks, Jason. We'll go to Jake to answer the question more broadly about the M&A strategy and the other work we're doing there. Yeah. Thanks for the question. I think what these two areas have in common is just the immense unmet need that still remains, and that really is the through line of all of the work that we do, both internally and through business development. In this case, we saw an opportunity to acquire technology and medicines that we think have the potential to be really imp",
+      "responder": "Mike Czapar",
+      "alsoAnswered": [
+        "Jake Van Naarden"
+      ],
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "number": 11,
+      "question": "Hi. Thanks for taking my question. I wanted to ask you about some of your other pipeline products outside of obesity. I know you've put a lot in there. Any specific assets, one or two, that you're really excited about that you think the street should be paying more attention to? Thank you.",
+      "answer": "Great. Thanks for the question, Louise. Well, we'll go to Dan to talk about other pipeline projects outside of obesity and any couple you want to highlight. Thanks for the great question. We have a rich pipeline outside of obesity. I touch on some highlights by therapeutic area. Starting in cardiovascular health. I mentioned the efforts we're doing in ASCVD with a gene editing for PCSK9. We also have an oral and an injectable Lp(a)-lowering drugs. Those are huge opportunities. We just commented ",
+      "responder": "Mike Czapar",
+      "alsoAnswered": [
+        "Dan Skovronsky"
+      ],
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    }
+  ],
+  "guidance": [
+    {
+      "item": "Revenue Outlook",
+      "current": "2.5",
+      "prior": "",
+      "period": "FY2026",
+      "speaker": "Lucas Montarce",
+      "source": "qa"
+    }
+  ],
+  "metrics": [
+    {
+      "metric": "Q2 Revenue",
+      "value": "6.8 B",
+      "comparison": ""
+    },
+    {
+      "metric": "Q2 Revenue",
+      "value": "14.9 B",
+      "comparison": ""
+    },
+    {
+      "metric": "Q2 Revenue",
+      "value": "6.3 B",
+      "comparison": ""
+    },
+    {
+      "metric": "Q2 Revenue",
+      "value": "3 B",
+      "comparison": ""
+    },
+    {
+      "metric": "Q2 Revenue",
+      "value": "85 B",
+      "comparison": ""
+    }
+  ],
+  "quotes": [
+    {
+      "speaker": "Dave Ricks",
+      "quote": "Thanks, Dan. We made excellent progress this quarter.",
+      "title": "",
+      "context": ""
+    },
+    {
+      "speaker": "Dave Ricks",
+      "quote": "We delivered strong business results, received regulatory approval for new indications",
+      "title": "",
+      "context": ""
+    },
+    {
+      "speaker": "Dave Ricks",
+      "quote": "remain focused on executing the three components of our strategy",
+      "title": "",
+      "context": ""
+    },
+    {
+      "speaker": "Ilya Yuffa",
+      "quote": "We are putting a lot of efforts on consumer awareness and building out the infrastructure",
+      "title": "",
+      "context": ""
+    }
+  ],
+  "topics": [
+    "GLP-1 receptor agonists",
+    "Tirzepatide performance",
+    "Obesity treatment market",
+    "Regulatory filings and approvals",
+    "International expansion",
+    "Foundayo launch",
+    "R&D pipeline",
+    "Oral formulations"
+  ],
+  "newMentions": [
+    "Foundayo",
+    "Orforglipron",
+    "GLP-1 oral therapy",
+    "Medicare bridge program",
+    "Retinoid treatments",
+    "Type 2 diabetes portfolio"
+  ]
+}

@@ -1,0 +1,36 @@
+{"summaries": [
+{"letter": "A", "accuracy": 6, "qa": 6, "coverage": 7, "insight": 5, "concision": 7, "discipline": 7, "overall": 6, "errors": [
+"\"digital sales increasing 18% to $1.3 billion\" - the 18% digital growth figure was analyst Greg Francfort's estimate in his question, not a figure management reported.",
+"Dropped topics list \"Fernando Machado\" - Boatwright discussed Fernando Machado at length on the Q2 call.",
+"New mentions list \"High-Efficiency Equipment Package (HEAP)\" and \"Summer of Extras\" - both were discussed on the Q1 call (high-efficiency equipment package in 600 restaurants; Summer of Extras cited by Rymer)."
+], "comment": "Solid headline numbers and correct marketing/pricing guidance moves, but leans on an analyst's digital growth figure, has an empty unanswered list, and its new/dropped lists contain clear errors."},
+{"letter": "B", "accuracy": 7, "qa": 7, "coverage": 8, "insight": 6, "concision": 7, "discipline": 8, "overall": 7, "errors": [
+"Dropped topics list \"Chicken al Pastor\", \"Red Chimichurri\", \"Adobo Ranch\" - all three were mentioned on the Q2 call (Senatore and Rymer on Chicken al Pastor; Boatwright said Cilantro Lime Sauce attachment exceeded Red Chimichurri and Adobo Ranch)."
+], "comment": "Accurate, well attributed and covers results, guidance and the Cyclospora headwind with correct Q2-vs-Q3 comp-guide comparison, but insight is moderate and the dropped-topics list is partly wrong."},
+{"letter": "C", "accuracy": 8, "qa": 7, "coverage": 9, "insight": 9, "concision": 5, "discipline": 9, "overall": 8, "errors": [
+"Dropped topics list \"Hospitality and labor investment\" - hospitality and labor reinvestment were major themes of the Q2 call (hospitality huddles, HEAP labor reinvested, manager deployment).",
+"New mentions list \"Summer of Extras\" - it was cited on the Q1 call by Adam Rymer."
+], "comment": "Exceptionally thorough with precise line-item guidance moves versus Q1 and a sharp tone-shift read, but long for a phone and the unanswered list overreaches by labeling substantive answers (e.g. Jon Tower's) as avoided."},
+{"letter": "D", "accuracy": 8, "qa": 9, "coverage": 9, "insight": 9, "concision": 7, "discipline": 9, "overall": 9, "errors": [
+"\"Boatwright said younger and lower-income cohorts improved most\" - that was Adam Rymer's answer to Kelly Merrill; Boatwright added only the wallet-share point.",
+"New mentions list \"Summer of Extras\" - it was cited on the Q1 call."
+], "comment": "Tight and insightful, with the implied 3% underlying trend, well-chosen Q&A, fair unanswered list and accurate guidance moves including HEAP timing and catering, marred by one cohort misattribution."},
+{"letter": "E", "accuracy": 4, "qa": 6, "coverage": 6, "insight": 3, "concision": 7, "discipline": 5, "overall": 4, "errors": [
+"\"Full-year comparable restaurant sales growth raised from 1%-2% to low single-digit range\" - prior comp guidance was about flat; 1%-2% was the pricing range.",
+"\"HEAP installation target increased from more than 1,000 restaurants to approximately 2,000\" - the year-end target was 2,000 on both calls; more than 1,000 is the current installed count.",
+"New mentions list \"Chipotle Honey Chicken\", \"Cilantro Lime Sauce\", \"High-Efficiency Equipment Package (HEAP)\", \"Summer of Extras\", \"Fernando Machado\", \"Arlie Sisson\" - all were discussed on the Q1 call.",
+"\"A mid-July softening of about 200 basis points\" - Rymer said the softening came in the second half of July."
+], "comment": "Headline figures are right but guidance lacks attribution, the unanswered list is empty, risks are thin, and the what-changed section is largely wrong."},
+{"letter": "F", "accuracy": 5, "qa": 6, "coverage": 6, "insight": 3, "concision": 6, "discipline": 5, "overall": 5, "errors": [
+"\"despite a late-quarter softening linked to an industry-wide Cyclospora issue\" - the softening occurred in the second half of July, after Q2 ended.",
+"Dropped topics list \"Fernando Machado\", \"Arlie Sisson\", \"Build Your Own Chipotle\", \"Rewards on Repeat\" - all were discussed on the Q2 call.",
+"Dropped topics list \"H.E.A.T program\" - this is the same High-Efficiency Equipment Package discussed throughout Q2 as HEAP.",
+"New mentions list \"HEAP\" and \"Summer of Extras\" - both were discussed on the Q1 call."
+], "comment": "Results and Q&A are reasonable but guidance is unattributed, the comp-guide raise is missing from what-changed, and the new/dropped lists are badly wrong."},
+{"letter": "G", "accuracy": 9, "qa": 9, "coverage": 10, "insight": 9, "concision": 6, "discipline": 9, "overall": 9, "errors": [], "comment": "The most complete and precise note, with full line-item guidance moves, buyback authorization change, a well-supported tone shift and fair unanswered list; dense and somewhat long for a phone."},
+{"letter": "H", "accuracy": 1, "qa": 1, "coverage": 1, "insight": 1, "concision": 2, "discipline": 1, "overall": 1, "errors": [
+"Dropped topics list \"Comparable sales growth\", \"Restaurant operations improvement\", \"Technology and digital initiatives\" - all were central to the Q2 call.",
+"New mentions list \"HEAP equipment\", \"Cilantro Lime sauce\", \"Chipotle Honey Chicken\", \"Arlie Sisson\" - all were discussed on the Q1 call.",
+"All Q&A reads marked \"direct\" including Danilo Gargiulo, where Boatwright said \"I have nothing to report today\" on remodel returns."
+], "comment": "A failed output: topic labels instead of findings, no numbers, guidance or metrics, and raw transcript pasted as Q&A."}
+]}

@@ -1,0 +1,73 @@
+{
+"overview": "Lilly's fiscal Q2 2026 revenue grew 48% versus Q2 2025, with MOUNJARO plus ZEPBOUND at $14.9B, up $6.3B, and non-GAAP EPS of $8.38 including $3.03 of acquired IPR&D charges. Lucas Montarce, CFO, raised full-year revenue guidance to $85B-$87B, a $2.5B increase at the midpoint, and non-GAAP performance margin to 49%-50.5%. US price fell 3%, and the US Foundayo launch drew questions on pace.",
+"keyTakeaways": [
+"Ilya Yuffa, President, Lilly USA and Global Customer Capabilities, said Foundayo volume in the last week of July almost doubled versus a month earlier, with about one in four new starts on Foundayo, and US prescribers rose from 8,000 to 36,000.",
+"Ilya Yuffa said the Medicare GLP-1 Bridge launched July 1, with about 80% of people treated on injectables and 60%-70% new to treatment.",
+"Dave Ricks, Chair and CEO, said Lilly expects to submit retatrutide by Q1 next year under a BLA pathway, after gathering a little more CMC data.",
+"Montarce said US price is expected to decline as medical exceptions fade with CVS access from Q4, with volume growth more than offsetting it, and this is embedded in the guide.",
+"Patrik Jonsson, President, Lilly International, said Lilly's international incretin share is about 55% in a market up 74%, and Foundayo's major ex-US launches come at the beginning of 2027."
+],
+"financialHighlights": [
+"Gross margin was 86.3% of revenue, up about 1.3 points, and non-GAAP performance margin was 54.8%, up nine points.",
+"Marketing, selling and administrative expenses rose 25% and R&D rose 14%, with more than 40 active phase III programs.",
+"US revenue rose 33% with price down 3%, or down 9% excluding rebate and discount estimate changes; Europe rose 55%, China 93% and rest of world 136% in constant currency.",
+"Oncology, immunology and neuroscience medicines grew 121%, with Jaypirca up 56% and Ebglyss sales more than doubling.",
+"Lilly returned $1.5B in dividends and $1.6B in share repurchases."
+],
+"keyMetrics": [
+{"metric": "Revenue growth", "value": "48%", "comparison": "vs Q2 2025"},
+{"metric": "MOUNJARO plus ZEPBOUND revenue", "value": "$14.9B", "comparison": "$6.3B of growth vs Q2 2025"},
+{"metric": "Non-GAAP EPS", "value": "$8.38", "comparison": "$6.31 in Q2 2025; includes $3.03 acquired IPR&D"},
+{"metric": "Non-GAAP performance margin", "value": "54.8%", "comparison": "up nine points"},
+{"metric": "US revenue", "value": "up 33%", "comparison": "price down 3%"},
+{"metric": "US obesity incretin TRx", "value": "up 78%", "comparison": "Lilly about 6 in 10 TRx"},
+{"metric": "Foundayo US prescribers", "value": "36,000", "comparison": "8,000 at last call"},
+{"metric": "INLURIYO US new Rx share", "value": "over 50%", "comparison": "metastatic breast cancer oral SERD market"}
+],
+"guidance": [
+"Montarce guided FY2026 revenue to $85B-$87B, with the low end raised by $3B and the high end by $2B.",
+"Montarce guided non-GAAP performance margin to 49%-50.5%, up 2 points at both ends, and non-GAAP EPS to $35.50-$36.50, after the $3.03 Q2 acquired IPR&D charge.",
+"Ricks expects US regulatory action for Foundayo in Type 2 diabetes later this year, with approvals in additional markets later this year and a global rollout in all major markets in 2027.",
+"Dan Skovronsky, Chief Scientific and Product Officer, expects the retatrutide BLA submission in Q1 2027, EU approval of insulin efsitora alfa in the coming months, and lebrikizumab every-12-weeks data in 2027.",
+"Montarce expects H2 growth to be more driven by OUS penetration, because Q2 included one-off prior-period US rebate and discount adjustments and the 2025 base had a bolus of new-country MOUNJARO launches."
+],
+"qa": [
+{"analyst": "Asad Haider", "firm": "Goldman Sachs", "question": "Why has the US Foundayo launch curve been slower than anticipated, and how does it compete with Novo's oral pill outside the US, including in the UAE?", "responder": "Ilya Yuffa", "responderTitle": "President, Lilly USA and Global Customer Capabilities", "answer": "Yuffa said CVS added Foundayo in June, Bridge launched July 1, and in the last week of July volume almost doubled versus a month earlier, with about one in four new starts on Foundayo. Patrik Jonsson, President, Lilly International, said Lilly's combined incretin share held steady in the UAE with a second oral entering, next launches are Mexico and Saudi, most launches come in 2027, and Novo's figure is noisy sell-in data including inventory build.", "read": "Answered directly, pushing back on the Novo comparison."},
+{"analyst": "Courtney Breen", "firm": "Bernstein", "question": "What are the requirements and milestones for retatrutide to be accepted as a BLA, and would the pathway apply to later incretins?", "responder": "Dave Ricks", "responderTitle": "Chair and CEO", "answer": "Ricks said Lilly believes retatrutide is a biologic under the amino acid count rule, the first court decision was mixed and litigation is active, and Lilly has the clinical data but must gather a little more on CMC. He expects submission by Q1 next year.", "read": "Answered partially: gave the timing but not the read-through to later incretins."},
+{"analyst": "Akash Tewari", "firm": "Jefferies", "question": "Does guidance imply a back-half revenue deceleration despite Bridge and Foundayo ramping, and is the guide conservative?", "responder": "Lucas Montarce", "responderTitle": "Chief Financial Officer", "answer": "Montarce said Q2 included one-off prior-period US rebate and discount adjustments not expected to continue in H2, and the 2025 base had a bolus of new-country MOUNJARO launches. He said Q3 Europe and Q4 US Type 2 diabetes seasonality are factored in, and dollar growth is still expected to be significant.", "read": "Answered partially: explained phasing but did not say whether the guide is conservative."},
+{"analyst": "Umer Raffat", "firm": "Evercore", "question": "Net price per obesity prescription looks well above cash benchmarks; how sustainable is that, and does it drive favourable rebate adjustments?", "responder": "Lucas Montarce", "responderTitle": "Chief Financial Officer", "answer": "Montarce said channel prices are LillyDirect $299 to $449, Bridge $245, plus commercial. He said CVS access from Q4 removes the need for medical exceptions, which he called short term, and he expects price to go down, offset by more volume.", "read": "Answered partially: channel prices given but no net price figure."},
+{"analyst": "Terence Flynn", "firm": "Morgan Stanley", "question": "How extensive is the Foundayo sampling program, is it dampening IQVIA prescription data, and how much has the prescriber base expanded?", "responder": "Ilya Yuffa", "responderTitle": "President, Lilly USA and Global Customer Capabilities", "answer": "Yuffa said sampling covers the first 30 days of the first dose, extensively across prescribers, with full supply, and prescribers rose from 8,000 at the last call to 36,000.", "read": "Answered partially: gave prescriber numbers but did not address IQVIA data."},
+{"analyst": "Dave Risinger", "firm": "Leerink", "question": "UAE Foundayo sales of $31M were close to half the $67M in the US; what is the ex-US obesity potential?", "responder": "Patrik Jonsson", "responderTitle": "President, Lilly International", "answer": "Jonsson said it is very early days with an initial inventory build, most patients are incretin-naive, and the major OUS rollout comes at the beginning of 2027. He said Lilly is probably slightly better positioned on Type 2 reimbursement given three head-to-head trials, but OUS reimbursement takes time.", "read": "Answered partially: no ex-US potential figure."}
+],
+"unanswered": [
+{"analyst": "Umer Raffat", "firm": "Evercore", "question": "What is the net price per obesity prescription, and does it drive favourable rebate adjustments each quarter?", "how": "Lucas Montarce, CFO, listed channel prices and said price will go down, but gave no net price figure."},
+{"analyst": "Akash Tewari", "firm": "Jefferies", "question": "Is the guidance conservative given the implied H2 deceleration?", "how": "Montarce explained the H2 phasing and the $2.5B upgrade without saying whether the guide is conservative."},
+{"analyst": "Terence Flynn", "firm": "Morgan Stanley", "question": "Is Foundayo sampling dampening IQVIA prescription data?", "how": "Ilya Yuffa, President, Lilly USA and Global Customer Capabilities, described the sampling program and did not address the IQVIA effect."},
+{"analyst": "Geoff Meacham", "firm": "Citibank", "question": "Does Lilly need a commercial strategy to protect against retatrutide that is apparently available today?", "how": "Ken Custer, President, Lilly Cardiometabolic Health, said people await authentic retatrutide and will vote with their feet, and described no specific strategy."}
+],
+"notableQuotes": [
+{"speaker": "Dave Ricks", "title": "Chair and CEO", "quote": "While we're pleased with the progress this year so far, we're not satisfied."},
+{"speaker": "Dave Ricks", "title": "Chair and CEO", "quote": "We have a pretty large lead over any competitors with a triple-acting medicine."},
+{"speaker": "Patrik Jonsson", "title": "President, Lilly International", "quote": "it's very early days, and there is a lot of noise in the data."},
+{"speaker": "Lucas Montarce", "title": "Chief Financial Officer", "quote": "The medical exception is maybe a short-term thing and our all along view is to have open access for all the patients."},
+{"speaker": "Ken Custer", "title": "President, Lilly Cardiometabolic Health", "quote": "people will vote with their feet and embrace the really guaranteed product."}
+],
+"whatChanged": {
+"guidanceRevisions": [
+"FY2026 revenue guidance moved from $82B-$85B to $85B-$87B.",
+"Non-GAAP performance margin guidance moved from 47%-48.5% to 49%-50.5%.",
+"Non-GAAP EPS guidance moved from $35.50-$37 to $35.50-$36.50, after the $3.03 Q2 acquired IPR&D charge.",
+"Retatrutide timing moved from TRIUMPH-1 top-line results later in Q2 to a BLA submission in Q1 2027."
+],
+"newMentions": ["TRIUMPH program", "Onswik (insulin efsitora alfa)", "Curevo", "LimmaTech Biologics", "The Vaccine Company", "AtaiBeckley (BPL-003)", "VERVE-102", "tersolisib", "brenipatide"],
+"droppedTopics": ["Employer coverage and Employer Connect", "Medicare Bridge 2028 outlook", "Obesity market segmentation (retatrutide, eloralintide)"],
+"toneShift": "Last quarter Foundayo was described as tracking to expectations, with Lucas Montarce, CFO, saying 'We feel very confident on the trajectory that we've seen so far'; this quarter executives defend a slower US launch and Dave Ricks, Chair and CEO, says 'we're not satisfied'."
+},
+"risksMentioned": [
+"Montarce said US price is expected to decline as medical exceptions fade, with volume growth needed to offset it.",
+"Q2 included one-off prior-period US rebate and discount adjustments that Montarce does not expect to continue in H2.",
+"Jonsson said generic semaglutide launched in India and Brazil, and Canada tirzepatide TRx grow only at the pace of the total market.",
+"Ricks said the first court decision on retatrutide's biologic status was mixed and litigation is active.",
+"Custer indicated unauthorised retatrutide supply is apparently available today."
+]
+}

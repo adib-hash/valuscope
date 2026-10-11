@@ -1,0 +1,124 @@
+{
+  "overview": "Apple's June quarter revenue rose 16% to a record $109.4B, with iPhone up 22% to $54.3B and Mac up 29% to $10.4B despite supply constraints; diluted EPS rose 29% to $2.02 including $0.11 of tariff refunds. Kevan Parekh, CFO, guided September revenue growth to 9%-11%, down from the 14%-17% June guide, on a roughly 2.5-point FX headwind and supply constraints expected to increase significantly. Tim Cook, CEO, said this was his final earnings call.",
+  "keyTakeaways": [
+    "Tim Cook, CEO, blamed the advanced-node SoC constraint on demand running ahead of forecast, not suppliers, with constraints broadening from Mac to iPhone, Mac and iPad in September.",
+    "Cook said Apple reluctantly raised iPad and Mac prices amid a \"100-year flood\" in memory pricing, with costs higher again in September.",
+    "Services growth slowed from 16% to 12%, which Kevan Parekh, CFO, attributed mainly to FX plus the F1 compare, mobile gaming softness and the U.S. link-out ruling.",
+    "Siri AI arrives this fall; Cook said Apple has no complete plan yet for recovering compute costs beyond iCloud+ upgrade tiers, and cannot yet launch it on iPhone and iPad in the EU."
+  ],
+  "financialHighlights": [
+    "Revenue $109.4B (+16%) with June quarter records in every geographic segment; products $78.7B (+18%), services $30.7B (+12%).",
+    "iPhone $54.3B (+22%), Mac $10.4B (+29%), iPad $6.2B (-6% on the A16 iPad compare), Wearables $7.9B (+6%).",
+    "Gross margin 50.1% including about 2 points of tariff refunds; 48.1% excluding them versus 49.3% in March, a decline Parekh said memory costs more than explain.",
+    "Net income $29.8B, EPS $2.02 and operating cash flow $34.4B were June quarter records even excluding refunds; OpEx $19.1B (+23%); $33B returned to shareholders."
+  ],
+  "keyMetrics": [
+    {"metric": "Revenue", "value": "$109.4B", "comparison": "+16% YoY"},
+    {"metric": "iPhone revenue", "value": "$54.3B", "comparison": "+22% YoY"},
+    {"metric": "Mac revenue", "value": "$10.4B", "comparison": "+29% YoY"},
+    {"metric": "Services revenue", "value": "$30.7B", "comparison": "+12% YoY, from 16%"},
+    {"metric": "Gross margin", "value": "50.1%", "comparison": "48.1% ex refunds vs 49.3%"},
+    {"metric": "Diluted EPS", "value": "$2.02", "comparison": "+29% YoY"},
+    {"metric": "Operating cash flow", "value": "$34.4B", "comparison": "June quarter record"}
+  ],
+  "guidance": [
+    "Kevan Parekh, CFO, expects September revenue growth of 9%-11% (June guide 14%-17%), with FX a roughly 2.5-point sequential headwind and constraints across iPhone, Mac and iPad.",
+    "Parekh expects mid-teens iPhone growth and services growth similar to June's 12% after a further 2.5-point FX headwind.",
+    "Parekh guided gross margin to 47%-48% including about 1 point of tariff refunds (46.5% ex-refund versus 48.1%), the decline more than explained by memory.",
+    "Parekh guided OpEx to $19.1B-$19.4B, OI&E around $350M and tax around 16.5%; no color beyond September."
+  ],
+  "risksMentioned": [
+    "Supply constraints on advanced-node SoCs, which Tim Cook, CEO, called \"very significant\" with limited flexibility to remedy.",
+    "Memory costs rising again in September and, per Cook, continuing to increase beyond it as the carry-in inventory offset shrinks.",
+    "FX: about 2.5 points sequential on total growth and about 5 points cumulative on services from March to September, per Kevan Parekh, CFO.",
+    "App Store headwinds from mobile gaming, business model changes and the U.S. link-out ruling; unknown price elasticity; Siri AI regulatory delays in the EU and China."
+  ],
+  "qa": [
+    {
+      "analyst": "Amit Daryanani",
+      "firm": "Evercore",
+      "question": "How much of the roughly 500 bps September deceleration is supply versus FX, and why are constraints broadening?",
+      "responder": "Kevan Parekh",
+      "responderTitle": "CFO",
+      "answer": "FX is a roughly 2.5-point sequential headwind and supply constraints increase significantly across iPhone, Mac and iPad, together bridging to June's growth. Tim Cook, CEO: memory costs rose significantly from March to June, will be higher in September, and the carry-in offset shrinks after that.",
+      "read": "Answered partially; no supply-versus-FX split."
+    },
+    {
+      "analyst": "Ben Reitzes",
+      "firm": "Melius Research",
+      "question": "How much do supply constraints hit the December quarter, and could Apple broaden its silicon suppliers?",
+      "responder": "Tim Cook",
+      "responderTitle": "CEO",
+      "answer": "The root cause is a demand forecast miss, with iPhone up 22% and Mac up 29%, and September will be \"scrambling on the supply side\"; Parekh gave no guidance beyond September. Cook: \"this isn't a partner or supplier issue\"; Apple sources over 100M Arizona components this year.",
+      "read": "Declined to quantify December; pushed back on supplier premise."
+    },
+    {
+      "analyst": "Erik Woodring",
+      "firm": "Morgan Stanley",
+      "question": "Will Apple pursue multi-year supplier LTAs, protect gross profit dollars or margins, and why did services decelerate?",
+      "responder": "Tim Cook",
+      "responderTitle": "CEO",
+      "answer": "Pricing weighs units, revenue and margin over the long term, not a 90-day clock; LTAs went unaddressed. Parekh: services fell from 16% to 12% mainly on FX, plus the F1 compare, mobile gaming and the link-out ruling.",
+      "read": "Answered partially; LTAs not addressed."
+    },
+    {
+      "analyst": "Samik Chatterjee",
+      "firm": "JPMorgan",
+      "question": "Where does Siri AI stand in China and Europe, and how much of the gross margin decline is FX versus commodities?",
+      "responder": "Tim Cook",
+      "responderTitle": "CEO",
+      "answer": "Apple is working with the EU commission and offers Siri AI on Mac there; China approved original Apple Intelligence features last week. Parekh: the 120 bps drop to 48.1% and the 160 bps drop to 46.5% are each more than explained by memory, with FX \"a pretty minimal impact\".",
+      "read": "Answered directly."
+    }
+  ],
+  "unanswered": [
+    {
+      "analyst": "Ben Reitzes",
+      "firm": "Melius Research",
+      "question": "How much do supply constraints hit the December quarter?",
+      "how": "Kevan Parekh, CFO: \"Beyond September, we're not providing any color at this point.\""
+    },
+    {
+      "analyst": "Michael Ng",
+      "firm": "Goldman Sachs",
+      "question": "What adoption does Apple expect for Apple Upgrade, and will it shorten the replacement cycle?",
+      "how": "Tim Cook, CEO, said uptake remains to be seen; no figures given."
+    },
+    {
+      "analyst": "Wamsi Mohan",
+      "firm": "Bank of America",
+      "question": "How is the competitive landscape changing with potential OpenAI or SpaceX AI devices?",
+      "how": "John Ternus, incoming CEO, said Apple is focused on its own plans; no comment on competitors."
+    }
+  ],
+  "notableQuotes": [
+    {"speaker": "Tim Cook", "title": "CEO", "quote": "We did it because we're in what I would characterize as a 100-year flood on the memory pricing, with exponential increases in memory prices."},
+    {"speaker": "Tim Cook", "title": "CEO", "quote": "We've got a quarter that we're going to be scrambling on the supply side, essentially."},
+    {"speaker": "Tim Cook", "title": "CEO", "quote": "Let me stress again, this isn't a partner or supplier issue."},
+    {"speaker": "Kevan Parekh", "title": "CFO", "quote": "Beyond September, we're not providing any color at this point."}
+  ],
+  "whatChanged": {
+    "guidanceRevisions": [
+      "Revenue growth: 14%-17% to 9%-11%.",
+      "Gross margin: 47.5%-48.5% to 47%-48%, now including about 1 point of tariff refunds.",
+      "OpEx: $18.8B-$19.1B to $19.1B-$19.4B; OI&E: $250M to $350M; tax: 17% to 16.5%.",
+      "FX: 2.5-point tailwind to roughly 2.5-point headwind.",
+      "Supply constraints: Mac Mini, Mac Studio and MacBook Neo, to iPhone, Mac and iPad."
+    ],
+    "newMentions": [
+      "Siri AI and iOS 27 public beta",
+      "Apple Upgrade leasing program with Klarna",
+      "A19 and A19 Pro chips",
+      "Broadcom agreement exceeding $30B",
+      "iPad and Mac price increases",
+      "Ask to Browse, Time Allowances and iCloud+ upgrade tiers"
+    ],
+    "droppedTopics": [
+      "Net cash neutral framework change and $100B buyback",
+      "Google collaboration on foundational models",
+      "Apple Maps advertising",
+      "India opportunity and Greater China growth detail"
+    ],
+    "toneShift": "Q2 was expansive about demand (\"off the charts\", \"over the moon excited about India\"); Q3 turned defensive, with Tim Cook citing a \"100-year flood\" in memory and \"scrambling on the supply side\" while still insisting the constraint is demand-driven."
+  }
+}

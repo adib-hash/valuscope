@@ -1,0 +1,123 @@
+{
+  "overview": "JPMorgan earned $16.9B, or $6.14 per share, with a 23% ROTCE, on revenue up 15% year-on-year excluding significant items, led by CIB revenue of $24.9B (+27%), investment banking fees up 30% and equities revenue up 86%. Jeremy Barnum, CFO, raised full-year NII ex-Markets guidance to about $96.5B from $95B and adjusted expense to about $107.5B from $105B. Jamie Dimon, Chairman and CEO, said the environment is \"getting close to as good as it gets\".",
+  "keyTakeaways": [
+    "Jamie Dimon, Chairman and CEO, said naming Doug and Troy co-presidents and Marianne Lake's retirement left his succession timetable unchanged at \"several years or a few years, plus or minus\".",
+    "Jeremy Barnum, CFO, tied the $2.5B expense raise to a $6.5B first-half capital markets beat, with $1.5B of expense booked and about $1B implied for the second half.",
+    "Barnum called the equities drivers (major IPOs, index rebalancing, Korean market dynamics) statistically improbable to repeat and said investment banking saw some pull-forward.",
+    "Barnum said the roughly $40B of excess capital will now be deployed over time at a 17% return target; Dimon called his earlier $20B buyback remark a mistake."
+  ],
+  "financialHighlights": [
+    "Net income $16.9B, EPS $6.14 and ROTCE 23%, including significant items; expenses $27.3B, up 15%.",
+    "Credit costs $2.5B ($2.4B net charge-offs, $149M reserve build); CET1 14.1%, down 20 bps on about $103B of RWA growth.",
+    "CCB net income $5.3B on revenue of $20.3B (+8%); CIB net income $9.7B on revenue of $24.9B (+27%).",
+    "AWM net income $2B on revenue of $6.9B (+19%), with $50B of long-term net inflows and AUM of $5.1T (+18%)."
+  ],
+  "keyMetrics": [
+    {"metric": "Net income", "value": "$16.9B", "comparison": "Incl. significant items"},
+    {"metric": "EPS", "value": "$6.14", "comparison": "ROTCE 23%"},
+    {"metric": "Revenue growth", "value": "+15% YoY", "comparison": "Ex significant items"},
+    {"metric": "Expenses", "value": "$27.3B", "comparison": "+15% YoY"},
+    {"metric": "CET1 (standardized)", "value": "14.1%", "comparison": "Down 20 bps QoQ"},
+    {"metric": "Investment banking fees", "value": "+30% YoY", "comparison": "All products double-digit"},
+    {"metric": "Equities markets revenue", "value": "+86% YoY", "comparison": "Fixed income +6%"}
+  ],
+  "guidance": [
+    "Jeremy Barnum, CFO, raised NII ex-Markets to about $96.5B from $95B on deposit balances and mix; total NII about $105.5B with markets NII about $9B, including roughly $150M shifted by the CIB equity allocation.",
+    "Barnum raised adjusted expense to about $107.5B from $105B, mostly volume and revenue-related.",
+    "Barnum lowered the card net charge-off rate to about 3.2% from 3.4%; the board intends to raise the dividend to $1.65 in the third quarter.",
+    "Barnum kept consumer deposit growth at low single digits and the 15% retail share aspiration; Jamie Dimon, Chairman and CEO, said expense growth might slow in 2027 or 2028."
+  ],
+  "risksMentioned": [
+    "Barnum said the equities combination is hard to imagine repeating and investment banking had pull-forward.",
+    "Barnum does not know when deposit rate-paid convexity kicks in; yield-seeking flows remain a risk under a hawkish rate path.",
+    "Dimon described mild underwriting deterioration (aggressive assumptions, add-backs, more PIK, weaker covenants) concentrated in some players.",
+    "Barnum said the short-term wholesale funding G-SIB change disproportionately burdens JPMorgan, and liquidity is less flush at the margin."
+  ],
+  "qa": [
+    {
+      "analyst": "John McDonald",
+      "firm": "Truist Securities",
+      "question": "What drove the NII ex-Markets revision, and why is liability-sensitive markets NII guided higher?",
+      "responder": "Jeremy Barnum",
+      "responderTitle": "Chief Financial Officer",
+      "answer": "NII ex-Markets rises from $95B to $96.5B with a higher implied exit rate; deposit balances and mix are the main driver, and sensitivity is probably above the EAR as consumer betas beat the model. Markets NII rose on fewer financed non-interest-bearing assets plus roughly $150M moved in from the CIB equity allocation.",
+      "read": "Answered directly."
+    },
+    {
+      "analyst": "Mike Mayo",
+      "firm": "Wells Fargo",
+      "question": "Challenged the negative operating leverage framing given 15% revenue growth, asked why this is as good as it gets, and why Troy should run the consumer bank.",
+      "responder": "Jamie Dimon",
+      "responderTitle": "Chairman and CEO",
+      "answer": "Dimon agreed operating leverage was positive in dollars; Barnum said the $2.5B expense raise follows a $6.5B first-half capital markets beat. Dimon said the market could get better but he does not know by how much or for how long; Troy has shown analytics, EQ and culture across markets and banking.",
+      "read": "Answered directly; accepted the pushback."
+    },
+    {
+      "analyst": "Ebrahim Poonawala",
+      "firm": "Bank of America",
+      "question": "How resilient is the consumer, is CapEx broadening beyond AI, and why buy back stock at three times tangible book?",
+      "responder": "Jeremy Barnum",
+      "responderTitle": "Chief Financial Officer",
+      "answer": "Decent CapEx and loan growth beyond obvious AI; Dimon sized AI CapEx rising from $400B to $700B this year and a little over $1T next year; consumer spend is fine and delinquencies a little lower than expected. The $40B of excess capital will be deployed over time; Dimon said he \"made a mistake last time mentioning $20 billion\".",
+      "read": "Answered directly."
+    },
+    {
+      "analyst": "Saul Martinez",
+      "firm": "HSBC",
+      "question": "Is the market underestimating AI efficiency, and could banks run far leaner as Block did after cutting 40% of staff?",
+      "responder": "Jamie Dimon",
+      "responderTitle": "Chairman and CEO",
+      "answer": "Almost 1,000 use cases, about 50 really important; discrete areas have cut jobs 30%-40% with most people re-placed, and more is expected; but the benefit accrues to customers and ROE will not go to 50% and stay there.",
+      "read": "Answered directly; disputed the premise."
+    }
+  ],
+  "unanswered": [
+    {
+      "analyst": "Chris McGratty",
+      "firm": "KBW",
+      "question": "What returns are the branch build-out, AI investments and banker hiring generating?",
+      "how": "Jamie Dimon, Chairman and CEO, said expenses are a continuation of past practice; Jeremy Barnum, CFO, said the returns speak for themselves, with no figures."
+    },
+    {
+      "analyst": "Manan Gosalia",
+      "firm": "Morgan Stanley",
+      "question": "Is the CIB capital allocation at peak and are internal limits being approached?",
+      "how": "Barnum declined to discuss internal limit management."
+    },
+    {
+      "analyst": "Glenn Schorr",
+      "firm": "Evercore",
+      "question": "When and to whom will the smart cash tool roll out?",
+      "how": "Dimon called it still a test case for a narrow segment; only that something will be seen this year."
+    }
+  ],
+  "notableQuotes": [
+    {"speaker": "Jamie Dimon", "title": "Chairman and CEO", "quote": "It's getting close to as good as it gets. We just don't know how long it's going to last."},
+    {"speaker": "Jamie Dimon", "title": "Chairman and CEO", "quote": "The notion that somehow you can forever increase your operating leverage is a crazy notion."},
+    {"speaker": "Jeremy Barnum", "title": "Chief Financial Officer", "quote": "I think the particular set of things that happened in equities this quarter, it's a little bit hard to imagine that being repeated."},
+    {"speaker": "Jeremy Barnum", "title": "Chief Financial Officer", "quote": "I think the short answer is we don't really know."}
+  ],
+  "whatChanged": {
+    "guidanceRevisions": [
+      "NII ex-Markets: about $95B to about $96.5B.",
+      "Total NII: about $103B to about $105.5B; markets NII: about $8B to about $9B.",
+      "Adjusted expense: about $105B to about $107.5B.",
+      "Card net charge-off rate: about 3.4% to about 3.2%.",
+      "Consumer deposit growth: low to mid-single digits to low single digits; dividend to $1.65."
+    ],
+    "newMentions": [
+      "Co-presidents Doug and Troy; Marianne Lake retirement; Jen Piepszak as COO",
+      "Sapphire Preferred refresh",
+      "Chase UK (almost 3 million or 2.5 million customers) and Germany",
+      "Korean equity market dynamics; AI token expense",
+      "Fintech competitors (Stripe, PayPal, Block, Chime, SoFi, Revolut); Apple business"
+    ],
+    "droppedTopics": [
+      "Private credit exposure sizing and systemic risk",
+      "Stablecoins, digital assets and Kinexys",
+      "AI cyber risk and Mythos",
+      "Quantified Basel III Endgame impacts"
+    ],
+    "toneShift": "Q1 was steady (\"not anything new or interesting to say\" on the consumer); Q2 shifted to late-cycle caution, with Jamie Dimon saying it is \"getting close to as good as it gets\" and Jeremy Barnum calling the equities surge improbable to repeat, while capital moved from buybacks not preferred to actively deploying excess."
+  }
+}

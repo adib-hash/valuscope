@@ -1,0 +1,60 @@
+{"summaries": [
+{"letter": "A", "accuracy": 6, "qa": 5, "coverage": 7, "insight": 6, "concision": 7, "discipline": 7, "overall": 6,
+ "errors": [
+  "Amit Daryanani Q&A attributes the memory-cost answer ('memory cost inflation will rise further in September despite inventory offsets') to Kevan Parekh, CFO; Tim Cook answered the memory question.",
+  "Erik Woodring Q&A attributes the Services deceleration explanation (FX, mobile gaming, link-out ruling, theatrical compare) to Tim Cook, CEO; Kevan Parekh answered that part.",
+  "Samik Chatterjee Q&A attributes 'more than 100% of the adjusted 160 basis point sequential gross margin drop is caused by memory cost inflation' to Tim Cook, CEO; Kevan Parekh said this.",
+  "Lists 'Widow's Bay' as a new mention; the prior-quarter call already mentioned Widow's Bay."
+ ],
+ "comment": "Solid numbers and guidance table with a usable what-changed section, but three Q&A answers are credited to the wrong executive and the read lines are generous."},
+{"letter": "B", "accuracy": 2, "qa": 3, "coverage": 6, "insight": 3, "concision": 6, "discipline": 4, "overall": 3,
+ "errors": [
+  "'Tim Cook officially transitioned to Executive Chairman, with John Ternus assuming the role of Chief Executive Officer' and every label 'Tim Cook, Executive Chairman': the transcript calls Cook CEO on this call and Ternus the 'incoming CEO'; Cook says this is his final call, not that the transition has happened.",
+  "Tone shift says 'the executive leadership transition was completed'; it had not been completed per the transcript.",
+  "'up 80 basis points150' is garbled text.",
+  "Dropped topics list 'MacBook Neo and Education Market Share' and 'A19 and A19 Pro chips', yet both MacBook Neo (with education wins) and A19/A19 Pro are discussed on this call.",
+  "Michael Ng exchange rated 'answered directly' though Cook gave no adoption expectations and said 'I don't want to say that we have a complete plan' on compute costs.",
+  "Services guidance revision 'down from 16% YoY guided for Q3 FY26': the prior guide was growth similar to the March quarter after removing FX, not a stated 16% guide."
+ ],
+ "comment": "Wrongly reports the CEO transition as already completed and mislabels Cook throughout, with blank Q&A questions and a flawed dropped-topics list."},
+{"letter": "C", "accuracy": 9, "qa": 8, "coverage": 8, "insight": 8, "concision": 9, "discipline": 9, "overall": 8,
+ "errors": [],
+ "comment": "Tight and accurate, with the ex-refund margin walk, a fair unanswered list and a specific tone-shift contrast; it skips the Amit and Ng exchanges in Q&A but covers them elsewhere."},
+{"letter": "D", "accuracy": 8, "qa": 9, "coverage": 9, "insight": 8, "concision": 5, "discipline": 9, "overall": 8,
+ "errors": [
+  "Lists 'iPhone Air' as a new mention; the prior-quarter call already discussed iPhone Air."
+ ],
+ "comment": "The most complete and carefully attributed Q&A, with precise read lines, but it runs well past the length target and repeats points across sections."},
+{"letter": "E", "accuracy": 4, "qa": 4, "coverage": 6, "insight": 3, "concision": 6, "discipline": 4, "overall": 4,
+ "errors": [
+  "Amit Daryanani Q&A attributes the memory-cost offsets answer to Kevan Parekh; Tim Cook gave it.",
+  "Samik Chatterjee answer says 'Mac gets Siri AI immediately'; Cook said it 'is offered or will be offered for the Mac' in the EU, with no 'immediately'.",
+  "Key takeaway cites 'advanced node and memory supply constraints'; Cook said the constraint is advanced nodes, with memory a cost issue.",
+  "New mentions list MacBook Neo, iPhone Air, iPhone 17 Pro, iPhone 17 Pro Max, MacBook Pro, AirPods Pro 3 and AirPods Max 2; all were mentioned on the prior call.",
+  "Michael Ng exchange rated 'answered directly' though no adoption figures or complete compute-cost plan were given.",
+  "'up 16% year-from-a-year ago' is garbled."
+ ],
+ "comment": "Covers the basics, but its new-mentions list is mostly wrong, guidance is unattributed and the Q&A reads are too generous."},
+{"letter": "F", "accuracy": 5, "qa": 4, "coverage": 5, "insight": 3, "concision": 7, "discipline": 5, "overall": 4,
+ "errors": [
+  "Samik Chatterjee answer attributed to Tim Cook, CEO ('more than 100% explained by the memory cost change'); Kevan Parekh said this.",
+  "Ben Reitzes unanswered entry pairs the silicon-provider question with 'Explicitly declined to provide color or guidance beyond the September quarter'; the refusal on future periods answered the December question, while Cook answered the silicon question by saying it is not a supplier issue and citing Arizona.",
+  "Q&A answers are written as first-person quotes that are not verbatim transcript text."
+ ],
+ "comment": "Thin and generic, with few numbers beyond the headline figures, a misattributed margin answer and little real what-changed insight."},
+{"letter": "G", "accuracy": 8, "qa": 9, "coverage": 9, "insight": 9, "concision": 8, "discipline": 9, "overall": 9,
+ "errors": [
+  "Lists 'A19 and A19 Pro chips' as a new mention; the prior-quarter call already mentioned A19 and A19 Pro.",
+  "'Siri AI arrives this fall' is not stated; Cook's 'this fall' referred to the child-safety features and OS updates."
+ ],
+ "comment": "The best balance of density and accuracy: correct attributions, precise margin and FX walks, a fair unanswered list and a concrete tone shift."},
+{"letter": "H", "accuracy": 4, "qa": 3, "coverage": 4, "insight": 1, "concision": 4, "discipline": 3, "overall": 2,
+ "errors": [
+  "Dropped topics list 'CEO leadership transition' and 'iPhone 17 family momentum'; both are discussed on this call (Cook's final call; iPhone 17 family drove iPhone growth).",
+  "New mentions list iPhone Air, iPhone 17 Pro and iPhone 17e; all appear on the prior call.",
+  "Amit Daryanani answer credits Kevan Parekh with the June-quarter constraint detail, which Tim Cook gave.",
+  "Amit memory answer says memory costs were 'expected to rise significantly again in June'; Cook said that is what happened in June.",
+  "Every Q&A read is 'direct', including Aaron Rakers' new-markets question, which named no specific markets."
+ ],
+ "comment": "Barely a summary: one-line overview, bare-label takeaways and risks, no tone shift, unexplained 'partial' dodges and a wrong what-changed list."}
+]}

@@ -1,0 +1,234 @@
+{
+  "speakers": [
+    {
+      "name": "Scott Boatwright",
+      "title": "Chief Executive Officer",
+      "firm": "Chipotle",
+      "role": "executive"
+    },
+    {
+      "name": "Adam Rymer",
+      "title": "Chief Financial Officer",
+      "firm": "Chipotle",
+      "role": "executive"
+    },
+    {
+      "name": "Operator",
+      "title": "",
+      "firm": "",
+      "role": "operator"
+    },
+    {
+      "name": "Lauren Silberman",
+      "title": "",
+      "firm": "Deutsche Bank",
+      "role": "analyst"
+    },
+    {
+      "name": "David Palmer",
+      "title": "",
+      "firm": "Evercore ISI",
+      "role": "analyst"
+    },
+    {
+      "name": "Brian Harbour",
+      "title": "",
+      "firm": "Morgan Stanley",
+      "role": "analyst"
+    },
+    {
+      "name": "Gregory Francfort",
+      "title": "",
+      "firm": "Guggenheim",
+      "role": "analyst"
+    },
+    {
+      "name": "Sara Senatore",
+      "title": "",
+      "firm": "Bank of America",
+      "role": "analyst"
+    },
+    {
+      "name": "John Ivankoe",
+      "title": "",
+      "firm": "JPMorgan",
+      "role": "analyst"
+    },
+    {
+      "name": "Jon Tower",
+      "title": "",
+      "firm": "Citi",
+      "role": "analyst"
+    },
+    {
+      "name": "Drew North",
+      "title": "",
+      "firm": "Baird",
+      "role": "analyst"
+    },
+    {
+      "name": "Andrew Charles",
+      "title": "",
+      "firm": "TD Cowen",
+      "role": "analyst"
+    }
+  ],
+  "exchanges": [
+    {
+      "n": 1,
+      "analyst": "Lauren Silberman",
+      "firm": "Deutsche Bank",
+      "question": "Thank you very much. I guess if I could just start with, I know there was a lot of noise during the quarter. I'm gonna follow up on the comp side. Any color that you can give in terms of cadence of trends as you move through the quarter? Really encouraging to hear about the momentum in April. Just a",
+      "responder": "Adam Rymer",
+      "responderTitle": "Chief Financial Officer",
+      "alsoAnswered": [
+        "Scott Boatwright"
+      ],
+      "answer": "Yeah. I'll kind of walk through, and then, Scott, please add in. Starting in January, I mean, we caught up on January in the last call, but just to reiterate, I mean, we saw strength in our protein menu and campaign. It not only drove transactions, but we also saw a double-digit % increase in double protein and single tacos. Amazing part about this is it wasn't just during the campaign in January. That increase in double protein and single tacos has really sustained even through April. We saw th",
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "n": 2,
+      "analyst": "David Palmer",
+      "firm": "Evercore ISI",
+      "question": "Thanks. I'm wondering, how you're thinking about how this year might play out. You know, one of the things you seem to be saying here is that by doing more frequent LTOs or your protein windows, that not only do you get a boost, but that boost sticks around. The two-year trend gets a lift each time.",
+      "responder": "Scott Boatwright",
+      "responderTitle": "Chief Executive Officer",
+      "alsoAnswered": [],
+      "answer": "That's exactly right, David. What we learned through our demand map refresh, last quarter, I guess Q4 now, is that consumers were looking for menu innovation, and they were screaming for greater innovation at a greater frequency. We have doubled our cadence of LTO innovation and stage-gate processing in our culinary center to solve that challenge, evidenced by what you will see here in 2026. They were also looking for deeper digital engagement, which I think we solved for in the app refresh and ",
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "n": 3,
+      "analyst": "Brian Harbour",
+      "firm": "Morgan Stanley",
+      "question": "Yeah, thanks. Good afternoon. Adam, could you just talk about the traffic and mix components, the same for sales and kind of, you know, what your outlook, at least on the mix side, might be?",
+      "responder": "Adam Rymer",
+      "responderTitle": "Chief Financial Officer",
+      "alsoAnswered": [],
+      "answer": "Yeah, sure. With the comp of, you know, up 0.5%, transactions were up about 60 basis points, and check was a slight decline, call it about 10 basis points. Price was around 90 basis points, mix was a drag of about 100 basis points to net to that check. When you're looking at mix, it's still driven by lower group size. This is kind of that continual normalization from that really high group size that we saw around COVID. Then there's also some other elements in there. For example, rewards. When p",
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "n": 4,
+      "analyst": "Gregory Francfort",
+      "firm": "Guggenheim",
+      "question": "Hey, hey, thanks for the question. Scott, I think, you know, you guys have pretty good price points on your food, and I think the maybe you've had a little bit of a pricing perception issue over the last, you know, year or two. I guess as Fernando's come on board, how much do you want to integrate v",
+      "responder": "Scott Boatwright",
+      "responderTitle": "Chief Executive Officer",
+      "alsoAnswered": [],
+      "answer": "Yeah, it's a great question. Here's what I would tell you, is we are open to testing many different ideas, and we won't handicap Fernando with historical thinking or entrenched thinking. We won't do anything to detract from the overall brand health and brand growth. I think I've said this many times, I believe we charge a very fair price point for what we offer the consumer. You know, high-quality ingredients, the best ingredients in the world, prepared fresh with classic culinary techniques at ",
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "n": 5,
+      "analyst": "Sara Senatore",
+      "firm": "Bank of America",
+      "question": "Thanks. A quick stat, I guess, data question and then a real question. Have you, I know in the past you were talking about perhaps, you know, softening younger cohorts, also, you know, maybe not just lower but also middle income cohorts. I guess your comment about engaging customers across income an",
+      "responder": "Scott Boatwright",
+      "responderTitle": "Chief Executive Officer",
+      "alsoAnswered": [],
+      "answer": "Hi, Sara. Thank you for the question. Here's what I would tell you is in Q1, I think through targeted messaging and really driving culturally relevant moments, we're able to get the younger consumer more engaged with our brand in Q1 than we have historically, or over the last year, I should say. You know, we're seeing an uplift and an uptick across all ages and all income cohorts for Q1. I think we know at this point what levers do we pull to ensure we're being thoughtful about engaging all of t",
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "n": 6,
+      "analyst": "John Ivankoe",
+      "firm": "JPMorgan",
+      "question": "Hi. Thank you. The question is on competition. I wanna go a couple ways with this, if I can. You know, on a chain basis, which is, I guess, can be tracked, it does seem like a lot of the competition is coming in chicken, Mexican, and I'll just say very broadly, but kind of bowls on a top 500 chain b",
+      "responder": "Adam Rymer",
+      "responderTitle": "Chief Financial Officer",
+      "alsoAnswered": [
+        "Scott Boatwright"
+      ],
+      "answer": "Yeah. I'll jump in here and I'll have Adam follow up on the second part of your question. We did a deep dive analysis on competition, specifically in New York and Florida, where our main competitors, albeit they're small today, are growing the fastest. While we see some level of cannibalization when one of those restaurants opens up near a Chipotle in the first six months or so, it recovers pretty quickly in month six, seven and eight, and then climbs back to industry trends or Chipotle standard",
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "n": 7,
+      "analyst": "Jon Tower",
+      "firm": "Citi",
+      "question": "Hey, guys. Thanks for taking the questions. I'm just curious, you know, following up with Greg's question around value perceptions of the marketplace, I would argue maybe your delivery channel is one area where you get lower value scores than the in-store experience. I'm just curious what you're thi",
+      "responder": "Scott Boatwright",
+      "responderTitle": "Chief Executive Officer",
+      "alsoAnswered": [],
+      "answer": "Hi, Jon. Yeah. We did some testing on different premiums in delivery across DoorDash and Uber. People use those platforms in different ways. They primarily use Uber as a discount platform and DoorDash as a premium, faster order time, faster delivery time platform. You have to market on those platforms very differently. I will tell you, our prices, even at an elevated NPI on marketplace, are still below our peers in the channel. We did see another tick up in delivery. This are still in the teens,",
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "n": 8,
+      "analyst": "Drew North",
+      "firm": "Baird",
+      "question": "Thank you. My question's on the margin trajectory, and appreciate the color on Q2. As we look further ahead, wondering if you have any updated perspective on the shape of the margins as we get to the second half. I know the expectation has been for pricing versus inflation and the gap there to narro",
+      "responder": "Adam Rymer",
+      "responderTitle": "Chief Financial Officer",
+      "alsoAnswered": [
+        "Scott Boatwright"
+      ],
+      "answer": "Yeah. Hey, Drew. You're right in the sense that kind of the first half of the year is when margins are going to be under the most pressure on a year-over-year basis. I mean, the price that we're running, for example, in Q1 of 0.9% compared to inflation is kind of in that mid 3% range. That's providing the majority of that dislocation. As we get to the second half of the year, inflation is going to drop down a bit, mostly because we'll start to lap kind of the elevated beef prices from the year b",
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "n": 9,
+      "analyst": "Andrew Charles",
+      "firm": "TD Cowen",
+      "question": "Great. Thank you so much. Adam, I wanted to ask you. The guidance for 2Q same-store sales up 1% relative to 1Q's 50 basis points increase is commensurate with the 50 basis point step-up in price quarter-over-quarter. You also called out you expect mix to be flat in 2Q versus down 1% in 1Q. I'm curio",
+      "responder": "Adam Rymer",
+      "responderTitle": "Chief Financial Officer",
+      "alsoAnswered": [
+        "Scott Boatwright"
+      ],
+      "answer": "Yeah. I mean, I think what you're picking up there is right. Really what it comes down to is we're being modest, like I said earlier, on the increase that we expect to get, not only from Chipotle Honey Chicken, which launched yesterday, but some of the other initiatives that we have planned, just given the consumer environment, especially with the conflict in Iran and gas prices. We're gonna remain cautious on that outlook, but we believe that there's upside from there. The first part of the que",
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    }
+  ],
+  "guidance": [],
+  "metrics": [],
+  "quotes": [
+    {
+      "speaker": "Scott Boatwright",
+      "quote": "I've never been more confident that we have the right team, the right strategy",
+      "title": "",
+      "context": ""
+    },
+    {
+      "speaker": "Adam Rymer",
+      "quote": "Our first quarter performance is an early indicator of positive momentum",
+      "title": "",
+      "context": ""
+    }
+  ],
+  "topics": [
+    "Comparable sales growth",
+    "Restaurant operations improvement",
+    "Technology and digital initiatives",
+    "Menu innovation",
+    "Labor management",
+    "Market expansion"
+  ],
+  "newMentions": [
+    "H.E.A.T equipment",
+    "Digital make line display",
+    "Ava assistant",
+    "Single scan feature",
+    "LTO offerings"
+  ]
+}

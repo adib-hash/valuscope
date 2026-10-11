@@ -1,0 +1,205 @@
+{
+  "overview": "EPS of $2.02 up 29% year-over-year",
+  "keyTakeaways": [
+    "Total revenue: $109.4 billion up 16% year-over-year, June quarter record",
+    "iPhone revenue: $54.3 billion up 22% year-over-year, June quarter record",
+    "Mac revenue: $10.4 billion up 29% year-over-year, June quarter record",
+    "Supply chain constraints",
+    "Memory cost inflation"
+  ],
+  "financialHighlights": [
+    "Gross margin: 50.1% (up 80 basis points sequentially)",
+    "Products gross margin: 40.1% (up 140 basis points sequentially)",
+    "Services gross margin: 75.6% (down 110 basis points sequentially)",
+    "Operating expenses: $19.1 billion (up 23% year-over-year)"
+  ],
+  "keyMetrics": [
+    {
+      "metric": "Total revenue",
+      "value": "$109.4 billion",
+      "comparison": "up 16% year-over-year, June quarter record"
+    },
+    {
+      "metric": "iPhone revenue",
+      "value": "$54.3 billion",
+      "comparison": "up 22% year-over-year, June quarter record"
+    },
+    {
+      "metric": "Mac revenue",
+      "value": "$10.4 billion",
+      "comparison": "up 29% year-over-year, June quarter record"
+    },
+    {
+      "metric": "iPad revenue",
+      "value": "$6.2 billion",
+      "comparison": "down 6% year-over-year"
+    },
+    {
+      "metric": "Wearables, home, accessories revenue",
+      "value": "$7.9 billion",
+      "comparison": "up 6% year-over-year"
+    },
+    {
+      "metric": "Services  revenue",
+      "value": "$30.7 billion",
+      "comparison": "up 12% year-over-year, June quarter record"
+    },
+    {
+      "metric": "Products revenue",
+      "value": "$78.7 billion",
+      "comparison": "up 18% year-over-year"
+    },
+    {
+      "metric": "Gross margin",
+      "value": "50.1%",
+      "comparison": "up 80 basis points sequentially"
+    }
+  ],
+  "guidance": [
+    "Total company revenue growth (September quarter): 9%-11% (Kevan Parekh)",
+    "iPhone revenue growth (September quarter): mid-teens (Kevan Parekh)",
+    "Services revenue growth (September quarter): largely similar to June quarter (Kevan Parekh)",
+    "Gross margin: 47%-48% (Kevan Parekh)",
+    "Operating expenses: $19.1 billion-$19.4 billion (Kevan Parekh)",
+    "Other income and expense: around $350  million (Kevan Parekh)",
+    "Tax rate: around 16.5% (Kevan Parekh)",
+    "Dividend per share: $0.27 (Kevan Parekh)"
+  ],
+  "qa": [
+    {
+      "analyst": "Amit  Daryanani",
+      "question": "Can you explain how much of the 9%-11% September quarter growth deceleration versus June is supply constraints versus FX, and what supply constraints beyond advanced SOCs are broadening?",
+      "responder": "Kevan Parekh",
+      "responderTitle": "CFO",
+      "answer": "Foreign exchange headwind is around 2.5 percentage points to year-over-year growth rate. Supply constraint impact is expected to increase significantly sequentially from June to September, affecting iPhone, Mac, and iPad. During June, constraints were primarily on Mac, driven by limited flexibility in the supply chain and availability of advanced nodes for SoCs. For September, Tim expects high levels of demand but significantly increased supply constraints with less supply chain flexibility to remedy  it.",
+      "read": "direct",
+      "firm": "Evercore"
+    },
+    {
+      "analyst": "Amit Daryanani",
+      "question": "Does Apple's greater sourcing flexibility for memory aim to ensure supply and mitigate inflation, or primarily to preserve customer value proposition?",
+      "responder": "Tim Cook",
+      "responderTitle": "CEO",
+      "answer": "Memory costs rose from December to March quarter, expected to rise significantly again in June, and will rise even higher in September. Offsets include carry-in inventory benefits, though benefit will decrease over time, and lower costs on non-memory components. Beyond September, market pricing for memory expected to continue increasing with potential increasing impact on the business. DRAM market has three suppliers; more suppliers could help supply and potentially  pricing.",
+      "read": "direct",
+      "firm": "Evercore"
+    },
+    {
+      "analyst": "Erik Woodring",
+      "question": "Will you pursue multi-year LTAs with suppliers for supply access at pre-agreed prices, and does pricing strategy protect product gross profit dollars or gross margins?",
+      "responder": "Tim Cook",
+      "responderTitle": "CEO",
+      "answer": "Prices were raised reluctantly due to 100-year flood of memory pricing with exponential increases. Philosophy looks at units, revenue, and margin together to make business judgment; not a mathematical formula or single dimension. Think about it over long term rather than 90-day clock.",
+      "read": "direct",
+      "firm": "Morgan Stanley"
+    },
+    {
+      "analyst": "Erik Woodring",
+      "question": "Services grew 12% versus guidance, below 10% implied for September. Explain  deceleration drivers and whether App Store headwinds relate to AI reprioritizing user time?",
+      "responder": "Kevan Parekh",
+      "responderTitle": "CFO",
+      "answer": "Foreign exchange was main driver of growth rate change from March to June. Other factors: no theatrical F1 release this year versus prior year, and App Store headwinds in mobile gaming. App Store changes in certain countries and court ruling on link-out transactions in US impacted performance. Despite this, App Store set June quarter record. Strong double-digit growth in cloud, video, payment, advertising. Set records in every category.",
+      "read": "direct",
+      "firm": "Morgan Stanley"
+    },
+    {
+      "analyst": "Aaron Rakers",
+      "question": "Has demand pull-forward occurred in consumer or enterprise/education markets, and is this factored into forward views?",
+      "responder": "Tim  Cook",
+      "responderTitle": "CEO",
+      "answer": "iPhone has been running 22% growth rate year to date. It's not obvious in the data that pull-forward has occurred. Price increases on iPad and Mac occurred; price elasticity too early to conclude. Channel inventory adjustments take time for consumer response to be understood in weeks ahead.",
+      "read": "direct",
+      "firm": "Wells Fargo"
+    },
+    {
+      "analyst": "Aaron Rakers",
+      "question": "Does AI proliferation at edge open additional addressable market opportunities for Apple beyond current products?",
+      "responder": "Tim Cook",
+      "responderTitle": "CEO",
+      "answer": "Enormous opportunities for Apple moving forward in AI. Siri AI feedback is excellent. Ability to run percentage of requests on-device is strategic and competitive advantage. Extremely excited about these  opportunities.",
+      "read": "direct",
+      "firm": "Wells Fargo"
+    }
+  ],
+  "unanswered": [
+    {
+      "analyst": "Michael Ng",
+      "question": "What are expected adoption rates for Apple Upgrade Program across install base, and will it shorten replacement cycles equally across iPhone, Mac, and iPad?",
+      "how": "partial",
+      "firm": "Goldman Sachs"
+    },
+    {
+      "analyst": "Michael Ng",
+      "question": "What learnings from iOS 27 and Apple Intelligence public  beta inform compute costs, capital recovery, and iCloud+ strategy?",
+      "how": "partial",
+      "firm": "Goldman Sachs"
+    },
+    {
+      "analyst": "Ben Reitzes",
+      "question": "Street expects 12% September growth but you guided 10%; if FX accounts for difference, what are December quarter supply constraint impacts?",
+      "how": "partial",
+      "firm": "Melius Research"
+    },
+    {
+      "analyst": "Ben Reitzes",
+      "question": "Could alternative silicon suppliers like those building Arizona fab help alleviate your silicon constraints in reasonable timeframe?",
+      "how": "deflected",
+      "firm": "Melius Research"
+    }
+  ],
+  "notableQuotes": [
+    {
+      "speaker": "Tim Cook",
+      "quote": "We've been absolutely thrilled by the response from people who've been using Siri AI in the developer and public betas.",
+      "title": "CEO"
+    },
+    {
+      "speaker": "Tim Cook",
+      "quote": "The supply chain just has less flexibility in it than normal. We've been pulling supply ahead. At some point, there's a limit to that.",
+      "title": "CEO"
+    },
+    {
+      "speaker": "Tim Cook",
+      "quote": "We reluctantly raised prices, I would say. We did it because we're in what I would characterize as a 100-year flood on the  memory pricing.",
+      "title": "CEO"
+    },
+    {
+      "speaker": "Kevan Parekh",
+      "quote": "Generally, the sequential change from the March quarter to the 46.5% you referenced is really driven by memory.",
+      "title": "CFO"
+    },
+    {
+      "speaker": "Tim Cook",
+      "quote": "We look at units, revenue, and margin, then come to a business judgment as to how to handle that.",
+      "title": "CEO"
+    }
+  ],
+  "whatChanged": {
+    "guidanceRevisions": [
+      "Gross margin: 47.5% to 48.5% to 47%-48%",
+      "Operating expenses: $18.8 billion to $19.1 billion to $19.1 billion-$19.4 billion",
+      "Other income and expense: around $250 million to around $350  million",
+      "Tax rate: around 17% to around 16.5%"
+    ],
+    "newMentions": [
+      "iPhone Air",
+      "iPhone 17 Pro",
+      "Ask to Browse",
+      "iPhone 17e",
+      "Klarna partnership"
+    ],
+    "droppedTopics": [
+      "AI investment acceleration",
+      "India market opportunity",
+      "Capital allocation and net cash neutral policy change",
+      "CEO leadership transition",
+      "iPhone 17 family momentum"
+    ],
+    "toneShift": ""
+  },
+  "risksMentioned": [
+    "Supply chain constraints",
+    "Memory cost inflation",
+    "Siri AI capabilities and rollout"
+  ]
+}

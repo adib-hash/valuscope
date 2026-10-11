@@ -1,0 +1,187 @@
+{
+  "overview": "Revenue (excluding significant items) predominantly markets revenue, higher asset management fees, higher investment banking, higher deposit and loan balances",
+  "keyTakeaways": [
+    "Succession planning and leadership transition",
+    "Investment banking and markets strength",
+    "Deposit growth and consumer banking strategy",
+    "Net interest income guidance",
+    "AI implementation and efficiency gains"
+  ],
+  "financialHighlights": [
+    "Expenses: $27.3 billion (up 15% year-on-year, volume and revenue-related expense, growth in  front office hiring)",
+    "CET1 ratio (standardized): 14.1% (down 20 basis points versus prior quarter)",
+    "AWM pre-tax margin: 38%"
+  ],
+  "keyMetrics": [
+    {
+      "metric": "Net income",
+      "value": "$16.9 billion",
+      "comparison": ""
+    },
+    {
+      "metric": "Earnings per share",
+      "value": "$6.14",
+      "comparison": ""
+    },
+    {
+      "metric": "ROTCE",
+      "value": "23%",
+      "comparison": ""
+    },
+    {
+      "metric": "Revenue (excluding significant items)",
+      "value": "up 15% year-on-year",
+      "comparison": "predominantly markets revenue, higher asset management fees, higher investment banking, higher deposit and loan balances"
+    },
+    {
+      "metric": "Expenses",
+      "value": "$27.3 billion",
+      "comparison": "up 15% year-on-year, volume and revenue-related expense, growth in  front office hiring"
+    },
+    {
+      "metric": "Credit costs",
+      "value": "$2.5 billion",
+      "comparison": "net charge-offs $2.4 billion, net reserve build $149 million"
+    },
+    {
+      "metric": "CET1 ratio (standardized)",
+      "value": "14.1%",
+      "comparison": "down 20 basis points versus prior quarter"
+    },
+    {
+      "metric": "RWA increase",
+      "value": "approximately $103 billion",
+      "comparison": "driven by increases in financing markets business and growth in traditional lending"
+    }
+  ],
+  "guidance": [
+    "NII ex-Markets (full year 2026): $96.5 billion (Jeremy Barnum)",
+    "Total NII (full year 2026): approximately $105.5 billion (Jeremy Barnum)",
+    "Markets NII (full year 2026): about $9 billion (Jeremy Barnum)",
+    "Adjusted expense outlook (full year 2026): about $107.5 billion (Jeremy Barnum)",
+    "Card net charge-off rate (full year 2026): approximately 3.2% (Jeremy Barnum)"
+  ],
+  "qa": [
+    {
+      "analyst": "Ken Usdin",
+      "question": "Can you evaluate recent management changes and elevation of  Doug and Troy to co-presidents, and what this means for leadership development and your tenure as CEO?",
+      "responder": "Jamie Dimon",
+      "responderTitle": "Chairman and CEO",
+      "answer": "Marianne is exceptional individual. Board made decision to create two co-presidents to prepare them for more at company. Hasn't changed timetable. Marianne decided she'd rather retire than stay, result of knowing about succession plans. No mystery.",
+      "read": "direct",
+      "firm": "Autonomous Research"
+    },
+    {
+      "analyst": "Ken Usdin",
+      "question": "How do you judge sustainability of investment banking and markets strength, and how risk-on are the various businesses?",
+      "responder": "Jeremy Barnum",
+      "responderTitle": "CFO",
+      "answer": "Investment banking fees historically fine but not super peak, had room to come up. Some pull forward happened, large deals  contributed meaningfully. Pipeline quite robust; high-profile activity seems encouraging more activity. Markets elevated for time; equities exceptionally strong this quarter with highly dynamic conditions. Separation between fixed income up 6% and equities up 86% year-over-year.",
+      "read": "direct",
+      "firm": "Autonomous Research"
+    },
+    {
+      "analyst": "Chris McGratty",
+      "question": "Can you discuss progression toward 15% retail market share target and how higher-for-longer rates impact pace of market share gains?",
+      "responder": "Jeremy Barnum",
+      "responderTitle": "CFO",
+      "answer": "Wholesale deposit growth strong this quarter and first half, outperforming expectations due to franchise strength, winning deals, and lending environment particularly BFI space and data center stuff. Consumer expecting low single-digit growth, unchanged expectation, balance between  robust net new checking accounts and yield-seeking flows. View that 15% will be outcome of executing strategy across components from primary bank relationships, branch expansion, deepening product-value proposition.",
+      "read": "direct",
+      "firm": "KBW"
+    },
+    {
+      "analyst": "Chris McGratty",
+      "question": "Where are we in the investment cycle for branch build-out, AI investments, and banker hires, and how does this play into operating leverage outlook?",
+      "responder": "Jamie Dimon",
+      "responderTitle": "Chairman and CEO",
+      "answer": "Complete continuation of what we've been doing for years. Shouldn't expect any change. Power of franchise is such that able to aggressively invest for future generating returns and solidifying competitive position while delivering exceptional current returns. Would be true delivering 15%, 16%, 17%  returns. When delivering these types, firing on all cylinders.",
+      "read": "direct",
+      "firm": "KBW"
+    },
+    {
+      "analyst": "John McDonald",
+      "question": "Can you talk about drivers of upward revision to NII ex-Markets from $95 billion to $96.5 billion and cadence in Q3, Q4, and exit rate?",
+      "responder": "Jeremy Barnum",
+      "responderTitle": "CFO",
+      "answer": "Biggest single factor is deposit balances across wholesale and consumer, overall quantum and mix shift in favor of slightly higher margin. Rates higher than previously guided in short and back end. Sensitivity a little more than EAR suggests due to consumer betas outperformance, disproportionately in front end. Increase as function of higher rates but most is balances overall.",
+      "read": "direct",
+      "firm": "Truist Securities"
+    },
+    {
+      "analyst": "John  McDonald",
+      "question": "Markets NII guided higher even though rate outlook higher. What are drivers, balance sheet mix?",
+      "responder": "Jeremy Barnum",
+      "responderTitle": "CFO",
+      "answer": "Markets NII actually liability sensitive. Higher rates would expect it down; instead forecast up. Difference is changes in balance sheet composition, expecting lower finance non-interest-bearing assets in second half. One balance sheet unit drives number quite a bit, can overwhelm rate effect. Also increased equity allocation to CIB this quarter moves some equity out of corporate into CIB; markets NII moving out of NII ex-Markets into markets NII, about $150 million not expected to offset on bottom line.",
+      "read": "direct",
+      "firm": "Truist Securities"
+    }
+  ],
+  "unanswered": [
+    {
+      "analyst": "Mike Mayo",
+      "question": "Your marginal margin based on 77% given. Why is that as good as it gets? Revenue environment as good as  it gets?",
+      "how": "partial"
+    },
+    {
+      "analyst": "Glenn Schorr",
+      "question": "Status of smart cash tool you're working on? When might roll out? Comments on paying more for money over time?",
+      "how": "partial",
+      "firm": "Evercore"
+    }
+  ],
+  "notableQuotes": [
+    {
+      "speaker": "Jamie Dimon",
+      "quote": "We're just trying to serve the clients and manage the risk and get our fair share of the business.",
+      "title": "Chairman and CEO"
+    },
+    {
+      "speaker": "Jamie Dimon",
+      "quote": "You know it when you see it.",
+      "title": "Chairman and CEO"
+    },
+    {
+      "speaker": "Jamie Dimon",
+      "quote": "The benefit accrues to the customer, not to JPMorgan  in this case.",
+      "title": "Chairman and CEO"
+    },
+    {
+      "speaker": "Jamie Dimon",
+      "quote": "The whole company's involved in it.",
+      "title": "Chairman and CEO"
+    },
+    {
+      "speaker": "Jamie Dimon",
+      "quote": "We have huge opportunities for organic growth in every single business we're in.",
+      "title": "Chairman and CEO"
+    }
+  ],
+  "whatChanged": {
+    "guidanceRevisions": [
+      "NII ex-Markets (full year 2026): about $95 billion to $96.5 billion",
+      "Total NII (full year 2026): approximately $103 billion to approximately $105.5 billion",
+      "Markets NII (full year 2026): about $8 billion to about $9 billion",
+      "Adjusted expense outlook (full year 2026): about $105 billion to about $107.5 billion",
+      "Card net charge-off rate (full year 2026): approximately 3.4% to approximately 3.2%"
+    ],
+    "newMentions": [
+      "Co-presidents elevation",
+      "AI use cases  (1,000 cases)",
+      "Prime brokerage",
+      "Chase UK",
+      "Sapphire Preferred card refresh"
+    ],
+    "droppedTopics": [
+      "Investment banking pipeline resilience",
+      "Long-term infrastructure and capital needs",
+      "Private credit exposure and systemic risk",
+      "AI cash tool and deposit competition",
+      "Markets business balance sheet growth"
+    ],
+    "toneShift": ""
+  },
+  "risksMentioned": [
+    "Market conditions and risk-on sentiment"
+  ]
+}

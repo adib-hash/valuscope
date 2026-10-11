@@ -1,0 +1,166 @@
+{
+  "overview": "Deere's fiscal Q3 net sales and revenues rose 5% to $12.608B, with a 14.4% equipment operations margin and net income of $1.379B, or $5.10 per diluted share, helped by $110M of incremental IEPA tariff refunds. Dan Pooley, Manager of Investor Communications, presented a raised fiscal 2026 net income guide of $4.75B-$5B, and Brent Norwood, CFO, reiterated that 2026 is the bottom of the ag cycle with a measured 2027 recovery.",
+  "keyTakeaways": [
+    "Brent Norwood, CFO, said net tariffs become a headwind in fiscal 2027: about $750M net this year ($1.1B direct less $382M refunds) versus a run rate of about $1B next year.",
+    "Deanna Kovar, President of Worldwide Agriculture & Turf, said model year 2027 planter and sprayer early orders are up mid-single digits, with See & Spray adoption nearly doubling to about one-third of North American sprayers on order.",
+    "Chris Seibert, Director of Investor Relations, said Construction & Forestry holds four to five months of orders, more than the two to three Deere typically wants, with PPA and C&F each underproducing retail by a couple of points.",
+    "Kovar said South America demand is softer, with the industry cut to down 15%-20%, while used model-year 2023 and 2024 high horsepower tractors are down nearly 40% from a year ago."
+  ],
+  "financialHighlights": [
+    "Equipment net sales up 6% to $10.999B; net income $1.379B, EPS $5.10; equipment operations margin 14.4%.",
+    "Production & Precision Ag sales down 6% to $3.998B at a 13.2% margin; Small Ag & Turf sales up 12% to $3.383B at an 18.4% margin.",
+    "Construction & Forestry sales up 18% to $3.618B at a 12.1% margin, including 8 points of price lapping about 5% negative price a year ago.",
+    "Financial Services net income $219M; IEPA refunds $110M in Q3 and $382M year to date."
+  ],
+  "keyMetrics": [
+    {
+      "metric": "Net sales and revenues",
+      "value": "$12.608B",
+      "comparison": "+5% YoY"
+    },
+    {
+      "metric": "Net income",
+      "value": "$1.379B",
+      "comparison": "$5.10 per diluted share"
+    },
+    {
+      "metric": "Equipment operations margin",
+      "value": "14.4%",
+      "comparison": "Above expectations"
+    },
+    {
+      "metric": "PPA sales",
+      "value": "$3.998B",
+      "comparison": "-6% YoY, 13.2% margin"
+    },
+    {
+      "metric": "SAT sales",
+      "value": "$3.383B",
+      "comparison": "+12% YoY, 18.4% margin"
+    },
+    {
+      "metric": "C&F sales",
+      "value": "$3.618B",
+      "comparison": "+18% YoY, 12.1% margin"
+    },
+    {
+      "metric": "MY2027 planter and sprayer early orders",
+      "value": "+mid-single digits",
+      "comparison": "vs last year's program"
+    }
+  ],
+  "guidance": [
+    "Dan Pooley, Manager of Investor Communications, raised fiscal 2026 net income to $4.75B-$5B from $4.5B-$5B, equipment operations cash flow to $5B-$5.5B from $4.5B-$5.5B and Financial Services to $870M from $860M.",
+    "Pooley guided PPA sales down about 10% (from down 5%-10%) at an 11%-12% margin, SAT up about 15% at a 14.5%-15.5% margin (from 13.5%-15%), and C&F up about 20% at a 10.5%-11.5% margin.",
+    "Pooley cut South America industry sales to down 15%-20% and Europe to about flat, and raised U.S. and Canada construction to up 5%-10%.",
+    "Brent Norwood, CFO, expects Q4 PPA and C&F sales similar to Q3 with no refund benefit and seasonally higher R&D and SA&G, and a fiscal 2027 net tariff run rate around $1B."
+  ],
+  "risksMentioned": [
+    "Net tariff expense steps up to about $1B in fiscal 2027 from about $750M, per Norwood.",
+    "South America and Europe ag softness, with Brazil's industry down 15%-20% and European arable farmers more challenged, per Kovar and Seibert.",
+    "Input cost and commodity volatility, including fertilizer uncertainty and Black Sea shipment disruptions, per Seibert and Kovar.",
+    "Inflation remains dynamic given oil prices and suppliers passing on tariffs, per Seibert."
+  ],
+  "qa": [
+    {
+      "analyst": "Steve Fisher",
+      "firm": "UBS",
+      "question": "Is the roughly $800M net tariff impact this year a headwind, tailwind or neutral going into 2027?",
+      "responder": "Brent Norwood",
+      "responderTitle": "Chief Financial Officer",
+      "answer": "A headwind: about $1.1B of direct tariffs less $382M of refunds gives net exposure of approximately $750M this year, while the 2027 run rate is expected right around $1B.",
+      "read": "Answered directly."
+    },
+    {
+      "analyst": "Kristen Owen",
+      "firm": "Oppenheimer",
+      "question": "Did something slip from Q4 into Q3, and was tractor inventory built in Q3 ahead of the industry?",
+      "responder": "Chris Seibert",
+      "responderTitle": "Director of Investor Relations",
+      "answer": "Not to read too much into Q3; some demand was pulled ahead to manage Q4 risk and nothing on inventory is concerning. Norwood said Q4 PPA and C&F sales should be similar to Q3 without the refund benefit and with seasonally high R&D and SA&G, so margins come in a little.",
+      "read": "Answered directly; disputed the inventory premise."
+    },
+    {
+      "analyst": "Tami Zakaria",
+      "firm": "JPMorgan",
+      "question": "Is the tariff estimate cut to $1.1B from relief or refunds, and how is the excavator launch trending?",
+      "responder": "Chris Seibert",
+      "responderTitle": "Director of Investor Relations",
+      "answer": "Mainly Section 232 changes cutting the rate on imported goods from roughly 25% to 15% effective June 1, so only five of 12 months benefit this year with a further 2027 tailwind. Norwood: three Deere-designed excavator models are in market, with more over three to four years.",
+      "read": "Answered directly."
+    },
+    {
+      "analyst": "Chad Dillard",
+      "firm": "Bernstein",
+      "question": "Why does C&F guidance imply only about 50 bps of Q4 price after +8% in Q3, and how large should dealer rental fleets get?",
+      "responder": "Chris Seibert",
+      "responderTitle": "Director of Investor Relations",
+      "answer": "The C&F price guide went 2.5% to 3% to 2.5% and back to 3%; Q3's 8% partly reflected about 5% negative price in Q3 2025. Norwood said 30%-35% of earthmoving transactions start as a rental and dealers want to expand fleets, with no target size.",
+      "read": "Answered partially; declined to size rental fleets."
+    }
+  ],
+  "unanswered": [
+    {
+      "analyst": "Tim Thein",
+      "firm": "Raymond James",
+      "question": "How should the 2027 mix impact be thought about versus the 2- to 3-point benefit in stronger years?",
+      "how": "Chris Seibert, Director of Investor Relations, said it is too early to tell, citing input volatility and E.U. and Brazil softness."
+    },
+    {
+      "analyst": "Angel Castillo",
+      "firm": "Morgan Stanley",
+      "question": "Does the backlog imply margins up, down or neutral next year?",
+      "how": "Seibert spoke to covering inflation with measured pricing and gave no margin direction."
+    },
+    {
+      "analyst": "Peter Kalemkerian",
+      "firm": "Baird",
+      "question": "Can Deere give a directional 2027 forecast for Europe ahead of the 2028 CAP change?",
+      "how": "Seibert: \"too early to tell\"; the order book runs only four to five months out."
+    }
+  ],
+  "notableQuotes": [
+    {
+      "speaker": "Brent Norwood",
+      "title": "Chief Financial Officer",
+      "quote": "As we discussed, the agricultural environment remains challenging, but we continue to believe that 2026 represents the bottom of the ag equipment cycle."
+    },
+    {
+      "speaker": "Deanna Kovar",
+      "title": "President, Worldwide Agriculture & Turf Division, Production & Precision Ag",
+      "quote": "At the same time, the underlying fundamentals continue to support a measured recovery rather than a sharp rebound in 2027."
+    },
+    {
+      "speaker": "Chris Seibert",
+      "title": "Director of Investor Relations",
+      "quote": "We have about four to five months of orders on hand, which is quite frankly, a little more than we would want to have."
+    },
+    {
+      "speaker": "Brent Norwood",
+      "title": "Chief Financial Officer",
+      "quote": "So there will be a bit of a step up in our tariff expense next year as we compare to this year."
+    }
+  ],
+  "whatChanged": {
+    "guidanceRevisions": [
+      "Net income: $4.5B-$5B to $4.75B-$5B; equipment operations cash flow: $4.5B-$5.5B to $5B-$5.5B; Financial Services: $860M to $870M.",
+      "PPA sales: down 5%-10% to down about 10%; PPA margin: 11%-13% to 11%-12%; SAT margin: 13.5%-15% to 14.5%-15.5%; C&F margin: 10%-12% to 10.5%-11.5%.",
+      "South America industry: down about 15% to down 15%-20%; Europe: flat to up 5% to about flat; forestry: down 5% to down 10%; U.S. and Canada construction: up about 5% to up 5%-10%.",
+      "Direct tariff expense: $1.2B to $1.1B; net of refunds about $900M to about $750M."
+    ],
+    "newMentions": [
+      "Move Agriculture Financing program (Brazil)",
+      "FTC right-to-repair agreement and Operations Center PRO Service",
+      "SmartGrade and job site safety solutions",
+      "Dealer-owned and independent rental fleets",
+      "Section 301 tariffs; European CAP 2028 policy change"
+    ],
+    "droppedTopics": [
+      "Casa John Deere Brazil launch and new 8R/8RX models",
+      "Precision Essentials renewal rates and Starlink/JDLink Boost",
+      "U.S. biofuel policy (RVO, E15) and disaster relief",
+      "$20B U.S. manufacturing commitment"
+    ],
+    "toneShift": "Q2 was \"extremely bullish\" on Brazil and structural margin gains; Q3 kept the cycle-bottom view but repeatedly said \"too early to tell\" on 2027, cut South America and Europe, and flagged a tariff step-up next year."
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "overview": "JPMorgan Chase earned $16.9B, or $6.14 per share, in Q2 2026 with a 23% ROTCE, as equities markets revenue rose 86% and IB fees 30%. Jeremy Barnum, CFO, raised NII ex-Markets guidance to ~$96.5B from $95B and adjusted expense guidance to ~$107.5B, while Jamie Dimon, Chairman and CEO, said conditions are \"getting close to as good as it gets.\"",
+  "keyTakeaways": [
+    "Barnum said the first-half capital markets complex beat expectations by $6.5B, driving $1.5B of booked expense plus an implicit $1B for the second half.",
+    "Barnum said this quarter's equities drivers (major IPOs, index rebalancing, Korean market dynamics) are statistically improbable to repeat.",
+    "Dimon elevated two co-presidents and said his succession timetable is unchanged at \"several years\" or \"a few years,\" up to the board.",
+    "Barnum put excess capital at ~$40B to deploy over time, and Dimon set a 17% return goal on deployed capital, open to adjacency M&A but organic first."
+  ],
+  "financialHighlights": [
+    "Net income was $16.9B and EPS $6.14 including significant items, with expenses of $27.3B (+15% YoY).",
+    "CIB revenue rose 27% to $24.9B on net income of $9.7B, with IB fees up 30%, equities up 86% and fixed income up 6%.",
+    "CCB revenue rose 8% to $20.3B with net income of $5.3B and over 500,000 net new checking accounts.",
+    "Credit costs were $2.5B, including $2.4B of NCOs and a $149M reserve build, and CET1 fell 20bp to 14.1%."
+  ],
+  "keyMetrics": [
+    {
+      "metric": "Net income",
+      "value": "$16.9B",
+      "comparison": "Including significant items"
+    },
+    {
+      "metric": "EPS",
+      "value": "$6.14",
+      "comparison": "Including significant items"
+    },
+    {
+      "metric": "ROTCE",
+      "value": "23%"
+    },
+    {
+      "metric": "Expenses",
+      "value": "$27.3B",
+      "comparison": "+15% YoY"
+    },
+    {
+      "metric": "Equities markets revenue",
+      "value": "+86% YoY"
+    },
+    {
+      "metric": "IB fees",
+      "value": "+30% YoY"
+    },
+    {
+      "metric": "Standardized CET1 ratio",
+      "value": "14.1%",
+      "comparison": "-20bp QoQ"
+    }
+  ],
+  "guidance": [
+    "Jeremy Barnum, CFO, raised FY2026 NII ex-Markets to ~$96.5B from $95B, with total NII ~$105.5B and Markets NII ~$9B.",
+    "Barnum raised adjusted expense guidance by $2.5B to ~$107.5B, and Jamie Dimon, Chairman and CEO, said expense growth might slow in 2027 or 2028.",
+    "Barnum guided the card net charge-off rate to ~3.2% and kept consumer deposit growth at low single digits.",
+    "Barnum declared a $1.65 quarterly dividend effective 3Q and expects IB activity to remain healthy on a \"quite robust\" pipeline."
+  ],
+  "qa": [
+    {
+      "analyst": "John McDonald",
+      "firm": "Truist Securities",
+      "question": "What drove the NII ex-Markets raise, and why is Markets NII guided higher despite higher rates?",
+      "responder": "Jeremy Barnum",
+      "responderTitle": "Chief Financial Officer",
+      "answer": "Barnum cited deposit balances and mix as the main driver of the $95B to $96.5B raise, implying a higher exit rate, and said lower non-interest-bearing financed assets lift Markets NII, with ~$150M shifting there from a higher CIB equity allocation.",
+      "read": "Answered directly."
+    },
+    {
+      "analyst": "Mike Mayo",
+      "firm": "Wells Fargo",
+      "question": "Isn't operating leverage positive with 15% revenue growth, and why is Troy right to run the consumer bank?",
+      "responder": "Jeremy Barnum",
+      "responderTitle": "Chief Financial Officer",
+      "answer": "Barnum broke down the $2.5B expense raise into $1.5B already booked from $6.5B of capital markets outperformance and $1B added for the second half, not a revenue view; Jamie Dimon, Chairman and CEO, agreed leverage was positive and cited Troy's analytics and operations expertise.",
+      "read": "Answered directly."
+    },
+    {
+      "analyst": "Saul Martinez",
+      "firm": "HSBC",
+      "question": "Are AI efficiency gains underestimated, and what was exceptional in equities?",
+      "responder": "Jamie Dimon",
+      "responderTitle": "Chairman and CEO",
+      "answer": "Dimon cited almost 1,000 AI use cases, about 50 important, with some areas cutting jobs 30% or 40%, but said benefits accrue to customers; Jeremy Barnum, CFO, named IPOs, index rebalancing, Korean equities and Asia activity.",
+      "read": "Answered directly."
+    },
+    {
+      "analyst": "Ebrahim Poonawala",
+      "firm": "Bank of America",
+      "question": "How healthy is the consumer, and why buy back stock at three times tangible book?",
+      "responder": "Jeremy Barnum",
+      "responderTitle": "Chief Financial Officer",
+      "answer": "Barnum said consumer spend is solid across income segments with delinquencies a little lower than expected, and JPM buys less as price rises against ~$40B of excess capital; Jamie Dimon, Chairman and CEO, said he \"made a mistake\" citing $20B before.",
+      "read": "Answered partially; no buyback amount given."
+    }
+  ],
+  "unanswered": [
+    {
+      "analyst": "Ken Usdin",
+      "firm": "Autonomous Research",
+      "question": "How sustainable IB and markets strength is.",
+      "how": "Jeremy Barnum, CFO, described a robust pipeline but declined to guide."
+    },
+    {
+      "analyst": "Chris McGratty",
+      "firm": "KBW",
+      "question": "Where JPM is in the investment cycle and what it means for medium-term operating leverage.",
+      "how": "Jamie Dimon, Chairman and CEO, called it a \"complete continuation\" with no operating leverage outlook."
+    }
+  ],
+  "notableQuotes": [
+    {
+      "speaker": "Jamie Dimon",
+      "title": "Chairman and CEO",
+      "quote": "It's getting close to as good as it gets. We just don't know how long it's going to last."
+    },
+    {
+      "speaker": "Jamie Dimon",
+      "title": "Chairman and CEO",
+      "quote": "The notion that somehow you can forever increase your operating leverage is a crazy notion."
+    },
+    {
+      "speaker": "Jeremy Barnum",
+      "title": "Chief Financial Officer",
+      "quote": "The market is clearly extremely risk on, and we're kind of takers of that."
+    },
+    {
+      "speaker": "Jamie Dimon",
+      "title": "Chairman and CEO",
+      "quote": "I made a mistake last time mentioning $20 billion."
+    }
+  ],
+  "whatChanged": {
+    "guidanceRevisions": [
+      "NII ex-Markets: ~$95B to ~$96.5B.",
+      "Total NII: ~$103B to ~$105.5B; Markets NII ~$8B to ~$9B.",
+      "Adjusted expense: ~$105B to ~$107.5B.",
+      "Card net charge-off rate: ~3.4% to ~3.2%.",
+      "Consumer deposit growth: low to mid-single digits to low single digits."
+    ],
+    "newMentions": [
+      "Co-presidents Doug and Troy",
+      "Marianne retirement",
+      "Jen Piepszak as COO",
+      "Chase UK",
+      "Germany / Berlin digital bank",
+      "AI token expense"
+    ],
+    "droppedTopics": [
+      "Private credit exposure and systemic risk",
+      "Stablecoins and Kinexys",
+      "Cyber risk and Mythos",
+      "Middle East developments"
+    ],
+    "toneShift": "Last quarter Barnum called the $105B expense guide \"not a promise\"; this quarter it rose to ~$107.5B, and Dimon moved from credit-cycle caution to calling conditions \"close to as good as it gets.\""
+  },
+  "risksMentioned": [
+    "Jeremy Barnum, CFO, said yield-seeking deposit flows remain a risk in a more hawkish rate environment, and negative convexity in consumer rate paid will kick in at some point.",
+    "Jamie Dimon, Chairman and CEO, described mild underwriting deterioration in some players (more PIK, weaker covenants, expense add-backs) and expects outliers in the next credit cycle.",
+    "Barnum said the negative real wage cohort is a watch area and credit depends on the labor market."
+  ]
+}

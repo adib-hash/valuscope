@@ -1,0 +1,39 @@
+{"summaries": [
+{"letter": "A", "accuracy": 5, "qa": 6, "coverage": 8, "insight": 6, "concision": 6, "discipline": 7, "overall": 6, "errors": [
+"\"revised full-year 2026 non-GAAP EPS expectations to $35.50 to $36.50 from the prior guidance of $32.72 to $33.72\" - the prior (Q1) guide was $35.50-$37.00; $32.72-$33.72 appears nowhere in either transcript.",
+"\"from $32.72 to $33.72 (which was lowered previously from $35.50 to $37.00)\" - invented sequence; Q1 raised EPS guidance to $35.50-$37 and Q2 moved it directly to $35.50-$36.50.",
+"Jason Gerberry Q&A: Van Naarden 'stated that investments in psychiatry and infectious disease remain opportunistic ... rather than targets to build out fully scaled franchises' marked 'answered directly' - he said he did not 'want to forward look too much' on whether Lilly builds more there; he did not rule out scaled franchises."
+], "comment": "Well structured and mostly accurate, but the fabricated prior EPS guidance range (repeated in two sections) is a serious error on the most important number-moved item, and the empty unanswered list ignores clear partial answers."},
+{"letter": "B", "accuracy": 5, "qa": 6, "coverage": 7, "insight": 5, "concision": 7, "discipline": 6, "overall": 6, "errors": [
+"\"Dave Ricks ... confirmed retatrutide qualifies as a biologic under regulatory rules\" - Ricks said 'we believe' it is a biologic, 'That's our position', with a mixed first court decision and active litigation.",
+"Key metric \"Foundayo Q2 U.S. Revenue: $67 million (reported in Q2 2026)\" - the $67M figure was cited by analyst Dave Risinger in his question, not reported by management on the call.",
+"New mentions list \"Ebglyss\", \"Jaypirca\", \"INLURIYO\", \"KISUNLA\" - all four were named in the prior quarter's call as key products.",
+"Dropped topics list \"Centessa Pharmaceuticals\", \"Kelonia Therapeutics\", \"Ajax Therapeutics\", \"ADorable-1 trial\" - all were discussed in Q2 (Centessa acquisition complete, Ajax and Kelonia programs, ADorable program pediatric submission)."
+], "comment": "Headline numbers and guidance moves are right, but it overstates retatrutide's biologic status as confirmed, presents an analyst's figure as reported revenue, and its what-changed lists are substantially wrong."},
+{"letter": "C", "accuracy": 3, "qa": 5, "coverage": 6, "insight": 4, "concision": 7, "discipline": 6, "overall": 4, "errors": [
+"\"Eli Lilly reported fiscal Q2 2026 revenue of $85 billion to $87 billion\" - that is the full-year 2026 revenue guidance, not Q2 revenue.",
+"\"Full-year 2026 non-GAAP earnings per share guidance is $35.50 to $36.50, updated from the prior range of $32.72 to $33.72\" (also in What changed) - the Q1 guide was $35.50-$37.",
+"\"The Medicare Bridge program increased obesity access by 35% for seniors\" - Ricks said 35% more people in the U.S. now have coverage for Lilly's obesity medicines, not a 35% increase for seniors.",
+"Seamus Fernandez answer attributed to Ilya Yuffa includes 'outside the U.S. the business is mainly out of pocket', which was said by Patrik Jonsson.",
+"New mentions list \"Ebglyss\", \"Jaypirca\", \"Orforglipron\", \"INLURIYO\", \"KISUNLA\" - all were discussed in the prior quarter's call.",
+"Risk \"Potential supply constraints ... from generic semaglutide manufacturers\" - Jonsson described supply constraints at generic competitors, not a risk to Lilly's supply."
+], "comment": "The overview misstates full-year guidance as Q2 revenue and the EPS prior range is fabricated, undermining an otherwise reasonable skeleton."},
+{"letter": "D", "accuracy": 7, "qa": 9, "coverage": 9, "insight": 8, "concision": 4, "discipline": 8, "overall": 8, "errors": [
+"\"Patrik Jonsson, President, Lilly International, said Lilly's international incretin share is about 55% in a market up 74%\" - these figures came from Lucas Montarce's prepared remarks, not Jonsson.",
+"Guidance bullet: \"Ricks expects ... a global rollout in all major markets in 2027\" - the 2027 global rollout statement was made by Lucas Montarce."
+], "comment": "The most thorough and analytically sharp version with fair partial-answer reads and a real tone-shift observation, but it runs well over 900 words and misattributes two prepared-remarks figures."},
+{"letter": "E", "accuracy": 9, "qa": 8, "coverage": 8, "insight": 8, "concision": 8, "discipline": 9, "overall": 9, "errors": [], "comment": "Clean, accurately attributed and tight, with correct guidance moves, fair unanswered list and a grounded tone-shift comparison; only lightly covers the pipeline."},
+{"letter": "F", "accuracy": 1, "qa": 1, "coverage": 1, "insight": 1, "concision": 2, "discipline": 1, "overall": 1, "errors": [
+"Key metrics label $6.8B, $14.9B, $6.3B, $3B and $85B all as \"Q2 Revenue\" - these are key-product growth, Mounjaro+Zepbound revenue, their growth, a guidance raise and the full-year guide low end.",
+"Q&A answers attributed to \"Mike Czapar\" (Geoff Meacham, Mohit Bansal questions) - answers were given by Ken Custer and Jake Van Naarden; askers are left blank.",
+"New mentions \"Retinoid treatments\" - not discussed on the call.",
+"Dropped topics \"Revenue growth\", \"Mounjaro expansion\", \"International market growth\" - all were central to the Q2 call."
+], "comment": "Essentially a failed output: topic labels instead of findings, mislabeled numbers, raw transcript pasted as Q&A, and nonsensical what-changed lists."},
+{"letter": "G", "accuracy": 8, "qa": 9, "coverage": 9, "insight": 9, "concision": 7, "discipline": 8, "overall": 9, "errors": [
+"Risk: \"Novo Nordisk's oral is scaling in the U.K., Germany and the UAE ... per Jonsson\" - that was analyst Asad Haider's statement in his question; Jonsson did not say it."
+], "comment": "Dense and insightful, with fair partial reads, a well-chosen unanswered list and a substantive what-changed section, marred by one misattributed risk and a slightly overstated 'conceded a slower launch' tone claim."},
+{"letter": "H", "accuracy": 7, "qa": 6, "coverage": 7, "insight": 5, "concision": 7, "discipline": 5, "overall": 6, "errors": [
+"Asad Haider answer attributed to Ilya Yuffa includes 'combined incretin share held steady outside the U.S.', which was Patrik Jonsson's comment.",
+"New mentions \"INLURIYO\" and \"cleminorexton\" - both were discussed in the prior quarter's call (Inluriyo launch, Centessa's lead candidate cleminorexton)."
+], "comment": "Accurate on headline numbers but many takeaways and guidance bullets lack named attribution, the Q&A reads are uniformly 'direct' with an empty unanswered list, and insight is limited."}
+]}

@@ -1,0 +1,71 @@
+{
+"overview": "Kinsale's fiscal Q2 2026 diluted operating EPS was $5.54, up 15.9% from $4.78, with annualized operating ROE of 24.4% and a combined ratio of 75.5%. Gross written premium fell 5% and was up 3.7% excluding the Commercial Property Division, while net earned premium rose 8.9%. Michael Kehoe, Chairman, President and CEO, announced an additional $250 million buyback authorization and described a Commercial Property market where Kinsale is writing shrinking volume.",
+"keyTakeaways": [
+"Michael Kehoe, Chairman, President and CEO, said Commercial Property is a buyer's market and Kinsale is writing a shrinking volume of business there.",
+"Stuart Winston, Chief Underwriting Officer, said London MGAs and traditional markets are putting up larger limits on shared and layered property deals, and long-tail London competition is depressing Construction pricing.",
+"Kehoe said Kinsale manages everything to a 20% ROE or greater, with Q2 operating ROE at 24.4%.",
+"Salmaan Allibhai, Chief Analytics and Technology Officer, said reserves are as conservative as they have ever been, with the Q2 combined ratio including 4.5 points of favorable prior year development.",
+"Kehoe said Kinsale will keep leaning into buybacks while growth is limited, with an additional $250 million authorization bringing the total to $337 million."
+],
+"financialHighlights": [
+"Diluted operating EPS was $5.54 versus $4.78 in Q2 2025, up 15.9%, while net income rose 31.1% and net operating earnings rose 13.3%.",
+"Combined ratio was 75.5%, including 4.5 points of favorable prior year reserve development (3.9 last year) and 1.3 points of cat losses.",
+"Expense ratio was 21.7% versus 20.7% in Q2 2025, with the other underwriting expense ratio at 10.3% versus 10.6%.",
+"Net investment income rose 19.9%, and float was $3.4B versus $3.1B at the end of 2025.",
+"Net written premium fell 1.4% while net earned premium rose 8.9%; new business submissions rose 6%, or 8% excluding Commercial Property."
+],
+"keyMetrics": [
+{"metric": "Diluted operating EPS", "value": "$5.54", "comparison": "$4.78 in Q2 2025, up 15.9%"},
+{"metric": "Annualized operating ROE", "value": "24.4%"},
+{"metric": "Gross written premium", "value": "down 5%", "comparison": "ex Commercial Property up 3.7%"},
+{"metric": "Net earned premium", "value": "up 8.9%"},
+{"metric": "Combined ratio", "value": "75.5%", "comparison": "4.5 points favorable prior year development"},
+{"metric": "Expense ratio", "value": "21.7%", "comparison": "20.7% in Q2 2025"},
+{"metric": "New business submissions", "value": "up 6%", "comparison": "ex Commercial Property up 8%"},
+{"metric": "MS Amlin pricing index", "value": "down 5.9%", "comparison": "down 3.3% in Q1 2026"}
+],
+"guidance": [
+"Kehoe said Commercial Property Division y/y comparisons should be modestly easier in Q3 and Q4, because 60% of its premium was written in the first half of last year.",
+"Kehoe announced an additional $250 million buyback authorization, bringing the current authorization to $337 million.",
+"Bryan Petrucelli, CFO, said a slight uptick in ceding commissions is possible after the June 1 treaty renewals, and the Q2 expense ratio should be a good measure going forward.",
+"Allibhai said the current accident year loss ratio could drift up over time given the mix shift, although losses are currently below expectations.",
+"Winston said nine new products or enhancements have rolled out this year, five more launch imminently and another 10 are in the pipeline."
+],
+"qa": [
+{"analyst": "Pablo Singzon", "firm": "JPMorgan", "question": "What drove the improved current accident year loss ratio, and will the reinsurance ceding commission rate keep rising?", "responder": "Salmaan Allibhai", "responderTitle": "Chief Analytics and Technology Officer", "answer": "Allibhai said losses came in below expectations with nothing out of the ordinary, just normal variability and mix across a dozen statutory lines. Bryan Petrucelli, CFO, said treaties renewed June 1 so only one month of new-treaty effect is in Q2, a slight uptick in commissions is possible, and Q2 is a good indicator going forward.", "read": "Answered partially: no specific driver of the improvement."},
+{"analyst": "Hristian Getsov", "firm": "Wells Fargo", "question": "With E&S casualty softening, how much are ROEs compressing, and how is Kinsale thinking about broker commissions?", "responder": "Michael Kehoe", "responderTitle": "Chairman, President and CEO", "answer": "Kehoe said Kinsale manages everything to a 20% ROE or greater, most lines probably run ahead of that, and Q2 operating ROE was 24.4%. He gave no commission plan and called the wholesaler-retailer commission split a normal tension in a soft market.", "read": "Answered partially: ROE answered, commissions not."},
+{"analyst": "Dan Cohen", "firm": "BMO", "question": "Is Q2 the trough in Commercial Property, and what is driving the 3.7% growth ex Commercial Property?", "responder": "Stuart Winston", "responderTitle": "Chief Underwriting Officer", "answer": "Winston said there is no telling where it goes in 2027, pressure continues from London MGAs, and Kinsale will keep pricing tactical and accept shrinking in that division. He said London long-tail competition is creeping into other liability occurrence lines, and some flow to the admitted market is not pervasive.", "read": "Answered partially: declined to call a trough."},
+{"analyst": "Andrew Andersen", "firm": "Jefferies", "question": "How much of the increase in inbound accounts is broker engagement versus pricing, and what is the view on casualty loss trends?", "responder": "Stuart Winston", "responderTitle": "Chief Underwriting Officer", "answer": "Winston said it is a bit of both, with the idle broker initiative re-engaging brokers. Allibhai said casualty loss cost trend is probably mid-single digits, and Kehoe said Kinsale is slowing IBNR release in longer-tail occurrence business while letting it flow out faster in short-tail lines.", "read": "Answered directly."},
+{"analyst": "Mark Hughes", "firm": "Truist", "question": "When might property pricing stabilize, could the accident year loss ratio drift up, and how will buyback pacing look?", "responder": "Michael Kehoe", "responderTitle": "Chairman, President and CEO", "answer": "Kehoe said equilibrium will eventually come but he has no insight into when. Allibhai said the loss ratio could drift up over time; Kehoe said the first $100 million authorization is exhausted and the $250 million has about $80 million left, plus the new $250 million.", "read": "Answered partially: no timing on property pricing."},
+{"analyst": "Dan Cohen", "firm": "BMO", "question": "How have new products contributed to growth over the past year, and what is the potential uplift?", "responder": "Stuart Winston", "responderTitle": "Chief Underwriting Officer", "answer": "Winston said new products are driving submissions and new premium but growth will be slow, with a crawl, walk, run pace, and Kinsale will ramp up as the market turns.", "read": "Answered partially: no quantification of past contribution or future uplift."}
+],
+"unanswered": [
+{"analyst": "Hristian Getsov", "firm": "Wells Fargo", "question": "How is Kinsale thinking about broker commissions in a soft market?", "how": "Michael Kehoe, Chairman, President and CEO, gave no plan and cited service and appetite."},
+{"analyst": "Dan Cohen", "firm": "BMO", "question": "Is Q2 the trough in Commercial Property, with pricing less negative in 2027?", "how": "Stuart Winston, Chief Underwriting Officer, said 'there's no telling where it's going to go in 2027'."},
+{"analyst": "Mark Hughes", "firm": "Truist", "question": "When might property pricing stabilize?", "how": "Kehoe said equilibrium will eventually come but he has no insight into when."},
+{"analyst": "Dan Cohen", "firm": "BMO", "question": "How much have new products contributed to growth, and what is the potential uplift?", "how": "Winston described a slow crawl, walk, run pace and gave no quantification."}
+],
+"notableQuotes": [
+{"speaker": "Michael Kehoe", "title": "Chairman, President and CEO", "quote": "It's definitely a buyer's market, and as a consequence, we are writing a shrinking volume of business in that specific market."},
+{"speaker": "Stuart Winston", "title": "Chief Underwriting Officer", "quote": "Growth driven by compromised profit margins is easy to manufacture but costly to unwind."},
+{"speaker": "Salmaan Allibhai", "title": "Chief Analytics and Technology Officer", "quote": "I would just reiterate that our reserves are as conservative as they've ever been in our company's history."},
+{"speaker": "Stuart Winston", "title": "Chief Underwriting Officer", "quote": "there's no telling where it's going to go in 2027."},
+{"speaker": "Michael Kehoe", "title": "Chairman, President and CEO", "quote": "Obviously, the crisis is over and rates are coming down pretty dramatically."}
+],
+"whatChanged": {
+"guidanceRevisions": [
+"Return target moved from a low 20s ROE or greater to a 20% ROE or greater.",
+"Buyback authorization is new: an additional $250 million bringing the total to $337 million, with no authorization figure in the prior extraction."
+],
+"newMentions": ["Aspera", "Idle broker initiative", "MS Amlin pricing index", "Excess casualty", "Commercial auto", "Entertainment", "Environmental", "Energy", "Inland Marine", "London MGAs"],
+"droppedTopics": ["New quote and bind disclosure", "Equity portfolio performance", "E&S Homeowners decline", "Shift to smaller average premiums"],
+"toneShift": "Last quarter Michael Kehoe, CEO, said 'We don't really have any good news to report there' on property pricing; this quarter he says 'the crisis is over and rates are coming down pretty dramatically' and Stuart Winston, Chief Underwriting Officer, declines to call a 2027 trough."
+},
+"risksMentioned": [
+"Gross written premium fell 5%, with the Commercial Property Division shrinking under London MGA and traditional market competition on larger limits.",
+"The MS Amlin pricing index fell 5.9% versus 3.3% in Q1 2026.",
+"Winston said long-tail competition from London is depressing Construction pricing and adding competition in general casualty.",
+"Allibhai said casualty loss cost trend is probably mid-single digits, and the current accident year loss ratio could drift up as mix shifts.",
+"The expense ratio rose to 21.7% from 20.7% a year earlier."
+]
+}

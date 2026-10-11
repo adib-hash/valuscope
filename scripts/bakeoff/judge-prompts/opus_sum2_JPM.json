@@ -1,0 +1,60 @@
+{"summaries": [
+{"letter": "A", "accuracy": 4, "qa": 3, "coverage": 3, "insight": 1, "concision": 3, "discipline": 3, "overall": 2,
+ "errors": [
+  "Quote 'We're just trying to serve the clients and manage the risk and get our fair share of the business.' is attributed to Jamie Dimon; Jeremy Barnum said it in answer to Ken Usdin.",
+  "Chris McGratty follow-up answer attributed wholly to Jamie Dimon includes 'Power of franchise is such that able to aggressively invest... Would be true delivering 15%, 16%, 17% returns', which Jeremy Barnum said.",
+  "Dropped topics list 'Investment banking pipeline resilience', 'Long-term infrastructure and capital needs', 'AI cash tool and deposit competition' and 'Markets business balance sheet growth', yet all four come up on this call (robust IB pipeline; remilitarization and infrastructure capital needs; the smart cash tool; RWA growth from markets financing and the CIB equity allocation).",
+  "Mike Mayo's 'why is that as good as it gets' question is listed as unanswered, but Dimon answered it directly ('very healthy, active, exuberant market... We just don't know how long it will continue')."
+ ],
+ "comment": "A fragmentary data dump: the overview is a sentence fragment, takeaways and risks are bare labels, there is no tone shift, the unanswered list is unexplained and the dropped-topics list is largely wrong."},
+{"letter": "B", "accuracy": 8, "qa": 9, "coverage": 9, "insight": 9, "concision": 5, "discipline": 8, "overall": 8,
+ "errors": [
+  "Lists 'Smart cash tool' as a new mention; the prior-quarter call discussed the AI cash tool at length (Steven Chubak's first question)."
+ ],
+ "comment": "Rich and well-attributed, with a strong six-exchange Q&A, concrete regulatory and credit risks and a sharp tone shift, but it runs long and repeats points across sections."},
+{"letter": "C", "accuracy": 8, "qa": 8, "coverage": 9, "insight": 9, "concision": 7, "discipline": 7, "overall": 9,
+ "errors": [
+  "Quotes Dimon's timetable as \"several years or a few years, plus or minus\"; the transcript reads 'Several years, you can use a few years, you can use plus or minus', so the quoted phrase is not verbatim.",
+  "Names 'Marianne Lake'; the transcript gives only 'Marianne', so the surname is outside knowledge."
+ ],
+ "comment": "The most insightful note: it ties the expense raise to the $6.5B beat, flags the capital-deployment shift and gives a well-evidenced tone shift, with fair unanswered items."},
+{"letter": "D", "accuracy": 4, "qa": 4, "coverage": 6, "insight": 3, "concision": 7, "discipline": 4, "overall": 4,
+ "errors": [
+  "Quote \"Well, thank you. I'm glad to hear you're reading. My parents will be proud.\" is attributed to Jeremy Barnum, CFO; Ebrahim Poonawala, the analyst, said it.",
+  "James Mitchell answer: 'Operating leverage growth could slow in 2027 or 2028'; Dimon said expense growth ('a slowdown in growth') might slow in 2027 or 2028, not operating leverage.",
+  "Ebrahim Poonawala answer credits Jeremy Barnum with 'capital will be deployed organically at a 17% return while remaining open to M&A'; Jamie Dimon set the 17% goal and discussed M&A.",
+  "Lists 'Smart cash tool' as a new mention; the AI cash tool was discussed on the prior call.",
+  "Risk bullet places the underwriting deterioration 'among some competitors in data center underwriting'; Dimon described it generally (revenue assumptions, add-backs, PIK, covenants), and Barnum's data center remarks were separate.",
+  "Names 'Marianne Lake'; the surname is not in the transcript."
+ ],
+ "comment": "Covers the headline numbers and guidance, but misattributes an analyst's joke as a CFO quote, has an empty unanswered list, gives every answer 'answered directly' and has a thin one-bullet risks section."},
+{"letter": "E", "accuracy": 7, "qa": 7, "coverage": 8, "insight": 7, "concision": 7, "discipline": 5, "overall": 7,
+ "errors": [
+  "Names 'Doug Petno and Troy Rohrbaugh'; the transcript gives only first names, so the surnames are outside knowledge.",
+  "Lists 'Smart cash tool' as a new mention; the AI cash tool was discussed on the prior call.",
+  "Says equities benefited from 'heavy Asia derivatives flow'; Barnum said there was 'a lot of activity in Asia' and, separately in prepared remarks, that trading was favorable in derivatives and cash, with no Asia-specific derivatives claim."
+ ],
+ "comment": "Solid coverage, guidance and risks with good quotes, but it uses 'management raised' and outside-knowledge surnames, and lists only one unanswered item."},
+{"letter": "F", "accuracy": 8, "qa": 8, "coverage": 8, "insight": 8, "concision": 9, "discipline": 8, "overall": 8,
+ "errors": [
+  "'Dimon elevated two co-presidents'; Dimon said 'The board made a decision to go ahead with making two co-presidents.'",
+  "'Barnum declared a $1.65 quarterly dividend'; Barnum said the board intends to increase the dividend to $1.65, effective in the third quarter."
+ ],
+ "comment": "Tight and accurate, with the expense-raise bridge, the excess-capital framing and a pointed 'not a promise' tone shift, though it has only two unanswered items and a light Q&A on succession."},
+{"letter": "G", "accuracy": 5, "qa": 5, "coverage": 7, "insight": 4, "concision": 7, "discipline": 6, "overall": 5,
+ "errors": [
+  "Dropped topics list 'Basel III Endgame and G-SIB reproposals'; both are discussed on this call (James Mitchell's question and the Dimon/Barnum answers on G-SIB, Basel III and short-term wholesale funding).",
+  "Lists 'Smart cash tool' as a new mention; the AI cash tool was discussed on the prior call.",
+  "'Jeremy Barnum, CFO, declared a third-quarter 2026 dividend of $1.65'; Barnum said the board intends to increase the dividend.",
+  "Names 'Marianne Lake'; the surname is not in the transcript."
+ ],
+ "comment": "Readable and mostly correct on numbers, but the unanswered list is empty, every read is 'answered directly', and its what-changed claims are partly wrong while the tone shift is generic."},
+{"letter": "H", "accuracy": 3, "qa": 3, "coverage": 6, "insight": 3, "concision": 7, "discipline": 4, "overall": 3,
+ "errors": [
+  "Overview and risks attribute the view that the equities quarter is 'statistically improbable to repeat' to Jamie Dimon; Jeremy Barnum said it.",
+  "Risks: 'Jamie Dimon... warned that the firm does not know exactly when the negative convexity of deposit rates will kick in'; Jeremy Barnum said this in answer to Matt O'Connor.",
+  "Gerard Cassidy answer attributed to Jeremy Barnum includes 'mild deterioration in covenants and rollover risk' and hoping regulators focus on safety and soundness rather than 'bureaucratic reporting'; Jamie Dimon said both.",
+  "Lists 'Smart cash tool' as a new mention; the AI cash tool was discussed on the prior call."
+ ],
+ "comment": "Clean on the headline numbers, but repeatedly assigns Barnum's statements to Dimon and vice versa, with an empty unanswered list, all reads 'direct' and a thin what-changed section."}
+]}

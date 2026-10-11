@@ -1,0 +1,412 @@
+{
+  "speakers": [
+    {
+      "name": "Jamie Dimon",
+      "title": "Chairman and CEO",
+      "firm": "JPMorgan Chase",
+      "role": "executive"
+    },
+    {
+      "name": "Jeremy Barnum",
+      "title": "CFO",
+      "firm": "JPMorgan Chase",
+      "role": "executive"
+    },
+    {
+      "name": "Steven Chubak",
+      "firm": "Wolfe Research",
+      "role": "analyst"
+    },
+    {
+      "name": "Erika Najarian",
+      "firm": "UBS",
+      "role": "analyst"
+    },
+    {
+      "name": "Matt O'Connor",
+      "firm": "Autonomous Research",
+      "role": "analyst"
+    },
+    {
+      "name": "Glenn Schorr",
+      "firm": "Evercore ISI",
+      "role": "analyst"
+    },
+    {
+      "name": "Jim Mitchell",
+      "firm": "Seaport Global Securities",
+      "role": "analyst"
+    },
+    {
+      "name": "Kunpeng Ma",
+      "firm": "China Securities",
+      "role": "analyst"
+    },
+    {
+      "name": "Operator",
+      "role": "operator"
+    }
+  ],
+  "exchanges": [
+    {
+      "n": 1,
+      "analyst": "Steven Chubak",
+      "firm": "Wolfe Research",
+      "question": "AI cash tool focus for launch, deposit pressure risk, deposit competition with similar smart tools, higher deposit betas?",
+      "responder": "Jamie Dimon",
+      "responderTitle": "Chairman and CEO",
+      "alsoAnswered": ["Jeremy Barnum"],
+      "answer": "Early stages for product. Look segment by segment how people manage money. High net worth people astute, tons of choices. Question is making easier for them manage money way comfortable. Like enabling checking to money market fund move. Provide great values, have ATMs, branches, advice, Zelle. Look whole basket do better job for client. May squeeze margin, create competition. Not live yet, targeted small client subset with investments where opportunity take larger investment wallet share.",
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "n": 1,
+      "analyst": "Steven Chubak",
+      "firm": "Wolfe Research",
+      "question": "Basel III capital proposal RWA inflationary impacts. Mitigating actions? Double counting of markets or operational risk relief magnitude?",
+      "responder": "Jeremy Barnum",
+      "responderTitle": "CFO",
+      "alsoAnswered": ["Jamie Dimon"],
+      "answer": "Well-practiced understanding rules, using financial resources efficiently support client franchise. Hope rules land where nothing makes good healthy business completely non-economic. Targeted RWA clarifications needed on high-yield repo collateral and advised lines proposal unclear impact, creates irrational results. Not optimization story; rule set converging, need grow business deploy resources serve clients. G-SIB significant disincentive particular markets business. U.S. capital markets key competitive advantage; regulatory rules discouraging dynamic secondary market with bank participation not great. If double count removed by stress testing removal, no impact; if modifying operational risk RWA calculation, might have impact. Removal definitely support, not number one priority.",
+      "directness": "direct",
+      "newInformation": true,
+      "pushback": false
+    },
+    {
+      "n": 2,
+      "analyst": "Erika Najarian",
+      "firm": "UBS",
+      "question": "Modified Markets NII outlook due to rate changes. Retain $95B ex-Markets NII? Offsets to higher rates and asset sensitivity if no cuts rest of year?",
+      "responder": "Jeremy Barnum",
+      "responderTitle": "CFO",
+      "alsoAnswered": [],
+      "answer": "Asset sensitive; rates higher, removal cuts back half. Might expect NII ex-Markets revision up. EAR $1.8 billion. Cuts pretty backdated; impact full year average only about 20 basis points. Upward revision quite small doing that math. Other bits up and down noise, rounding effects. Numbers aren't changed. Not too much to read into it.",
+      "directness": "direct",
+      "newInformation": true,
+      "pushback": false
+    },
+    {
+      "n": 2,
+      "analyst": "Erika Najarian",
+      "firm": "UBS",
+      "question": "Private credit default cycle, higher defaults, higher severity. What is ultimate loss back to banks? Will it be systemic?",
+      "responder": "Jamie Dimon",
+      "responderTitle": "Chairman and CEO",
+      "alsoAnswered": [],
+      "answer": "No, quite clear. Private credit leveraged lending $1.7 trillion, high yield $1.7 trillion, bank syndicated $1.7 trillion, investment grade debt $13 trillion, mortgage $13 trillion. Weakening in underwriting not just private credit. Credit cycle will happen. Losses worse than expect relative scenario. Don't think systemic at that size. Recessions stress and strain system. Banks most things on top large losses before hit or stressed. What filter through whole system bigger issue. Corporations not too high debt, consumers not too high, excess government debt. Industry surprises people. 2000 utilities telecom, 2008 media newspapers. Something always happens people don't expect.",
+      "directness": "direct",
+      "newInformation": true,
+      "pushback": false
+    },
+    {
+      "n": 3,
+      "analyst": "Matt O'Connor",
+      "firm": "Autonomous Research",
+      "question": "Capital management going forward. Still have big buffer above required levels? Updated thoughts capital allocation?",
+      "responder": "Jamie Dimon",
+      "responderTitle": "Chairman and CEO",
+      "alsoAnswered": [],
+      "answer": "Lots excess capital, measure around $40 billion, can change depending ultimate rules. Prefer deploy capital serving clients. More bankers innovation economy, more global banking, commercial banking overseas, opening countries, payment systems, branches, building client base. Not overnight. Goal not deploy capital; build wonderful businesses use capital intelligently developing with client focus. World so big, complex, capital needs. Biggest small business bankers, capital needs countries, remilitarization, infrastructure. Huge capital needs companies, huge mergers. Some companies not big enough serve. More opportunity serve large clients ways need over time. M&A, countries, helping build infrastructure need. Happen over time, not in rush. Preferred using capital not buying back stock today, doing fair value, but buy cheap get ongoing shareholder benefit.",
+      "directness": "direct",
+      "newInformation": true,
+      "pushback": false
+    },
+    {
+      "n": 5,
+      "analyst": "Glenn Schorr",
+      "firm": "Evercore ISI",
+      "question": "Long duration capital needs. Private markets balance sheet or big public banks finance? Higher for longer rates impact direct lending BB B refinancing?",
+      "responder": "Jamie Dimon",
+      "responderTitle": "Chairman and CEO",
+      "alsoAnswered": ["Jeremy Barnum"],
+      "answer": "Banks won't warehouse very long-dated stuff balance sheet. Investment grade or large non-investment grade, private and public markets come together. Make markets, research. Harder for private credit large investment grade though done it. Compete with us, willing too. Take customer side by side bank syndicated loan. Lot creative capital, creative financing. Institutions need long-dated assets, pension plans, Social Security plans. Intermediate, come ideas, put balance sheet. Balance sheet shorter dated. Infrastructure requirements going up dramatically, utilities roads bridges data centers GPUs. All infrastructure today. Serve clients great job. In categories private and public markets come closer, values trading secondary markets. Higher for longer, stagflation, credit spreads gap out, stress and strain leveraged companies refinancing. Fixed. Capital or credit reduction CapEx plans. Not immediate disaster overnight, more stress and strain. Credit cycle worse than people think. Systemic risk. Recessionary behavior.",
+      "directness": "direct",
+      "newInformation": true,
+      "pushback": false
+    },
+    {
+      "n": 6,
+      "analyst": "Glenn Schorr",
+      "firm": "Evercore ISI",
+      "question": "Size private credit exposure?",
+      "responder": "Jeremy Barnum",
+      "responderTitle": "CFO",
+      "alsoAnswered": [],
+      "answer": "Private market exposure means lot different things. NBFI from $330 call report to $160 core, inside $160 about $50 called private credit, portion involving leverage loan investors. Back leverage BDC lending, underwriting diversification cash flow trapping. Core private credit about $60 billion. Other pieces direct lending subscription lines variously in or out different measures.",
+      "directness": "direct",
+      "newInformation": true,
+      "pushback": false
+    },
+    {
+      "n": 7,
+      "analyst": "Jim Mitchell",
+      "firm": "Seaport Global Securities",
+      "question": "Investment banking activity March held up, pushing out pause on activity, pipeline resilience?",
+      "responder": "Jeremy Barnum",
+      "responderTitle": "CFO",
+      "alsoAnswered": [],
+      "answer": "Activity held up well. Robust result quarter accelerated timing M&A closure, faster than expected regulatory approval. All to good, unrelated overall sentiment. Pipeline resilient, maybe surprisingly given everything. Middle East timelines quite short, deadlines negotiations, reasonable proceed plans hope quick resolutions. Things getting derailed, surprised not see impact sentiment deal decision-making. Right now quite resilient.",
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "n": 7,
+      "analyst": "Jim Mitchell",
+      "firm": "Seaport Global Securities",
+      "question": "Balance sheet growth markets 20% year-over-year. G-SIB surcharge impact ability grow? Capital decision markets business?",
+      "responder": "Jeremy Barnum",
+      "responderTitle": "CFO",
+      "alsoAnswered": ["Jamie Dimon"],
+      "answer": "Yes, big part reason spent time talking problems surcharge. Disproportionately accrues Markets business, relatively low-risk density stuff client base needs wants. Important regulators think carefully what trying achieve. Use brainpower find ways serve clients properly reduce G-SIB charge, usually called arbitrage. Not sure outcome great for system, will find ways.",
+      "directness": "direct",
+      "newInformation": true,
+      "pushback": false
+    },
+    {
+      "n": 8,
+      "analyst": "Kunpeng Ma",
+      "firm": "China Securities",
+      "question": "Private credit selection capability. How ensure staying with good guys avoiding bad guys?",
+      "responder": "Jamie Dimon",
+      "responderTitle": "Chairman and CEO",
+      "alsoAnswered": [],
+      "answer": "Quite disciplined on credit. Certain things turn down. Don't like covenants, underwriting, ability move assets secured company. Willing balance sheet go down. Think credit stretched, won't make loans, not because don't want, just not willing meet terms. That's how do it. Most clients including private credit, underwrite company, loans, covenants. Credit's discipline. Loans outcome doing good business. Sometimes loan book drops 10% next year, completely fine thought loans walking away irresponsible.",
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    }
+  ],
+  "guidance": [
+    {
+      "item": "NII ex-Markets (full year 2026)",
+      "current": "about $95 billion",
+      "period": "full year 2026",
+      "source": "prepared",
+      "speaker": "Jeremy Barnum"
+    },
+    {
+      "item": "Total NII (full year 2026)",
+      "current": "approximately $103 billion",
+      "period": "full year 2026",
+      "source": "prepared",
+      "speaker": "Jeremy Barnum"
+    },
+    {
+      "item": "Markets NII (full year 2026)",
+      "current": "about $8 billion",
+      "period": "full year 2026",
+      "source": "prepared",
+      "speaker": "Jeremy Barnum"
+    },
+    {
+      "item": "Adjusted expense outlook (full year 2026)",
+      "current": "about $105 billion",
+      "period": "full year 2026",
+      "source": "prepared",
+      "speaker": "Jeremy Barnum"
+    },
+    {
+      "item": "Card net charge-off rate (full year 2026)",
+      "current": "approximately 3.4%",
+      "period": "full year 2026",
+      "source": "prepared",
+      "speaker": "Jeremy Barnum"
+    }
+  ],
+  "metrics": [
+    {
+      "metric": "CCB net income",
+      "value": "$5 billion",
+      "comparison": ""
+    },
+    {
+      "metric": "CCB revenue",
+      "value": "$19.6 billion",
+      "comparison": "up 7% year-on-year"
+    },
+    {
+      "metric": "Average deposits (CCB)",
+      "value": "up 2% year-on-year and quarter-on-quarter",
+      "comparison": ""
+    },
+    {
+      "metric": "Client investment assets (CCB)",
+      "value": "up 18% year-on-year",
+      "comparison": "driven by market performance and healthy net inflows"
+    },
+    {
+      "metric": "Home lending originations",
+      "value": "$13.7 billion",
+      "comparison": "increased 46% year-on-year"
+    },
+    {
+      "metric": "CIB net income",
+      "value": "$9 billion",
+      "comparison": ""
+    },
+    {
+      "metric": "CIB revenue",
+      "value": "$23.4 billion",
+      "comparison": "up 19% year-on-year"
+    },
+    {
+      "metric": "IB fees",
+      "value": "up 28% year-on-year",
+      "comparison": "strong M&A and equity underwriting, offset by lower debt underwriting"
+    },
+    {
+      "metric": "FICC income",
+      "value": "up 21% year-on-year",
+      "comparison": "strong across businesses, offset by lower rates"
+    },
+    {
+      "metric": "Equities revenue",
+      "value": "up 17%",
+      "comparison": "increased client activity"
+    },
+    {
+      "metric": "AWM net income",
+      "value": "$1.8 billion",
+      "comparison": ""
+    },
+    {
+      "metric": "AWM pre-tax margin",
+      "value": "35%",
+      "comparison": ""
+    },
+    {
+      "metric": "AWM revenue",
+      "value": "$6.4 billion",
+      "comparison": "up 11% year-on-year"
+    },
+    {
+      "metric": "Long-term net inflows (AWM)",
+      "value": "$54 billion",
+      "comparison": "continued strength across fixed income, equity, multi-asset"
+    },
+    {
+      "metric": "AUM",
+      "value": "$4.8 trillion",
+      "comparison": "up 16% year-on-year"
+    },
+    {
+      "metric": "Client assets",
+      "value": "$7.1 trillion",
+      "comparison": "up 18% year-on-year"
+    },
+    {
+      "metric": "Corporate net income",
+      "value": "$699 million",
+      "comparison": ""
+    },
+    {
+      "metric": "Corporate revenue",
+      "value": "$1.2 billion",
+      "comparison": ""
+    },
+    {
+      "metric": "Consumer spend growth",
+      "value": "continuing above last year's pace",
+      "comparison": ""
+    },
+    {
+      "metric": "Excess capital",
+      "value": "around $40 billion",
+      "comparison": ""
+    },
+    {
+      "metric": "G-SIB surcharge",
+      "value": "$109 billion",
+      "comparison": "noted as hard to reconcile with 2015 Fed white paper principles"
+    },
+    {
+      "metric": "Private credit exposure",
+      "value": "about $50 billion",
+      "comparison": "portion of $160B core NBFI involving leverage loan investors"
+    },
+    {
+      "metric": "Markets business balance sheet growth",
+      "value": "over 20% year-over-year",
+      "comparison": ""
+    }
+  ],
+  "quotes": [
+    {
+      "speaker": "Jamie Dimon",
+      "title": "Chairman and CEO",
+      "quote": "Your margin is my opportunity. I kind of agree with that.",
+      "context": "Jeff Bezos quote on competitive dynamics"
+    },
+    {
+      "speaker": "Jamie Dimon",
+      "title": "Chairman and CEO",
+      "quote": "We're trying to look at the world from the point of view of the customer.",
+      "context": "AI cash tool philosophy"
+    },
+    {
+      "speaker": "Jamie Dimon",
+      "title": "Chairman and CEO",
+      "quote": "Operational risk capital is another crazy, obtuse one in a thousand year thing.",
+      "context": "Basel III proposal criticism"
+    },
+    {
+      "speaker": "Jamie Dimon",
+      "title": "Chairman and CEO",
+      "quote": "I'd rather buy back stock when we think it's a real discount.",
+      "context": "Capital allocation philosophy"
+    },
+    {
+      "speaker": "Jamie Dimon",
+      "title": "Chairman and CEO",
+      "quote": "We're disciplined on credit. There are certain things we turn down.",
+      "context": "Private credit underwriting discipline"
+    },
+    {
+      "speaker": "Jeremy Barnum",
+      "title": "CFO",
+      "quote": "This thing is kind of not even live yet.",
+      "context": "AI cash tool stage"
+    },
+    {
+      "speaker": "Jamie Dimon",
+      "title": "Chairman and CEO",
+      "quote": "It's all opportunity.",
+      "context": "Private markets and public markets dynamics"
+    },
+    {
+      "speaker": "Jamie Dimon",
+      "title": "Chairman and CEO",
+      "quote": "We'll be big boys about it.",
+      "context": "Handling potential credit cycle"
+    }
+  ],
+  "topics": [
+    "AI cash tool and deposit competition",
+    "Basel III regulatory capital proposal and G-SIB surcharge",
+    "Private credit exposure and systemic risk",
+    "Capital allocation and excess capital deployment",
+    "Investment banking pipeline resilience",
+    "Markets business balance sheet growth",
+    "Consumer credit performance and resilience",
+    "Higher-for-longer rates impact on refinancing",
+    "Regulatory capital rules and U.S. capital markets competitiveness",
+    "Long-term infrastructure and capital needs"
+  ],
+  "newMentions": [
+    "AI cash tool",
+    "Smart cash tool",
+    "Basel III endgame",
+    "G-SIB surcharge",
+    "RWA inflationary impacts",
+    "High-yield repo collateral",
+    "Global Market Shock",
+    "Private credit leverage loans",
+    "Direct lending",
+    "Subscription lines",
+    "Stagflation concerns",
+    "Infrastructure capital needs"
+  ]
+}

@@ -1,0 +1,167 @@
+{
+  "overview": "Lilly's Q2 revenue grew 48% year over year, with MOUNJARO and ZEPBOUND contributing $14.9B (+$6.3B) and non-GAAP EPS of $8.38 including $3.03 of acquired IPR&D charges, versus $6.31 a year ago. Lucas Montarce, CFO, raised full-year revenue guidance to $85B-$87B from $82B-$85B and the performance margin range to 49%-50.5%. Dave Ricks, Chair and CEO, said that while Lilly is pleased with progress, \"we're not satisfied\".",
+  "keyTakeaways": [
+    "Ilya Yuffa, President of Lilly USA, said U.S. Foundayo volume almost doubled in the last week of July versus a month earlier, with about one in four new starts and prescribers up from about 8,000 to 36,000.",
+    "Dave Ricks, Chair and CEO, said retatrutide's BLA classification is in active litigation with the FDA, with submission expected by Q1 2027 once more CMC data are gathered.",
+    "The Medicare GLP-1 Bridge Program launched July 1 for 20 million eligible Americans at $50 a month; Yuffa said around 80% of early patients are on injectables and 60%-70% are new to treatment.",
+    "Lucas Montarce, CFO, said ZEPBOUND net price will go down \"for sure\" as CVS access resumes in Q4, embedded in the guide and more than offset by volume."
+  ],
+  "financialHighlights": [
+    "Revenue up 48%; U.S. revenue up 33% on volume, with U.S. price down 3% (down 9% excluding rebate estimate changes).",
+    "Constant-currency growth of 55% in Europe (including a $250M Jardiance milestone), 30% in Japan, 93% in China and 136% in rest of world.",
+    "Gross margin 86.3%, up about 1.3 points; marketing, selling and administrative up 25%; R&D up 14% with more than 40 phase III programs.",
+    "Non-GAAP performance margin 54.8%, up nine points; Ebglyss sales more than doubled and Jaypirca grew 56%."
+  ],
+  "keyMetrics": [
+    {
+      "metric": "Revenue growth",
+      "value": "+48%",
+      "comparison": "vs Q2 2025"
+    },
+    {
+      "metric": "MOUNJARO + ZEPBOUND revenue",
+      "value": "$14.9B",
+      "comparison": "+$6.3B YoY"
+    },
+    {
+      "metric": "Non-GAAP EPS",
+      "value": "$8.38",
+      "comparison": "vs $6.31; incl. $3.03 IPR&D"
+    },
+    {
+      "metric": "Non-GAAP performance margin",
+      "value": "54.8%",
+      "comparison": "Up 9 points YoY"
+    },
+    {
+      "metric": "Gross margin",
+      "value": "86.3%",
+      "comparison": "Up ~1.3 points YoY"
+    },
+    {
+      "metric": "U.S. price",
+      "value": "-3%",
+      "comparison": "-9% ex rebate estimate changes"
+    },
+    {
+      "metric": "U.S. obesity incretin TRx",
+      "value": "+78%",
+      "comparison": "~6 of 10 are Lilly"
+    }
+  ],
+  "guidance": [
+    "Lucas Montarce, CFO, raised full-year revenue to $85B-$87B from $82B-$85B, a $2.5B midpoint increase, with second-half growth significant in dollars but slower in percentage terms.",
+    "Montarce raised the non-GAAP performance margin to 49%-50.5% from 47%-48.5% and set non-GAAP EPS at $35.50-$36.50, up $2.78 at the midpoint before the $3.03 Q2 acquired IPR&D charge.",
+    "Montarce said prior-period rebate adjustments will not recur in the second half, which also carries Europe Q3 and U.S. Type 2 diabetes Q4 seasonality.",
+    "Dave Ricks, Chair and CEO, expects Foundayo U.S. Type 2 diabetes action later this year; Patrik Jonsson, President of Lilly International, expects the major OUS rollout at the beginning of 2027; Dan Skovronsky, Chief Scientific and Product Officer, expects the retatrutide submission in Q1 2027."
+  ],
+  "risksMentioned": [
+    "Foundayo's U.S. launch curve was slower than anticipated, and the inflection claim rests on a few weeks of data.",
+    "ZEPBOUND net price is expected to fall from Q4 as CVS access resumes and medical exceptions fade, per Montarce.",
+    "Retatrutide's BLA pathway is disputed with the FDA, with a mixed first court decision, per Ricks.",
+    "Novo Nordisk's oral is scaling in the U.K., Germany and the UAE and generic semaglutide has launched in India and Brazil, per Jonsson."
+  ],
+  "qa": [
+    {
+      "analyst": "Asad Haider",
+      "firm": "Goldman Sachs",
+      "question": "Why has the U.S. Foundayo launch been slower than anticipated, when will it inflect, and how is the ex-U.S. race against Novo's oral shaping up?",
+      "responder": "Ilya Yuffa",
+      "responderTitle": "President of Lilly USA and Global Customer Capabilities",
+      "answer": "CVS added Foundayo in June, Bridge launched July 1 and full DTC began; in the last week of July volume almost doubled with about one in four new starts on Foundayo. Patrik Jonsson, President of Lilly International: the UAE launch started strongly and Lilly held incretin share despite a second oral; Mexico and Saudi Arabia are next, most launches in 2027.",
+      "read": "Answered partially; called Novo's share claim noisy sell-in data."
+    },
+    {
+      "analyst": "Courtney Breen",
+      "firm": "Bernstein",
+      "question": "What milestones remain for retatrutide under the BLA pathway, and will the classification apply to later incretins?",
+      "responder": "Dave Ricks",
+      "responderTitle": "Chair and CEO",
+      "answer": "Lilly holds retatrutide is a biologic under the amino acid count rule; the first court decision was mixed and litigation is active. All clinical data are in hand, more CMC data must be gathered, and submission is expected by Q1 next year.",
+      "read": "Answered partially; later incretins not addressed."
+    },
+    {
+      "analyst": "Akash Tewari",
+      "firm": "Jefferies",
+      "question": "Guidance implies a second-half deceleration despite Bridge and Foundayo access; is price being missed or is the team conservative?",
+      "responder": "Lucas Montarce",
+      "responderTitle": "Chief Financial Officer",
+      "answer": "The guide rose $2.5B; recent quarters included one-off rebate adjustments that will not continue, the 2025 base had a bolus of new-country MOUNJARO launches that will not repeat, and Europe Q3 and U.S. Type 2 diabetes Q4 seasonality are factored in; second-half dollar growth is still significant.",
+      "read": "Answered directly; disputed the premise."
+    },
+    {
+      "analyst": "Umer Raffat",
+      "firm": "Evercore",
+      "question": "ZEPBOUND net price looks like about $580 per prescription, well above cash prices; how sustainable is the medical-exception delta now CVS is back?",
+      "responder": "Lucas Montarce",
+      "responderTitle": "Chief Financial Officer",
+      "answer": "LillyDirect runs $299 to $449, Bridge $245, plus the commercial price; medical exceptions and larger commercial script sizes lift the per-prescription figure. CVS access resumes in Q4, medical exceptions are \"maybe a short-term thing\", and price is expected to go down for sure, embedded in the guide.",
+      "read": "Answered partially; no net price figure."
+    }
+  ],
+  "unanswered": [
+    {
+      "analyst": "Terence Flynn",
+      "firm": "Morgan Stanley",
+      "question": "Is Foundayo sampling dampening weekly IQVIA prescription data?",
+      "how": "Ilya Yuffa, President of Lilly USA, described the sampling program and prescriber count but did not say whether it dampens the data."
+    },
+    {
+      "analyst": "Jason Gerberry",
+      "firm": "Bank of America",
+      "question": "Are psychiatry and vaccines scalable priorities or one-off deals?",
+      "how": "Jake Van Naarden, President of Lilly Oncology and Head of Business Development, would not forward-look, saying Lilly will be opportunistic."
+    },
+    {
+      "analyst": "Courtney Breen",
+      "firm": "Bernstein",
+      "question": "Will BLA classification apply to subsequent incretins?",
+      "how": "Dave Ricks, Chair and CEO, addressed only retatrutide."
+    }
+  ],
+  "notableQuotes": [
+    {
+      "speaker": "Dave Ricks",
+      "title": "Chair and CEO",
+      "quote": "While we're pleased with the progress this year so far, we're not satisfied."
+    },
+    {
+      "speaker": "Ilya Yuffa",
+      "title": "President of Lilly USA and Global Customer Capabilities",
+      "quote": "We're starting to see an inflection point on Foundayo now."
+    },
+    {
+      "speaker": "Patrik Jonsson",
+      "title": "President of Lilly International",
+      "quote": "I think we are extremely well-positioned here in terms of supply. There will be no gating of launches either."
+    },
+    {
+      "speaker": "Lucas Montarce",
+      "title": "Chief Financial Officer",
+      "quote": "The medical exception is maybe a short-term thing and our all along view is to have open access for all the patients."
+    }
+  ],
+  "whatChanged": {
+    "guidanceRevisions": [
+      "Full-year revenue: $82B-$85B to $85B-$87B.",
+      "Non-GAAP performance margin: 47%-48.5% to 49%-50.5%.",
+      "Non-GAAP EPS: $35.50-$37 to $35.50-$36.50, midpoint up $2.78 before the $3.03 Q2 acquired IPR&D charge.",
+      "Retatrutide: TRIUMPH-1 topline due Q2 to U.S. submission in Q1 2027 under a disputed BLA pathway.",
+      "ZEPBOUND net price: relatively stable to expected to decline from Q4."
+    ],
+    "newMentions": [
+      "Onswik (insulin efsitora alfa)",
+      "Curevo, LimmaTech Biologics and The Vaccine Company",
+      "AtaiBeckley (BPL-003)",
+      "VERVE-102 PCSK9 gene editing; tersolisib; brenipatide",
+      "UAE, Mexico and Saudi Arabia Foundayo launches; Novo Nordisk oral competition"
+    ],
+    "droppedTopics": [
+      "Lilly Employer Connect and employer coverage",
+      "Incretin pricing-versus-volume economics and the MFN agreement",
+      "Obesity market segmentation and eloralintide",
+      "Part D 2028 plans"
+    ],
+    "toneShift": "Q1 closed with \"a lot more to come in 2026\" and high confidence that Foundayo was tracking to plan; Q2 conceded a slower U.S. launch while asserting an inflection, Dave Ricks closed with \"we're not satisfied\", and retatrutide language turned to litigation with the FDA."
+  }
+}

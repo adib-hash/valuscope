@@ -1,0 +1,376 @@
+{
+  "speakers": [
+    {"name": "Chris Seibert", "title": "Director of Investor Relations", "firm": "Deere & Company", "role": "executive"},
+    {"name": "Brent Norwood", "title": "Chief Financial Officer", "firm": "Deere & Company", "role": "executive"},
+    {"name": "Deanna Kovar", "title": "President, Worldwide Agriculture & Turf Division", "firm": "Deere & Company", "role": "executive"},
+    {"name": "Dan Pooley", "title": "Manager, Investor Communications", "firm": "Deere & Company", "role": "executive"},
+    {"name": "Operator", "role": "operator"},
+    {"name": "Jamie Cook", "firm": "Truist Securities", "role": "analyst"},
+    {"name": "Tami Zakaria", "firm": "JPMorgan", "role": "analyst"},
+    {"name": "Kristen Owen", "firm": "Oppenheimer", "role": "analyst"},
+    {"name": "Tim Thein", "firm": "Raymond James", "role": "analyst"},
+    {"name": "Jerry Revich", "firm": "Wells Fargo", "role": "analyst"},
+    {"name": "David Raso", "firm": "Evercore ISI", "role": "analyst"},
+    {"name": "Rob Wertheimer", "firm": "Melius Research", "role": "analyst"},
+    {"name": "Steve Volkmann", "firm": "Jefferies", "role": "analyst"},
+    {"name": "Steve Fisher", "firm": "UBS", "role": "analyst"},
+    {"name": "Chad Dillard", "firm": "Bernstein", "role": "analyst"},
+    {"name": "Angel Castillo", "firm": "Morgan Stanley", "role": "analyst"},
+    {"name": "Peter Kalemkerian", "firm": "Baird", "role": "analyst"},
+    {"name": "Sabahat Khan", "firm": "RBC Capital Markets", "role": "analyst"}
+  ],
+  "exchanges": [
+    {
+      "n": 1,
+      "analyst": "Jamie Cook",
+      "firm": "Truist Securities",
+      "question": "How is Deere thinking about production versus retail by region for 2027? Given early order programs up mid-single digit, what are pricing expectations for 2027 given inflationary cost concerns?",
+      "responder": "Chris Seibert",
+      "responderTitle": "Director of Investor Relations",
+      "alsoAnswered": ["Deanna Kovar"],
+      "answer": "Modest underproduction planned for PPA and C&F, couple percentage points each; production plans set for full year. South America caution drives underproduction. C&F underproduction reflects continuous growth pace and four-to-five-month order position. EOP pricing rolled out to cover inflation across portfolio; focus remains on inflation coverage across PPA products as rolling toward 2027.",
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "n": 2,
+      "analyst": "Tami Zakaria",
+      "firm": "JPMorgan",
+      "question": "Tariff expense down to $1.1 billion from $1.2 billion expected—is this due to Ag Equipment tariff relief in July or refunds? Can you explain what drove the change? Any updates on excavator launch timing and broader adoption outlook?",
+      "responder": "Chris Seibert",
+      "responderTitle": "Director of Investor Relations",
+      "alsoAnswered": ["Brent Norwood"],
+      "answer": "$1.2 billion to $1.1 billion driven by Section 232 tariff changes—imported goods rate dropped from 25% to 15%, effective June 1, driving five months of impact for FY 2026. Expect tailwind for FY 2027. Excavator launch occurred spring with three models now in market; positive customer feedback so far; full portfolio to roll out spring through next three-to-four years, early days with very positive reception.",
+      "directness": "direct",
+      "newInformation": true,
+      "pushback": false
+    },
+    {
+      "n": 3,
+      "analyst": "Kristen Owen",
+      "firm": "Oppenheimer",
+      "question": "Did inventory or shipment demand slip between Q3 and Q4? Inventory-to-sales ratios show tractor inventory built in Q3. Is South America demand offset driving caution? Help understand cadence exiting year.",
+      "responder": "Chris Seibert",
+      "responderTitle": "Director of Investor Relations",
+      "alsoAnswered": ["Deanna Kovar", "Brent Norwood"],
+      "answer": "Nothing to be concerned about on inventory; shipment plans largely set for year with orders on hand. Pulled ahead some demand in Q3 to manage risk in Q4. Factories hitting forecasts; retail pace continuing historical averages with expectations to move inventory. PPA and C&F expect similar net sales Q4 as Q3, but margins down due to no refund benefit and seasonal R&D/SA&G hits in Q4.",
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "n": 4,
+      "analyst": "Tim Thein",
+      "firm": "Raymond James",
+      "question": "How might mix impact 2027 given technology sales on C&F and strong spring early order program? Historically saw 2-3 points benefit from mix; how thinking about potential impact from higher tech sales?",
+      "responder": "Chris Seibert",
+      "responderTitle": "Director of Investor Relations",
+      "answer": "Industry environment uncertain with commodity/input volatility in agriculture and shipment disruptions. Focus on controllables: inventory management. Recent softness in EU and Brazil need to play into 2027. Too early to assess mix. EOP signals including tech adoption and positioning will drive mix. Need to see if sharp rebound occurs and how combines perform later this year.",
+      "directness": "partial",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "n": 5,
+      "analyst": "Jerry Revich",
+      "firm": "Wells Fargo",
+      "question": "Unpack early order program comments. What variability by region? Mid-single digit growth could wind up high single digits. Comment on moving pieces?",
+      "responder": "Deanna Kovar",
+      "responderTitle": "President, Worldwide Agriculture & Turf Division",
+      "alsoAnswered": ["Chris Seibert"],
+      "answer": "U.S. trending slightly better than Canada. Customers continue wanting latest technologies in planting/spraying. Best signals are mid-single digit increases in orders and doubling of See & Spray on factory sprayers and 40% of planters taking advanced technology. Confidence heading in right direction as customers maximize everything going into 2027.",
+      "directness": "direct",
+      "newInformation": true,
+      "pushback": false
+    },
+    {
+      "n": 6,
+      "analyst": "David Raso",
+      "firm": "Evercore ISI",
+      "question": "Given EOP open for a while, what drove mid-single digit cadence of orders? Recent grain price improvement or technology decision factors?",
+      "responder": "Deanna Kovar",
+      "responderTitle": "President, Worldwide Agriculture & Turf Division",
+      "answer": "Cadence as expected; made tweaks to EOP this year for dealer choice. Pleasantly surprised by tech take rates; hopeful mid-single digit increase extends through year.",
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "n": 7,
+      "analyst": "Rob Wertheimer",
+      "firm": "Melius Research",
+      "question": "Comments on 8 Series Tractor orders aligning with EOP? Europe experiencing heat stress and input costs—how diverse are reactions? Will Europe react similarly to U.S. if crop price response?",
+      "responder": "Chris Seibert",
+      "responderTitle": "Director of Investor Relations",
+      "answer": "8R orders as expected; four-to-five months out, MY2026 basically closed. Encouraged by recent commodity price changes; corn futures at $5.05 good signal for growers. Brazil three-month order book changed industry guide per circumstances. Too early for 2027. Move financing at single-digit rates hopefully drives momentum. Europe mixed: solid Small Ag & Turf but PPA exposed; arable challenged; Small Ag & Turf benefiting from dairy/livestock cash flows stable.",
+      "directness": "direct",
+      "newInformation": true,
+      "pushback": false
+    },
+    {
+      "n": 8,
+      "analyst": "Steve Volkmann",
+      "firm": "Jefferies",
+      "question": "How are C&F order programs shaping up? Any granularity on dealer rental fleet loading and outlook?",
+      "responder": "Chris Seibert",
+      "responderTitle": "Director of Investor Relations",
+      "answer": "C&F orders very positive; four-to-five months out, more than preferred two-to-three months. Industry growing, retails growing. Drivers: large infrastructure, data center starts, independent rental channel, dealer-owned rental fleet opportunity. Underproduction setup gives opportunity for 2027. Feel good about current C&F situation.",
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "n": 9,
+      "analyst": "Steve Fisher",
+      "firm": "UBS",
+      "question": "Clarify tariff dynamics. Still some 232 benefit coming in 2027 as only half-year impact 2026. No other refunds in Q4. Is roughly $800 million net impact this year headwind or tailwind for 2027?",
+      "responder": "Brent Norwood",
+      "responderTitle": "Chief Financial Officer",
+      "answer": "Net tariffs will be headwind going into next year. About $1.1 billion direct tariffs paid less $382 million refunds equals roughly $750 million net exposure this year. Going into next year, expect approximately $1 billion run rate for year, step up in tariff expense year-over-year.",
+      "directness": "direct",
+      "newInformation": true,
+      "pushback": false
+    },
+    {
+      "n": 10,
+      "analyst": "Chad Dillard",
+      "firm": "Bernstein",
+      "question": "C&F pricing: guidance implies 50 basis points positive versus +8% Q3. Understand moving dynamics? Bigger picture on rental and dealer rental aspirations—size objectives and economics changes?",
+      "responder": "Chris Seibert",
+      "responderTitle": "Director of Investor Relations",
+      "alsoAnswered": ["Brent Norwood"],
+      "answer": "Pricing progression: 2.5% to 3% to 2.5% back to full year guide. Q3 strong at 8% partly due to easy comps (Q3 2025 was -5% due to incentives). Q4 no outsized comps. Pricing going well in C&F; road building contributes. On rental: opportunity to increase exposure through independent houses and dealer participation. Rental 30-35% of earthmoving transactions today, growing percentage. Dealer rental fleets growing and expanding to serve customers more. Meaningful opportunity ahead; could boost inventory fill next year.",
+      "directness": "direct",
+      "newInformation": true,
+      "pushback": false
+    },
+    {
+      "n": 11,
+      "analyst": "Angel Castillo",
+      "firm": "Morgan Stanley",
+      "question": "EOP pricing covering inflation comment—any merchandising incentives? Implications for margins next year? FTC settlement right-to-repair implications for aftermarket and $2-3 billion lifecycle parts?",
+      "responder": "Chris Seibert",
+      "responderTitle": "Director of Investor Relations",
+      "alsoAnswered": ["Brent Norwood"],
+      "answer": "EOP pricing two components: overall inflationary price in challenging environment with measured approach; committed to cover inflation over time. Nothing outsized. Multiple pricing points during year. Inflationary environment dynamic with oil/tariffs. On FTC: Deere always supported customers' own repair ability and third-party use. Agreement formalizes products/tools offered. John Deere Operations Center PRO Service enables diagnostics, digital manuals, software updates. Industry-leading tools, will support long-term lifecycle solutions aspirations.",
+      "directness": "partial",
+      "newInformation": true,
+      "pushback": false
+    },
+    {
+      "n": 12,
+      "analyst": "Peter Kalemkerian",
+      "firm": "Baird",
+      "question": "Given cap budget policy change in 2028, chance demand pulled forward in 2027? Dealers indicating pull-forward or delay until policy clarity? Any directional Europe 2027 forecast?",
+      "responder": "Chris Seibert",
+      "responderTitle": "Director of Investor Relations",
+      "answer": "Too early to tell. Europe environment has policy movement. Typically four-to-five month order book, just collecting Q1 orders. Differences between arable and dairy/livestock producers. Need to see where input costs and commodity trends go for next crop; will shape sentiment for PPA arable producers. Dairy/livestock fairly stable. Too early on policy demand pull-forward/delay effects.",
+      "directness": "partial",
+      "newInformation": false,
+      "pushback": false
+    },
+    {
+      "n": 13,
+      "analyst": "Sabahat Khan",
+      "firm": "RBC Capital Markets",
+      "question": "Based on outlook and EOPs, input costs major factor in farmer decisions. Early commentary on Brazilian and U.S. farmer positioning on input costs and trend expectations?",
+      "responder": "Deanna Kovar",
+      "responderTitle": "President, Worldwide Agriculture & Turf Division",
+      "answer": "Uncertainty around input prices globally. Fertilizer impact differs by region. Markets reacting; farmers looking for alternatives in product types, amounts, broader alternative sources. Farmers remain resilient, not seeing huge reduction in application intentions; still seeking yield. Farmers considering future year changes. Larger farmers with multiple-year inputs contracted evaluating changes. Markets reacting; farmers staying nimble; focused on yield and best outcomes.",
+      "directness": "direct",
+      "newInformation": false,
+      "pushback": false
+    }
+  ],
+  "guidance": [
+    {
+      "item": "Net income (FY 2026)",
+      "current": "$4.75 billion-$5 billion",
+      "period": "fiscal year 2026",
+      "speaker": "Dan Pooley",
+      "source": "prepared"
+    },
+    {
+      "item": "Effective tax rate (FY 2026)",
+      "current": "24%-26%",
+      "period": "fiscal year 2026",
+      "speaker": "Dan Pooley",
+      "source": "prepared"
+    },
+    {
+      "item": "Equipment operations cash flow (FY 2026)",
+      "current": "$5 billion-$5.5 billion",
+      "period": "fiscal year 2026",
+      "speaker": "Dan Pooley",
+      "source": "prepared"
+    },
+    {
+      "item": "Production & Precision Ag net sales (FY 2026)",
+      "current": "down approximately 10%",
+      "period": "fiscal year 2026",
+      "speaker": "Dan Pooley",
+      "source": "prepared"
+    },
+    {
+      "item": "Production & Precision Ag operating margin (FY 2026)",
+      "current": "11%-12%",
+      "period": "fiscal year 2026",
+      "speaker": "Dan Pooley",
+      "source": "prepared"
+    },
+    {
+      "item": "Small Ag & Turf net sales (FY 2026)",
+      "current": "up approximately 15%",
+      "period": "fiscal year 2026",
+      "speaker": "Dan Pooley",
+      "source": "prepared"
+    },
+    {
+      "item": "Small Ag & Turf operating margin (FY 2026)",
+      "current": "14.5%-15.5%",
+      "period": "fiscal year 2026",
+      "speaker": "Dan Pooley",
+      "source": "prepared"
+    },
+    {
+      "item": "Construction & Forestry net sales (FY 2026)",
+      "current": "up approximately 20%",
+      "period": "fiscal year 2026",
+      "speaker": "Dan Pooley",
+      "source": "prepared"
+    },
+    {
+      "item": "Construction & Forestry operating margin (FY 2026)",
+      "current": "10.5%-11.5%",
+      "period": "fiscal year 2026",
+      "speaker": "Dan Pooley",
+      "source": "prepared"
+    },
+    {
+      "item": "Financial Services net income (FY 2026)",
+      "current": "$870 million",
+      "period": "fiscal year 2026",
+      "speaker": "Dan Pooley",
+      "source": "prepared"
+    },
+    {
+      "item": "Direct tariff expense (FY 2026)",
+      "current": "approximately $1.1 billion",
+      "prior": "$1.2 billion",
+      "period": "fiscal year 2026",
+      "speaker": "Chris Seibert",
+      "source": "prepared"
+    }
+  ],
+  "metrics": [
+    {"metric": "Equipment operations net sales (Q3 2026)", "value": "+6% to $10.999 billion"},
+    {"metric": "Total net sales and revenues (Q3 2026)", "value": "+5% to $12.608 billion"},
+    {"metric": "Net income (Q3 2026)", "value": "$1.379 billion or $5.10 per diluted share"},
+    {"metric": "Equipment operations operating margin (Q3 2026)", "value": "14.4%"},
+    {"metric": "Production & Precision Ag net sales (Q3 2026)", "value": "$3.998 billion, down 6%"},
+    {"metric": "Production & Precision Ag operating margin (Q3 2026)", "value": "13.2%"},
+    {"metric": "Production & Precision Ag price realization", "value": "+2.5 points"},
+    {"metric": "Production & Precision Ag currency translation", "value": "+1.5 points"},
+    {"metric": "Small Ag & Turf net sales (Q3 2026)", "value": "$3.383 billion, up 12%"},
+    {"metric": "Small Ag & Turf operating margin (Q3 2026)", "value": "18.4%"},
+    {"metric": "Small Ag & Turf price realization", "value": "+1.5 points"},
+    {"metric": "Small Ag & Turf currency translation", "value": "-0.5 points"},
+    {"metric": "Construction & Forestry net sales (Q3 2026)", "value": "$3.618 billion, up 18%"},
+    {"metric": "Construction & Forestry operating margin (Q3 2026)", "value": "12.1%"},
+    {"metric": "Construction & Forestry price realization", "value": "+8 points"},
+    {"metric": "Construction & Forestry currency translation", "value": "+0.5 points"},
+    {"metric": "Financial Services net income (Q3 2026)", "value": "$219 million"},
+    {"metric": "Tariff refunds (Q3 2026)", "value": "$110 million"},
+    {"metric": "Total refunds recognized (FY 2026 to date)", "value": "$382 million"},
+    {"metric": "SmartGrade adoption increase (year-to-date)", "value": ">50%"},
+    {"metric": "Job site safety solutions sales increase (year-over-year)", "value": "~40%"},
+    {"metric": "Early order program results (planters + sprayers)", "value": "up mid-single digits"},
+    {"metric": "See & Spray adoption on factory sprayers", "value": "doubling"},
+    {"metric": "Advanced technology on planters", "value": "40% of orders"}
+  ],
+  "quotes": [
+    {
+      "speaker": "Dan Pooley",
+      "title": "Manager, Investor Communications",
+      "quote": "we continue to see pockets of strength",
+      "context": "on market conditions"
+    },
+    {
+      "speaker": "Chris Seibert",
+      "title": "Director of Investor Relations",
+      "quote": "producing modestly below retail demand",
+      "context": "on Construction & Forestry production strategy"
+    },
+    {
+      "speaker": "Chris Seibert",
+      "title": "Director of Investor Relations",
+      "quote": "Factory-installed SmartGrade adoption has increased more than 50% year-to-date",
+      "context": "on technology momentum"
+    },
+    {
+      "speaker": "Brent Norwood",
+      "title": "Chief Financial Officer",
+      "quote": "labor remains constrained and customers increasingly rely on technology",
+      "context": "on market drivers"
+    },
+    {
+      "speaker": "Chris Seibert",
+      "title": "Director of Investor Relations",
+      "quote": "we continue to focus on controllables here, inventory management",
+      "context": "on operational strategy"
+    },
+    {
+      "speaker": "Deanna Kovar",
+      "title": "President, Worldwide Agriculture & Turf Division",
+      "quote": "2026 represents the bottom of the agricultural equipment cycle",
+      "context": "on market outlook"
+    },
+    {
+      "speaker": "Deanna Kovar",
+      "title": "President, Worldwide Agriculture & Turf Division",
+      "quote": "building blocks for recovery continue to strengthen",
+      "context": "on future prospects"
+    },
+    {
+      "speaker": "Brent Norwood",
+      "title": "Chief Financial Officer",
+      "quote": "feedback we've gotten to date has been very positive",
+      "context": "on excavator launch reception"
+    },
+    {
+      "speaker": "Brent Norwood",
+      "title": "Chief Financial Officer",
+      "quote": "we're just early days in the release of the Deere-designed excavators",
+      "context": "on product launch status"
+    },
+    {
+      "speaker": "Deanna Kovar",
+      "title": "President, Worldwide Agriculture & Turf Division",
+      "quote": "customers are looking for ways to maximize everything they can going into 2027",
+      "context": "on technology adoption motivation"
+    }
+  ],
+  "topics": [
+    "Production & Precision Ag market softness in South America and Europe",
+    "Small Ag & Turf strength driven by dairy and livestock margins",
+    "Construction & Forestry strong demand and technology adoption",
+    "Tariff impacts and Section 232 rate reductions",
+    "Early order program results and technology adoption trends",
+    "Inventory management and production positioning for 2027",
+    "Deere-designed excavator product launch",
+    "Market conditions by geography and implications for 2027",
+    "Pricing strategy covering inflation",
+    "Precision agriculture and construction technology momentum"
+  ],
+  "newMentions": [
+    "SmartGrade technology (>50% adoption)",
+    "Job site safety solutions (+40% sales)",
+    "Tenna (digital ecosystem)",
+    "Deere-designed excavators (3 models, multi-year rollout)",
+    "See & Spray technology (doubling adoption)",
+    "John Deere Operations Center PRO Service",
+    "Move Agriculture Financing (single-digit rates)",
+    "Leap Ambitions (strategic framework)"
+  ]
+}
