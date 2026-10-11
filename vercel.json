@@ -4,7 +4,7 @@
   "framework": "vite",
   "functions": {
     "api/summarize.js": {
-      "maxDuration": 300
+      "maxDuration": 60
     },
     "api/docs.js": {
       "maxDuration": 60
