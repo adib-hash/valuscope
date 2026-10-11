@@ -5,103 +5,90 @@ import YahooFinance from 'yahoo-finance2';
 import { similarPeers, geminiPeers } from './_lib/peers.js';
 const yahooFinance = new YahooFinance({ suppressNotices: ['yahooSurvey', 'ripHistorical'] });
 
-// ── Curated comp sets ────────���───────────────────────────────────────────────
-// Grouped by how an analyst would actually comp these businesses.
-// Each company appears in exactly one group. Order within group is by typical
-// market cap (largest first) for consistent display.
+// ── Curated comp sets ────────────────────────────────────────────────────────
+// Grouped by how an analyst would actually comp these businesses. Order within
+// a group is by typical market cap (largest first) for consistent display.
+//
+// A company can sit in more than one group (MSFT is mega-cap tech and cloud),
+// but it has exactly one home: the group its business is actually valued
+// against. The home group comes first and, when it alone supplies five peers,
+// it is the whole set — padding CRWD's table with MSFT and NVDA from its
+// secondary groups is what left it with no cybersecurity peers at all.
 const COMP_GROUPS = [
-  // Mega-cap Tech / Digital Advertising
-  ['GOOGL', 'META', 'AMZN', 'MSFT', 'AAPL'],
-  // Streaming & Entertainment
-  ['NFLX', 'DIS', 'WBD', 'PSKY', 'CMCSA', 'ROKU'],
-  // Enterprise SaaS
-  ['CRM', 'ADBE', 'NOW', 'INTU', 'SAP', 'WDAY', 'TEAM', 'HUBS'],
-  // Cloud Infrastructure / Dev Tools
-  ['MSFT', 'AMZN', 'GOOGL', 'SNOW', 'MDB', 'DDOG', 'NET', 'CRWD'],
-  // Semiconductors
-  ['NVDA', 'AMD', 'AVGO', 'QCOM', 'INTC', 'TSM', 'TXN', 'MRVL'],
-  // AI / Data Infrastructure
-  ['NVDA', 'PLTR', 'SNOW', 'DDOG', 'MDB', 'CRWD', 'S'],
-  // Payments & Fintech
-  ['V', 'MA', 'PYPL', 'XYZ', 'AXP', 'FIS', 'GPN', 'ADYEY'],
-  // Large Banks
-  ['JPM', 'BAC', 'WFC', 'C', 'USB', 'PNC', 'TFC'],
-  // Investment Banks / Capital Markets
-  ['GS', 'MS', 'SCHW', 'BLK', 'KKR', 'APO', 'BX'],
-  // Insurance
-  ['BRK-B', 'UNH', 'AIG', 'MET', 'PRU', 'ALL', 'TRV'],
-  // Big Pharma
-  ['LLY', 'JNJ', 'PFE', 'ABBV', 'MRK', 'NVO', 'AZN', 'BMY'],
-  // Medical Devices
-  ['ABT', 'ISRG', 'SYK', 'MDT', 'BSX', 'EW', 'DXCM'],
-  // Healthcare Services / Managed Care
-  ['UNH', 'ELV', 'CI', 'HUM', 'CVS', 'HCA'],
-  // Life Sciences / Diagnostics
-  ['TMO', 'DHR', 'A', 'ILMN', 'BIO', 'IQV'],
-  // Oil & Gas Majors
-  ['XOM', 'CVX', 'COP', 'EOG', 'FANG', 'OXY', 'SLB', 'HAL'],
-  // Oil & Gas Refining
-  ['PSX', 'MPC', 'VLO', 'DINO'],
-  // Electric Vehicles / Auto
-  ['TSLA', 'F', 'GM', 'RIVN', 'TM', 'STLA'],
-  // Consumer Staples / Household
-  ['PG', 'KO', 'PEP', 'CL', 'KMB', 'EL', 'CHD'],
-  // Discount / Big Box Retail
-  ['WMT', 'COST', 'TGT', 'DG', 'DLTR'],
-  // Home Improvement
-  ['HD', 'LOW', 'SHW', 'POOL'],
-  // Restaurants
-  ['MCD', 'SBUX', 'CMG', 'YUM', 'DPZ', 'QSR', 'WING'],
-  // Specialty Retail / Apparel
-  ['NKE', 'LULU', 'ULTA', 'TJX', 'ROST', 'GAP'],
-  // E-commerce / Marketplaces
-  ['AMZN', 'SHOP', 'ETSY', 'MELI', 'SE', 'EBAY', 'W'],
-  // Travel & Mobility
-  ['UBER', 'LYFT', 'ABNB', 'BKNG', 'DASH', 'EXPE', 'MAR', 'HLT'],
-  // Aerospace & Defense
-  ['BA', 'LMT', 'RTX', 'GE', 'NOC', 'GD', 'LHX', 'TDG'],
-  // Industrials / Conglomerates
-  ['HON', 'CAT', 'DE', 'MMM', 'EMR', 'ITW', 'ETN'],
-  // Freight & Logistics
-  ['UPS', 'FDX', 'XPO', 'ODFL', 'CHRW'],
-  // Telecom
-  ['T', 'VZ', 'TMUS', 'CMCSA', 'CHTR'],
-  // Utilities
-  ['NEE', 'DUK', 'SO', 'D', 'AEP', 'EXC', 'SRE'],
-  // REITs — Data Center / Tower
-  ['AMT', 'CCI', 'EQIX', 'DLR'],
-  // REITs — Diversified
-  ['SPG', 'PLD', 'O', 'PSA', 'WELL', 'AVB'],
-  // Chemicals / Materials
-  ['LIN', 'APD', 'ECL', 'DD', 'DOW', 'PPG'],
-  // Mining / Metals
-  ['FCX', 'NEM', 'BHP', 'RIO', 'VALE'],
-  // Crypto / Digital Finance
-  ['COIN', 'HOOD', 'SOFI', 'MSTR'],
-  // Social Media / Consumer Internet
-  ['META', 'SNAP', 'PINS', 'RDDT', 'MTCH'],
-  // Cybersecurity
-  ['CRWD', 'PANW', 'FTNT', 'ZS', 'S', 'OKTA'],
+  { name: 'Mega-cap Tech / Digital Advertising', members: ['GOOGL', 'META', 'AMZN', 'MSFT', 'AAPL'] },
+  { name: 'Streaming & Entertainment', members: ['NFLX', 'DIS', 'WBD', 'PSKY', 'CMCSA', 'ROKU'] },
+  { name: 'Enterprise SaaS', members: ['CRM', 'ADBE', 'NOW', 'INTU', 'SAP', 'WDAY', 'TEAM', 'HUBS'] },
+  { name: 'Cloud Infrastructure / Dev Tools', members: ['MSFT', 'AMZN', 'GOOGL', 'SNOW', 'MDB', 'DDOG', 'NET', 'CRWD'] },
+  { name: 'Semiconductors', members: ['NVDA', 'AMD', 'AVGO', 'QCOM', 'INTC', 'TSM', 'TXN', 'MRVL'] },
+  { name: 'AI / Data Infrastructure', members: ['NVDA', 'PLTR', 'SNOW', 'DDOG', 'MDB', 'CRWD', 'S'] },
+  { name: 'Payments & Fintech', members: ['V', 'MA', 'PYPL', 'XYZ', 'AXP', 'FIS', 'GPN', 'ADYEY'] },
+  { name: 'Large Banks', members: ['JPM', 'BAC', 'WFC', 'C', 'USB', 'PNC', 'TFC'] },
+  { name: 'Investment Banks / Capital Markets', members: ['GS', 'MS', 'SCHW', 'BLK', 'KKR', 'APO', 'BX'] },
+  { name: 'Insurance', members: ['BRK-B', 'UNH', 'AIG', 'MET', 'PRU', 'ALL', 'TRV'] },
+  { name: 'Big Pharma', members: ['LLY', 'JNJ', 'PFE', 'ABBV', 'MRK', 'NVO', 'AZN', 'BMY'] },
+  { name: 'Medical Devices', members: ['ABT', 'ISRG', 'SYK', 'MDT', 'BSX', 'EW', 'DXCM'] },
+  { name: 'Healthcare Services / Managed Care', members: ['UNH', 'ELV', 'CI', 'HUM', 'CVS', 'HCA'] },
+  { name: 'Life Sciences / Diagnostics', members: ['TMO', 'DHR', 'A', 'ILMN', 'BIO', 'IQV'] },
+  { name: 'Oil & Gas Majors', members: ['XOM', 'CVX', 'COP', 'EOG', 'FANG', 'OXY', 'SLB', 'HAL'] },
+  { name: 'Oil & Gas Refining', members: ['PSX', 'MPC', 'VLO', 'DINO'] },
+  { name: 'Electric Vehicles / Auto', members: ['TSLA', 'F', 'GM', 'RIVN', 'TM', 'STLA'] },
+  { name: 'Consumer Staples / Household', members: ['PG', 'KO', 'PEP', 'CL', 'KMB', 'EL', 'CHD'] },
+  { name: 'Discount / Big Box Retail', members: ['WMT', 'COST', 'TGT', 'DG', 'DLTR'] },
+  { name: 'Home Improvement', members: ['HD', 'LOW', 'SHW', 'POOL'] },
+  { name: 'Restaurants', members: ['MCD', 'SBUX', 'CMG', 'YUM', 'DPZ', 'QSR', 'WING'] },
+  { name: 'Specialty Retail / Apparel', members: ['NKE', 'LULU', 'ULTA', 'TJX', 'ROST', 'GAP'] },
+  { name: 'E-commerce / Marketplaces', members: ['AMZN', 'SHOP', 'ETSY', 'MELI', 'SE', 'EBAY', 'W'] },
+  { name: 'Travel & Mobility', members: ['UBER', 'LYFT', 'ABNB', 'BKNG', 'DASH', 'EXPE', 'MAR', 'HLT'] },
+  { name: 'Aerospace & Defense', members: ['BA', 'LMT', 'RTX', 'GE', 'NOC', 'GD', 'LHX', 'TDG'] },
+  { name: 'Industrials / Conglomerates', members: ['HON', 'CAT', 'DE', 'MMM', 'EMR', 'ITW', 'ETN'] },
+  { name: 'Freight & Logistics', members: ['UPS', 'FDX', 'XPO', 'ODFL', 'CHRW'] },
+  { name: 'Telecom', members: ['T', 'VZ', 'TMUS', 'CMCSA', 'CHTR'] },
+  { name: 'Utilities', members: ['NEE', 'DUK', 'SO', 'D', 'AEP', 'EXC', 'SRE'] },
+  { name: 'REITs — Data Center / Tower', members: ['AMT', 'CCI', 'EQIX', 'DLR'] },
+  { name: 'REITs — Diversified', members: ['SPG', 'PLD', 'O', 'PSA', 'WELL', 'AVB'] },
+  { name: 'Chemicals / Materials', members: ['LIN', 'APD', 'ECL', 'DD', 'DOW', 'PPG'] },
+  { name: 'Mining / Metals', members: ['FCX', 'NEM', 'BHP', 'RIO', 'VALE'] },
+  { name: 'Crypto / Digital Finance', members: ['COIN', 'HOOD', 'SOFI', 'MSTR'] },
+  { name: 'Social Media / Consumer Internet', members: ['META', 'SNAP', 'PINS', 'RDDT', 'MTCH'] },
+  { name: 'Cybersecurity', members: ['CRWD', 'PANW', 'FTNT', 'ZS', 'S', 'OKTA'] },
 ];
 
-// Build a lookup: symbol → list of comp group arrays it belongs to
+// Home groups for companies listed in more than one group. Anything not named
+// here is at home in the first group that lists it.
+const HOME_GROUP = {
+  CRWD: 'Cybersecurity',
+  S: 'Cybersecurity',
+  UNH: 'Healthcare Services / Managed Care',
+  CMCSA: 'Telecom',
+};
+
+// A home group with this many peers is a complete set on its own.
+const HOME_GROUP_SUFFICIENT = 5;
+
+// symbol → the groups it belongs to, home group first
 const COMP_LOOKUP = new Map();
 for (const group of COMP_GROUPS) {
-  for (const sym of group) {
+  for (const sym of group.members) {
     if (!COMP_LOOKUP.has(sym)) COMP_LOOKUP.set(sym, []);
     COMP_LOOKUP.get(sym).push(group);
   }
 }
+for (const [sym, home] of Object.entries(HOME_GROUP)) {
+  const groups = COMP_LOOKUP.get(sym) || [];
+  if (!groups.some((g) => g.name === home)) throw new Error(`HOME_GROUP: ${sym} is not in "${home}"`);
+  groups.sort((a, b) => (b.name === home) - (a.name === home));
+}
 
-function getCuratedComps(symbol) {
+export function getCuratedComps(symbol) {
   const groups = COMP_LOOKUP.get(symbol);
   if (!groups) return null;
 
-  // Merge all groups this symbol belongs to, excluding itself and deduplicating
   const seen = new Set([symbol]);
   const comps = [];
-  for (const group of groups) {
-    for (const sym of group) {
+  for (const [i, group] of groups.entries()) {
+    // Secondary groups only top up a home group too small to stand alone.
+    if (i > 0 && comps.length >= HOME_GROUP_SUFFICIENT) break;
+    for (const sym of group.members) {
       if (!seen.has(sym)) {
         seen.add(sym);
         comps.push(sym);
@@ -253,9 +240,12 @@ export default async function handler(req, res) {
     const subjectData = await fetchMultiples(symbol);
 
     // Step 2: the discovery ladder. Curated sets are analyst-grade and win
-    // outright. Yahoo's similar-stocks graph, industry-verified, covers most
-    // liquid names. Gemini handles the idiosyncratic tail — and only the tail,
-    // so the model is rarely in the hot path.
+    // outright. Everything else goes to the model first: in the Oct 2026
+    // bake-off (LLM-BAKEOFF-REPORT.html) Yahoo's similar-stocks graph scored
+    // below every model tested, because its industry check is too coarse to
+    // catch co-view noise (TOST got six dev-tools stocks that all share
+    // "Software - Infrastructure"; CAVA got On Running). The graph is now the
+    // fallback for when the model is unavailable, rate-limited or thin.
     const subjectForPeers = {
       name: subjectData.name,
       sector: subjectData.sector,
@@ -268,17 +258,16 @@ export default async function handler(req, res) {
     let source = 'curated';
 
     if (!peerSymbols) {
-      peerSymbols = await similarPeers(yahooFinance, symbol, subjectForPeers);
-      source = 'similar';
+      peerSymbols = await geminiPeers(yahooFinance, symbol, subjectForPeers);
+      source = 'ai';
     }
 
-    if (source !== 'curated' && peerSymbols.length < 3) {
-      const ai = await geminiPeers(yahooFinance, symbol, subjectForPeers);
-      if (ai.length) {
-        const seen = new Set(peerSymbols);
-        peerSymbols = [...peerSymbols, ...ai.filter((t) => !seen.has(t))].slice(0, 8);
-        source = 'ai';
-      }
+    if (source === 'ai' && peerSymbols.length < 3) {
+      const similar = await similarPeers(yahooFinance, symbol, subjectForPeers);
+      const seen = new Set(peerSymbols);
+      const merged = [...peerSymbols, ...similar.filter((t) => !seen.has(t))].slice(0, 8);
+      if (similar.length) source = peerSymbols.length ? 'ai' : 'similar';
+      peerSymbols = merged;
     }
 
     // Quality gate: need at least 3 comps or return nothing

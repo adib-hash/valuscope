@@ -1,21 +1,20 @@
 // Peer discovery for tickers outside the curated comp sets.
 //
-// Two rungs, tried in order. Yahoo's similar-stocks graph is co-view data —
-// "people who watch X also watch" — which is excellent where an industry is
-// well defined (homebuilders, footwear) and noisy where it isn't: momentum
-// names attract momentum names, so a specialty insurer's list fills up with
-// whatever else retail was buying that month. The industry filter keeps the
-// signal and drops the noise, and whatever survives is ranked co-view first.
+// Two sources, in the order api/comps.js tries them. Gemini picks the list
+// the way an analyst would, and every suggestion is validated against a live
+// Yahoo quote before it is shown — a language model's ticker knowledge goes
+// stale the same way our curated lists did (SQ, GPS, PARA), and a recycled
+// symbol would otherwise put the wrong company's numbers in the table.
 //
-// When that leaves fewer than three real peers, Gemini picks the list the way
-// an analyst would. Every suggestion is validated against a live Yahoo quote
-// before it is shown — a language model's ticker knowledge goes stale the same
-// way our curated lists did (SQ, GPS, PARA), and a recycled symbol would
-// otherwise put the wrong company's numbers in the table.
+// Yahoo's similar-stocks graph is the fallback. It is co-view data — "people
+// who watch X also watch" — which is fine where an industry is well defined
+// (homebuilders, footwear) and noisy where it isn't: momentum names attract
+// momentum names, and Yahoo's industry labels are too coarse to filter them
+// out ("Software - Infrastructure" covers both Toast and GitLab).
 
 const GEMINI_MODEL = 'gemini-3.6-flash';
 
-// ── Rung 1: Yahoo similar-stocks, industry-verified ──────────────────────────
+// ── Fallback: Yahoo similar-stocks, industry-verified ────────────────────────
 
 async function recommendationsFor(yahooFinance, symbol) {
   try {
@@ -95,12 +94,13 @@ export async function similarPeers(yahooFinance, symbol, subject) {
   return sameIndustry.map((p) => p.symbol);
 }
 
-// ── Rung 2: Gemini, validated against live quotes ────────────────────────────
+// ── Primary: Gemini, validated against live quotes ───────────────────────────
 
 // Warm-instance memoisation. Peer selection is stable for months, and the edge
 // cache below this only holds for minutes because the response carries live
 // multiples — without this a burst of cold revalidations would re-ask Gemini
-// the same question.
+// the same question. Only non-empty results are kept, so a rate-limited call
+// is retried on the next request rather than remembered as "no peers".
 const geminiCache = new Map();
 const GEMINI_TTL_MS = 30 * 24 * 60 * 60 * 1000;
 
