@@ -19,7 +19,8 @@
 // that extraction — and from the prior quarter's extraction, when there is
 // one, for the "what changed" section. Each pass is a model call of twenty
 // to forty seconds on Gemini (longer on a large transcript), so the passes are
-// separate requests, each with up to 60 seconds (vercel.json), dispatched on `stage`, with the client carrying results between
+// separate requests, each with up to 300 seconds (vercel.json; the
+// project runs on Fluid compute, without which Hobby stops at 60), dispatched on `stage`, with the client carrying results between
 // them (which also means a deployment without a Blob store works):
 //
 //   stage=extract  GET  ?ticker&year?&quarter?  → this call's extraction (or the
