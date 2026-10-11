@@ -25,6 +25,7 @@ const PillDetail       = lazy(() => import('./components/PillDetail'));
 const PriceHistoryPage = lazy(() => import('./components/PriceHistoryPage'));
 const CompareChart     = lazy(() => import('./components/CompareChart'));
 const FilingsPage      = lazy(() => import('./components/FilingsPage'));
+const InsidersPanel    = lazy(() => import('./components/InsidersPanel'));
 const FilingReader     = lazy(() => import('./components/FilingReader'));
 // The calendar is a landing view too, but its digest machinery has no
 // business in the entry chunk.
@@ -61,7 +62,7 @@ import {
 } from './lib/watchlist';
 
 const QUICK_TICKERS = ['AAPL', 'MSFT', 'ULTA', 'COST', 'META', 'AMZN', 'GOOGL', 'NFLX'];
-const APP_VERSION   = 'v0.26.0';
+const APP_VERSION   = 'v0.27.0';
 
 // The view the app opens on when the URL names neither a company nor a view.
 const DEFAULT_VIEW = 'indices';
@@ -102,6 +103,7 @@ const COMPANY_TABS = [
   { value: 'overview', label: 'Overview' },
   { value: 'earnings', label: 'Earnings' },
   { value: 'comps',    label: 'Comps' },
+  { value: 'insiders', label: 'Insiders' },
   { value: 'data',     label: 'Data' },
 ];
 
@@ -1162,6 +1164,15 @@ export default function App() {
                 <ErrorBoundary label="The comps table">
                   <Suspense fallback={<div className="mt-4 rounded-xl border border-vs-border bg-vs-card h-40 animate-pulse" />}>
                     <CompsTable symbol={sym} sector={data.sector} onSelectTicker={loadCompany} defaultExpanded />
+                  </Suspense>
+                </ErrorBoundary>
+              </div>
+            )}
+            {visitedTabs.has('insiders') && (
+              <div hidden={activeTab !== 'insiders'}>
+                <ErrorBoundary label="The insider transactions">
+                  <Suspense fallback={<div className="mt-4 rounded-xl border border-vs-border bg-vs-card h-40 animate-pulse" />}>
+                    <InsidersPanel symbol={sym} />
                   </Suspense>
                 </ErrorBoundary>
               </div>

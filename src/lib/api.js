@@ -166,6 +166,16 @@ export async function fetchHoldings(cik, period) {
   return apiFetch(`/api/holdings?${params}`);
 }
 
+// Insider transactions from SEC Form 4. Rides on /api/holdings (the Hobby
+// plan caps deployments at twelve functions).
+export async function fetchInsiders(ticker) {
+  return apiFetch(`/api/holdings?op=insiders&ticker=${encodeURIComponent(ticker)}`);
+}
+
+export async function fetchInsiderFiling(cik, accession) {
+  return apiFetch(`/api/holdings?op=insiderFiling&cik=${encodeURIComponent(cik)}&acc=${encodeURIComponent(accession)}`);
+}
+
 // Filings & Docs Hub. One serverless function dispatched on `op` — the Hobby
 // plan caps deployments at twelve functions and this app runs at the ceiling.
 export async function fetchFilings(ticker) {
