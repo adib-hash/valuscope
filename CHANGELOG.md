@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.26.0 — 2026-10-11
+
+### Changed
+- **Earnings call summaries and the daily digest are written by Claude Sonnet 5.5.** In a blinded bake-off of eight models on the summary pipeline (`LLM-BAKEOFF-REPORT.html`), with every model run through its API on six real calls, Sonnet 5.5 scored 7.7 out of 10 against 5.2 for Gemini 3.6 Flash. It made 0.9 factual errors per summary against 2.3, and its Q&A section (who asked, who answered, how directly) scored 8.3 against 4.2. Each stage takes 20 to 40 seconds, and a summary costs about 25 cents in Anthropic API usage, generated once per call and then cached. It runs at low effort, the setting the bake-off measured. Without `ANTHROPIC_API_KEY`, summaries fall back to Gemini as before. Comp sets, filing summaries, filing Q&A and operating KPIs stay on Gemini. Summaries are versioned to 4, so ones written by Gemini are regenerated the next time they are opened.
+
 ## 0.25.0 — 2026-10-11
 
 ### Added
