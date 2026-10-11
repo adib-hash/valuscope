@@ -59,27 +59,29 @@ const sumStats = CONFIGS.map((cfg) => {
 // ---------- summaries, current two-pass pipeline ----------
 const SUM2_CRIT = ['accuracy', 'qa', 'coverage', 'insight', 'concision', 'discipline']
 const passCost = (cfg, p) => (cfg.price && p ? (p.inTok * cfg.price[0] + p.outTok * cfg.price[1]) / 1e6 : 0)
-const sum2Stats = [...CONFIGS.filter((c) => c.provider === 'gemini'), ...SUB_CONFIGS].map((cfg) => {
-  const rs = sumItems.map((s) => runs[`${cfg.id}|sum2|${s}`]).filter((r) => r?.summary)
-  const errors = JUDGES.flatMap((j) => sumItems.flatMap((s) => (judged[`${j.id}|sum2|${s}`]?.scores?.[cfg.id]?.errors || []).filter((e) => e && !/^none/i.test(e))))
-  const overall = scoresFor('sum2', sumItems, cfg.id, 'overall')
+const pipeStats = (task, cfgs, cap) => cfgs.map((cfg) => {
+  const rs = sumItems.map((s) => runs[`${cfg.id}|${task}|${s}`]).filter((r) => r?.summary)
+  const errors = JUDGES.flatMap((j) => sumItems.flatMap((s) => (judged[`${j.id}|${task}|${s}`]?.scores?.[cfg.id]?.errors || []).filter((e) => e && !/^none/i.test(e))))
+  const overall = scoresFor(task, sumItems, cfg.id, 'overall')
   const cj = crossJudge(cfg.id)
   const stages = rs.flatMap((r) => Object.values(r.passes || {}).filter(Boolean))
   const api = cfg.provider !== 'subagent'
   return {
     cfg, ok: rs.length, api,
     overall, cross: cj ? overall[cj] : NaN,
-    crit: Object.fromEntries(SUM2_CRIT.map((k) => [k, scoresFor('sum2', sumItems, cfg.id, k).mean])),
+    crit: Object.fromEntries(SUM2_CRIT.map((k) => [k, scoresFor(task, sumItems, cfg.id, k).mean])),
     errPer: errors.length / (JUDGES.length * Math.max(rs.length, 1)),
     words: avg(rs.map((r) => r.words)),
     over900: rs.filter((r) => r.words > 900).length,
     quotes: avg(rs.map((r) => r.summary.notableQuotes?.length || 0)),
     stageMed: api ? med(stages.map((p) => p.ms / 1000)) : NaN,
     stageMax: api ? Math.max(...stages.map((p) => p.ms / 1000)) : NaN,
-    overCap: api ? stages.filter((p) => p.ms / 1000 > STAGE_CAP_S - 5).length : NaN,
+    overCap: api ? stages.filter((p) => p.ms / 1000 > cap - 5).length : NaN,
     cost: api ? avg(rs.map((r) => Object.values(r.passes || {}).reduce((a, p) => a + passCost(cfg, p), 0))) : NaN,
   }
 }).sort((a, b) => b.overall.mean - a.overall.mean)
+const sum3Stats = pipeStats('sum3', CONFIGS, STAGE_CAP_S)
+const sum2Stats = pipeStats('sum2', [...CONFIGS.filter((c) => c.provider === 'gemini'), ...SUB_CONFIGS], 60)
 
 // ---------- comps ----------
 const compItems = COMP_TICKERS.map((c) => c.symbol)
@@ -140,9 +142,9 @@ function sumCritTable() {
   return `<div class="tablewrap"><table><thead><tr><th>Model</th>${SUM_CRIT.map((k) => `<th class="num">${k}</th>`).join('')}<th class="num">Other-vendor judge</th></tr></thead><tbody>${rows}</tbody></table></div>`
 }
 
-function sum2Table() {
-  const b = (k) => bestOf(sum2Stats, k)
-  const rows = sum2Stats.map((s, i) => `<tr class="${s.cfg.current ? 'is-current' : ''}">
+function sum2Table(stats) {
+  const b = (k) => bestOf(stats, k)
+  const rows = stats.map((s, i) => `<tr class="${s.cfg.current ? 'is-current' : ''}">
     <td class="rank num">${i + 1}</td>${modelCell(s.cfg)}
     <td class="num strong${Math.abs(s.overall.mean - b((x) => x.overall.mean)) < 0.05 ? ' best' : ''}">${f1(s.overall.mean)} ${bar(s.overall.mean)}</td>
     ${scoreCell(s.overall.opus, b((x) => x.overall.opus))}${scoreCell(s.overall.gpro, b((x) => x.overall.gpro))}
@@ -158,8 +160,8 @@ function sum2Table() {
     <tbody>${rows}</tbody></table></div>`
 }
 
-function sum2CritTable() {
-  const rows = sum2Stats.map((s) => `<tr class="${s.cfg.current ? 'is-current' : ''}"><td class="model">${esc(s.cfg.label)}</td>${SUM2_CRIT.map((k) => scoreCell(s.crit[k], bestOf(sum2Stats, (x) => x.crit[k]))).join('')}<td class="num">${f1(s.cross)}</td></tr>`).join('')
+function sum2CritTable(stats) {
+  const rows = stats.map((s) => `<tr class="${s.cfg.current ? 'is-current' : ''}"><td class="model">${esc(s.cfg.label)}</td>${SUM2_CRIT.map((k) => scoreCell(s.crit[k], bestOf(stats, (x) => x.crit[k]))).join('')}<td class="num">${f1(s.cross)}</td></tr>`).join('')
   return `<div class="tablewrap"><table><thead><tr><th>Model</th>${SUM2_CRIT.map((k) => `<th class="num">${k === 'qa' ? 'Q&amp;A' : k}</th>`).join('')}<th class="num">Other-vendor judge</th></tr></thead><tbody>${rows}</tbody></table></div>`
 }
 
@@ -185,7 +187,7 @@ function latencyChart(rows, key, { cap } = {}) {
   rows = rows.filter((r) => Number.isFinite(key(r))).sort((a, b) => key(a) - key(b))
   const max = Math.max(...rows.map(key), cap || 0)
   const capMark = cap ? `<span class="capline" style="left:${(cap / max) * 100}%"></span>` : ''
-  return `<div class="lchart">${rows.map((s) => `<div class="lrow"><span class="model">${esc(s.cfg.label)}</span><span class="ltrack"><span class="lfill${cap && key(s) > cap - 5 ? ' over' : ''}" style="width:${(key(s) / max) * 100}%"></span>${capMark}</span><span class="lval num">${f1(key(s))}s</span></div>`).join('')}${cap ? `<p class="note">The line marks Vercel's ${cap}-second limit per stage.</p>` : ''}</div>`
+  return `<div class="lchart">${rows.map((s) => `<div class="lrow"><span class="model">${esc(s.cfg.label)}</span><span class="ltrack"><span class="lfill${cap && key(s) > cap - 5 ? ' over' : ''}" style="width:${(key(s) / max) * 100}%"></span>${capMark}</span><span class="lval num">${f1(key(s))}s</span></div>`).join('')}${cap ? `<p class="note">The red line marks the old ${cap}-second stage limit; bars in red crossed it, or came within five seconds.</p>` : ''}</div>`
 }
 
 // ---------- read the outputs ----------
@@ -220,7 +222,7 @@ function peerChips(r) {
 
 function panels(task) {
   const items = task === 'comp' ? COMP_TICKERS : CALLS
-  const cfgs = task === 'sum2' ? [...CONFIGS.filter((c) => c.provider === 'gemini'), ...SUB_CONFIGS] : task === 'sum' ? CONFIGS : [PROD, ...CONFIGS]
+  const cfgs = task === 'sum3' ? CONFIGS : task === 'sum2' ? [...CONFIGS.filter((c) => c.provider === 'gemini'), ...SUB_CONFIGS] : task === 'sum' ? CONFIGS : [PROD, ...CONFIGS]
   const tabs = items.map((it, i) => `<button class="ptab" role="tab" aria-selected="${i === 0}" data-group="${task}" data-target="${task}-${it.symbol}">${it.symbol}</button>`).join('')
   const body = items.map((it, i) => {
     const ranked = cfgs.map((cfg) => {
@@ -240,13 +242,13 @@ function panels(task) {
       head = `<p class="ask"><span class="eyebrow">${esc(it.why)} · ${esc(s.industry)} · $${(s.mktCap / 1e9).toFixed(1)}B</span><br>${esc(s.name)}</p><p class="note">${rung}.</p>${missing.length ? `<p class="note"><b>Judges said every set missed:</b> ${missing.map(esc).join('; ')}</p>` : ''}`
     }
     const cards = ranked.map(({ cfg, r, score }) => {
-      if (!r || (task === 'sum2' && !r.summary && !r.error)) return ''
+      if (!r || (task.startsWith('sum') && task !== 'sum' && !r.summary && !r.error)) return ''
       let content
       if (r.error) content = `<p class="bad">Error: ${esc(r.error)}</p>`
-      else if (task === 'sum2') content = summary2Body(r.summary)
+      else if (task === 'sum2' || task === 'sum3') content = summary2Body(r.summary)
       else if (task === 'sum') content = r.parsed ? summaryBody(r.parsed) : '<p class="bad">Unparseable output</p>'
       else content = r.peers ? peerChips(r) : '<p class="bad">Unparseable output</p>'
-      const meta = task === 'sum2'
+      const meta = r.error ? 'Failed' : (task === 'sum2' || task === 'sum3')
         ? (cfg.provider === 'subagent' ? `Subscription subagent · ${r.words} words · ${r.summary.notableQuotes?.length || 0} verified quotes` : `${Object.entries(r.passes).map(([k, v]) => `${k} ${f1(v.ms / 1000)}s`).join(' · ')} · ${money(Object.values(r.passes).reduce((a, p) => a + passCost(cfg, p), 0))} · ${r.words} words · ${r.summary.notableQuotes?.length || 0} verified quotes`)
         : cfg.id === 'prod' ? `Rung: ${r.rung}` : `${f1(r.ms / 1000)}s · ${r.inTok.toLocaleString()} in / ${r.outTok.toLocaleString()} out · ${money(costOf(r))}${task === 'sum' && r.words ? ` · ${r.words} words · ${r.figures} figures` : ''}${r.ungrounded?.length ? ` · not found in transcript: ${r.ungrounded.join(', ')}` : ''}`
       return `<details class="lcard${cfg.current ? ' cur' : ''}"><summary><span class="model">${esc(cfg.label)}</span>${cfg.current ? '<span class="chip accent">Production</span>' : ''}<span class="lscore num">${f1(score)}</span></summary>
@@ -431,11 +433,11 @@ const html = `<!doctype html>
 
 <section class="block">
   <h2>Key Takeaways: scoreboard</h2>
-  <p class="lede">This runs production's current two-pass pipeline from <code>api/_lib/callSummary.js</code> with only the model swapped. For each of six real calls, each model extracts this quarter's transcript and the prior quarter's, then writes the summary from those extractions alone, with quotes checked word for word against the transcript. Two judges, one from each vendor, read both transcripts and every summary blind and scored them 1 to 10.</p>
-  ${sum2Table()}
-  <p class="note"><b>How the Claude models ran:</b> the Anthropic API key ran out of credit, so the four Claude models ran each pass as Claude Code subagents on your subscription, with the same system prompt, input and schema, and their answers went back through the real pipeline code. That means no timing or cost for them, Claude Code's default effort instead of low, and a schema the model followed rather than one the API enforced. The Gemini rows are real API calls. "Slowest stage" is the worst single pass across the six calls; production runs each pass as its own request under a ${STAGE_CAP_S}-second cap, and red means a pass came within five seconds of it. Words over 900 (amber) break the prompt's own limit for phone reading.</p>
+  <p class="lede">All eight models ran through their real APIs on production's current two-pass pipeline (<code>api/_lib/callSummary.js</code>), after the Q&amp;A-splitting and "what changed" fixes in v0.25.0, with only the model swapped. For each of six real calls, each model extracts this quarter's transcript and the prior quarter's, then writes the summary from those extractions alone, with quotes checked word for word against the transcript. Gemini ran at the thinking level shown and Claude at low effort, the settings you would deploy. Two judges, one from each vendor, read both transcripts and every summary blind and scored them 1 to 10.</p>
+  ${sum2Table(sum3Stats)}
+  <p class="note">"Median stage" and "Slowest stage" are measured per pass (extract, prior, compose); production runs each pass as its own request, now with up to ${STAGE_CAP_S} seconds, and red means a pass came within five seconds of that. Cost per summary is all three passes at list price; each call is summarised once and then cached. Words over 900 (amber) break the prompt's own limit for phone reading; the count is production's own, which includes field labels, so prose runs about 15% shorter.</p>
   <h3>Criterion by criterion</h3>
-  ${sum2CritTable()}
+  ${sum2CritTable(sum3Stats)}
   <p class="note">"Q&amp;A" scores the new section that matters most: whether the exchanges chosen are the high-signal ones, correctly attributed, with fair reads of how direct each answer was. "Other-vendor judge" is the score from the judge outside the model's own family.</p>
 </section>
 
@@ -447,8 +449,14 @@ const html = `<!doctype html>
 </section>
 
 <section class="block">
-  <h2>Earlier round: the retired single-pass prompt</h2>
-  <p class="lede">Before the two-pass pipeline shipped, summaries came from one prompt over the raw transcript. This round ran first, by mistake against that older prompt, but every model ran through the API there, so it holds the only like-for-like Claude timings and costs. It is a useful cross-check: the ranking held when the pipeline changed.</p>
+  <h2>Round two: before the fixes, Claude by subscription</h2>
+  <p class="lede">The same pipeline before the v0.25.0 fixes. The Anthropic key had run out of credit, so the four Claude models ran each pass as Claude Code subagents on your subscription (default effort, no timing or cost), and the only Haiku offered there is 4.5. Gemini ran through the API. The ranking matches round three.</p>
+  ${sum2Table(sum2Stats)}
+</section>
+
+<section class="block">
+  <h2>Round one: the retired single-pass prompt</h2>
+  <p class="lede">Before the two-pass pipeline shipped, summaries came from one prompt over the raw transcript. This round ran first, by mistake against that older prompt. The ranking held when the pipeline changed.</p>
   ${sumTable()}
 </section>
 
@@ -459,10 +467,8 @@ const html = `<!doctype html>
 
 <section class="block">
   <h2>Speed</h2>
-  <p class="lede">The slowest single pass for each Gemini model in the current pipeline. Production runs every pass as its own Vercel request with a ${STAGE_CAP_S}-second limit, so one slow pass means a failed summary, not just a slow one.</p>
-  ${latencyChart(sum2Stats.filter((s) => s.api), (s) => s.stageMax, { cap: STAGE_CAP_S })}
-  <p class="lede">For Claude, the only real timings come from the earlier single-pass round: one API call over the whole transcript, at low effort. An extraction pass writes about two to three times as much as that, so expect the extraction stage to take longer than these figures.</p>
-  ${latencyChart(sumStats, (s) => s.lat)}
+  <p class="lede">The slowest single pass for each model across the six calls. Production runs every pass as its own Vercel request, so one slow pass is a failed summary, not just a slow one. Until v0.25.0 the limit was 60 seconds; it is now ${STAGE_CAP_S}.</p>
+  ${latencyChart(sum3Stats, (s) => s.stageMax, { cap: 60 })}
 </section>
 
 <section class="block">
@@ -482,7 +488,7 @@ const html = `<!doctype html>
 <section class="block">
   <h2>Read the summaries yourself</h2>
   <p class="lede">Current pipeline. Ranked by the judges' average for that call. Open a card to see the summary next to each judge's comment and the errors it named.</p>
-  ${panels('sum2')}
+  ${panels('sum3')}
 </section>
 
 <section class="block">

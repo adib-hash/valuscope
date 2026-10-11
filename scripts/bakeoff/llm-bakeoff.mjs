@@ -12,7 +12,8 @@
 //   node scripts/bakeoff/llm-bakeoff.mjs judge    # blinded LLM judging (resumable)
 //   node scripts/bakeoff/bakeoff-report.mjs       # build LLM-BAKEOFF-REPORT.html
 //
-// Keys: GEMINI_API_KEY and ANTHROPIC_API_KEY, read from Kitab's .env.local.
+// Keys: ANTHROPIC_API_KEY from ValuScope's .env (the main checkout's, since
+// worktrees don't carry it), GEMINI_API_KEY from Kitab's .env.local.
 // ValuScope's own Gemini key is free tier (no Gemini Pro, low rate limits) and
 // is what production summaries run on, so a bake-off must not spend it.
 
@@ -24,11 +25,17 @@ import { listQuarters, getTranscript } from '../../api/_lib/transcripts.js'
 import { extractCall, composeSummary, wordCount, SUMMARY_SYSTEM as V2_SYSTEM } from '../../api/_lib/callSummary.js'
 
 const here = path.dirname(fileURLToPath(import.meta.url))
-const kitabEnv = path.join(here, '..', '..', '..', 'kitab', '.env.local')
-for (const line of fs.readFileSync(kitabEnv, 'utf8').split('\n')) {
-  const m = line.match(/^(GEMINI_API_KEY|ANTHROPIC_API_KEY)=(.*)$/)
-  if (m && !process.env[`BAKEOFF_${m[1]}`]) process.env[`BAKEOFF_${m[1]}`] = m[2].replace(/^["']|["']$/g, '')
+const projects = path.join(here, '..', '..', '..')
+function readEnv(file, names) {
+  if (!fs.existsSync(file)) return
+  for (const line of fs.readFileSync(file, 'utf8').split('\n')) {
+    const m = line.match(/^([A-Z0-9_]+)=(.*)$/)
+    const v = m?.[2].trim().replace(/^["']|["']$/g, '')
+    if (m && v && names.includes(m[1]) && !process.env[`BAKEOFF_${m[1]}`]) process.env[`BAKEOFF_${m[1]}`] = v
+  }
 }
+readEnv(path.join(projects, 'valuscope', '.env'), ['ANTHROPIC_API_KEY', 'ANTHROPIC_WORKSPACE_ID'])
+readEnv(path.join(projects, 'kitab', '.env.local'), ['GEMINI_API_KEY'])
 
 export const INPUTS = path.join(here, 'inputs.json')
 export const RUNS = path.join(here, 'runs.json')
@@ -214,7 +221,13 @@ async function callAnthropic(cfg, system, user, schema) {
   const t0 = performance.now()
   const resp = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'x-api-key': process.env.BAKEOFF_ANTHROPIC_API_KEY, 'anthropic-version': '2023-06-01' },
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': process.env.BAKEOFF_ANTHROPIC_API_KEY,
+      'anthropic-version': '2023-06-01',
+      // A user-level key (sk-ant-usr-…) isn't tied to a workspace and must name one.
+      ...(process.env.BAKEOFF_ANTHROPIC_WORKSPACE_ID ? { 'anthropic-workspace-id': process.env.BAKEOFF_ANTHROPIC_WORKSPACE_ID } : {}),
+    },
     body: JSON.stringify(body),
     signal: AbortSignal.timeout(600000),
   })
@@ -339,7 +352,10 @@ async function gen() {
 // the prior quarter, compose with "what changed". Only the model call is
 // swapped. Each pass is timed separately because production runs each stage
 // as its own Vercel request under a 60-second cap.
-export const STAGE_CAP_S = 60
+export const STAGE_CAP_S = 300
+// Round 2 (sum2) ran the pipeline as of Oct 11 under a 60s cap; round 3
+// (sum3) runs it after the segmentation and "what changed" fixes.
+export const PIPE_TASK = process.env.BAKEOFF_TASK || 'sum3'
 
 function modelAdapter(cfg, log) {
   return async (system, user, schema, temperature) => {
@@ -381,7 +397,7 @@ async function gen2() {
   const cfgs = [...CONFIGS, ...SUB_CONFIGS].filter((c) => (only ? only.includes(c.id) : c.provider !== 'subagent'))
   await Promise.all(cfgs.map(async (cfg) => {
     for (const c of CALLS) {
-      const key = `${cfg.id}|sum2|${c.symbol}`
+      const key = `${cfg.id}|${PIPE_TASK}|${c.symbol}`
       if (runs[key]?.summary) continue
       const cur = { symbol: c.symbol, ...inp.calls[c.symbol] }
       const prev = { symbol: c.symbol, ...inp.priors[c.symbol] }
@@ -401,13 +417,13 @@ async function gen2() {
         passes.extract = logCur.at(-1); passes.prior = logPrior.at(-1)
         const summary = await composeSummary(adapter(logCompose, 'compose'), cur, extraction, { transcript: prev, extraction: priorExtraction })
         passes.compose = logCompose.at(-1)
-        runs[key] = { cfg: cfg.id, task: 'sum2', item: c.symbol, summary, extraction, passes, words: wordCount(summary), at: new Date().toISOString() }
+        runs[key] = { cfg: cfg.id, task: PIPE_TASK, item: c.symbol, summary, extraction, passes, words: wordCount(summary), at: new Date().toISOString() }
         for (const k of Object.keys(passes)) if (!passes[k]) delete passes[k]
         const t = Object.entries(passes).map(([k, v]) => `${k} ${(v.ms / 1000).toFixed(0)}s`).join(' · ') || 'subagent'
         console.log(`${key}  ${t}  ${runs[key].words} words`)
       } catch (e) {
         if (e instanceof Pending) { console.log(`${key}  waiting on ${path.relative(here, e.message)}`); continue }
-        runs[key] = { cfg: cfg.id, task: 'sum2', item: c.symbol, error: e.message, passes, at: new Date().toISOString() }
+        runs[key] = { cfg: cfg.id, task: PIPE_TASK, item: c.symbol, error: e.message, passes, at: new Date().toISOString() }
         console.log(`${key}  ERROR ${e.message}`)
       }
       writeJSON(RUNS, runs)
@@ -676,6 +692,12 @@ function judgeWork(only) {
       const lists = CONFIGS.map((cfg) => runs[`${cfg.id}|sum|${c.symbol}`]).filter((r) => r?.parsed).map((r) => ({ cfg: r.cfg, summary: r.parsed }))
       const ord = shuffle(lists, `${j.id}|sum|${c.symbol}`)
       work.push({ j, key: `${j.id}|sum|${c.symbol}`, ord, prompt: sumJudgePrompt(c.symbol, inp.calls[c.symbol], ord), field: 'summaries' })
+    }
+    for (const c of CALLS) {
+      const lists = CONFIGS.map((cfg) => runs[`${cfg.id}|sum3|${c.symbol}`]).filter((r) => r?.summary).map((r) => ({ cfg: r.cfg, summary: r.summary }))
+      if (!lists.length) continue
+      const ord = shuffle(lists, `${j.id}|sum3|${c.symbol}`)
+      work.push({ j, key: `${j.id}|sum3|${c.symbol}`, ord, prompt: sum2JudgePrompt(c.symbol, inp.calls[c.symbol], inp.priors[c.symbol], ord), field: 'summaries' })
     }
     for (const c of CALLS) {
       const lists = [...CONFIGS, ...SUB_CONFIGS].map((cfg) => runs[`${cfg.id}|sum2|${c.symbol}`]).filter((r) => r?.summary).map((r) => ({ cfg: r.cfg, summary: r.summary }))

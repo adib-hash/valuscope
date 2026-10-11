@@ -7419,5 +7419,977 @@
    }
   },
   "via": "subagent"
+ },
+ "opus|sum3|JPM": {
+  "order": [
+   [
+    "A",
+    "g35fl"
+   ],
+   [
+    "B",
+    "g36f"
+   ],
+   [
+    "C",
+    "haiku"
+   ],
+   [
+    "D",
+    "g31p"
+   ],
+   [
+    "E",
+    "opus"
+   ],
+   [
+    "F",
+    "fable"
+   ],
+   [
+    "G",
+    "g38f"
+   ],
+   [
+    "H",
+    "sonnet"
+   ]
+  ],
+  "scores": {
+   "g35fl": {
+    "letter": "A",
+    "accuracy": 6,
+    "qa": 4,
+    "coverage": 5,
+    "insight": 4,
+    "concision": 7,
+    "discipline": 4,
+    "overall": 5,
+    "errors": [
+     "\"Marianne Lake's retirement\": the transcript says only \"Marianne\", so the surname is outside knowledge.",
+     "\"consumer deposit behavior includes negative convexity risks accounted for in stress testing\" is credited to Jamie Dimon, but Jeremy Barnum gave that explanation; Dimon only said \"We do assume some of that.\"",
+     "\"Management raised full-year NII and expense guidance\": this uses generic 'management' attribution; Jeremy Barnum gave the guidance."
+    ],
+    "comment": "Figures and guidance moves are correct, but the risk list has three thin, unattributed bullets, the unanswered list repeats the Q&A, the quotes are low-signal and it adds outside knowledge."
+   },
+   "g36f": {
+    "letter": "B",
+    "accuracy": 3,
+    "qa": 3,
+    "coverage": 6,
+    "insight": 4,
+    "concision": 6,
+    "discipline": 5,
+    "overall": 4,
+    "errors": [
+     "In the Mike Mayo exchange, the $6.5B capital markets outperformance and $1.5B of related expense are credited to Jamie Dimon; Jeremy Barnum gave those figures.",
+     "In the Saul Martinez exchange, the equities drivers (IPOs, index rebalancing, Korea, Asia) are credited to Jamie Dimon; Jeremy Barnum explained them.",
+     "\"Jamie Dimon... highlighted negative convexity risk... deposit repurchases\": this was Jeremy Barnum's explanation.",
+     "\"Jeremy Barnum, CFO, cited mild credit underwriting weakening... around covenants and expense add-backs\": Jamie Dimon described the mild weakening, covenants and add-backs; Barnum discussed only data center deals.",
+     "\"Jamie Dimon... warned that exceptional equities market performance driven by short-term pull-forward and large deals is hard to repeat\": Jeremy Barnum said the equities combination was hard to repeat, and he tied pull-forward to investment banking, not equities.",
+     "The 17% return target is credited to Jeremy Barnum in the Poonawala exchange, but Jamie Dimon said it.",
+     "\"Berlin branch\": Dimon said Chase \"opened up in Berlin\" as a digital bank, not a branch."
+    ],
+    "comment": "Multiple misattributions between Dimon and Barnum, an empty unanswered section, every Q&A read marked 'answered directly', and only two of five guidance moves in what changed."
+   },
+   "haiku": {
+    "letter": "C",
+    "accuracy": 7,
+    "qa": 7,
+    "coverage": 8,
+    "insight": 7,
+    "concision": 7,
+    "discipline": 7,
+    "overall": 7,
+    "errors": [
+     "\"Credit underwriting weakening at some players in data center lending, per Dimon, including PIK, covenants and rollover risk\": this merges Barnum's data center comments with Dimon's general list of underwriting weaknesses.",
+     "\"regulatory question raised on expense and AI, per Dimon\" does not correspond to anything in the transcript.",
+     "\"Management described the current environment as strong but not repeatable at peak levels\": this uses generic attribution and overstates what was said."
+    ],
+    "comment": "Solid, accurate note with useful Q1 comparisons in key metrics and fair reads, marred by a garbled risk bullet and some generic attribution."
+   },
+   "g31p": {
+    "letter": "D",
+    "accuracy": 7,
+    "qa": 5,
+    "coverage": 6,
+    "insight": 4,
+    "concision": 6,
+    "discipline": 3,
+    "overall": 5,
+    "errors": [
+     "In the Ken Usdin exchange, the investment banking pull-forward comments sit under Jamie Dimon's answer; Jeremy Barnum made them."
+    ],
+    "comment": "Numbers are correct, but the overview has no figures and uses filler adjectives, most bullets lack named attribution, the unanswered list has only one item, and the risks are generic."
+   },
+   "opus": {
+    "letter": "E",
+    "accuracy": 7,
+    "qa": 8,
+    "coverage": 9,
+    "insight": 8,
+    "concision": 7,
+    "discipline": 8,
+    "overall": 8,
+    "errors": [
+     "\"Jamie Dimon... said excess capital of about $40B is expected to be deployed\": the transcript attributes the ~$40B remark to Jeremy Barnum.",
+     "\"called his prior $20B buyback mention a mistake\": the transcript does not say the $20B referred to buybacks.",
+     "The tone-shift claim that AI framing moved away from benefits being competed away is misleading; in Q2 Dimon again said AI benefits accrue to customers.",
+     "Listing consumer deposit growth as a guidance revision conflicts with Barnum calling the expectation \"unchanged\"."
+    ],
+    "comment": "Dense, well-attributed and insightful, with strong Q&A selection and Q1 comparisons, but it has a capital-attribution slip and an overstated AI tone shift."
+   },
+   "fable": {
+    "letter": "F",
+    "accuracy": 6,
+    "qa": 8,
+    "coverage": 9,
+    "insight": 9,
+    "concision": 4,
+    "discipline": 6,
+    "overall": 7,
+    "errors": [
+     "\"Dimon said roughly $40 billion of excess capital is expected to be deployed... and said the firm buys back less as the share price rises\": both remarks are attributed to Jeremy Barnum in the transcript.",
+     "\"called the earlier $20 billion M&A mention a mistake\": the transcript does not say the $20B referred to M&A.",
+     "\"Jamie Dimon moved from Q1's 'nothing new or interesting' consumer framing\": Jeremy Barnum said that in Q1.",
+     "\"Dimon flagged the negative real wage growth cohort as a watch area and said consumer credit depends on the labor market\": Jeremy Barnum said both."
+    ],
+    "comment": "The most thorough and insightful note, with excellent Q&A and what-changed sections, but it is overlong for a phone and has several Dimon/Barnum misattributions."
+   },
+   "g38f": {
+    "letter": "G",
+    "accuracy": 5,
+    "qa": 6,
+    "coverage": 7,
+    "insight": 6,
+    "concision": 6,
+    "discipline": 6,
+    "overall": 6,
+    "errors": [
+     "\"record client assets of $7.7 trillion\": the transcript never calls the figure a record.",
+     "\"an internal $150 million equity allocation transfer\": the ~$150M is NII moving into Markets NII, not the size of the equity transfer.",
+     "\"Jeremy Barnum highlighted that competitors are deteriorating underwriting standards... via covenant-lite terms, PIK structures, and aggressive add-backs\": Dimon cited PIK and add-backs, and nobody said covenant-lite.",
+     "\"Jamie Dimon confirmed buybacks will be reduced at higher share prices\": the transcript attributes that remark to Barnum.",
+     "\"broaden operational management\" and \"incentive compensation\" are characterizations not found in the transcript."
+    ],
+    "comment": "Reasonable structure and correct guidance moves, but it has embellishments, a misread $150M figure and several attribution errors."
+   },
+   "sonnet": {
+    "letter": "H",
+    "accuracy": 7,
+    "qa": 8,
+    "coverage": 8,
+    "insight": 7,
+    "concision": 8,
+    "discipline": 8,
+    "overall": 8,
+    "errors": [
+     "Dropped topic \"Consumer health and reserves\": consumer health was discussed at length in Q2 in Poonawala's question.",
+     "The guidance section calls consumer deposit growth \"unchanged\", yet what changed lists it as a revision, which is internally contradictory."
+    ],
+    "comment": "Tight, well-attributed and number-dense, with fair reads and good risks; it has one wrong dropped-topic claim and a minor contradiction on deposits."
+   }
+  },
+  "ms": 80787.951041,
+  "inTok": 69240,
+  "outTok": 9451
+ },
+ "opus|sum3|LLY": {
+  "order": [
+   [
+    "A",
+    "g38f"
+   ],
+   [
+    "B",
+    "g36f"
+   ],
+   [
+    "C",
+    "haiku"
+   ],
+   [
+    "D",
+    "g35fl"
+   ],
+   [
+    "E",
+    "fable"
+   ],
+   [
+    "F",
+    "opus"
+   ],
+   [
+    "G",
+    "g31p"
+   ],
+   [
+    "H",
+    "sonnet"
+   ]
+  ],
+  "scores": {
+   "g38f": {
+    "letter": "A",
+    "accuracy": 7,
+    "qa": 7,
+    "coverage": 8,
+    "insight": 6,
+    "concision": 7,
+    "discipline": 7,
+    "overall": 7,
+    "errors": [
+     "\"Non-GAAP diluted EPS reached $8.38 compared to $6.31 in Q2 2025, which included $3.03 of acquired IPR&D charges\": the $3.03 charge is in Q2 2026's $8.38; Q2 2025's $6.31 included only $0.14.",
+     "Risk bullet \"U.S. Q4 diabetes gross-to-net dynamics\": Montarce described Q4 Type 2 diabetes seasonality, not a gross-to-net effect."
+    ],
+    "comment": "A solid, well-attributed note, but the EPS sentence misplaces the IPR&D charge, the EPS guidance change is left unexplained, and the risks carry no named speakers."
+   },
+   "g36f": {
+    "letter": "B",
+    "accuracy": 6,
+    "qa": 5,
+    "coverage": 7,
+    "insight": 5,
+    "concision": 7,
+    "discipline": 7,
+    "overall": 6,
+    "errors": [
+     "\"list price changes showing a 3% decline\": the transcript says U.S. price declined 3%, which is a net price effect, not list price.",
+     "\"Patrik Jonsson added initial UAE launches reached $31 million in Q2\": the $31M figure came from analyst Dave Risinger's question; Jonsson never stated it."
+    ],
+    "comment": "Numbers are mostly right, but it credits an analyst's figure to management, rates every answer as direct (including the retatrutide BLA reply that skipped later incretins), and leaves the unanswered list empty."
+   },
+   "haiku": {
+    "letter": "C",
+    "accuracy": 9,
+    "qa": 7,
+    "coverage": 7,
+    "insight": 8,
+    "concision": 8,
+    "discipline": 9,
+    "overall": 8,
+    "errors": [],
+    "comment": "Accurate and disciplined, with good EPS-guidance nuance and a fair deflection list, but it omits the Medicare Bridge data (80% injectables, 60%-70% new patients) and the Foundayo prescriber jump, and labels Van Naarden's answer \"declined to quantify\" when he declined to forward-look."
+   },
+   "g35fl": {
+    "letter": "D",
+    "accuracy": 6,
+    "qa": 5,
+    "coverage": 6,
+    "insight": 4,
+    "concision": 7,
+    "discipline": 5,
+    "overall": 5,
+    "errors": [
+     "The Seamus Fernandez answer credits Ilya Yuffa with the OUS points (out-of-pocket markets replicating U.S. practices, local LillyDirect versions); Patrik Jonsson said these.",
+     "The Asad Haider answer credits Yuffa with \"combined incretin share ex-U.S. holds steady with major launches slated for 2027\"; Patrik Jonsson said this."
+    ],
+    "comment": "Generic and thinly attributed: guidance and risks have no named speakers, a quote is boilerplate, speakers are conflated in two answers, every answer is rated direct, and the unanswered list is empty."
+   },
+   "fable": {
+    "letter": "E",
+    "accuracy": 9,
+    "qa": 9,
+    "coverage": 10,
+    "insight": 9,
+    "concision": 5,
+    "discipline": 9,
+    "overall": 9,
+    "errors": [
+     "\"Unapproved retatrutide is available today ahead of approval, per Ken Custer\": the claim came from Geoff Meacham's question; Custer only alluded to it by referring to \"authentic retatrutide.\""
+    ],
+    "comment": "The most complete and insightful note, with real what-changed items (Foundayo T2D and retatrutide timelines, the EPS charge) and fair reads, but it runs well past 900 words and packs several clauses into each bullet."
+   },
+   "opus": {
+    "letter": "F",
+    "accuracy": 9,
+    "qa": 9,
+    "coverage": 9,
+    "insight": 9,
+    "concision": 7,
+    "discipline": 9,
+    "overall": 9,
+    "errors": [],
+    "comment": "Accurate, well-attributed and tighter than E, with fair partial-answer reads, a strong unanswered list and a genuine Foundayo rollout-timing change; the only weak spot is the \"declined\" label on the IQVIA point, which was simply skipped."
+   },
+   "g31p": {
+    "letter": "G",
+    "accuracy": 4,
+    "qa": 5,
+    "coverage": 5,
+    "insight": 4,
+    "concision": 7,
+    "discipline": 3,
+    "overall": 4,
+    "errors": [
+     "\"Revenue grew 48% to $85 billion to $87 billion guidance compared to Q2 2025\": it conflates the quarter's 48% growth with the full-year guidance range.",
+     "\"Full-year 2026 non-GAAP earnings per share guidance increased to $35.50 to $36.50\": the prior range was $35.50-$37, so the top end was cut after the $3.03 IPR&D charge rather than raised."
+    ],
+    "comment": "It has a garbled revenue line, mischaracterizes the EPS guidance move, leaves takeaways, guidance and risks unattributed, rates every answer direct and lists nothing as unanswered."
+   },
+   "sonnet": {
+    "letter": "H",
+    "accuracy": 6,
+    "qa": 8,
+    "coverage": 8,
+    "insight": 8,
+    "concision": 8,
+    "discipline": 8,
+    "overall": 7,
+    "errors": [
+     "Overview says Montarce \"raised... non-GAAP EPS guidance to $35.50-$36.50\": the range moved from $35.50-$37, so the midpoint fell after the $3.03 IPR&D charge.",
+     "\"Lilly's global incretin share was about 55%\": the ~55% figure is share of the international (ex-U.S.) incretin market.",
+     "Dropped topic \"Capital return\": the Q2 call did cover it ($1.5B in dividends and $1.6B in buybacks).",
+     "Key metric \"Foundayo sales: UAE $31M, U.S. $67M\": these figures came from analyst Dave Risinger's question, not from Lilly."
+    ],
+    "comment": "Concise, with good partial-answer reads, a strong deflection list and a sourced tone shift, but it mislabels international share as global, calls the EPS guidance raised, and presents an analyst's figures as company metrics."
+   }
+  },
+  "ms": 85900.985292,
+  "inTok": 66115,
+  "outTok": 9778
+ },
+ "opus|sum3|AAPL": {
+  "order": [
+   [
+    "A",
+    "sonnet"
+   ],
+   [
+    "B",
+    "g38f"
+   ],
+   [
+    "C",
+    "g36f"
+   ],
+   [
+    "D",
+    "opus"
+   ],
+   [
+    "E",
+    "haiku"
+   ],
+   [
+    "F",
+    "fable"
+   ],
+   [
+    "G",
+    "g31p"
+   ],
+   [
+    "H",
+    "g35fl"
+   ]
+  ],
+  "scores": {
+   "sonnet": {
+    "letter": "A",
+    "accuracy": 8,
+    "qa": 8,
+    "coverage": 7,
+    "insight": 8,
+    "concision": 6,
+    "discipline": 8,
+    "overall": 8,
+    "errors": [
+     "Tone shift says Cook 'now attributes the constraints to a demand forecast miss' as if this were new, but in the prior call Cook already said 'we just undercalled the demand'."
+    ],
+    "comment": "Accurate and well-judged on Q&A reads and the unanswered list, but it never mentions Cook's final call or the CEO transition, and its new-mentions list is bare labels."
+   },
+   "g38f": {
+    "letter": "B",
+    "accuracy": 7,
+    "qa": 6,
+    "coverage": 7,
+    "insight": 6,
+    "concision": 6,
+    "discipline": 6,
+    "overall": 6,
+    "errors": [
+     "Dropped topics lists a 'Perplexity partnership'; the prior call cited Perplexity choosing Mac as a platform, not a partnership.",
+     "Erik Woodring exchange is read as 'answered directly', but the multi-year LTA part of his question went unaddressed."
+    ],
+    "comment": "Solid figures and a broad Q&A set, but some reads are too generous, it uses 'Management provided' attribution and it omits services and OI&E guidance."
+   },
+   "g36f": {
+    "letter": "C",
+    "accuracy": 6,
+    "qa": 4,
+    "coverage": 7,
+    "insight": 5,
+    "concision": 6,
+    "discipline": 7,
+    "overall": 5,
+    "errors": [
+     "Ben Reitzes answer says Tim Cook 'declined to comment on guidance beyond the September quarter'; Kevan Parekh gave that response.",
+     "Samik answer says Apple 'has approved initial Apple Intelligence features in China'; Apple received approval from Chinese authorities.",
+     "Michael Ng, Erik Woodring and Aaron Rakers exchanges are read as 'answered directly' despite the incomplete compute-cost plan, the unaddressed LTA question and the too-early elasticity answer."
+    ],
+    "comment": "Figures are mostly right, but the Q&A reads are inflated, only one question appears as unanswered, and the dropped-topics list is trivia (C1X modem, N1 chip, Studio Display XDR)."
+   },
+   "opus": {
+    "letter": "D",
+    "accuracy": 5,
+    "qa": 6,
+    "coverage": 9,
+    "insight": 9,
+    "concision": 5,
+    "discipline": 6,
+    "overall": 6,
+    "errors": [
+     "Key takeaway says 'Kevan Parekh, CFO, said memory costs will be even higher in September and keep rising beyond it'; Tim Cook said this.",
+     "Key takeaway says the services slowdown 'Tim Cook, CEO, attributed mainly to FX plus F1 lapping...'; Kevan Parekh gave this explanation.",
+     "Ben Reitzes answer and unanswered list attribute 'no guidance beyond September' to Tim Cook; Kevan Parekh said it.",
+     "Amit Daryanani answer is headed 'Kevan Parekh, CFO' but the memory cost and DRAM supplier content came from Tim Cook.",
+     "New mentions lists 'Arizona fab', but the prior call already cited TSMC's Arizona facility and well over 100 million chips."
+    ],
+    "comment": "The most insightful what-changed section (the services guide shift and the memory tone shift), undercut by repeated Cook/Parekh misattributions."
+   },
+   "haiku": {
+    "letter": "E",
+    "accuracy": 6,
+    "qa": 6,
+    "coverage": 6,
+    "insight": 6,
+    "concision": 5,
+    "discipline": 7,
+    "overall": 6,
+    "errors": [
+     "Amit Daryanani answer says 'Parekh said memory costs will be higher in September... DRAM market has three suppliers; Apple is evaluating all options'; Tim Cook said this.",
+     "Erik Woodring exchange is headed 'Tim Cook, CEO' while the services content given is Kevan Parekh's."
+    ],
+    "comment": "Detailed guidance, but the guidance-revision section omits the headline revenue guide change (14%-17% to 9%-11%), it is verbose, and it contains attribution slips."
+   },
+   "fable": {
+    "letter": "F",
+    "accuracy": 9,
+    "qa": 8,
+    "coverage": 9,
+    "insight": 9,
+    "concision": 5,
+    "discipline": 9,
+    "overall": 9,
+    "errors": [],
+    "comment": "The most accurate and complete note, with correct attributions, ex-refund margin bridges, the change in supply-constraint scope and a well-evidenced tone shift, though it runs long."
+   },
+   "g31p": {
+    "letter": "G",
+    "accuracy": 3,
+    "qa": 3,
+    "coverage": 5,
+    "insight": 3,
+    "concision": 7,
+    "discipline": 5,
+    "overall": 3,
+    "errors": [
+     "Ben Reitzes answer and unanswered list attribute 'not providing guidance beyond the September quarter' to Tim Cook; Kevan Parekh said it.",
+     "Erik Woodring answer puts the services drivers under Tim Cook; Kevan Parekh gave them, and the read 'answered directly' ignores the unaddressed LTA question.",
+     "Risks say 'Kevan Parekh, CFO, expects to pay even higher memory costs in September'; Tim Cook said this.",
+     "Risks say 'Tim Cook, CEO, cited a lack of a theatrical release and softness in mobile gaming'; Kevan Parekh said this."
+    ],
+    "comment": "Thin and riddled with Cook/Parekh misattributions, with lenient Q&A reads and an empty dropped-topics section."
+   },
+   "g35fl": {
+    "letter": "H",
+    "accuracy": 4,
+    "qa": 4,
+    "coverage": 5,
+    "insight": 4,
+    "concision": 7,
+    "discipline": 3,
+    "overall": 4,
+    "errors": [
+     "'Diluted earnings per share were $2.02, up 29% from $2.01 in the prior-year period' is wrong; $2.01 was the March-quarter EPS, and 29% growth implies a prior-year figure near $1.57.",
+     "'unprecedented demand exceeding forecasts' is not said; Cook said demand was beyond expectations.",
+     "Michael Ng exchange is read as 'answered directly' though Cook said there is no complete compute-cost plan and did not address holiday demand."
+    ],
+    "comment": "Contains a wrong EPS comparison, unattributed 'Management' and guidance statements, low-signal quotes and only one unanswered question."
+   }
+  },
+  "ms": 93779.75345799999,
+  "inTok": 59129,
+  "outTok": 10959
+ },
+ "opus|sum3|CMG": {
+  "order": [
+   [
+    "A",
+    "g36f"
+   ],
+   [
+    "B",
+    "g38f"
+   ],
+   [
+    "C",
+    "g31p"
+   ],
+   [
+    "D",
+    "fable"
+   ],
+   [
+    "E",
+    "sonnet"
+   ],
+   [
+    "F",
+    "g35fl"
+   ],
+   [
+    "G",
+    "haiku"
+   ],
+   [
+    "H",
+    "opus"
+   ]
+  ],
+  "scores": {
+   "g36f": {
+    "letter": "A",
+    "accuracy": 6,
+    "qa": 6,
+    "coverage": 6,
+    "insight": 5,
+    "concision": 7,
+    "discipline": 6,
+    "overall": 6,
+    "errors": [
+     "\"Digital sales increased 18% to $1.3 billion\" presents the 18% as company-reported fact; it was Greg Francfort's estimate in his question, and neither executive stated it.",
+     "\"Ava Cado automated avocado technology\" is wrong; in Q1 Ava Cado was described as an AI assistant that streamlines hiring and supports managers.",
+     "\"Tatted Like a Chipotle Bag\" is listed as a new mention, but the Q1 call already referenced the tattoo BOGO.",
+     "Danilo Gargiulo's answer is read as \"answered directly\" and described as using \"franchise partners\"; Boatwright said he had \"nothing to report today\" on remodel returns and described partner-operated models and JVs, not franchising."
+    ],
+    "comment": "Core numbers are correct, but it has an unsourced digital growth figure, a mislabeled dropped topic, one generous Q&A read and low-signal quotes."
+   },
+   "g38f": {
+    "letter": "B",
+    "accuracy": 8,
+    "qa": 7,
+    "coverage": 7,
+    "insight": 6,
+    "concision": 8,
+    "discipline": 7,
+    "overall": 7,
+    "errors": [
+     "\"Tatted Like a Chipotle Bag\" is listed as a new mention, but the Q1 call already referenced the tattoo BOGO."
+    ],
+    "comment": "Accurate and tidy with a fair unanswered list, though some bullets are unattributed or say \"management\", and the guidance-change coverage is thin."
+   },
+   "g31p": {
+    "letter": "C",
+    "accuracy": 5,
+    "qa": 6,
+    "coverage": 5,
+    "insight": 3,
+    "concision": 7,
+    "discipline": 4,
+    "overall": 4,
+    "errors": [
+     "Its \"guidance revisions\" compare Q2 actuals with Q3 guidance and call that a revision, e.g. \"Q3 pricing impact revised from 1.6%\", \"Q3 cost of sales revised from 29.7%\", \"Full Year depreciation revised from 2.9%\" and \"Q3 comparable restaurant sales revised from 2.2%\"; these were not prior guidance, and the prior quarter's guide was a +1% Q2 comp, ~30% cost of sales and so on."
+    ],
+    "comment": "It mostly restates the press release with little named attribution, and its what-changed section misrepresents actuals as prior guidance."
+   },
+   "fable": {
+    "letter": "D",
+    "accuracy": 8,
+    "qa": 9,
+    "coverage": 9,
+    "insight": 9,
+    "concision": 5,
+    "discipline": 8,
+    "overall": 8,
+    "errors": [
+     "\"Summer of Extras\" is listed as a new mention, but Adam Rymer cited Summer of Extras on the Q1 call.",
+     "\"Manager coverage across 14 peak day parts and turnover\" is listed as dropped, but Boatwright discussed GM and crew turnover and manager deployment in this call's prepared remarks."
+    ],
+    "comment": "It is the most complete and insightful, with sharp guidance deltas such as the Q2 guide against actual results, HEAP timing and Singapore, plus fair Q&A reads, but it runs long with multi-clause bullets."
+   },
+   "sonnet": {
+    "letter": "E",
+    "accuracy": 8,
+    "qa": 8,
+    "coverage": 8,
+    "insight": 8,
+    "concision": 8,
+    "discipline": 8,
+    "overall": 8,
+    "errors": [
+     "\"HEAP\" is listed as a new mention, but the high-efficiency equipment package was discussed at length on the Q1 call.",
+     "\"Hourly turnover\" is listed as dropped, but Boatwright said crew turnover has returned to historical norms on this call."
+    ],
+    "comment": "Concise, well attributed, and strong on the Q1 comparison and evasions, with minor what-changed slips."
+   },
+   "g35fl": {
+    "letter": "F",
+    "accuracy": 4,
+    "qa": 4,
+    "coverage": 5,
+    "insight": 3,
+    "concision": 5,
+    "discipline": 4,
+    "overall": 4,
+    "errors": [
+     "\"HEAP restaurants producing two to four extra entrees in Max 15\" is wrong; both Boatwright and Rymer said two to three entrees, and two to four hours refers to labor efficiency.",
+     "In the Brian Vaccaro exchange, \"HEAP restaurants do two to four extra entrees in Max 15\" repeats the same error; Rymer said \"two or three entrees.\"",
+     "Danilo Gargiulo's answer is read as \"answered directly\", but Boatwright said \"I have nothing to report today\" on remodel returns, and the unanswered list is empty.",
+     "\"Tatted Like a Chipotle Bag\" is listed as a new mention, but the Q1 call already referenced the tattoo BOGO."
+    ],
+    "comment": "It misstates the HEAP throughput figure and leaves the FY comp raise from flat out of what-changed; the guidance list is bloated, attribution is generic and the unanswered list is empty."
+   },
+   "haiku": {
+    "letter": "G",
+    "accuracy": 8,
+    "qa": 8,
+    "coverage": 8,
+    "insight": 7,
+    "concision": 5,
+    "discipline": 8,
+    "overall": 7,
+    "errors": [
+     "\"Leadership hires\" is listed as dropped, but Boatwright discussed the new Chief Digital Officer Arlie Sisson and Chief Brand Officer Fernando Machado at length on this call."
+    ],
+    "comment": "Accurate, with useful prior-quarter context in the metrics, but guidance and what-changed are padded with non-changes and the note runs long."
+   },
+   "opus": {
+    "letter": "H",
+    "accuracy": 8,
+    "qa": 8,
+    "coverage": 8,
+    "insight": 8,
+    "concision": 8,
+    "discipline": 8,
+    "overall": 8,
+    "errors": [
+     "\"HEAP\" is listed as a new mention, but the equipment package was discussed on the Q1 call.",
+     "\"Hourly turnover and staffing\" is listed as dropped, but this call cited crew turnover returning to norms and consistently high staffing levels.",
+     "It ties digital growth to \"the protein trend\", but in that answer Boatwright referred only to \"an emerging trend\" without naming protein."
+    ],
+    "comment": "Tight, well attributed and investor-focused, with solid risks and evasions, but its what-changed section has small slips."
+   }
+  },
+  "ms": 86715.162875,
+  "inTok": 65616,
+  "outTok": 9984
+ },
+ "opus|sum3|DE": {
+  "order": [
+   [
+    "A",
+    "g36f"
+   ],
+   [
+    "B",
+    "fable"
+   ],
+   [
+    "C",
+    "opus"
+   ],
+   [
+    "D",
+    "sonnet"
+   ],
+   [
+    "E",
+    "g35fl"
+   ],
+   [
+    "F",
+    "haiku"
+   ],
+   [
+    "G",
+    "g38f"
+   ]
+  ],
+  "scores": {
+   "g36f": {
+    "letter": "A",
+    "accuracy": 6,
+    "qa": 5,
+    "coverage": 6,
+    "insight": 6,
+    "concision": 8,
+    "discipline": 7,
+    "overall": 6,
+    "errors": [
+     "Tami Zakaria Q&A attributes the excavator answer to Chris Seibert; Brent Norwood gave the excavator update.",
+     "Kristen Owen Q&A attributes the Q4 margin bridge (no refunds, seasonal R&D and SA&G) to Chris Seibert; Brent Norwood said it.",
+     "Chad Dillard Q&A attributes the 30%-35% rental figure to Chris Seibert; Brent Norwood said it.",
+     "'Dealer inventories for model-year 2023 and 2024 high horsepower tractors declined nearly 40%' – Deanna Kovar was describing late-model used inventory, not specifically dealer inventory."
+    ],
+    "comment": "Figures are clean and the guidance changes are well tabulated, but several Q&A answers are misattributed to Seibert, and it omits the industry outlook revisions and most of the deflected questions."
+   },
+   "fable": {
+    "letter": "B",
+    "accuracy": 9,
+    "qa": 9,
+    "coverage": 10,
+    "insight": 9,
+    "concision": 5,
+    "discipline": 9,
+    "overall": 9,
+    "errors": [
+     "Chad Dillard Q&A places the 30%-35% rental and dealer fleet expansion points under Chris Seibert's answer; Brent Norwood said them."
+    ],
+    "comment": "The most complete and accurate note, covering industry guide changes, net tariff math and a well-grounded tone shift, but it runs well over the length target with repetition across sections."
+   },
+   "opus": {
+    "letter": "C",
+    "accuracy": 8,
+    "qa": 9,
+    "coverage": 9,
+    "insight": 8,
+    "concision": 7,
+    "discipline": 8,
+    "overall": 8,
+    "errors": [
+     "Tone shift says Q3 'cited completed EOP data'; Deanna Kovar said the sprayer and planter programs are still open.",
+     "Tami Zakaria Q&A places the excavator answer under Chris Seibert; Brent Norwood gave it.",
+     "Chad Dillard Q&A places the 30%-35% rental figure under Chris Seibert; Brent Norwood said it."
+    ],
+    "comment": "Strong, compact note with a full guidance-change table and fair deflection list, marred by minor attribution slips and a mischaracterization of the EOPs as complete."
+   },
+   "sonnet": {
+    "letter": "D",
+    "accuracy": 8,
+    "qa": 9,
+    "coverage": 7,
+    "insight": 7,
+    "concision": 7,
+    "discipline": 8,
+    "overall": 7,
+    "errors": [
+     "Tone shift says Seibert repeatedly said it is 'too early to tell on 2027 mix, Europe and pricing'; he did not say that about pricing, only about mix, Europe and Brazil."
+    ],
+    "comment": "Accurate, with well-separated Q&A attributions and fair reads, but the what-changed section omits the Europe, construction and C&F price revisions, and some quote choices ('Things can turn quickly.') are low signal."
+   },
+   "g35fl": {
+    "letter": "E",
+    "accuracy": 4,
+    "qa": 4,
+    "coverage": 4,
+    "insight": 3,
+    "concision": 7,
+    "discipline": 4,
+    "overall": 3,
+    "errors": [
+     "What changed: 'PPA net sales guidance revised from trending toward bottom end of prior range' – the prior guide was down 5%-10%.",
+     "What changed: 'PPA operating margin guidance revised from narrowed range to 11% to 12%' – the prior range was 11%-13%.",
+     "Dropped topics lists 'IEEPA tariffs', but IEPA refunds ($110M in Q3, $382M YTD) were discussed on this call.",
+     "Risk 'European market and dairy segment mixed conditions' – dairy and livestock were described as stable and favorable.",
+     "'Early order programs for U.S. planters and sprayers' – the programs are North American; Kovar said U.S. was trending better than Canada.",
+     "Jamie Cook Q&A read 'answered directly', but no 2027 pricing figure was given."
+    ],
+    "comment": "Omits the 14.4% margin, gives no attribution in most sections, garbles the guidance comparisons, contains a typo, and lists only one deflected question."
+   },
+   "haiku": {
+    "letter": "F",
+    "accuracy": 8,
+    "qa": 8,
+    "coverage": 8,
+    "insight": 7,
+    "concision": 6,
+    "discipline": 6,
+    "overall": 7,
+    "errors": [
+     "Calls the European policy the 'EU capital budget policy change'; the question referred to the CAP budget policy."
+    ],
+    "comment": "Solid figures and guidance moves with mostly correct Q&A attribution, but it uses 'Management narrowed or raised' and odd '(not stated)' filler in the metrics."
+   },
+   "g38f": {
+    "letter": "G",
+    "accuracy": 6,
+    "qa": 6,
+    "coverage": 8,
+    "insight": 7,
+    "concision": 6,
+    "discipline": 5,
+    "overall": 6,
+    "errors": [
+     "Risk 'Fourth-quarter margin contraction in Production & Precision Ag and Construction & Forestry driven by seasonally high R&D and SA&G' – Brent Norwood named PPA and Small Ag & Turf.",
+     "'dealer fleet expansions representing 30% to 35% of earthmoving transactions' – Norwood said 30%-35% of all earthmoving transactions start as a rental, not dealer fleet expansion.",
+     "Angel Castillo Q&A read 'answered directly' – no margin direction was given and the $2-3B lifecycle figure was not addressed.",
+     "FTC answer 'rather than altering lifecycle business dynamics' – Norwood said the agreement will help support long-term lifecycle aspirations.",
+     "Tone shift 'subdued, multi-year recovery in 2027' – 'multi-year' was not stated on the call."
+    ],
+    "comment": "Broad coverage, but it relies on 'Management reaffirmed', misstates the Q4 margin segments and the rental figure, and has an overgenerous Q&A read."
+   }
+  },
+  "ms": 73834.15770899999,
+  "inTok": 63597,
+  "outTok": 8507
+ },
+ "opus|sum3|KNSL": {
+  "order": [
+   [
+    "A",
+    "haiku"
+   ],
+   [
+    "B",
+    "g35fl"
+   ],
+   [
+    "C",
+    "g36f"
+   ],
+   [
+    "D",
+    "g31p"
+   ],
+   [
+    "E",
+    "g38f"
+   ],
+   [
+    "F",
+    "fable"
+   ],
+   [
+    "G",
+    "opus"
+   ],
+   [
+    "H",
+    "sonnet"
+   ]
+  ],
+  "scores": {
+   "haiku": {
+    "letter": "A",
+    "accuracy": 6,
+    "qa": 7,
+    "coverage": 7,
+    "insight": 7,
+    "concision": 7,
+    "discipline": 5,
+    "overall": 6,
+    "errors": [
+     "Andersen exchange attribution is garbled: \"Salmaan Allibhai, Chief Analytics and Technology Officer, Chief Underwriting Officer; Chief Analytics and Technology Officer\". Allibhai's only title is Chief Analytics and Technology Officer.",
+     "Guidance says Petrucelli \"expects a slight uptick in reinsurance commissions\". He said \"You could see a slight uptick\", which is a possibility, not an expectation.",
+     "Dropped topics lists \"Expense advantage vs growth trade-off in prepared remarks\". In Q1 this came up in Mark Hughes's Q&A question, not in prepared remarks, and Q2 prepared remarks still cite the low-cost advantage."
+    ],
+    "comment": "Solid and well-sourced, with good prior-quarter comparisons and a sharp 'crisis is over' tone note, but it omits the -5.9% pricing index, uses 'Management said' and has a garbled title."
+   },
+   "g35fl": {
+    "letter": "B",
+    "accuracy": 3,
+    "qa": 3,
+    "coverage": 3,
+    "insight": 3,
+    "concision": 7,
+    "discipline": 4,
+    "overall": 3,
+    "errors": [
+     "Key takeaway attributes to Salmaan Allibhai the view that AI efficiency gains could offset higher reinsurance ceding commissions. Bryan Petrucelli, CFO, said this.",
+     "In the Singzon Q&A, the reinsurance and commission answer is attributed to Allibhai. Petrucelli answered that part.",
+     "In the Andersen Q&A, the casualty loss trend and social inflation answer is attributed to Stuart Winston. Salmaan Allibhai gave it.",
+     "\"The combined ratio was 75.5% for the quarter, compared to favorable prior year loss reserve development of 4.5 points\". The 4.5 points was a component of the combined ratio, not a comparison.",
+     "Cohen's trough question is read as \"answered directly\". Winston said there is \"no telling where it's going to go in 2027.\""
+    ],
+    "comment": "Multiple misattributions, empty guidance and unanswered sections, and no mention of the buyback expansion make this the weakest note."
+   },
+   "g36f": {
+    "letter": "C",
+    "accuracy": 3,
+    "qa": 2,
+    "coverage": 6,
+    "insight": 5,
+    "concision": 6,
+    "discipline": 5,
+    "overall": 4,
+    "errors": [
+     "\"net investment income grew 19.9% quarter-over-quarter\". Petrucelli said \"in the second quarter over last year\", which is year over year.",
+     "Getsov Q&A says Kehoe \"noted Kinsale will accept lost volume if pricing or terms cross profitability limits\". Kehoe said nothing like this in that answer; similar language came from Winston's prepared remarks.",
+     "Andersen Q&A attributes the mid-single-digit casualty loss trend to Stuart Winston. Salmaan Allibhai said it.",
+     "Singzon Q&A puts the expense-ratio baseline and commission comments under Allibhai's name. Bryan Petrucelli said them.",
+     "Hughes Q&A attributes the point that small account property is more stable to Kehoe. Stuart Winston said it.",
+     "Cohen Q&A says \"selective non-admitted opportunities remain elsewhere\". Winston said some business flows to the admitted market but not pervasively.",
+     "Guidance says Kehoe \"maintained\" the 20% ROE target, while its own what-changed section says the target \"shifted\" from low 20s."
+    ],
+    "comment": "Numbers are mostly right, but the Q&A is riddled with misattributions and invented content, every answer is read as direct, and no deflections are listed."
+   },
+   "g31p": {
+    "letter": "D",
+    "accuracy": 6,
+    "qa": 6,
+    "coverage": 5,
+    "insight": 5,
+    "concision": 7,
+    "discipline": 5,
+    "overall": 5,
+    "errors": [
+     "Cohen Q&A says Kinsale is \"finding pockets of opportunity to grow in general casualty type business\". Winston said \"We're starting to see some more competition around general casualty type business\" and mentioned pockets of opportunity separately."
+    ],
+    "comment": "Accurate on headline numbers with a reasonable dodged list, but guidance and what-changed are thin (dropping 'Vanguard VYM' is trivial) and most takeaways and risks lack named attribution."
+   },
+   "g38f": {
+    "letter": "E",
+    "accuracy": 5,
+    "qa": 4,
+    "coverage": 6,
+    "insight": 5,
+    "concision": 7,
+    "discipline": 5,
+    "overall": 5,
+    "errors": [
+     "Hughes Q&A says Kehoe \"confirmed repurchases will remain the primary capital allocation outlet using the full $337 million authorization\". Kehoe never said the full authorization would be used.",
+     "Guidance says Allibhai \"expects casualty loss cost trends to remain in the mid-single digits\". He described the current trend (\"probably mid-single digits\") and made no forward expectation.",
+     "Hughes Q&A is read as \"answered directly\". Kehoe said he had no insight into when property equilibrium would come."
+    ],
+    "comment": "Covers the main numbers but misses the pricing index, leans on 'management' attribution, calls every answer direct with an empty unanswered list, and includes some invented specifics."
+   },
+   "fable": {
+    "letter": "F",
+    "accuracy": 8,
+    "qa": 8,
+    "coverage": 10,
+    "insight": 9,
+    "concision": 5,
+    "discipline": 7,
+    "overall": 8,
+    "errors": [
+     "Risk bullet says \"Accident year loss ratio could drift up over time with mix shift from property to casualty, per Kehoe\". Salmaan Allibhai said it could drift up.",
+     "Hughes Q&A, headed under Kehoe, includes \"the loss ratio could drift up over time but losses remain below expectations\" without naming Allibhai, who said it."
+    ],
+    "comment": "The most comprehensive note, with excellent what-changed detail (index switch, reinsurance renewal, ROE wording), but it runs long and misattributes the loss-ratio drift comment to Kehoe."
+   },
+   "opus": {
+    "letter": "G",
+    "accuracy": 9,
+    "qa": 9,
+    "coverage": 9,
+    "insight": 9,
+    "concision": 6,
+    "discipline": 8,
+    "overall": 9,
+    "errors": [],
+    "comment": "Accurate, well-attributed and insightful, with fair reads, a correct dodged list and a sharp tone shift; it is somewhat long, and it ties the overall -5.9% index loosely to commercial property and derives $87M where Kehoe said about $80M."
+   },
+   "sonnet": {
+    "letter": "H",
+    "accuracy": 8,
+    "qa": 9,
+    "coverage": 9,
+    "insight": 8,
+    "concision": 7,
+    "discipline": 8,
+    "overall": 8,
+    "errors": [
+     "Hughes Q&A says \"Kehoe said ... Inland Marine is seeing more competition\". Stuart Winston said this; Kehoe only interjected \"Inland Marine.\""
+    ],
+    "comment": "Tight and well-structured, with six good Q&A exchanges, fair deflection calls and useful what-changed items; one minor misattribution."
+   }
+  },
+  "ms": 86205.17529200001,
+  "inTok": 41773,
+  "outTok": 10127
  }
 }
