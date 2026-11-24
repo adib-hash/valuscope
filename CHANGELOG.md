@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.28.0 — 2026-11-24
+
+### Added
+- **CSV export for every multiples view, comparisons, comps and the financials.** A `CSV` button sits beside the Compare control and downloads whatever the chart is showing for the selected period. With one company, that is one row per fiscal year and one column per charted metric (for example P/FCF and EV/EBITDA over the last five years), closed by the period average. While comparing, it is one row per calendar year with each company's value and the fiscal year that fed it, then each company's average, years in the average, current vs average and full-history percentile, the same figures as the comparison grid. The Data tab gets an `Export CSV` button for the multi-year financials. That file is a superset of the on-screen table: every multiple, yield, margin, leverage and return metric, plus share price, shares outstanding, net debt and book value, with fiscal period end dates and the period average. The Comps tab exports the subject, every peer and the peer median across all thirteen comp metrics, not only the sector's six on screen. Cells are plain numbers with units in the headers (`P/E (x)`, `FCF Yield (%)`, `Revenue (USD M)`), and missing values are empty cells, so the files chart and sum in a spreadsheet as they are. Files are named for what they hold, such as `AAPL-vs-MSFT_EV-EBITDA_5Y_2026-11-24.csv`.
+
 ## 0.27.0 — 2026-10-11
 
 ### Added
