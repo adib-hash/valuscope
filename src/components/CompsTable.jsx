@@ -1,6 +1,8 @@
 import { useState, useEffect, useMemo } from 'react';
 import { fetchComps } from '../lib/api';
 import { formatMultiple, getSectorRecommendation } from '../lib/metrics';
+import ExportButton from './ui/ExportButton';
+import { compsTable, csvFilename } from '../lib/csv';
 
 // Metrics we can show in the comps table — ordered by general relevance
 const COMP_METRICS = [
@@ -100,6 +102,7 @@ export default function CompsTable({ symbol, sector, onSelectTicker, defaultExpa
     COMP_METRICS.forEach((m) => {
       result[m.key] = computeMedian(peers.map((p) => p[m.key]));
     });
+    result.mktCap = computeMedian(peers.map((p) => p.mktCap));
     return result;
   }, [peers]);
 
@@ -144,9 +147,10 @@ export default function CompsTable({ symbol, sector, onSelectTicker, defaultExpa
   return (
     <div className="mt-4 rounded-xl border border-vs-border bg-vs-card overflow-hidden">
       {/* Header */}
+      <div className="flex items-start">
       <button
         onClick={() => setExpanded(false)}
-        className="w-full px-4 pt-3.5 pb-1 flex items-center justify-between cursor-pointer"
+        className="flex-1 min-w-0 px-4 pt-3.5 pb-1 flex items-center justify-between cursor-pointer"
       >
         <div className="text-left">
           <p className="font-display text-prose font-bold text-vs-text leading-tight">
@@ -167,6 +171,15 @@ export default function CompsTable({ symbol, sector, onSelectTicker, defaultExpa
           <polyline points="6 9 12 15 18 9"/>
         </svg>
       </button>
+      {comps && peers.length > 0 && (
+        <ExportButton
+          className="mt-3 mr-3 flex-shrink-0"
+          title="Download the comps table as CSV"
+          filename={csvFilename(symbol, 'comps')}
+          getRows={() => compsTable(subject, peers, peerMedians, COMP_METRICS)}
+        />
+      )}
+      </div>
 
       {/* Loading */}
       {loading && (
@@ -268,7 +281,7 @@ export default function CompsTable({ symbol, sector, onSelectTicker, defaultExpa
                   Peer Median
                 </td>
                 <td className="px-3 py-2.5 text-right text-vs-dim whitespace-nowrap">
-                  {fmtMktCap(computeMedian(peers.map((p) => p.mktCap)))}
+                  {fmtMktCap(peerMedians.mktCap)}
                 </td>
                 {visibleMetrics.map((m) => (
                   <td key={m.key} className="px-3 py-2.5 text-right text-vs-text font-semibold whitespace-nowrap">

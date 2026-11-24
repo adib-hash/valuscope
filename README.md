@@ -18,6 +18,11 @@ Historical valuation multiples for any US public company. Look up 3-10 years of 
 - Adaptive chart height and theme-aware colors
 - Period toggle (3Y / 5Y / 10Y) controls charts, data tables, and averages
 
+### CSV Export
+- One-click CSV of the charted metrics over the selected period, or of a multi-company comparison (calendar-aligned, with each company's fiscal year and stats)
+- Full multi-year financials export from the Data tab (all multiples, margins, leverage, returns and raw fundamentals)
+- Comps table export with subject, peers and peer median
+
 ### Summary Pills
 - Current vs. historical average with above/below indicators
 - Range bar showing min/max track, average tick, and colored dot for current position

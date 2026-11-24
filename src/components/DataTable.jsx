@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { getMetric } from '../lib/metrics';
+import ExportButton from './ui/ExportButton';
+import { csvFilename, financialsTable, periodLabel } from '../lib/csv';
 
 const TABLE_ROWS = [
   { section: 'PRICE MULTIPLES' },
@@ -59,7 +61,7 @@ function ChevronIcon({ open }) {
   );
 }
 
-export default function DataTable({ years, averages, defaultOpen = false }) {
+export default function DataTable({ years, averages, defaultOpen = false, symbol = '', currency = 'USD', period = 3 }) {
   const [open, setOpen] = useState(defaultOpen);
 
   return (
@@ -71,6 +73,22 @@ export default function DataTable({ years, averages, defaultOpen = false }) {
         {open ? 'Hide' : 'Show'} Full Data Table
         <ChevronIcon open={open} />
       </button>
+
+      {open && (
+        <div className="mt-2 flex items-center justify-between gap-2">
+          <p className="text-vs-dim text-micro font-mono">
+            The CSV adds margins, leverage, returns, shares, net debt and book value.
+          </p>
+          <ExportButton
+            className="flex-shrink-0"
+            label="Export CSV"
+            title="Download the full financials as CSV"
+            disabled={!years.length}
+            filename={csvFilename(symbol, 'financials', periodLabel(period))}
+            getRows={() => financialsTable(years, averages, currency, period)}
+          />
+        </div>
+      )}
 
       {open && (
         <div className="overflow-x-auto scroll-shadow-x mt-2 rounded-xl border border-vs-border bg-vs-card">

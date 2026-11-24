@@ -9,6 +9,8 @@ import BottomNav from './components/ui/BottomNav';
 import ErrorBoundary from './components/ui/ErrorBoundary';
 import CompareControl from './components/CompareControl';
 import CompareGrid from './components/CompareGrid';
+import ExportButton from './components/ui/ExportButton';
+import { chartTable, compareTable, csvFilename, periodLabel } from './lib/csv';
 import { TICKER_COLORS, buildCompareData, compareStats } from './lib/compare';
 import { Sun, Moon, Settings, Link2, Check, Star, X, Globe, LineChart, Landmark, CalendarDays } from 'lucide-react';
 
@@ -62,7 +64,7 @@ import {
 } from './lib/watchlist';
 
 const QUICK_TICKERS = ['AAPL', 'MSFT', 'ULTA', 'COST', 'META', 'AMZN', 'GOOGL', 'NFLX'];
-const APP_VERSION   = 'v0.27.0';
+const APP_VERSION   = 'v0.28.0';
 
 // The view the app opens on when the URL names neither a company nor a view.
 const DEFAULT_VIEW = 'indices';
@@ -1094,15 +1096,42 @@ export default function App() {
             </div>
 
             {/* Compare control — chips double as the compare chart's legend */}
-            <CompareControl
-              className="mt-3"
-              primary={sym}
-              compareList={compareList}
-              colors={compareColors}
-              onAdd={addCompare}
-              onRemove={removeCompare}
-              onExit={exitCompare}
-            />
+            <div className="mt-3 flex items-start justify-between gap-2">
+              <CompareControl
+                primary={sym}
+                compareList={compareList}
+                colors={compareColors}
+                onAdd={addCompare}
+                onRemove={removeCompare}
+                onExit={exitCompare}
+              />
+              {comparing ? (
+                <ExportButton
+                  className="flex-shrink-0"
+                  title="Download this comparison as CSV"
+                  filename={csvFilename(
+                    [sym, ...compareList.filter((t) => peers[t]?.status === 'ready')].join('-vs-'),
+                    compareMetricDef?.label || compareMetric,
+                    periodLabel(period),
+                  )}
+                  getRows={() => compareTable(
+                    compareRows,
+                    [sym, ...compareList.filter((t) => peers[t]?.status === 'ready')],
+                    compareMetric,
+                    cStats,
+                    period,
+                  )}
+                />
+              ) : (
+                <ExportButton
+                  className="flex-shrink-0"
+                  title="Download the charted metrics as CSV"
+                  disabled={!selected.length}
+                  filename={csvFilename(sym, selected.map((k) => getMetric(k)?.label || k).join('-'), periodLabel(period))}
+                  getRows={() => chartTable(visibleYears, selected, avgs, period)}
+                />
+              )}
+            </div>
 
             {/* Chart */}
             <Suspense fallback={<div className="bg-vs-card border border-vs-border rounded-xl mt-3 h-[292px] sm:h-[382px] md:h-[452px] animate-pulse" />}>
@@ -1181,7 +1210,7 @@ export default function App() {
               <div hidden={activeTab !== 'data'}>
                 <ErrorBoundary label="The data table">
                   <Suspense fallback={<div className="mt-4 rounded-xl border border-vs-border bg-vs-card h-40 animate-pulse" />}>
-                    <DataTable years={visibleYears} averages={avgs} defaultOpen />
+                    <DataTable years={visibleYears} averages={avgs} defaultOpen symbol={sym} currency={data.currency} period={period} />
                   </Suspense>
                 </ErrorBoundary>
               </div>
