@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.29.0 — 2026-11-26
+
+### Changed
+- **Filing summaries and operating-KPI extraction run on Gemini 4 Argon.** In a blinded bake-off on real filings (CMG and DUOL 10-Qs, the CELH 10-K, a KNSL 8-K), Argon at low thinking scored 9.0/10 on summaries against 6.5 for Gemini 3.6 Flash. No model made a serious factual error; Flash's summaries were thinner, and one had an empty overview. KPI extraction scored 8.0 against 6.0, and Flash had spent a third of its CMG metrics on cost ratios, with quotes that weren't in the filing. Argon is slower (about 25 seconds on a 10-K against 11) and costs about twice as much, but each summary and extraction is made once per filing and cached. `api/docs.js` gets 120 seconds instead of 60 for that headroom.
+- **The comp picker runs on Gemini 4 Hydrogen** at low thinking: 7.6/10 against 6.9, with fewer stale tickers. It takes a few seconds more, and results are memoised for 30 days.
+- Filing Q&A stays on Gemini 3.6 Flash: every model answered all the test questions correctly, and Flash is twice as fast as Argon.
+- Gemini spending is capped by the Google project's monthly spend cap in AI Studio. A call over the cap returns 429, which every Gemini feature already turns into a "limit reached" message, or the Yahoo fallback for comps.
+
 ## 0.28.0 — 2026-11-24
 
 ### Added
