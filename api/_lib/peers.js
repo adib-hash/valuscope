@@ -12,7 +12,10 @@
 // momentum names, and Yahoo's industry labels are too coarse to filter them
 // out ("Software - Infrastructure" covers both Toast and GitLab).
 
-const GEMINI_MODEL = 'gemini-3.6-flash';
+// Gemini 4 Hydrogen at low thinking: in the Nov 2026 bake-off it built the most
+// relevant comp sets (7.6/10 against 6.9 for Gemini 3.6 Flash) with fewer stale
+// tickers. Results are memoised for 30 days below, so its extra few seconds are rare.
+const GEMINI_MODEL = 'gemini-4-hydrogen';
 
 // ── Fallback: Yahoo similar-stocks, industry-verified ────────────────────────
 
@@ -159,13 +162,14 @@ export async function geminiPeers(yahooFinance, symbol, subject) {
             responseMimeType: 'application/json',
             responseSchema: RESPONSE_SCHEMA,
             temperature: 0.1,
+            thinkingConfig: { thinkingLevel: 'low' },
           },
         }),
       }
     );
     if (!response.ok) return [];
     const payload = await response.json();
-    raw = JSON.parse(payload.candidates?.[0]?.content?.parts?.map((p) => p.text).join('') || '');
+    raw = JSON.parse(payload.candidates?.[0]?.content?.parts?.filter((p) => !p.thought).map((p) => p.text).join('') || '');
   } catch {
     return [];
   }

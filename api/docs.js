@@ -19,19 +19,32 @@ import { storeAvailable, storeEphemeral, putJson, getJson, listKeys } from './_l
 const docCache = new Map();
 const DOC_CACHE_MAX = 6;
 
-const GEMINI_MODEL = 'gemini-3.6-flash';
-const GEMINI_ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
+// Models per op, from the Nov 2026 bake-off (blinded, four models, real filings).
+// Summaries and KPI extraction moved to Gemini 4 Argon at low thinking: summaries
+// scored 9.0/10 against 6.5 for Gemini 3.6 Flash (more complete, no more errors)
+// and KPI extraction 8.0 against 6.0. Both are written once per filing and cached,
+// so Argon's slower answer (~25 s on a 10-K) and price are paid once. Filing Q&A
+// stays on 3.6 Flash: every model answered correctly, and Flash is twice as fast.
+// A monthly spend cap on the Google project is the hard budget stop; hitting it
+// returns 429, which each op below already turns into a "limit reached" message.
+const MODELS = {
+  summary: { model: 'gemini-4-argon', thinkingLevel: 'low' },
+  kpis: { model: 'gemini-4-argon', thinkingLevel: 'low' },
+  chat: { model: 'gemini-3.6-flash' },
+};
 
-async function callGemini(apiKey, systemText, userText, schema, temperature = 0.2) {
-  const response = await fetch(GEMINI_ENDPOINT, {
+async function callGemini(apiKey, { model, thinkingLevel }, systemText, userText, schema, temperature = 0.2) {
+  const generationConfig = schema
+    ? { responseMimeType: 'application/json', responseSchema: schema, temperature }
+    : { temperature };
+  if (thinkingLevel) generationConfig.thinkingConfig = { thinkingLevel };
+  const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
     method: 'POST',
     headers: { 'x-goog-api-key': apiKey, 'Content-Type': 'application/json' },
     body: JSON.stringify({
       systemInstruction: { parts: [{ text: systemText }] },
       contents: [{ role: 'user', parts: [{ text: userText }] }],
-      generationConfig: schema
-        ? { responseMimeType: 'application/json', responseSchema: schema, temperature }
-        : { temperature },
+      generationConfig,
     }),
   });
   if (!response.ok) {
@@ -41,7 +54,8 @@ async function callGemini(apiKey, systemText, userText, schema, temperature = 0.
     throw err;
   }
   const payload = await response.json();
-  return payload.candidates?.[0]?.content?.parts?.map((p) => p.text).join('') || '';
+  // Thinking models can return thought parts; only the answer is wanted.
+  return payload.candidates?.[0]?.content?.parts?.filter((p) => !p.thought).map((p) => p.text).join('') || '';
 }
 
 // Loads (or reuses) a converted document for the AI ops.
@@ -209,6 +223,7 @@ async function opSummary(req, res) {
   try {
     raw = await callGemini(
       apiKey,
+      MODELS.summary,
       SUMMARY_SYSTEM,
       `Summarise this SEC ${form || 'filing'}.\n\n<document>\n${text}\n</document>`,
       SUMMARY_SCHEMAS[family],
@@ -224,7 +239,7 @@ async function opSummary(req, res) {
   try { summary = JSON.parse(raw); } catch { summary = null; }
   if (!summary) return res.status(502).json({ error: 'The summary came back malformed. Try again.' });
 
-  const body = { summary, family, sectionsUsed, model: GEMINI_MODEL, generatedAt: new Date().toISOString() };
+  const body = { summary, family, sectionsUsed, model: MODELS.summary.model, generatedAt: new Date().toISOString() };
   if (summaryCache.size >= SUMMARY_CACHE_MAX) summaryCache.delete(summaryCache.keys().next().value);
   summaryCache.set(cacheKey, body);
 
@@ -313,6 +328,7 @@ async function opChat(req, res) {
   try {
     answer = await callGemini(
       apiKey,
+      MODELS.chat,
       CHAT_SYSTEM,
       `<document>\n${text}\n</document>\n\n${turns ? `Earlier in this conversation:\n${turns}\n\n` : ''}Question: ${question.trim().slice(0, 2000)}`,
       null,
@@ -326,7 +342,7 @@ async function opChat(req, res) {
   }
 
   res.setHeader('Cache-Control', 'no-store');
-  return res.status(200).json({ answer: answer.trim(), contextNote: note, model: GEMINI_MODEL });
+  return res.status(200).json({ answer: answer.trim(), contextNote: note, model: MODELS.chat.model });
 }
 
 // ── op=kpis — operating-metric extraction into per-company time series. ─────
@@ -440,6 +456,7 @@ async function opKpis(req, res) {
       try {
         raw = await callGemini(
           apiKey,
+          MODELS.kpis,
           KPI_SYSTEM,
           `${known.length ? `Existing metric names for this company — reuse these exact names where they refer to the same concept:\n${known.join('\n')}\n\n` : ''}`
             + `Extract operating metrics from this ${filing.form} for the fiscal period ended ${filing.reportDate || filing.filed}.\n\n<document>\n${text}\n</document>`,
@@ -462,7 +479,7 @@ async function opKpis(req, res) {
         filed: filing.filed,
         reportDate: filing.reportDate,
         extractedAt: new Date().toISOString(),
-        model: GEMINI_MODEL,
+        model: MODELS.kpis.model,
         metrics: parsed.metrics.slice(0, 12),
       });
       // Seed subsequent filings in this same batch with the new names too.
